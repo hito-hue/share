@@ -3,239 +3,543 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>このまち電気 配信設定ボード</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --board:#f7f6f1; --grid:rgba(30,40,60,.045); --ink:#1d2433; --sub:#5b6476; --line:#d9dbe1;
-  --blue:#1f6feb; --green:#1a8f5a; --red:#d33b3b; --amber:#c47f00;
-  --note-y:#fff4b8; --note-b:#dcecff; --note-g:#dff5e6; --note-p:#ffe1e1; --card:#ffffff;
+  --canvas:#EDEDED; --frame:#FFFFFF; --line:#E6E6E6; --line2:#D9D9D9;
+  --ink:#1E1E1E; --sub:#6B6B6B; --mute:#9A9A9A;
+  --blue:#0D99FF; --blue-bg:#E5F4FF;
+  --ok:#14804A; --ok-bg:#E6F4EC; --warn:#A35C00; --warn-bg:#FFF2DE; --info:#0B6BCB; --info-bg:#E8F1FB;
+  --bar:#2C2C2C; --bar-ink:#FFFFFF; --bar-sub:#B3B3B3;
+  --fw:440px;
 }
-*{box-sizing:border-box}
-body{margin:0;background:var(--board);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,"Hiragino Sans",sans-serif;line-height:1.7;
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
-.wrap{max-width:1240px;margin:0 auto;padding:36px 24px 64px}
-.hand{font-family:"Klee One","Zen Kaku Gothic New",cursive}
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;border-bottom:3px solid var(--ink);padding-bottom:14px;margin-bottom:26px}
-header h1{margin:0;font-size:30px;font-weight:900;letter-spacing:.02em}
-header h1 small{display:block;font-size:14px;font-weight:500;color:var(--sub);letter-spacing:.04em}
-header .meta{font-size:13px;color:var(--sub);text-align:right}
-h2{font-size:21px;font-weight:900;margin:44px 0 14px;display:flex;align-items:center;gap:10px}
-h2 .no{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;font-size:16px}
-h2 .hand{font-weight:600;color:var(--blue);font-size:15px;margin-left:6px}
-.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.note{padding:18px 18px 16px;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.05),0 8px 18px -10px rgba(0,0,0,.25);position:relative}
-.note:nth-child(1){transform:rotate(-.6deg)} .note:nth-child(2){transform:rotate(.5deg)} .note:nth-child(3){transform:rotate(-.3deg)}
-.note::before{content:"";position:absolute;top:-9px;left:50%;width:70px;height:18px;margin-left:-35px;background:rgba(255,255,255,.65);border:1px solid rgba(0,0,0,.06)}
-.note .tag{font-size:12px;font-weight:700;letter-spacing:.06em}
-.note .big{font-size:22px;font-weight:900;line-height:1.35;margin:4px 0 6px}
-.note p{margin:0;font-size:14px}
-.y{background:var(--note-y)} .b{background:var(--note-b)} .g{background:var(--note-g)} .p{background:var(--note-p)}
-.ok{color:var(--green)} .ng{color:var(--red)} .wait{color:var(--amber)}
-table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
-th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-thead th{background:#eef1f6;font-size:13px;letter-spacing:.04em}
-tbody th{width:150px;background:#fafbfc;font-weight:700}
-td.st{width:92px;font-weight:900;white-space:nowrap}
-tr.warn td,tr.warn th{background:#fff8e6}
-.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}
-.step{background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:12px;font-size:13.5px;position:relative}
-.step b{display:block;font-size:15px;margin-bottom:4px}
-.step .badge{display:inline-block;margin-top:8px;font-size:12px;font-weight:900;padding:2px 8px;border-radius:99px}
-.badge.ok{background:#dff5e6} .badge.wait{background:#fff1cc}
-.step:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);font-size:22px;font-weight:900;color:var(--ink);z-index:2}
-.outs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.out{background:var(--note-g);border-radius:10px;padding:10px 12px;font-size:13.5px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-.card h3{margin:0 0 10px;font-size:16px}
-.teams{border:1px solid #c8cbe0;border-radius:8px;overflow:hidden;font-size:13.5px}
-.teams .top{background:#5b5fc7;color:#fff;padding:8px 12px;font-weight:700;font-size:13px}
-.teams .body{padding:12px 14px}
-.teams .title{font-weight:900;font-size:15px;margin-bottom:8px}
-.teams dl{display:grid;grid-template-columns:130px 1fr;gap:4px 10px;margin:0 0 10px}
-.teams dt{font-weight:700;color:#333}
-.teams dd{margin:0}
-.teams .foot{font-size:11px;color:#777;border-top:1px solid #eee;padding-top:6px}
-.shots{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 10px 24px -18px rgba(0,0,0,.35)}
-figure img{width:100%;display:block;border-radius:6px;border:1px solid #e6e8ee}
-figcaption{font-size:13.5px;padding:8px 4px 2px}
-figcaption b{display:block;font-size:14.5px}
-.mark{background:linear-gradient(transparent 58%,#ffe36e 58%);font-weight:700}
-figure.wide{grid-column:1/-1}
-.forms{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.forms figure{padding:6px}
-.forms img{border:none}
-.todo{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.todo li{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--amber);border-radius:8px;padding:12px 14px;font-size:14.5px}
-.todo li.done{border-left-color:var(--green)}
-.todo li b{display:block}
-.ask li{border-left-color:var(--blue)}
-.small{font-size:12.5px;color:var(--sub)}
-footer{margin-top:48px;font-size:12px;color:var(--sub);border-top:1px dashed var(--line);padding-top:12px}
-@media (max-width:860px){
-  .notes,.two,.shots,.outs{grid-template-columns:1fr}
-  .flow{grid-template-columns:1fr}
-  .step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-22px;transform:translateX(-50%)}
-  .forms{grid-template-columns:repeat(2,1fr)}
-  header h1{font-size:24px}
-  tbody th{width:110px}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--canvas);color:var(--ink);
+  font-family:Inter,"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ---------- top bar ---------- */
+.bar{position:fixed;inset:0 0 auto 0;height:48px;background:var(--bar);color:var(--bar-ink);display:flex;align-items:center;gap:12px;padding:0 12px;z-index:20}
+.bar .logo{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;background:#3A3A3A}
+.bar .logo svg{width:14px;height:14px}
+.bar .file{display:flex;align-items:baseline;gap:8px;min-width:0;flex:1}
+.bar .file .proj{color:var(--bar-sub);font-size:12px;white-space:nowrap}
+.bar .file .name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .tools{display:flex;align-items:center;gap:2px}
+.bar .tools button{height:32px;min-width:32px;padding:0 8px;border-radius:6px;font-size:12px;color:var(--bar-ink)}
+.bar .tools button:hover{background:#3D3D3D}
+.bar .zoom{font-variant-numeric:tabular-nums;min-width:52px!important}
+
+/* ---------- layers panel (desktop) ---------- */
+.layers{position:fixed;top:48px;left:0;bottom:0;width:232px;background:#fff;border-right:1px solid var(--line);z-index:15;display:none;flex-direction:column}
+.layers h4{font-size:11px;font-weight:600;color:var(--sub);padding:14px 16px 8px;letter-spacing:.02em}
+.layers ul{list-style:none;overflow:auto;padding:0 8px 16px}
+.layers li button{width:100%;text-align:left;display:flex;gap:8px;align-items:center;padding:7px 8px;border-radius:6px;font-size:12.5px;color:var(--ink)}
+.layers li button:hover{background:#F2F2F2}
+.layers li button.on{background:var(--blue-bg)}
+.layers li svg{flex:none;width:12px;height:12px;color:var(--mute)}
+.layers .meta{margin-top:auto;border-top:1px solid var(--line);padding:12px 16px;font-size:11px;color:var(--sub);line-height:1.6}
+
+/* ---------- canvas ---------- */
+.viewport{position:fixed;top:48px;left:0;right:0;bottom:0;overflow:hidden;touch-action:none;cursor:grab}
+.viewport.drag{cursor:grabbing}
+.canvas{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;gap:72px;padding:96px;align-items:flex-start;will-change:transform}
+.canvas.anim{transition:transform .32s cubic-bezier(.2,.7,.2,1)}
+.col{display:flex;flex-direction:column;gap:96px;width:var(--fw)}
+
+.frame{position:relative;width:var(--fw);background:var(--frame);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 6px rgba(0,0,0,.05)}
+.frame.sel{box-shadow:0 0 0 calc(2px * var(--inv,1)) var(--blue)}
+.flabel{position:absolute;left:0;bottom:100%;max-width:100%;overflow:hidden;text-overflow:ellipsis;margin-bottom:calc(6px * var(--inv,1));font-size:calc(12px * var(--inv,1));line-height:1.2;color:#7A7A7A;font-weight:500;white-space:nowrap;pointer-events:none}
+.frame.sel .flabel{color:var(--blue)}
+.fin{padding:24px}
+
+/* ---------- content ---------- */
+.eyebrow{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:.04em}
+.h1{font-size:24px;font-weight:700;line-height:1.35;margin-top:6px;letter-spacing:-.01em}
+.h2{font-size:17px;font-weight:700;line-height:1.4;margin-top:4px}
+.lead{font-size:13px;color:var(--sub);line-height:1.7;margin-top:8px}
+.meta-row{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11.5px;color:var(--sub);margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.sec{margin-top:20px}
+.sec-t{font-size:11px;font-weight:600;color:var(--sub);letter-spacing:.04em;margin-bottom:8px}
+
+.pill{display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.p-ok{color:var(--ok);background:var(--ok-bg)} .p-warn{color:var(--warn);background:var(--warn-bg)} .p-info{color:var(--info);background:var(--info-bg)}
+
+.stat{border:1px solid var(--line);border-radius:8px;padding:14px 14px 12px}
+.stat + .stat{margin-top:10px}
+.stat .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.stat .k{font-size:12px;color:var(--sub);font-weight:500}
+.stat .v{font-size:17px;font-weight:700;margin-top:6px;line-height:1.4}
+.stat .d{font-size:12.5px;color:var(--sub);line-height:1.65;margin-top:4px}
+.note{font-size:11.5px;color:var(--sub);line-height:1.6;margin-top:6px}
+.note b{color:var(--ink)}
+
+.kv{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.kv div{padding:10px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.kv div:nth-child(2n){border-right:0}
+.kv div:nth-last-child(-n+2){border-bottom:0}
+.kv span{display:block;font-size:11px;color:var(--sub)}
+.kv strong{display:block;font-size:13px;font-weight:600;margin-top:2px;line-height:1.45}
+
+.row{padding:14px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0;padding-top:4px}
+.row .rt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.row .rt b{font-size:13.5px}
+.row dl{display:grid;grid-template-columns:64px 1fr;gap:4px 10px;margin-top:8px;font-size:12.5px;line-height:1.6}
+.row dt{color:var(--mute);font-size:11.5px;padding-top:1px}
+.row dd{color:var(--ink)}
+.row.attn{background:var(--warn-bg);margin:0 -24px;padding-left:24px;padding-right:24px}
+
+.flow{position:relative;margin-top:4px}
+.step{position:relative;display:grid;grid-template-columns:28px 1fr;gap:12px;padding-bottom:18px}
+.step:last-child{padding-bottom:0}
+.step .n{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:12px;font-weight:700;background:#fff;position:relative;z-index:1}
+.step:not(:last-child)::before{content:"";position:absolute;left:13.5px;top:28px;bottom:0;width:1.5px;background:var(--line2)}
+.step b{font-size:13.5px;display:block}
+.step p{font-size:12.5px;color:var(--sub);line-height:1.6;margin:2px 0 6px}
+.outs{display:grid;gap:8px;margin-top:6px}
+.out{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.6}
+.out b{display:block;font-size:13px}
+
+.check{list-style:none;display:grid;gap:8px}
+.check li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.6}
+.check li b{display:block;font-size:13px}
+.check li span.t{color:var(--sub)}
+
+.teams{border:1px solid var(--line2);border-radius:8px;overflow:hidden}
+.teams .th{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#F5F5F7;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--sub)}
+.teams .th i{width:16px;height:16px;border-radius:4px;background:#5B5FC7;display:inline-block}
+.teams .tb{padding:12px}
+.teams .tt{font-size:13px;font-weight:700;line-height:1.5;margin-bottom:8px}
+.teams dl{display:grid;grid-template-columns:112px 1fr;gap:3px 8px;font-size:12px;line-height:1.55}
+.teams dt{font-weight:600;color:#424242}
+.teams .tf{font-size:12px;margin-top:8px}
+
+figure.shot{margin:0}
+figure.shot + figure.shot{margin-top:18px}
+figure.shot img{display:block;width:100%;border:1px solid var(--line);border-radius:6px}
+figure.shot figcaption{font-size:12px;color:var(--sub);line-height:1.6;margin-top:6px}
+figure.shot figcaption b{display:block;font-size:12.5px;color:var(--ink)}
+.forms{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.forms figure{margin:0}
+.forms img{display:block;width:100%;border:1px solid var(--line);border-radius:6px}
+.forms figcaption{font-size:11.5px;color:var(--sub);margin-top:4px}
+
+.qs{list-style:none;display:grid;gap:10px;counter-reset:q}
+.qs li{border:1px solid var(--line);border-radius:8px;padding:12px 12px 12px 44px;position:relative;font-size:12.5px;line-height:1.65;color:var(--sub)}
+.qs li::before{counter-increment:q;content:counter(q);position:absolute;left:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--ink);color:#fff;font-size:11.5px;font-weight:700;display:grid;place-items:center}
+.qs li b{display:block;color:var(--ink);font-size:13px;margin-bottom:2px}
+.qs .to{display:inline-block;font-size:10.5px;font-weight:600;color:var(--info);background:var(--info-bg);border-radius:4px;padding:1px 6px;margin-bottom:4px}
+
+/* ---------- mobile chips ---------- */
+.chips{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;gap:6px;overflow-x:auto;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);border-top:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line2);background:#fff;font-size:12px;white-space:nowrap}
+.chips button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hint{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:rgba(30,30,30,.88);color:#fff;font-size:12px;padding:8px 12px;border-radius:8px;z-index:30;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+.hint.hide{opacity:0}
+
+@media (min-width:1100px){
+  .layers{display:flex}
+  .viewport{left:232px}
+  .chips{display:none}
+}
+@media (max-width:640px){
+  .bar .file .proj{display:none}
+  .bar .tools .opt{display:none}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<header>
-  <h1><small>このまち電気（広島ガス）｜SNS広告</small>Meta広告 配信設定ボード</h1>
-  <div class="meta">2026-11-14（土）22時30分時点<br>作成：HEROES 伊藤（設定画面は実物のスクリーンショット）<br>※予算（金額）はメッセージ本文に記載しています</div>
+<header class="bar">
+  <div class="logo" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="#fff" stroke-width="1.4"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg></div>
+  <div class="file"><span class="proj">このまち電気 /</span><span class="name">Meta広告 配信設定ボード</span></div>
+  <div class="tools">
+    <button class="opt" id="zout" aria-label="縮小">−</button>
+    <button class="zoom" id="zlabel" aria-label="全体を表示">100%</button>
+    <button class="opt" id="zin" aria-label="拡大">＋</button>
+    <button id="fit">全体</button>
+  </div>
 </header>
 
-<!-- 1 結論 -->
-<h2><span class="no">1</span>いまの状態<span class="hand">← まずここだけ見ればOK</span></h2>
-<div class="notes">
-  <div class="note b">
-    <div class="tag">配信開始</div>
-    <div class="big">11/17（火）0:00 開始で予約済み</div>
-    <p>小池さんの現場確認などもあるため、<b>いったん火曜日に設定</b>しています。キャンペーンと広告セットは公開済み（予約）。<br><span class="small">※前回「月曜（11/17）」とお伝えしましたが、11/17は<b>火曜日</b>です。曜日の書き間違いでした。</span></p>
-  </div>
-  <div class="note p">
-    <div class="tag">広告5本</div>
-    <div class="big wait">電話番号の認証待ち</div>
-    <p>Metaの決まりで、広告アカウントに<b>認証済みの電話番号</b>を1つ登録するまで、広告は審査に進めません。登録すれば審査（最大24時間ほど）→ 11/17 0:00 から配信。</p>
-  </div>
-  <div class="note g">
-    <div class="tag">リードの自動通知</div>
-    <div class="big ok">本番稼働・テスト成功</div>
-    <p>テストの申込1件が <b>Teams通知</b>・<b>施策管理スプシ（10_リード台帳）</b>・予備メールの3か所に届くことを確認しました（11/14 21:30）。</p>
-  </div>
-</div>
+<aside class="layers" id="layers">
+  <h4>ボード</h4>
+  <ul id="layerList"></ul>
+  <div class="meta">2026年11月14日 22:30時点<br>作成：伊藤<br>ボードをクリックで拡大／「全体」で一覧に戻る<br>Shift＋1：全体表示</div>
+</aside>
 
-<!-- 2 設定一覧 -->
-<h2><span class="no">2</span>設定の中身（配信前チェックとの突き合わせ）</h2>
-<table>
-  <thead><tr><th>項目</th><th>配信前チェックでお伝えした内容</th><th>実際の設定（広告マネージャ）</th><th>照合</th></tr></thead>
-  <tbody>
-    <tr><th>媒体</th><td>Instagram／Facebook</td><td>Facebook・Instagram・WhatsApp（自動配置。アプリ内広告＝Audience Network は除外。除外した面への「5%だけ配信」もオフ）</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>目的</th><td>リード獲得（インスタントフォーム）</td><td>キャンペーンの目的「リード」／リード数の最大化／自動入札（上限なし）</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>予算</th><td>メッセージ本文に記載の金額</td><td>本文に記載の金額どおり（キャンペーン予算・1日あたりの予算で管理）。<span class="small">Metaの仕様で日によって予算より多く使う日がありますが、1週間の合計は「1日の予算×7日」を超えません。</span></td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>開始日時</th><td>最短での配信開始</td><td><span class="mark">2026年11月17日（火）0:00（日本時間）</span>／終了日なし（止めるまで続く）</td><td class="st ok">✅ 設定済み</td></tr>
-    <tr><th>地域</th><td>関東エリア</td><td>東京・神奈川・埼玉・千葉・茨城・栃木・群馬・山梨（1都7県）</td><td class="st ok">✅ 一致</td></tr>
-    <tr class="warn"><th>年齢</th><td>40歳以上</td><td><b>40〜65歳以上を優先</b>（Metaの「おすすめのオーディエンス」機能）。<br><span class="small">⚠️ Metaの仕様で「絶対に出さない下限」は25歳までしか上げられないため、成果が見込める場合は40歳未満にも少し配信されることがあります。11/14に、25歳〜になっていた優先年齢を40歳〜に直しました。</span></td><td class="st wait">⚠️ ほぼ一致<br><span class="small">（要確認）</span></td></tr>
-    <tr><th>性別・言語</th><td>男女</td><td>すべての性別／日本語</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>バナー</th><td>正式承認済みの商標無し5本（261110再修正反映版）</td><td>No1 ②月695円／No2 ③換気だけで満額／No3 ⑤相続のやることリスト／No4 ⑦売れるまでの空き家／No5 ⑧解約すると困る3つ（すべて v10）。<br>MetaのAI加工（自動の切り抜き・文字の書き換え・翻訳など）は<b>すべてオフ</b>＝承認された画像のまま出ます。</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>広告の文章</th><td>空き家・空室の電気の基本料金の見直し</td><td>見出し「空き家の電気、基本料金を無料で試算」／説明「関東の空き家・実家をお持ちの方へ」／ボタン「見積もり」。本文の注記は承認済みバナーと同じ比較条件（東京電力EP 従量電灯B と このまち電気・2026年11月1日時点・関東エリア・税込）</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>表示名</th><td>（このまち電気の商標は出さない）</td><td>Facebookページ「空き家の電気 見直しサポート」名義で表示</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>行き先</th><td>インスタントフォーム（料金シミュレーション／資料請求の名目）</td><td>フォーム「空き家電気_無料試算_商標なし_v2_日本語」：建物の場所／建物の状態／今の電気の契約先／電話の希望時間帯 ＋ 氏名・電話番号（必須）・メール（任意）。冒頭に「担当者（株式会社アイ・ステーション）から試算結果をお電話でご案内」と明記。<b>ボタン・入力欄の表示もすべて日本語</b>（11/14に英語表示から修正）</td><td class="st ok">✅ 一致</td></tr>
-    <tr><th>リードの受け取り</th><td>フォーム回答をTeamsへ自動通知</td><td>Teamsグループ「【通知】このまち電気LP お問い合わせ」に自動通知 ＋ 施策管理スプシ「10_リード台帳」に自動で1行追加 ＋ 予備メール</td><td class="st ok">✅ テスト済み</td></tr>
-  </tbody>
-</table>
+<main class="viewport" id="vp">
+<div class="canvas" id="cv">
 
-<!-- 3 リードの流れ -->
-<h2><span class="no">3</span>リードが届くまでの流れ</h2>
-<div class="flow">
-  <div class="step"><b>① 広告</b>Instagram／Facebook で空き家バナーを見る<span class="badge wait">電話番号認証→審査待ち</span></div>
-  <div class="step"><b>② フォーム</b>広告の中のフォームで質問4つ＋氏名・電話番号を入力<span class="badge ok">作成済み</span></div>
-  <div class="step"><b>③ Metaのスプシ連携</b>Metaが回答をGoogleスプレッドシートへ自動で書き出す<span class="badge wait">審査通過後に接続</span></div>
-  <div class="step"><b>④ 中継</b>1分ごとに新しい回答を受け口へ送る（専用の合言葉つき）<span class="badge ok">準備済み</span></div>
-  <div class="step"><b>⑤ 受け口（サーバー）</b>保存して3か所へ配る。失敗したら5分おきに自動で送り直す<span class="badge ok">本番稼働・テスト成功</span></div>
-</div>
-<div class="outs">
-  <div class="out"><b>Teams通知</b>「【通知】このまち電気LP お問い合わせ」グループ（小林さん・小池さん・伊藤）</div>
-  <div class="out"><b>10_リード台帳</b>リードIDは台帳の数式で自動採番。数式の列・選択肢に合わない値は書かない作り</div>
-  <div class="out"><b>予備メール</b>Teamsが止まったときの保険</div>
-</div>
-<p class="small">※③はMetaの仕様で、広告の審査が通るまで接続ボタンが押せません。審査が通りしだい接続し、Metaの「テストリード」でもう一度、①〜⑤を通しで確認します。</p>
+  <!-- ===== column 1 ===== -->
+  <div class="col">
+    <section class="frame" data-name="01 概要">
+      <div class="flabel">01 概要</div>
+      <div class="fin">
+        <div class="eyebrow">このまち電気（広島ガス）｜Meta広告</div>
+        <div class="h1">配信設定ボード</div>
+        <p class="lead">配信前チェックでご確認いただいた内容で設定を進めました。設定内容と画面を、認識合わせ用にまとめています。</p>
+        <div class="meta-row"><span>2026年11月14日 22:30時点</span><span>作成：伊藤</span><span class="amt" data-public="予算（金額）はメッセージ本文に記載">予算（金額）はメッセージ本文に記載</span></div>
 
-<!-- 4 テスト結果 -->
-<h2><span class="no">4</span>テスト結果（11/14 21:30 実施）<span class="hand">テスト用の申込を1件送りました</span></h2>
-<div class="two">
-  <div class="card">
-    <h3>Teamsに届いた通知（実際に届いたカードの中身）</h3>
-    <div class="teams">
-      <div class="top">【通知】このまち電気LP お問い合わせ ／ Workflows</div>
-      <div class="body">
-        <div class="title">ーこのまち電気 Meta広告（インスタントフォーム）ー 新しいお問い合わせです</div>
-        <dl>
-          <dt>受付日時</dt><dd>2026-11-14 21:30</dd>
-          <dt>お名前</dt><dd>動作確認用（伊藤・HEROES）</dd>
-          <dt>電話番号</dt><dd>09000000000</dd>
-          <dt>メールアドレス</dt><dd>（未入力）</dd>
-          <dt>建物の場所</dt><dd>東京都</dd>
-          <dt>建物の状態</dt><dd>空き家（誰も住んでいない）</dd>
-          <dt>今の電力会社</dt><dd>東京電力</dd>
-          <dt>お電話の希望時間帯</dt><dd>平日 10時〜12時</dd>
-          <dt>広告</dt><dd>No1＿②月695円＿v10（動作確認）</dd>
-          <dt>受付ID</dt><dd>F3384601</dd>
-        </dl>
-        <div>折り返しのお電話をお願いします（断られた場合は再度かけない）。</div>
+        <div class="sec">
+          <div class="sec-t">現在のステータス</div>
+          <div class="stat">
+            <div class="top"><span class="k">配信開始</span><span class="pill p-info">予約済み</span></div>
+            <div class="v">11/17（火）0:00</div>
+            <div class="d">小池さんの現場確認などもあるため、いったん火曜日に設定しています。キャンペーン・広告セットは公開（予約）済みです。</div>
+            <div class="note">※前回「月曜（11/17）」とお伝えしましたが、11/17は<b>火曜日</b>です（曜日の誤り）。</div>
+          </div>
+          <div class="stat">
+            <div class="top"><span class="k">広告（5本）</span><span class="pill p-warn">対応待ち</span></div>
+            <div class="v">電話番号の認証待ち</div>
+            <div class="d">Metaの決まりで、広告アカウントに認証済みの電話番号の登録が必要です。登録後に審査（最大24時間程度）へ進みます。</div>
+          </div>
+          <div class="stat">
+            <div class="top"><span class="k">リードの自動通知</span><span class="pill p-ok">稼働中</span></div>
+            <div class="v">本番反映・テスト完了</div>
+            <div class="d">テスト送信1件が、Teams・10_リード台帳・予備メールの3か所に届くことを確認しました。</div>
+          </div>
+          <div class="stat">
+            <div class="top"><span class="k">インスタントフォーム</span><span class="pill p-ok">完了</span></div>
+            <div class="v">日本語表示に修正済み</div>
+            <div class="d">ボタン・入力欄・送信後の表示まで日本語。広告5本とも新しいフォームに設定済みです。</div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-t">主な設定</div>
+          <div class="kv">
+            <div><span>媒体</span><strong>Facebook・Instagram</strong></div>
+            <div><span>目的</span><strong>リード獲得（フォーム）</strong></div>
+            <div><span>地域</span><strong>関東1都7県</strong></div>
+            <div><span>年齢</span><strong>40〜65歳以上を優先</strong></div>
+            <div><span>バナー</span><strong>承認済み 商標無し5本</strong></div>
+            <div><span>予算</span><strong class="amt" data-public="本文に記載">本文に記載</strong></div>
+          </div>
+        </div>
       </div>
-    </div>
-    <p class="small">※テスト用の通知です。電話は不要です（電話番号もダミー）。</p>
+    </section>
+
+    <section class="frame" data-name="02 確認事項">
+      <div class="flabel">02 確認事項</div>
+      <div class="fin">
+        <div class="eyebrow">ご確認のお願い</div>
+        <div class="h2">小林さん・小池さんに確認したいこと</div>
+        <ol class="qs" style="margin-top:14px">
+          <li><span class="to">小林さん</span><b>配信開始は 11/17（火）0:00 で問題ないか</b>小池さんの現場確認などもあるため、いったん火曜日で設定しています。</li>
+          <li><span class="to">小林さん</span><b>年齢の設定は「40〜65歳以上を優先」でよいか</b>Metaの仕様上、成果が見込める場合は40歳未満にも少し配信されます。厳密に40歳以上のみにもできますが、単価が上がりやすくなります。</li>
+          <li><span class="to">小池さん</span><b>現場（リードの受け入れ・架電体制）として、火曜開始で問題ないか</b>リードはTeamsの通知グループと10_リード台帳に自動で届きます。お電話の希望時間帯もフォームで伺っています。</li>
+          <li><span class="to">共通</span><b>「04 設定の突き合わせ」で、認識と違うところがないか</b></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="frame" data-name="03 残タスク">
+      <div class="flabel">03 残タスク</div>
+      <div class="fin">
+        <div class="eyebrow">配信までの流れ</div>
+        <div class="h2">残っていること</div>
+        <ul class="check" style="margin-top:14px">
+          <li><span class="pill p-ok">完了</span><div><b>開始日時を11/17（火）0:00に設定して公開（予約）</b><span class="t">キャンペーン・広告セット</span></div></li>
+          <li><span class="pill p-ok">完了</span><div><b>リードの自動通知を本番反映・テスト</b><span class="t">Teams・10_リード台帳・予備メール</span></div></li>
+          <li><span class="pill p-ok">完了</span><div><b>フォームを日本語表示に修正</b><span class="t">広告5本とも付け替え済み</span></div></li>
+          <li><span class="pill p-warn">確認中</span><div><b>小池さんの現場確認</b><span class="t">確認がとれしだい火曜開始で確定</span></div></li>
+          <li><span class="pill p-warn">対応待ち</span><div><b>広告アカウントの電話番号認証</b><span class="t">認証後、広告5本を公開 → Metaの審査（最大24時間程度）</span></div></li>
+          <li><span class="pill p-warn">審査後</span><div><b>Metaのスプレッドシート連携を接続し、テストリードで最終確認</b><span class="t">Metaの仕様で審査通過後に接続可能</span></div></li>
+        </ul>
+      </div>
+    </section>
   </div>
-  <div class="card">
-    <h3>テストで確認できたこと</h3>
-    <ul class="todo">
-      <li class="done"><b>✅ 合言葉のない送信ははじく</b>外から勝手に送られた申込は受け付けない（403）</li>
-      <li class="done"><b>✅ Teams通知：1秒以内</b>「【通知】このまち電気LP お問い合わせ」に左のカードが届いた</li>
-      <li class="done"><b>✅ 予備メール：約3秒</b>Teamsが止まったときの保険</li>
-      <li class="done"><b>✅ 10_リード台帳：約12秒</b>下の画像の7行目（L0006）に自動で追加。数式の列は触らず、リードIDは台帳の数式で採番</li>
-    </ul>
+
+  <!-- ===== column 2 ===== -->
+  <div class="col">
+    <section class="frame" data-name="04 設定の突き合わせ">
+      <div class="flabel">04 設定の突き合わせ</div>
+      <div class="fin">
+        <div class="eyebrow">配信前チェック（合意内容）× 広告マネージャ（実際の設定）</div>
+        <div class="h2">設定の突き合わせ</div>
+        <div style="margin-top:12px">
+          <div class="row"><div class="rt"><b>媒体</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>Instagram／Facebook</dd><dt>実際</dt><dd>Facebook・Instagram・WhatsApp（自動配置）。アプリ内広告（Audience Network）は除外し、除外面への一部配信もオフ</dd></dl></div>
+          <div class="row"><div class="rt"><b>目的</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>リード獲得（インスタントフォーム）</dd><dt>実際</dt><dd>キャンペーン目的「リード」／リード数の最大化／自動入札</dd></dl></div>
+          <div class="row"><div class="rt"><b>予算</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd class="amt" data-public="メッセージ本文に記載の金額">メッセージ本文に記載の金額</dd><dt>実際</dt><dd class="amt" data-public="本文に記載の金額どおり（キャンペーン予算・1日あたりの予算で管理）。日によって予算より多く使う日がありますが、1週間の合計は「1日の予算×7日」を超えません">本文に記載の金額どおり（キャンペーン予算・1日あたりの予算で管理）。日によって予算より多く使う日がありますが、1週間の合計は「1日の予算×7日」を超えません</dd></dl></div>
+          <div class="row"><div class="rt"><b>開始日時</b><span class="pill p-info">設定済み</span></div><dl><dt>合意内容</dt><dd>最短での配信開始</dd><dt>実際</dt><dd>2026年11月17日（火）0:00（日本時間）／終了日なし</dd></dl></div>
+          <div class="row"><div class="rt"><b>地域</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>関東エリア</dd><dt>実際</dt><dd>東京・神奈川・埼玉・千葉・茨城・栃木・群馬・山梨</dd></dl></div>
+          <div class="row attn"><div class="rt"><b>年齢</b><span class="pill p-warn">要確認</span></div><dl><dt>合意内容</dt><dd>40歳以上</dd><dt>実際</dt><dd>40〜65歳以上を優先（Metaの「おすすめのオーディエンス」）。Metaの仕様で、配信しない下限は25歳までしか設定できないため、成果が見込める場合は40歳未満にも少し配信されます。11/14に優先年齢を25歳〜から40歳〜に修正済み</dd></dl></div>
+          <div class="row"><div class="rt"><b>性別・言語</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>男女</dd><dt>実際</dt><dd>すべての性別／日本語</dd></dl></div>
+          <div class="row"><div class="rt"><b>バナー</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>正式承認済みの商標無し5本（261110再修正反映版）</dd><dt>実際</dt><dd>②月695円／③換気だけで満額／⑤相続のやることリスト／⑦売れるまでの空き家／⑧解約すると困る3つ（v10）。MetaのAIによる自動加工はすべてオフ＝承認画像のまま配信</dd></dl></div>
+          <div class="row"><div class="rt"><b>広告の文章</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>空き家・空室の電気の基本料金の見直し</dd><dt>実際</dt><dd>見出し「空き家の電気、基本料金を無料で試算」／ボタン「見積もり」。注記は承認済みバナーと同じ比較条件（東京電力EP 従量電灯B と このまち電気・2026年11月1日時点・関東エリア・税込）</dd></dl></div>
+          <div class="row"><div class="rt"><b>表示名</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>このまち電気の商標は出さない</dd><dt>実際</dt><dd>Facebookページ「空き家の電気 見直しサポート」名義</dd></dl></div>
+          <div class="row"><div class="rt"><b>行き先</b><span class="pill p-ok">一致</span></div><dl><dt>合意内容</dt><dd>インスタントフォーム（料金シミュレーション／資料請求の名目）</dd><dt>実際</dt><dd>フォーム「空き家電気_無料試算_商標なし_v2_日本語」：建物の場所／建物の状態／今の電気の契約先／電話の希望時間帯＋氏名・電話番号（必須）・メール（任意）</dd></dl></div>
+          <div class="row"><div class="rt"><b>リードの受け取り</b><span class="pill p-ok">テスト済み</span></div><dl><dt>合意内容</dt><dd>フォーム回答をTeamsへ自動通知</dd><dt>実際</dt><dd>Teams「【通知】このまち電気LP お問い合わせ」へ自動通知＋施策管理スプシ「10_リード台帳」へ自動で1行追加＋予備メール</dd></dl></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" data-name="05 リードの流れ">
+      <div class="flabel">05 リードの流れ</div>
+      <div class="fin">
+        <div class="eyebrow">広告からTeams・台帳まで</div>
+        <div class="h2">リードが届くまでの流れ</div>
+        <div class="flow" style="margin-top:16px">
+          <div class="step"><span class="n">1</span><div><b>広告</b><p>Instagram／Facebookで空き家バナーを見る</p><span class="pill p-warn">電話番号認証・審査待ち</span></div></div>
+          <div class="step"><span class="n">2</span><div><b>インスタントフォーム</b><p>広告内のフォームで質問4つ＋氏名・電話番号を入力</p><span class="pill p-ok">作成済み</span></div></div>
+          <div class="step"><span class="n">3</span><div><b>Metaのスプレッドシート連携</b><p>回答をGoogleスプレッドシートへ自動で書き出し</p><span class="pill p-warn">審査通過後に接続</span></div></div>
+          <div class="step"><span class="n">4</span><div><b>中継</b><p>1分ごとに新しい回答を受け口へ送信（専用の合言葉付き）</p><span class="pill p-ok">準備済み</span></div></div>
+          <div class="step"><span class="n">5</span><div><b>受け口（サーバー）</b><p>保存して3か所へ配信。失敗時は5分おきに自動で再送</p><span class="pill p-ok">稼働中・テスト済み</span></div></div>
+        </div>
+        <div class="sec">
+          <div class="sec-t">届く先</div>
+          <div class="outs">
+            <div class="out"><b>Teams通知</b>「【通知】このまち電気LP お問い合わせ」グループ（小林さん・小池さん・伊藤）</div>
+            <div class="out"><b>施策管理スプシ「10_リード台帳」</b>リードIDは台帳の数式で自動採番。数式の列や選択肢に合わない値は書き込まない仕組み</div>
+            <div class="out"><b>予備メール</b>Teamsが止まった場合のバックアップ</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
-  <figure class="wide">
-    <img src="img/10_ledger.jpg" alt="施策管理スプシ 10_リード台帳 の7行目にテストのリードが入った画面">
-    <figcaption><b>10_リード台帳に自動で1行（7行目・リードID L0006）</b>流入元「Meta（インスタントフォーム）」・クリエイティブID（広告名）・広告セット・LPフォームID・紹介コード KTC02・氏名・電話番号・都道府県まで自動で入りました。<span class="small">※2〜6行目は11/5に小池さんが入れたテスト行。7行目（今回のテスト）は確認後に削除済みです。</span></figcaption>
-  </figure>
+
+  <!-- ===== column 3 ===== -->
+  <div class="col">
+    <section class="frame" data-name="06 テスト結果">
+      <div class="flabel">06 テスト結果</div>
+      <div class="fin">
+        <div class="eyebrow">2026年11月14日 21:30 実施</div>
+        <div class="h2">リード通知のテスト結果</div>
+        <ul class="check" style="margin-top:14px">
+          <li><span class="pill p-ok">OK</span><div><b>不正な送信をブロック</b><span class="t">合言葉のない送信は受け付けない</span></div></li>
+          <li><span class="pill p-ok">OK</span><div><b>Teams通知：約1秒</b><span class="t">通知グループにカードが届いた</span></div></li>
+          <li><span class="pill p-ok">OK</span><div><b>予備メール：約3秒</b></div></li>
+          <li><span class="pill p-ok">OK</span><div><b>10_リード台帳：約12秒</b><span class="t">自動で1行追加（確認後にテスト行は削除済み）</span></div></li>
+        </ul>
+        <div class="sec">
+          <div class="sec-t">Teamsに届いた通知（テスト送信）</div>
+          <div class="teams">
+            <div class="th"><i></i>【通知】このまち電気LP お問い合わせ ・ Workflows</div>
+            <div class="tb">
+              <div class="tt">ーこのまち電気 Meta広告（インスタントフォーム）ー 新しいお問い合わせです</div>
+              <dl>
+                <dt>受付日時</dt><dd>2026-11-14 21:30</dd>
+                <dt>お名前</dt><dd>動作確認用（テスト）</dd>
+                <dt>電話番号</dt><dd>09000000000</dd>
+                <dt>メールアドレス</dt><dd>（未入力）</dd>
+                <dt>建物の場所</dt><dd>東京都</dd>
+                <dt>建物の状態</dt><dd>空き家（誰も住んでいない）</dd>
+                <dt>今の電力会社</dt><dd>東京電力</dd>
+                <dt>お電話の希望時間帯</dt><dd>平日 10時〜12時</dd>
+                <dt>広告</dt><dd>No1_②月695円_v10</dd>
+              </dl>
+              <div class="tf">折り返しのお電話をお願いします（断られた場合は再度かけない）。</div>
+            </div>
+          </div>
+          <p class="note">※テスト送信です。お電話は不要です（電話番号はダミー）。</p>
+        </div>
+        <div class="sec">
+          <figure class="shot"><img src="img/10_ledger.jpg" alt="10_リード台帳"><figcaption><b>10_リード台帳に自動で1行追加（7行目）</b>流入元・クリエイティブID・広告セット・LPフォームID・紹介コード・氏名・電話番号・都道府県まで自動入力。テストの名前はぼかしています。2〜6行目は11/5の既存テスト行。</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" data-name="07 インスタントフォーム">
+      <div class="flabel">07 インスタントフォーム</div>
+      <div class="fin">
+        <div class="eyebrow">広告をタップした人が見る画面</div>
+        <div class="h2">インスタントフォーム（日本語版）</div>
+        <div class="forms" style="margin-top:14px">
+          <figure><img src="img/08_form_1.jpg" alt="冒頭"><figcaption>① 冒頭の説明</figcaption></figure>
+          <figure><img src="img/08_form_2.jpg" alt="建物の状態"><figcaption>② 建物の状態</figcaption></figure>
+          <figure><img src="img/08_form_3.jpg" alt="契約先"><figcaption>③ 今の電気の契約先</figcaption></figure>
+          <figure><img src="img/08_form_4.jpg" alt="時間帯"><figcaption>④ 電話の希望時間帯</figcaption></figure>
+          <figure><img src="img/08_form_5.jpg" alt="連絡先"><figcaption>⑤ 氏名・電話番号・メール</figcaption></figure>
+        </div>
+        <p class="note">※11/14に表示言語を英語から日本語へ修正し、冒頭文の誤字も修正しました。建物の場所は①の画面内で選択します。</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== column 4 ===== -->
+  <div class="col">
+    <section class="frame" data-name="08 設定画面（キャンペーン）">
+      <div class="flabel">08 設定画面（キャンペーン）</div>
+      <div class="fin">
+        <div class="eyebrow">広告マネージャのスクリーンショット</div>
+        <div class="h2">キャンペーン</div>
+        <div class="sec">
+          <figure class="shot"><img src="img/01_campaign_list.jpg" alt="キャンペーン一覧"><figcaption><b>キャンペーン：公開（予約）済み</b>「広告がありません」は、広告5本が電話番号の認証待ちのためです。</figcaption></figure>
+          <figure class="shot"><img src="img/02_campaign.jpg" alt="キャンペーン設定"><figcaption><b>キャンペーン設定</b><span class="amt" data-public="目的＝リード／キャンペーン予算（金額部分はぼかしています）">目的＝リード／キャンペーン予算（金額部分はぼかしています）</span></figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" data-name="09 設定画面（広告セット）">
+      <div class="flabel">09 設定画面（広告セット）</div>
+      <div class="fin">
+        <div class="eyebrow">広告マネージャのスクリーンショット</div>
+        <div class="h2">広告セット（開始日時・地域・年齢・配置）</div>
+        <div class="sec">
+          <figure class="shot"><img src="img/03_adset_schedule.jpg" alt="開始日時"><figcaption><b>開始日時：2026年11月17日 0:00</b>終了日なし</figcaption></figure>
+          <figure class="shot"><img src="img/04_adset_audience.jpg" alt="オーディエンス"><figcaption><b>地域・年齢</b>関東1都7県／優先する年齢 40〜65歳以上／日本語／すべての性別</figcaption></figure>
+          <figure class="shot"><img src="img/05_adset_placement.jpg" alt="配置"><figcaption><b>配置</b>Facebook・Instagram・WhatsApp（アプリ内広告は除外）</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="frame" data-name="10 設定画面（広告・手続き）">
+      <div class="flabel">10 設定画面（広告・手続き）</div>
+      <div class="fin">
+        <div class="eyebrow">広告マネージャのスクリーンショット</div>
+        <div class="h2">広告・残りの手続き</div>
+        <div class="sec">
+          <figure class="shot"><img src="img/06_ads_list.jpg" alt="広告一覧"><figcaption><b>広告5本（承認済みバナー v10）</b>電話番号の認証後に審査へ進みます。</figcaption></figure>
+          <figure class="shot"><img src="img/07_ad_preview.jpg" alt="広告プレビュー"><figcaption><b>広告の見え方（No1 ②月695円）</b>MetaのAIによる自動加工なし＝承認画像のまま</figcaption></figure>
+          <figure class="shot"><img src="img/09_phone_required.jpg" alt="電話番号の認証"><figcaption><b>残りの手続き：電話番号の認証</b>支払い方法・メール認証は完了済み。登録した電話番号は広告には表示されません。</figcaption></figure>
+        </div>
+      </div>
+    </section>
+  </div>
+
 </div>
+</main>
 
-<!-- 5 スクショ -->
-<h2><span class="no">5</span>設定画面（広告マネージャの実物）</h2>
-<div class="shots">
-  <figure class="wide"><img src="img/01_campaign_list.jpg" alt="キャンペーン一覧"><figcaption><b>キャンペーン：公開済み（予約）</b>「広告がありません」＝広告5本が電話番号の認証待ちのため。認証後に広告がそろうと配信待ちになります。</figcaption></figure>
-  <figure><img src="img/02_campaign.jpg" alt="キャンペーン設定"><figcaption><b>キャンペーン設定</b>目的＝リード／キャンペーン予算（1日あたりの予算で管理・金額部分はぼかしています）</figcaption></figure>
-  <figure><img src="img/03_adset_schedule.jpg" alt="広告セットのスケジュール"><figcaption><b>開始日時：<span class="mark">2026年11月17日 00:00</span></b>終了日なし。予算はキャンペーン側で配分。</figcaption></figure>
-  <figure><img src="img/04_adset_audience.jpg" alt="オーディエンス"><figcaption><b>地域・年齢</b>関東1都7県／優先する年齢 40〜65歳以上／日本語／すべての性別</figcaption></figure>
-  <figure><img src="img/05_adset_placement.jpg" alt="配置"><figcaption><b>配置</b>Facebook・Instagram・WhatsApp（含まれる配置16・除外2＝アプリ内広告）。除外面への限定配信はオフ。</figcaption></figure>
-  <figure class="wide"><img src="img/06_ads_list.jpg" alt="広告一覧"><figcaption><b>広告5本（承認済みバナー v10）</b>電話番号の認証が済むと、ここから審査に進みます。</figcaption></figure>
-  <figure><img src="img/07_ad_preview.jpg" alt="広告プレビュー"><figcaption><b>広告の見え方（No1 ②月695円）</b>Facebook・Instagramのフィード。画像はMetaのAI加工なし＝承認されたまま。</figcaption></figure>
-  <figure><img src="img/09_phone_required.jpg" alt="電話番号の認証が必要"><figcaption><b>残っている手続き：電話番号を認証</b>Metaの画面「広告を掲載する前に、認証済みの電話番号を広告アカウントに追加する必要があります（電話番号は公開されません）」。支払い方法・メール認証は完了済み。</figcaption></figure>
-</div>
+<nav class="chips" id="chips"></nav>
+<div class="hint" id="hint">ボードをタップで拡大／指で拡大・縮小</div>
 
-<h2 style="margin-top:30px;font-size:17px">インスタントフォームの画面（広告を押した人が見る順番）</h2>
-<div class="forms">
-  <figure><img src="img/08_form_1.jpg" alt="フォーム 冒頭"><figcaption>① 冒頭の説明</figcaption></figure>
-  <figure><img src="img/08_form_2.jpg" alt="フォーム 建物の状態"><figcaption>② 建物の状態</figcaption></figure>
-  <figure><img src="img/08_form_3.jpg" alt="フォーム 契約先"><figcaption>③ 今の電気の契約先</figcaption></figure>
-  <figure><img src="img/08_form_4.jpg" alt="フォーム 時間帯"><figcaption>④ 電話の希望時間帯</figcaption></figure>
-  <figure><img src="img/08_form_5.jpg" alt="フォーム 連絡先"><figcaption>⑤ 氏名・電話番号・メール</figcaption></figure>
-</div>
-<p class="small">※11/14にフォームの表示言語を英語→<b>日本語</b>に直し（「次へ」「連絡先情報」「送信する」など）、冒頭の説明文の誤字も修正しました。広告5本とも新しいフォーム（v2_日本語）に付け替え済みです。</p>
+<script>
+(function(){
+  var vp=document.getElementById('vp'), cv=document.getElementById('cv');
+  var frames=[].slice.call(cv.querySelectorAll('.frame'));
+  var s=1,x=0,y=0, sel=null;
+  var MIN=0.05, MAX=4;
+  function apply(anim){
+    if(anim){cv.classList.add('anim');clearTimeout(apply.t);apply.t=setTimeout(function(){cv.classList.remove('anim')},340);}
+    cv.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';
+    cv.style.setProperty('--inv',(1/s).toFixed(4));
+    document.getElementById('zlabel').textContent=Math.round(s*100)+'%';
+  }
+  function size(){return {w:cv.offsetWidth,h:cv.offsetHeight}}
+  function fit(anim){
+    var r=vp.getBoundingClientRect(), c=size(), bottom=(window.innerWidth<1100)?64:0;
+    var pad=16, vw=r.width-pad*2, vh=r.height-pad*2-bottom;
+    s=Math.min(vw/c.w, vh/c.h); s=Math.max(MIN,Math.min(MAX,s));
+    x=(r.width-c.w*s)/2; y=pad+(vh-c.h*s)/2+pad*0;
+    select(null); apply(anim);
+  }
+  function zoomAt(f,cx,cy,anim){
+    var ns=Math.max(MIN,Math.min(MAX,s*f)); f=ns/s;
+    x=cx-(cx-x)*f; y=cy-(cy-y)*f; s=ns; apply(anim);
+  }
+  function select(fr){
+    frames.forEach(function(f){f.classList.toggle('sel',f===fr)});
+    sel=fr;
+    var name=fr?fr.dataset.name:null;
+    [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.classList.toggle('on',b.dataset.go===(name||'all'))});
+  }
+  function zoomTo(fr){
+    var r=vp.getBoundingClientRect(), pad=(window.innerWidth<700)?12:48;
+    var fx=0,fy=0,el=fr; while(el&&el!==cv){fx+=el.offsetLeft;fy+=el.offsetTop;el=el.offsetParent;}
+    var fw=fr.offsetWidth, fh=fr.offsetHeight, bottom=(window.innerWidth<1100)?64:0;
+    var ns=(r.width-pad*2)/fw; if(window.innerWidth>=700){ns=Math.min(ns,(r.height-pad*2-bottom)/Math.min(fh,900),1.25);} ns=Math.min(ns,1.6);
+    s=ns; x=(r.width-fw*s)/2-fx*s; y=pad+24-fy*s; select(fr); apply(true); var h=document.getElementById('hint'); if(h)h.classList.add('hide');
+  }
 
-<!-- 6 残り -->
-<h2><span class="no">6</span>配信までに残っていること</h2>
-<ul class="todo">
-  <li class="done"><b>✅ 開始日時を 11/17（火）0:00 に設定して公開（予約）</b>キャンペーン・広告セット</li>
-  <li class="done"><b>✅ リードの自動通知（Teams・10_リード台帳・予備メール）を本番に反映してテスト</b>3か所とも届くことを確認</li>
-  <li class="done"><b>✅ インスタントフォームを日本語表示に修正し、広告5本に付け替え</b>ボタン・入力欄・送信後の表示まで日本語</li>
-  <li><b>⏳ 小池さんの現場確認（受け入れ・架電体制）</b>確認がとれしだい、火曜開始で確定</li>
-  <li><b>⏳ 広告アカウントへの電話番号の認証（Metaの必須手続き・数分）</b>認証後に広告5本をもう一度公開 → 審査へ</li>
-  <li><b>⏳ Metaの審査（最大24時間ほど）</b>認証が日曜〜月曜の早い時間に済めば、11/17 0:00 の開始に間に合う見込み</li>
-  <li><b>⏳ 審査通過後：Metaのスプシ連携をつないで、テストリードで通しの最終確認</b>伊藤側で対応（数分）</li>
-</ul>
+  frames.sort(function(a,b){return a.dataset.name.localeCompare(b.dataset.name)});
+  var lastN=0;
+  function layout(force){
+    var r=vp.getBoundingClientRect(), bottom=(window.innerWidth<1100)?64:0;
+    var vw=r.width-32, vh=r.height-32-bottom, FW=440, GX=72, GY=96, PAD=96;
+    var hs=frames.map(function(f){return f.offsetHeight});
+    var best=null;
+    for(var n=2;n<=6;n++){
+      var cols=[];for(var i=0;i<n;i++)cols.push(0);
+      hs.forEach(function(h){var k=cols.indexOf(Math.min.apply(null,cols));cols[k]+=(cols[k]?GY:0)+h;});
+      var W=n*FW+(n-1)*GX+PAD*2, H=Math.max.apply(null,cols)+PAD*2, sc=Math.min(vw/W,vh/H);
+      if(!best||sc>best.sc*1.02)best={n:n,sc:sc};
+    }
+    if(!force&&best.n===lastN)return; lastN=best.n;
+    var colEls=[],colH=[];
+    cv.innerHTML='';
+    for(var i=0;i<best.n;i++){var c=document.createElement('div');c.className='col';cv.appendChild(c);colEls.push(c);colH.push(0);}
+    frames.forEach(function(f,i){var k=colH.indexOf(Math.min.apply(null,colH));colEls[k].appendChild(f);colH[k]+=(colH[k]?GY:0)+hs[i];});
+  }
+  window.zoomToIndex=function(i){zoomTo(frames[i])};
+  window.exportView=function(){select(null);s=1;x=0;y=0;apply(false)};
+  function hideHint(){document.getElementById('hint').classList.add('hide')}
+  vp.addEventListener('pointerdown',hideHint);vp.addEventListener('wheel',hideHint,{passive:true}); window.fitAll=function(){fit(false)};
 
-<!-- 7 確認したいこと -->
-<h2><span class="no">7</span>小林さん・小池さんに確認したいこと</h2>
-<ul class="todo ask">
-  <li><b>① 配信開始は 11/17（火）0:00 でよいか</b>（前回「月曜」と書いたのは曜日の誤りで、11/17は火曜日です）</li>
-  <li><b>② 年齢は「40〜65歳以上を優先（Metaの判断で40歳未満にも少し出ることがある）」でよいか</b>厳密に40歳以上だけにする設定もできますが、Metaの自動最適化が効きにくくなり、1件あたりの単価が上がりやすくなります</li>
-  <li><b>③ 上の表で、認識と違うところがないか</b></li>
-  <li><b>④ 小池さん：現場（受け入れ・架電体制）として、火曜（11/17）からの開始で問題ないか</b>リードはTeamsの通知グループと10_リード台帳に自動で届きます。お電話の希望時間帯（平日9〜12時／12〜17時／17〜19時／いつでもよい）もフォームで聞いています</li>
-</ul>
+  // nav (layers + chips)
+  var ll=document.getElementById('layerList'), ch=document.getElementById('chips');
+  var all=document.createElement('button'); all.textContent='全体'; all.dataset.go='all'; all.onclick=function(){fit(true)}; ch.appendChild(all);
+  frames.forEach(function(f){
+    var li=document.createElement('li'), b=document.createElement('button');
+    b.innerHTML='<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3.5 1v10M8.5 1v10M1 3.5h10M1 8.5h10"/></svg><span></span>';
+    b.querySelector('span').textContent=f.dataset.name; b.dataset.go=f.dataset.name; b.onclick=function(){zoomTo(f)};
+    li.appendChild(b); ll.appendChild(li);
+    var c=document.createElement('button'); c.textContent=f.dataset.name; c.dataset.go=f.dataset.name; c.onclick=function(){zoomTo(f)}; ch.appendChild(c);
+  });
+  document.getElementById('fit').onclick=function(){fit(true)};
+  document.getElementById('zlabel').onclick=function(){fit(true)};
+  document.getElementById('zin').onclick=function(){var r=vp.getBoundingClientRect();zoomAt(1.25,r.width/2,r.height/2,true)};
+  document.getElementById('zout').onclick=function(){var r=vp.getBoundingClientRect();zoomAt(0.8,r.width/2,r.height/2,true)};
 
-<footer>このまち電気 Meta広告 配信設定ボード｜HEROES 伊藤｜2026-11-14｜広告アカウント「このまち電気」（アイ・ステーション）</footer>
-</div>
+  // wheel: pan / ctrl+wheel zoom (trackpad pinch)
+  vp.addEventListener('wheel',function(e){
+    e.preventDefault(); var r=vp.getBoundingClientRect();
+    if(e.ctrlKey||e.metaKey){zoomAt(Math.exp(-e.deltaY*0.01),e.clientX-r.left,e.clientY-r.top,false)}
+    else{x-=e.deltaX;y-=e.deltaY;apply(false)}
+  },{passive:false});
+
+  // pointer: drag pan, pinch zoom, tap to focus
+  var pts={}, start=null, pinch=null, moved=false, lastTap=0;
+  vp.addEventListener('pointerdown',function(e){
+    vp.setPointerCapture(e.pointerId); pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(pts);
+    if(ids.length===1){start={x:e.clientX,y:e.clientY,ox:x,oy:y,t:Date.now(),target:e.target};moved=false;}
+    if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];pinch={d:Math.hypot(a.x-b.x,a.y-b.y),s:s,x:x,y:y,mx:(a.x+b.x)/2,my:(a.y+b.y)/2};moved=true;}
+  });
+  vp.addEventListener('pointermove',function(e){
+    if(!pts[e.pointerId])return; pts[e.pointerId]={x:e.clientX,y:e.clientY};
+    var ids=Object.keys(pts), r=vp.getBoundingClientRect();
+    if(ids.length>=2&&pinch){
+      var a=pts[ids[0]],b=pts[ids[1]], d=Math.hypot(a.x-b.x,a.y-b.y), mx=(a.x+b.x)/2, my=(a.y+b.y)/2;
+      var ns=Math.max(MIN,Math.min(MAX,pinch.s*d/pinch.d)), f=ns/pinch.s;
+      var px=pinch.mx-r.left, py=pinch.my-r.top;
+      s=ns; x=px-(px-pinch.x)*f+(mx-pinch.mx); y=py-(py-pinch.y)*f+(my-pinch.my); apply(false);
+    }else if(start){
+      var dx=e.clientX-start.x, dy=e.clientY-start.y;
+      if(!moved&&Math.hypot(dx,dy)>6){moved=true;vp.classList.add('drag');}
+      if(moved){x=start.ox+dx;y=start.oy+dy;apply(false);}
+    }
+  });
+  function end(e){
+    var wasPinch=Object.keys(pts).length>=2;
+    delete pts[e.pointerId]; vp.classList.remove('drag');
+    if(Object.keys(pts).length<2)pinch=null;
+    if(Object.keys(pts).length===1){var k=Object.keys(pts)[0];start={x:pts[k].x,y:pts[k].y,ox:x,oy:y,t:Date.now()};moved=true;return;}
+    if(!wasPinch&&start&&!moved&&e.type==='pointerup'){
+      var now=Date.now(), fr=start.target&&start.target.closest?start.target.closest('.frame'):null;
+      if(fr&&fr!==sel){zoomTo(fr);}
+      else if(!fr&&now-lastTap<320){fit(true);}
+      lastTap=now;
+    }
+    start=null;
+  }
+  vp.addEventListener('pointerup',end); vp.addEventListener('pointercancel',end);
+  document.addEventListener('gesturestart',function(e){e.preventDefault()});
+  window.addEventListener('keydown',function(e){
+    if(e.shiftKey&&e.key==='!'){fit(true)}
+    if(e.shiftKey&&(e.key==='1'||e.code==='Digit1')){fit(true)}
+    if(e.key==='Escape'){fit(true)}
+  });
+  window.addEventListener('resize',function(){layout(false);sel?zoomTo(sel):fit(false)});
+  function boot(){layout(true);fit(false);setTimeout(function(){document.getElementById('hint').classList.add('hide')},3200);}
+  var imgs=[].slice.call(cv.querySelectorAll('img')), left=imgs.length;
+  if(!left)boot(); else { boot(); imgs.forEach(function(im){ if(im.complete){if(--left===0){layout(true);fit(false)}} else im.addEventListener('load',function(){if(--left===0&&!sel){layout(true);fit(false)}}) }); }
+})();
+</script>
 </body>
 </html>
