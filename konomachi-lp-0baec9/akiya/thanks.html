@@ -22,10 +22,13 @@ img{max-width:100%;height:auto;display:block}
 p{margin:0}
 .preview{background:var(--ink);color:#fff;font-size:12.5px;line-height:1.5;text-align:center;padding:6px var(--gut)}
 .hdr{background:#fff;border-bottom:1px solid var(--line)}
-.hdr .wrap{display:flex;align-items:center;min-height:60px}
+.hdr .wrap{display:flex;align-items:center;gap:16px;min-height:60px}
 .wrap{max-width:720px;margin:0 auto;padding-inline:var(--gut)}
-.op{margin:0;font-size:12px;line-height:1.45}
-.op b{display:block;font-size:13px}
+/* ロゴ：ロゴ使用マニュアルに合わせ、白い地の上で周りにロゴの高さの0.3倍以上の空きを取る */
+.logo{height:34px;width:auto;padding-block:10px;box-sizing:content-box;flex:none}
+.op{margin:0 0 0 auto;font-size:11.5px;line-height:1.45;text-align:right}
+.op b{display:block;font-size:12.5px;white-space:nowrap}
+@media (max-width:380px){.logo{height:28px}.op{font-size:10.5px}.op b{font-size:11.5px}}
 main{padding-block:44px 64px}
 .card{background:#fff;border-radius:20px;padding:30px 22px;box-shadow:0 18px 40px -26px rgba(11,85,102,.5);text-align:center}
 .ok{display:grid;place-items:center;width:60px;height:60px;margin:0 auto;border-radius:50%;background:var(--t);color:#fff}
@@ -44,7 +47,7 @@ h1{margin:14px 0 0;font-family:var(--maru);font-weight:900;font-size:clamp(24px,
 </head>
 <body>
 <div class="preview">確認用ページ（公開前）です。</div>
-<header class="hdr"><div class="wrap"><p class="op">このまち電気 媒介店<b>株式会社アイ・ステーション</b></p></div></header>
+<header class="hdr"><div class="wrap"><img class="logo" src="img/konomachi_logo.png" width="821" height="174" alt="このまち電気"><p class="op">このまち電気 媒介店<b>株式会社アイ・ステーション</b></p></div></header>
 <main>
   <div class="wrap">
     <div class="card">

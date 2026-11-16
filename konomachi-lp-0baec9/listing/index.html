@@ -40,10 +40,11 @@ ul,ol{margin:0;padding:0;list-style:none}
 .preview{background:var(--ink);color:#fff;font-size:12.5px;line-height:1.5;text-align:center;padding:6px var(--gut)}
 
 /* ヘッダー */
-.hdr{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.hdr .wrap{display:flex;align-items:center;gap:12px;min-height:60px}
-.hdr .logo{height:34px;width:auto}
-.hdr .op{margin-right:auto;font-size:11.5px;line-height:1.45;text-align:left}
+/* ロゴ：広島ガスのロゴ使用マニュアル（よこ組・タグライン入り＝ロゴの高さの0.25倍以上の余白）に合わせ、白い地の上に置き、周りに0.3倍以上の空きを取る */
+.hdr{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:16px;min-height:60px}
+.hdr .logo{height:34px;width:auto;padding-block:10px;box-sizing:content-box;flex:none}
+.hdr .op{margin-left:auto;font-size:11.5px;line-height:1.45;text-align:right}
 .hdr .op b{display:block;font-size:12.5px}
 .hdr .hbtn{display:none}
 
@@ -77,6 +78,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .ba .before .num::after{content:"";position:absolute;left:-4%;right:-4%;top:52%;height:3px;background:var(--ink);transform:rotate(-8deg)}
 .ba .before .num small,.ba .after .num small{font-size:.5em;margin-left:2px}
 .ba .num .m{margin:0 2px 0 0}
+.ba .before .num,.ba .after .num{white-space:nowrap}
 .ba .tax{display:block;margin-top:4px;font-size:12px;font-weight:700;line-height:1.3}
 .ba .to{align-self:center;color:var(--t);margin-bottom:6px}
 .ba .to svg{width:26px;height:26px}
@@ -177,8 +179,9 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
 
 /* フッター */
 .ftr{background:var(--ink);color:#fff;padding-block:40px 120px;font-size:14px;line-height:1.75}
-.ftr .logo{height:30px;width:auto;background:#fff;border-radius:8px;padding:4px 8px;box-sizing:content-box}
-.ftr dl{margin:0;display:grid;gap:10px}
+/* 濃い色の上なのでロゴの下に白い地を敷き、白い地の内側にロゴの高さの0.3倍以上の余白を取る（以前は上下4pxで不足していた） */
+.ftr .logo{height:30px;width:auto;background:#fff;border-radius:8px;padding:10px 12px;box-sizing:content-box}
+.ftr dl{margin:20px 0 0;display:grid;gap:10px}
 .ftr dd a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .ftr dt{font-weight:700;color:var(--y)}
 .ftr dd{margin:0}
@@ -218,15 +221,27 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
   body{font-size:18px}
   .hdr .wrap{min-height:72px}
   .hdr .logo{height:40px}
-  .hdr .op{margin-right:auto}
+  .hdr .op{margin-left:auto}
   .hdr .hbtn{display:inline-flex;width:auto;min-height:48px;font-size:16px;padding:8px 18px 8px 22px;box-shadow:0 4px 0 #b89300}
   .hdr .hbtn .arw{width:26px;height:26px}
-  .fv{padding-block:64px 80px}
+  .fv{padding-block:44px 60px;text-align:center}
   .fv::before{right:-80px;top:-160px;width:620px;height:620px}
-  .fv .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
-  .ba{margin-top:0;padding:28px 28px 0}
-  .ba .save{margin:22px -28px 0}
-  .fv .cta{max-width:460px}
+  /* 11/16 小林さん「左右で高さが違い、目の移動がつかれる」→ PCも縦1列に */
+  .fv .grid{max-width:780px}
+  .fv h1{font-size:52px}
+  .fv h1 .sp-br{display:none}
+  .lead{margin-top:16px}
+  .ba{max-width:640px;margin:26px auto 0;padding:22px 32px 0;text-align:left}
+  .ba .row{grid-template-columns:1fr auto 1fr;align-items:stretch;gap:20px}
+  .ba .before,.ba .after{display:flex;flex-direction:column;align-items:flex-start}
+  .ba .before{padding:14px 0 12px 6px}
+  .ba .after{padding:14px 18px 12px}
+  .ba .before .num,.ba .after .num{margin-top:auto}
+  .ba .who{font-size:14px}
+  .ba .before .num{font-size:44px}
+  .ba .save{margin:22px -32px 0}
+  .fv .cta{max-width:460px;margin:28px auto 0}
+  .fine{max-width:640px;margin:22px auto 0;text-align:left;font-size:13px}
   .sec{padding-block:96px}
   .steps{grid-template-columns:repeat(3,1fr)}
   .step{grid-template-columns:1fr;padding:24px}
@@ -250,6 +265,7 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
 
 <header class="hdr">
   <div class="wrap">
+    <img class="logo" src="img/konomachi_logo.png" width="821" height="174" alt="このまち電気">
     <p class="op">このまち電気 媒介店<b>株式会社アイ・ステーション</b></p>
     <a class="btn hbtn" href="#form">無料で料金を比べる<span class="arw" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
   </div>
@@ -261,12 +277,8 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
   <div class="wrap grid">
     <div>
       <span class="eyebrow"><i></i>関東で電気の切り替えを考えている方へ</span>
-      <h1><span class="k nb">このまち電気</span>なら、<br>基本料金が<br><span class="big"><mark>約4割</mark>安い。</span></h1>
+      <h1><span class="k nb">このまち電気</span>なら、<br>基本料金が<br class="sp-br"><span class="big"><mark>約4割</mark>安い。</span></h1>
       <p class="lead">今の電力会社の<strong>解約手続きは必要ありません。</strong><br>申し込むだけで、切り替えまで完了します。</p>
-      <div class="cta pc-cta" hidden>
-        <a class="btn" href="#form">無料で料金を比べる<span class="arw" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-        <p class="micro">必須は4項目だけ・約30秒。<span class="nb">ここで契約にはなりません。</span></p>
-      </div>
     </div>
     <div>
       <div class="ba" role="group" aria-label="基本料金の比較">
@@ -437,6 +449,7 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
 
 <footer class="ftr">
   <div class="wrap">
+    <img class="logo" src="img/konomachi_logo.png" width="821" height="174" alt="このまち電気">
     <dl>
       <div><dt>このページの運営</dt><dd>株式会社アイ・ステーション（このまち電気の媒介店）<br>〒170-0013 東京都豊島区東池袋1-25-9 タカセビル別館5F</dd></div>
       <div><dt>電気の提供（小売電気事業者）</dt><dd>広島ガス株式会社（登録番号 A0822）</dd></div>
@@ -472,11 +485,6 @@ tbody tr.hl th,tbody tr.hl td{box-shadow:inset 0 2px 0 var(--y),inset 0 -2px 0 v
     new IntersectionObserver(function(es){ fvOut = !es[0].isIntersecting; upd(); }).observe(fv);
     new IntersectionObserver(function(es){ formIn = es[0].isIntersecting; upd(); }, { rootMargin: '0px 0px -20% 0px' }).observe(form);
   }
-
-  // PCではボタンを左の列に出す
-  var mq = window.matchMedia('(min-width:900px)');
-  function place(){ document.querySelector('.pc-cta').hidden = !mq.matches; document.querySelector('.sp-cta').hidden = mq.matches; }
-  place(); (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place));
 
   // 入力チェック（送信先は公開前につなぐ。いまはサンクスページへ移動するだけ）
   var f = document.getElementById('f');

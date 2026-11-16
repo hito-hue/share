@@ -40,10 +40,11 @@ ul,ol{margin:0;padding:0;list-style:none}
 .preview{background:var(--ink);color:#fff;font-size:12.5px;line-height:1.5;text-align:center;padding:6px var(--gut)}
 
 /* ヘッダー */
-.hdr{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.hdr .wrap{display:flex;align-items:center;gap:12px;min-height:58px}
-.hdr .logo{height:32px;width:auto}
-.hdr .op{margin-right:auto;font-size:11px;line-height:1.45;text-align:left}
+/* ロゴ：広島ガスのロゴ使用マニュアル（よこ組・タグライン入り＝ロゴの高さの0.25倍以上の余白）に合わせ、白い地の上に置き、周りに0.3倍以上の空きを取る */
+.hdr{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:16px;min-height:58px}
+.hdr .logo{height:32px;width:auto;padding-block:10px;box-sizing:content-box;flex:none}
+.hdr .op{margin-left:auto;font-size:11px;line-height:1.45;text-align:right}
 .hdr .op b{display:block;font-size:12px;white-space:nowrap}
 .hdr .hbtn{display:none}
 
@@ -143,8 +144,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* フッター */
 .ftr{background:var(--ink);color:#fff;padding-block:36px 120px;font-size:13.5px;line-height:1.75}
-.ftr .logo{height:28px;width:auto;background:#fff;border-radius:8px;padding:4px 8px;box-sizing:content-box}
-.ftr dl{margin:0;display:grid;gap:10px}
+/* 濃い色の上なのでロゴの下に白い地を敷き、白い地の内側にロゴの高さの0.3倍以上の余白を取る（以前は上下4pxで不足していた） */
+.ftr .logo{height:28px;width:auto;background:#fff;border-radius:8px;padding:10px 12px;box-sizing:content-box}
+.ftr dl{margin:18px 0 0;display:grid;gap:10px}
 .ftr dd a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .ftr dt{font-weight:700;color:var(--y)}
 .ftr dd{margin:0}
@@ -211,6 +213,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 <header class="hdr">
   <div class="wrap">
+    <img class="logo" src="img/konomachi_logo.png" width="821" height="174" alt="このまち電気">
     <p class="op">このまち電気 媒介店<b>株式会社アイ・ステーション</b></p>
     <a class="btn hbtn" href="#form">無料で料金を比べる<span class="arw" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
   </div>
@@ -352,6 +355,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 <footer class="ftr">
   <div class="wrap">
+    <img class="logo" src="img/konomachi_logo.png" width="821" height="174" alt="このまち電気">
     <dl>
       <div><dt>このページの運営</dt><dd>株式会社アイ・ステーション（このまち電気の媒介店）<br>〒170-0013 東京都豊島区東池袋1-25-9 タカセビル別館5F</dd></div>
       <div><dt>電気の提供（小売電気事業者）</dt><dd>広島ガス株式会社（登録番号 A0822）</dd></div>
