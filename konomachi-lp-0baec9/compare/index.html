@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>LP修正 比較（10/29ご指摘分）</title>
+<style>
+:root{--ink:#14202b;--sub:#5b6773;--line:#dfe4e8;--t:#0d5866;--bg:#f5f7f8;--y:#f3c400}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.7}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 56px}
+h1{font-size:24px;margin:0 0 4px}.lead{color:var(--sub);margin:0 0 6px;font-size:14px}
+.links{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0 28px;font-size:14px}
+.links a{color:var(--t);word-break:break-all}
+.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:0 0 22px}
+.item h2{font-size:18px;margin:0 0 6px;display:flex;gap:10px;align-items:baseline}
+.no{background:var(--t);color:#fff;border-radius:999px;font-size:13px;padding:2px 10px;flex:none}
+.req{font-size:13.5px;color:var(--sub);margin:0 0 12px}
+.do{font-size:14px;margin:0 0 14px}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.col h3{font-size:13px;margin:0 0 6px;color:var(--sub)}.col.after h3{color:var(--t)}
+.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.shot img{display:block;width:100%;height:auto}
+.crop{max-height:420px;overflow:hidden}
+.lp{font-size:12px;font-weight:700;background:#eef3f4;color:var(--t);border-radius:6px;padding:1px 8px;margin:10px 0 6px;display:inline-block}
+.note{font-size:12.5px;color:var(--sub);margin:8px 0 0}
+@media (max-width:640px){.ba{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<h1>LP修正の比較（広島ガス様 10/29ご指摘 5点）</h1>
+<p class="lead">対象：空き家用LP／検索広告用LP（いずれもスマホ表示で比較）。左＝修正前、右＝修正後。</p>
+<div class="links">確認用ページ（修正後）<br>
+空き家用：<a href="../akiya/">https://hito-hue.github.io/share/konomachi-lp-0baec9/akiya/</a><br>
+検索広告用：<a href="../listing/">https://hito-hue.github.io/share/konomachi-lp-0baec9/listing/</a></div>
+
+<section class="item"><h2><span class="no">1</span>ヘッダーのこのまち電気ロゴを削除</h2>
+<p class="req">ご指摘：本LPはこのまち電気を紹介するサイトのため、すみわけとして削除。</p>
+<p class="do">2本とも、ヘッダー（画面左上）のロゴを削除し、運営者「このまち電気 媒介店 株式会社アイ・ステーション」の表示のみにしました。同じ趣旨で、フッターと送信完了ページのロゴも外しています。</p>
+<span class="lp">空き家用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot"><img src="img/akiya_before_hdr.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot"><img src="img/akiya_after_hdr.png"></div></div></div>
+<span class="lp">検索広告用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot"><img src="img/listing_before_hdr.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot"><img src="img/listing_after_hdr.png"></div></div></div>
+</section>
+
+<section class="item"><h2><span class="no">2</span>メリット額の注釈をそろえる</h2>
+<p class="req">ご指摘：「※基本料金の差額を12か月分で試算した金額です。」にそろえる。</p>
+<p class="do">検索広告用の注釈を差し替え、料金表の注記にも同じ説明を追加しました。空き家用はすでに同じ文言のため変更はありません。</p>
+<span class="lp">検索広告用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot"><img src="img/listing_before_save.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot"><img src="img/listing_after_save.png"></div></div></div>
+<div class="ba" style="margin-top:12px"><div class="col"><h3>修正前（料金表）</h3><div class="shot"><img src="img/listing_before_table.png"></div></div><div class="col after"><h3>修正後（料金表）</h3><div class="shot"><img src="img/listing_after_table.png"></div></div></div>
+</section>
+
+<section class="item"><h2><span class="no">3</span>料金説明の一文（口語表現）を修正</h2>
+<p class="req">ご指摘：「〜納得いただいてからの申し込みで大丈夫です」→「ご納得いただいたうえでお申し込みいただけますので、ご安心ください。」</p>
+<span class="lp">検索広告用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot"><img src="img/listing_before_shikumi.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot"><img src="img/listing_after_shikumi.png"></div></div></div>
+</section>
+
+<section class="item"><h2><span class="no">4</span>「違約金・解約金なし」→「解約金なし」</h2>
+<p class="req">ご指摘：電気供給約款38の精算金が違約金に相当すると受け止められるため、「解約金なし」のみに。</p>
+<p class="do">メリット一覧とよくある質問の2か所を修正しました（空き家用には該当の表記なし）。</p>
+<span class="lp">検索広告用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot"><img src="img/listing_before_merit.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot"><img src="img/listing_after_merit.png"></div></div></div>
+<div class="ba" style="margin-top:12px"><div class="col"><h3>修正前（よくある質問）</h3><div class="shot"><img src="img/listing_before_faq.png"></div></div><div class="col after"><h3>修正後（よくある質問）</h3><div class="shot"><img src="img/listing_after_faq.png"></div></div></div>
+</section>
+
+<section class="item"><h2><span class="no">5</span>プライバシーポリシー（準備中）を修正</h2>
+<p class="req">ご指摘：「準備中」になっているため修正。</p>
+<p class="do">2本とも、運営会社（株式会社アイ・ステーション）のプライバシーポリシーへのリンクにしました。フォームの同意文の「プライバシーポリシー」にも同じリンクを付けています。</p>
+<span class="lp">空き家用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot crop"><img src="img/akiya_before_footer.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot crop"><img src="img/akiya_after_footer.png"></div></div></div>
+<span class="lp">検索広告用</span><div class="ba"><div class="col"><h3>修正前</h3><div class="shot crop"><img src="img/listing_before_footer.png"></div></div><div class="col after"><h3>修正後</h3><div class="shot crop"><img src="img/listing_after_footer.png"></div></div></div>
+</section>
+</div></body></html>
