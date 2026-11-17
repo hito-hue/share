@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>hakamory｜キーワード×見出し×LP を一本の線に（設計図）</title>
+<link rel="icon" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Manrope:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans JP",sans-serif;color:#0d2135;background:#f3f6f8;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{background:#0d2135;color:#fff;padding:44px 0 92px}
+.top .k{font-size:.8rem;font-weight:700;letter-spacing:.12em;color:#8fe3dd}
+.top h1{font-size:clamp(1.5rem,3.4vw,2.3rem);font-weight:900;line-height:1.4;margin:.4rem 0 .8rem}
+.top p{max-width:46em;color:#c7d6e2;font-size:.95rem}
+.rule{margin-top:-60px;background:#fff;border-radius:18px;box-shadow:0 22px 50px -30px rgba(13,33,53,.45);padding:1.4rem 1.6rem;display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:center}
+.eq{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;font-weight:900;font-size:1.05rem}
+.eq span{background:#eef4f5;border-radius:10px;padding:.45rem .8rem} .eq span small{display:block;font-size:.68rem;font-weight:700;color:#4a6075}
+.eq i{font-style:normal;color:#0e8f88;font-size:1.2rem}
+.rule p{font-size:.88rem;color:#4a6075} .rule p b{color:#0d2135}
+.line{background:#fff;border-radius:18px;margin:26px 0;overflow:hidden;box-shadow:0 14px 34px -26px rgba(13,33,53,.45);border-top:5px solid var(--c)}
+.line>header{display:flex;align-items:center;gap:.8rem;padding:1.1rem 1.4rem .2rem}
+.line .tag{background:var(--c);color:#fff;font-weight:900;font-size:.85rem;border-radius:999px;padding:.2rem .8rem;flex:none}
+.line h2{font-size:1.25rem;font-weight:900}
+.flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;padding:.8rem .6rem 1rem;position:relative}
+.flow3>section{padding:.6rem .9rem 0;position:relative}
+.flow3>section+section::before{content:"→";position:absolute;left:-.6em;top:.45rem;color:var(--c);font-weight:900;font-size:1.2rem}
+.flow3 h3{display:flex;align-items:center;gap:.5rem;font-size:.98rem;font-weight:900;margin-bottom:.6rem}
+.flow3 h3 b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c);color:#fff;font-size:.78rem;font-family:Manrope}
+.flow3 h3 small{font-size:.7rem;color:#6b7c88;font-weight:700;margin-left:auto;background:#f3f6f8;border-radius:6px;padding:.1rem .45rem}
+.who{font-size:.82rem;color:#4a6075;margin-bottom:.6rem}
+ul{list-style:none}
+.kw li{display:grid;grid-template-columns:1fr auto;gap:0 .5rem;font-size:.84rem;padding:.32rem 0;border-bottom:1px dashed #e2eaed}
+.kw li em{font-style:normal;font-family:Manrope;font-weight:800;font-size:.78rem;color:#0d2135}
+.kw li small{grid-column:1/-1;font-size:.68rem;color:#8a9aa5}
+.sum{margin-top:.6rem;font-weight:900;font-size:.9rem;color:var(--c)}
+.promise{font-weight:900;font-size:.98rem;background:#f7f9fa;border-left:4px solid var(--c);padding:.6rem .8rem;border-radius:0 10px 10px 0;margin-bottom:.7rem;line-height:1.55}
+.hd li{font-size:.86rem;padding:.38rem .6rem;background:#fff;border:1px solid #e2eaed;border-radius:8px;margin-bottom:.35rem;display:flex;justify-content:space-between;gap:.5rem}
+.hd li em{font-style:normal;font-family:Manrope;font-size:.72rem;color:#8a9aa5;flex:none}
+.hd.desc li{font-size:.8rem;background:#f9fbfb}
+details{margin-top:.5rem} summary{cursor:pointer;font-size:.76rem;color:#0e6f8a;font-weight:700}
+details .all{margin-top:.5rem}
+.fv{border:1px solid #e2eaed;border-radius:12px;padding:.9rem .9rem 1rem;background:linear-gradient(180deg,#f7fbfb,#fff)}
+.fvl{font-size:.68rem;font-weight:800;color:#6b7c88}
+.fvh{font-weight:900;font-size:1.02rem;line-height:1.5;margin:.25rem 0 .6rem}
+.fvb{display:flex;flex-direction:column;gap:.35rem}
+.fvb span{font-size:.78rem;font-weight:800;border-radius:999px;padding:.38rem .8rem;text-align:center}
+.fvb .p{background:var(--c);color:#fff} .fvb .g{border:1.5px solid #d5dfe3;color:#0d2135}
+.order{font-size:.78rem;color:#4a6075;margin:.7rem 0 .8rem} .order b{display:block;color:#0d2135;font-size:.74rem}
+.open{display:block;text-align:center;background:#0d2135;color:#fff;text-decoration:none;font-weight:900;border-radius:12px;padding:.8rem;font-size:.95rem}
+.open:hover{background:var(--c)}
+.line>footer{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;padding:.8rem 1.4rem 1rem;background:#f7f9fa;font-size:.8rem;color:#4a6075}
+.line>footer b{color:#0d2135;margin-right:.5em}
+.box{background:#fff;border-radius:18px;padding:1.3rem 1.5rem;margin:26px 0;box-shadow:0 14px 34px -26px rgba(13,33,53,.45)}
+.box h2{font-size:1.08rem;font-weight:900;margin-bottom:.7rem}
+.ex li{display:grid;grid-template-columns:15em 1fr;gap:.8rem;font-size:.85rem;padding:.45rem 0;border-bottom:1px dashed #e2eaed}
+.ex b{font-weight:700} .ex span{color:#4a6075}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two .box{margin:0}
+.two p,.two li{font-size:.86rem;color:#4a6075} .two li{padding:.3rem 0 .3rem 1.1em;position:relative} .two li::before{content:"・";position:absolute;left:0}
+.foot{text-align:center;font-size:.74rem;color:#8a9aa5;padding:24px 0 40px}
+@media(max-width:900px){.flow3{grid-template-columns:1fr}.flow3>section+section{margin-top:1rem;padding-top:1rem;border-top:1px solid #eef2f4}
+ .flow3>section+section::before{content:"↓";left:50%;top:-.95rem;background:#fff;padding:0 .4rem;transform:translateX(-50%)}
+ .rule{grid-template-columns:1fr} .two{grid-template-columns:1fr} .ex li{grid-template-columns:1fr;gap:.1rem}}
+</style></head><body>
+<div class="top"><div class="wrap">
+  <div class="k">hakamory リスティング広告 ／ 設計図（案）</div>
+  <h1>キーワード × 見出し × LP を、<br>「点」ではなく「一本の線」に。</h1>
+  <p>探している人の種類ごとに、キーワード・見出し・LPを1対1対1でそろえました。広告をクリックした人が「自分のための話だ」と感じたまま、申込みまで進めるようにするためです。</p>
+</div></div>
+<div class="wrap">
+  <div class="rule">
+    <div class="eq"><span><small>誰に</small>KW＝ターゲティング</span><i>×</i><span><small>何を約束</small>見出し＝訴求</span><i>→</i><span><small>約束を回収</small>LP＝ナーチャリング</span></div>
+    <p><b>KWと見出しの組み合わせが変われば、LPも変える。</b>検索数の少ない市場で複数のKWに当てるため、LPを3本に分けました。3本とも同じ元ページから自動で作るので、料金・機能・FAQなど共通部分は1か所直せば3本に反映されます（修正の手間は1本分）。</p>
+  </div>
+  
+<article class="line" style="--c:#0e8f88">
+  <header><span class="tag">線A</span><h2>紙・Excelで管理している人</h2></header>
+  <div class="flow3">
+    <section><h3><b>1</b>KW＝誰に<small>ターゲティング</small></h3>
+      <p class="who">まだシステムを入れていない霊園・寺院の事務担当。紙やExcelの台帳に困っていて「台帳 クラウド」「墓地管理 エクセル」のように、困りごとの言葉で探す人。</p>
+      <ul class="kw"><li><span>墓地管理台帳</span><em>10〜100</em><small>フレーズ</small></li><li><span>墓地管理エクセル</span><em>0〜10</em><small>フレーズ</small></li><li><span>墓地区画管理</span><em>0〜10</em><small>フレーズ</small></li><li><span>霊園管理クラウド</span><em>0〜10</em><small>フレーズ</small></li><li><span>霊園dx</span><em>0〜10</em><small>フレーズ</small></li><li><span>管理料請求システム</span><em>0〜10</em><small>フレーズ</small></li><li><span>墓地管理</span><em>100〜1000</em><small>完全一致・テスト</small></li><li><span>霊園管理</span><em>10〜100</em><small>完全一致・テスト</small></li></ul>
+      <p class="sum">8語／月 120〜1,250回</p></section>
+    <section><h3><b>2</b>見出し＝何を約束<small>訴求</small></h3>
+      <p class="promise">「Excelの台帳がどう変わるかを、まず30秒で体験してもらう」</p>
+      <ul class="hd"><li><span>墓地台帳をExcelからクラウドへ</span></li><li><span>台帳のクラウド化を30秒で体験</span></li><li><span>紙・Excelの台帳を1画面に</span></li><li><span>検索ですぐ見つかる墓地台帳</span></li></ul>
+      <details><summary>見出し15本・説明文4本をすべて見る（右の数字は文字数／上限 見出し30・説明文90）</summary>
+        <ul class="hd all"><li><span>墓地台帳をExcelからクラウドへ</span><em>29</em></li><li><span>台帳のクラウド化を30秒で体験</span><em>28</em></li><li><span>紙・Excelの台帳を1画面に</span><em>24</em></li><li><span>検索ですぐ見つかる墓地台帳</span><em>26</em></li><li><span>最新版探しのExcelから卒業</span><em>25</em></li><li><span>担当者しか分からない台帳を解消</span><em>30</em></li><li><span>年間管理料の請求まで1画面で</span><em>27</em></li><li><span>口座振替データも作成できる</span><em>26</em></li><li><span>未納の確認も一覧でひと目</span><em>24</em></li><li><span>3か月無料で実務に試せる</span><em>23</em></li><li><span>1区画 月50円（税抜）から</span><em>24</em></li><li><span>インストール不要・普段のPCで</span><em>28</em></li><li><span>台帳の登録方法もご案内</span><em>22</em></li><li><span>クラウド型 霊園管理システム</span><em>27</em></li><li><span>霊園管理システム hakamory</span><em>25</em></li></ul><ul class="hd all desc"><li><span>紙・Excelの墓地台帳を、普段のパソコンで使えるクラウドへ。区画・使用者・請求を1画面に。</span><em>86</em></li><li><span>Excelの台帳がどう変わるか、ページ上で30秒で体験できます。登録方法は担当者がご案内します。</span><em>89</em></li><li><span>最初の3か月は月額無料。年間管理料の請求まで、実際の業務で一度回してから判断できます。</span><em>85</em></li><li><span>月額利用料は区画数で決まり、担当者を増やしても同じ。1区画50円（税抜）からです。</span><em>79</em></li></ul></details></section>
+    <section><h3><b>3</b>LP＝約束を回収<small>ナーチャリング</small></h3>
+      <div class="fv"><span class="fvl">1画面目</span><p class="fvh">紙とExcelの墓地台帳を、そのままクラウドへ。</p>
+        <div class="fvb"><span class="p">紙・Excelのクラウド化を試す（30秒）</span><span class="g">3か月無料で試す</span></div></div>
+      <p class="order"><b>並び順</b>1画面目 → 30秒体験 → お悩み → 選ばれる理由 → 霊園/寺院 → 機能 → 比較 → 料金 → 実績 → FAQ → 申込み</p>
+      <a class="open" href="./a/">LP A を開く →</a></section>
+  </div>
+  <footer><span><b>見る数字</b>体験ボタンを押した割合 → そこからの申込み率</span><span><b>メモ</b>指名検索（hakamory／ハカモリー）もこのLPへ</span></footer>
+</article>
+<article class="line" style="--c:#1b6fa8">
+  <header><span class="tag">線B</span><h2>システムを比較中・他社ソフトから乗り換えたい人</h2></header>
+  <div class="flow3">
+    <section><h3><b>1</b>KW＝誰に<small>ターゲティング</small></h3>
+      <p class="who">「霊園管理システム」「霊園管理ソフト」のように製品の名前で探す人。すでにインストール型・専用端末のソフトを使っていて、比べて選びたい管理事務所が中心。</p>
+      <ul class="kw"><li><span>霊園管理システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>墓地管理システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>霊園管理ソフト</span><em>10〜100</em><small>フレーズ</small></li><li><span>墓地管理ソフト</span><em>10〜100</em><small>フレーズ</small></li><li><span>霊園システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>墓地システム</span><em>0〜10</em><small>フレーズ</small></li><li><span>納骨堂管理システム</span><em>0〜10</em><small>フレーズ</small></li><li><span>（競合の社名）</span><em>0〜10</em><small>完全一致</small></li><li><span>（競合の製品名）</span><em>0〜10</em><small>完全一致</small></li></ul>
+      <p class="sum">9語／月 50〜540回</p></section>
+    <section><h3><b>2</b>見出し＝何を約束<small>訴求</small></h3>
+      <p class="promise">「今のソフトはそのままに3か月並べて試せる（月額利用料0円）＋移行方法をご案内」</p>
+      <ul class="hd"><li><span>今のソフトのまま3か月お試し</span></li><li><span>移行方法も担当者がご案内</span></li><li><span>並べて比べてから切り替え</span></li><li><span>インストール不要の霊園管理</span></li></ul>
+      <details><summary>見出し15本・説明文4本をすべて見る（右の数字は文字数／上限 見出し30・説明文90）</summary>
+        <ul class="hd all"><li><span>今のソフトのまま3か月お試し</span><em>27</em></li><li><span>移行方法も担当者がご案内</span><em>24</em></li><li><span>並べて比べてから切り替え</span><em>24</em></li><li><span>インストール不要の霊園管理</span><em>26</em></li><li><span>PC買い替えでも入れ直し不要</span><em>26</em></li><li><span>専用端末・サーバー不要</span><em>22</em></li><li><span>他社システムから乗り換え実績</span><em>28</em></li><li><span>今の台帳データの移行も相談</span><em>26</em></li><li><span>1区画 月50円（税抜）から</span><em>24</em></li><li><span>担当者が増えても月額同じ</span><em>24</em></li><li><span>区画数を伝えて無料見積もり</span><em>26</em></li><li><span>口座振替データも作成できる</span><em>26</em></li><li><span>月額利用料 最初の3か月0円</span><em>25</em></li><li><span>クラウド型 霊園管理システム</span><em>27</em></li><li><span>霊園管理システム hakamory</span><em>25</em></li></ul><ul class="hd all desc"><li><span>今お使いの霊園管理ソフトはそのままに、最初の3か月は月額利用料0円で並べて試せます。</span><em>82</em></li><li><span>他社システムからの乗り換え実績あり。今のデータ形式を伺い、移行方法を担当者がご案内します。</span><em>90</em></li><li><span>パソコンの買い替えやWindows更新でも入れ直し不要。データは自動でバックアップされます。</span><em>85</em></li><li><span>月額利用料は区画数で決まり、担当者を増やしても同じ。1区画50円（税抜）からです。</span><em>79</em></li></ul></details></section>
+    <section><h3><b>3</b>LP＝約束を回収<small>ナーチャリング</small></h3>
+      <div class="fv"><span class="fvl">1画面目</span><p class="fvh">今の霊園管理ソフトはそのままに。3か月、月額0円で並べて試せます。</p>
+        <div class="fvb"><span class="p">3か月無料で試す</span><span class="g">乗り換えの流れを見る</span></div></div>
+      <p class="order"><b>並び順</b>1画面目 → 乗り換えの流れ（併用の期間・4ステップ・実績） → 比較表 → 乗り換え実績 → 選ばれる理由 → 料金 → 機能 → 霊園/寺院 → FAQ（併用・移行） → 申込み</p>
+      <a class="open" href="./b/">LP B を開く →</a></section>
+  </div>
+  <footer><span><b>見る数字</b>申込み率・電話の件数（比較中の人なので、料金と移行の不安を先に消す）</span><span><b>メモ</b>競合の社名・製品名は広告文に入れず、キーワードとしてだけ使う</span></footer>
+</article>
+<article class="line" style="--c:#8a5a2b">
+  <header><span class="tag">線C</span><h2>寺院・檀家の管理を探している人</h2></header>
+  <div class="flow3">
+    <section><h3><b>1</b>KW＝誰に<small>ターゲティング</small></h3>
+      <p class="who">寺院墓地を管理する住職・寺務の方。「檀家 管理」「寺院 管理ソフト」で探す。他社の檀家管理ソフトが広告を出している激戦の言葉。</p>
+      <ul class="kw"><li><span>檀家管理</span><em>10〜100</em><small>フレーズ</small></li><li><span>檀家管理ソフト</span><em>10〜100</em><small>フレーズ</small></li><li><span>檀家管理システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>檀家システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>檀家管理クラウド</span><em>10〜100</em><small>フレーズ</small></li><li><span>檀家管理エクセル</span><em>10〜100</em><small>フレーズ</small></li><li><span>寺院管理システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>寺院管理ソフト</span><em>10〜100</em><small>フレーズ</small></li><li><span>寺院システム</span><em>10〜100</em><small>フレーズ</small></li><li><span>寺管理ソフト</span><em>10〜100</em><small>フレーズ</small></li><li><span>お寺管理システム</span><em>0〜10</em><small>フレーズ</small></li><li><span>寺院dx</span><em>0〜10</em><small>フレーズ</small></li><li><span>寺院管理ソフト評判</span><em>10〜100</em><small>フレーズ</small></li><li><span>寺務システム</span><em>0〜10</em><small>フレーズ</small></li></ul>
+      <p class="sum">14語／月 110〜1,130回</p></section>
+    <section><h3><b>2</b>見出し＝何を約束<small>訴求</small></h3>
+      <p class="promise">「寺院墓地の台帳（区画・ご家族・承諾書・宛名）を1画面で。1区画から」</p>
+      <ul class="hd"><li><span>寺院墓地の台帳をクラウドへ</span></li><li><span>寺院墓地の管理システム</span></li><li><span>檀家さんの墓地情報を1画面に</span></li><li><span>ご家族の情報までまとめて登録</span></li></ul>
+      <details><summary>見出し15本・説明文4本をすべて見る（右の数字は文字数／上限 見出し30・説明文90）</summary>
+        <ul class="hd all"><li><span>寺院墓地の台帳をクラウドへ</span><em>26</em></li><li><span>寺院墓地の管理システム</span><em>22</em></li><li><span>檀家さんの墓地情報を1画面に</span><em>27</em></li><li><span>ご家族の情報までまとめて登録</span><em>28</em></li><li><span>永代使用承諾書をシステムで発行</span><em>30</em></li><li><span>宛名ラベルも登録情報から作成</span><em>28</em></li><li><span>住職が外出先からも台帳を確認</span><em>28</em></li><li><span>小さな寺院墓地でも1区画から</span><em>27</em></li><li><span>寺院での導入実績あり</span><em>20</em></li><li><span>3か月無料で実務に試せる</span><em>23</em></li><li><span>1区画 月50円（税抜）から</span><em>24</em></li><li><span>紙・Excelの台帳から移行を相談</span><em>29</em></li><li><span>インストール不要・普段のPCで</span><em>28</em></li><li><span>樹木葬・納骨堂の管理にも対応</span><em>28</em></li><li><span>30秒で画面のイメージを体験</span><em>26</em></li></ul><ul class="hd all desc"><li><span>寺院墓地の区画・使用者・ご家族の情報をひとつの画面に。住職が外出先からも確認できます。</span><em>86</em></li><li><span>永代使用承諾書の発行や宛名ラベルの作成まで。紙・Excelの台帳からの移行方法もご案内します。</span><em>89</em></li><li><span>最初の3か月は月額無料。1区画50円（税抜）から、小さな寺院墓地でも導入いただけます。</span><em>82</em></li><li><span>インストール不要。普段のパソコンのブラウザで使え、データは自動でバックアップされます。</span><em>86</em></li></ul></details></section>
+    <section><h3><b>3</b>LP＝約束を回収<small>ナーチャリング</small></h3>
+      <div class="fv"><span class="fvl">1画面目</span><p class="fvh">寺院墓地の台帳を、紙からクラウドへ。</p>
+        <div class="fvb"><span class="p">3か月無料で試す</span><span class="g">30秒で画面を体験</span></div></div>
+      <p class="order"><b>並び順</b>1画面目 → 寺院でできること（寺院を先に） → 30秒体験 → 選ばれる理由 → 機能 → 料金 → 実績（寺院を先に） → FAQ（檀家・過去帳） → 申込み</p>
+      <a class="open" href="./c/">LP C を開く →</a></section>
+  </div>
+  <footer><span><b>見る数字</b>クリック単価（檀家系は1クリック数百円〜）→ 上限を決めて少額テスト</span><span><b>メモ</b>過去帳・法要など墓地以外の寺務機能は書かない（無い機能で期待させない）</span></footer>
+</article>
+  <div class="box"><h2>外すキーワード（どのLPとも線がつながらないもの）</h2><ul class="ex"><li><b>お墓 管理</b><span>お墓の管理代行・お墓参り代行を探す一般の方が中心</span></li><li><b>墓地台帳（単体）</b><span>法律上の墓地台帳の調べ物・閲覧したい人</span></li><li><b>口座振替システム</b><span>月謝・会費など別業界。単価も高い</span></li><li><b>霊園経営・寺院経営</b><span>霊園を始めたい人・経営の調べ物</span></li><li><b>管理費・維持費・管理事務所・墓地管理士</b><span>墓地を使う一般の方・資格の調べ物</span></li><li><b>過去帳（単体）</b><span>個人で過去帳を作りたい人</span></li></ul></div>
+  <div class="two">
+    <div class="box"><h2>進め方</h2><ul>
+      <li>3本の線を同時に少額で出し、4週間で「クリック率・申込み率・1件あたりの費用」を線ごとに比べる</li>
+      <li>勝った線に予算を寄せ、負けた線は見出しかLPの1画面目を入れ替えて再テスト</li>
+      <li>広告の飛び先URLに線ごとの印（utm）を付け、申込み一覧で「どの線から来たか」が分かるようにする（入稿時に設定）</li>
+      <li>30秒体験のボタン・操作の記録は仕込み済み。計測タグを入れた時点で、押された割合を数えられる（動画版も追加費用なしで作れる）</li></ul></div>
+    <div class="box"><h2>先方に確認したいこと</h2><ul>
+      <li>乗り換え実績（3霊園）を広告文・LPで使ってよいか</li>
+      <li>データ移行はどこまで対応するか（費用の出し方）。確認が取れるまで、LPは「移行方法をご案内」の表現にとどめる</li>
+      <li>無料期間中に、今のソフトと併用して試す前提で書いてよいか／無料期間中に初期費用はかかるか</li>
+      <li>30秒体験の画面（見本の管理画面）を載せてよいか</li>
+      <li>寺院向けに、過去帳・法要など墓地以外の機能があるか</li></ul></div>
+  </div>
+  <p class="foot">確認用ページ（検索には表示されません）／LPのフォームからは送信されません／2026年11月17日作成<br>月間検索数はGoogleキーワードプランナーの幅表示（日本・日本語・直近12か月）</p>
+</div></body></html>
