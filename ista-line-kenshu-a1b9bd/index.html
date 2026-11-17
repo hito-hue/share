@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>拡張ツールを使ったLINE運用研修｜2026/11/18</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f1b2d; --ink:#1f2933; --sub:#5b6775; --line:#e3e8ee; --bg:#f5f7fa;
+  --green:#06c755; --green-d:#05a647; --green-l:#e7f9ee; --red:#d93838; --red-l:#fdecec; --amber:#b7791f; --amber-l:#fff6e0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#d9dee5}
+body{font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;top:50%;left:50%;width:1280px;height:720px;background:#fff;
+  transform-origin:center center;display:none;flex-direction:column;padding:56px 72px 48px;overflow:hidden;
+  box-shadow:0 10px 40px rgba(15,27,45,.18)}
+.slide.on{display:flex}
+.slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--green)}
+.kicker{font-size:18px;font-weight:700;color:var(--green-d);letter-spacing:.08em;margin-bottom:10px}
+h2{font-size:40px;line-height:1.35;font-weight:700;color:var(--navy);margin-bottom:28px}
+h2 small{display:block;font-size:20px;color:var(--sub);font-weight:400;margin-top:6px}
+p,li,td,th{font-size:22px;line-height:1.7}
+.foot{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:14px;color:#9aa5b1}
+.row{display:flex;gap:36px;flex:1;min-height:0}
+.col{flex:1;min-width:0;display:flex;flex-direction:column}
+.shot{border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 4px 16px rgba(15,27,45,.08);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+.shot.fit{flex:1;min-height:0;display:flex;align-items:flex-start}
+.shot.fit img{width:100%;height:100%;object-fit:cover;object-position:left top}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:52px;margin-bottom:16px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:2px;width:36px;height:36px;border-radius:50%;
+  background:var(--green);color:#fff;font-weight:700;font-size:19px;display:flex;align-items:center;justify-content:center}
+ul.dots{list-style:none}
+ul.dots li{position:relative;padding-left:26px;margin-bottom:10px}
+ul.dots li::before{content:"";position:absolute;left:4px;top:.72em;width:9px;height:9px;border-radius:50%;background:var(--green)}
+.box{border-radius:10px;padding:16px 20px;font-size:20px;line-height:1.65}
+.box b{font-weight:700}
+.box.warn{background:var(--red-l);border-left:6px solid var(--red)}
+.box.note{background:var(--amber-l);border-left:6px solid var(--amber)}
+.box.ok{background:var(--green-l);border-left:6px solid var(--green)}
+table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top;font-size:20px;line-height:1.55}
+th{background:var(--bg);color:var(--navy);font-weight:700}
+td.c,th.c{text-align:center}
+.o{color:var(--green-d);font-weight:700}
+.x{color:var(--red);font-weight:700}
+.t{color:var(--amber);font-weight:700}
+.mark{background:linear-gradient(transparent 60%,#ffe58a 60%);font-weight:700}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:6px}
+.goal{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:#fff}
+table.compact th,table.compact td{padding:8px 14px;font-size:19px}
+.shot.h img{width:100%;object-fit:cover;object-position:left top}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:22px}
+.flow .st{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:17px;line-height:1.55;position:relative}
+.flow .st b{display:block;color:var(--green-d);font-size:15px;margin-bottom:2px}
+.flow .ar{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:22px;font-weight:700}
+.goal .n{font-size:15px;font-weight:700;color:var(--green-d);letter-spacing:.1em}
+.goal h3{font-size:25px;color:var(--navy);margin:8px 0 10px;line-height:1.45}
+.goal p{font-size:19px;color:var(--sub);line-height:1.65}
+/* 表紙 */
+.cover{background:var(--navy);color:#fff;justify-content:center}
+.cover::before{background:var(--green);width:14px}
+.cover .tag{display:inline-block;align-self:flex-start;background:var(--green);color:#fff;font-weight:700;font-size:18px;padding:6px 14px;border-radius:6px;margin-bottom:28px}
+.cover h1{font-size:58px;line-height:1.35;font-weight:700;margin-bottom:22px}
+.cover .lead{font-size:24px;color:#c9d3df;line-height:1.7}
+.cover dl{display:grid;grid-template-columns:120px 1fr;gap:10px 18px;margin-top:44px;font-size:21px}
+.cover dt{color:#8fa0b3}
+.cover dd{color:#fff}
+.cover .foot{color:#6f8196}
+/* 時間割 */
+.tt td:first-child{width:90px;color:var(--green-d);font-weight:700}
+.tt td:last-child{width:110px;color:var(--sub);text-align:right}
+/* 台本 */
+.note-pane{display:none;position:fixed;left:0;right:0;bottom:0;max-height:34vh;overflow:auto;background:#101826;color:#e8edf3;
+  padding:14px 22px;font-size:16px;line-height:1.75;border-top:3px solid var(--green);z-index:10}
+body.notes .note-pane{display:block}
+.note-pane b{color:#7ee2a8}
+.hud{position:fixed;right:14px;bottom:12px;font-size:12px;color:#6b7785;z-index:11;background:rgba(255,255,255,.85);padding:4px 10px;border-radius:20px}
+aside.n{display:none}
+@media print{
+  html,body{background:#fff}
+  .deck{width:auto;height:auto;overflow:visible}
+  .slide{position:relative;display:flex!important;transform:none!important;top:0;left:0;margin:0;box-shadow:none;page-break-after:always;break-after:page}
+  .hud,.note-pane{display:none!important}
+  @page{size:1280px 720px;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- 1 表紙 -->
+<section class="slide cover">
+  <span class="tag">社内研修｜約45分</span>
+  <h1>拡張ツール（LINE Manager）を<br>使ったLINE運用研修</h1>
+  <p class="lead">全員が「拡張ツールから返信・配信できる」状態をつくる</p>
+  <dl>
+    <dt>日時</dt><dd>2026年11月18日（水）12:00〜12:45</dd>
+    <dt>参加</dt><dd>小林さん・折茂さん・伊藤公希さん</dd>
+    <dt>講師</dt><dd>伊藤 大峻</dd>
+  </dl>
+  <div class="foot"><span>株式会社アイ・ステーション 情報発信PJT</span><span>この研修は録画して、現場向けの研修動画に使います</span></div>
+  <aside class="n"><b>はじめに：</b>今日は45分で、拡張ツールを使ったLINEの返信と配信の流れを覚えてもらいます。録画して、あとで小林さんが現場向けの研修動画にします。分からないところはその場で止めてください。</aside>
+</section>
+
+<!-- 2 ゴール -->
+<section class="slide">
+  <div class="kicker">TODAY'S GOAL</div>
+  <h2>今日のゴール</h2>
+  <div class="goals">
+    <div class="goal"><div class="n">GOAL 1</div><h3>拡張ツールとLINE公式の使い分けが分かる</h3><p>どの作業をどちらの画面でやるか、迷わない</p></div>
+    <div class="goal"><div class="n">GOAL 2</div><h3>トークの返信・タグ付けが自分でできる</h3><p>対応状況・担当の付け方まで、ひと通り</p></div>
+    <div class="goal"><div class="n">GOAL 3</div><h3>配信のやり方と注意点が分かる</h3><p>このまち電気の配信に、そのまま使える</p></div>
+  </div>
+  <table class="tt compact" style="margin-top:20px">
+    <tr><td>①</td><td>拡張ツールでできること・LINE公式との使い分け</td><td>5分</td></tr>
+    <tr><td>②</td><td>画面の見方（トーク・友だち・タグ）</td><td>10分</td></tr>
+    <tr><td>③</td><td>グループ分けと配信のやり方（このまち電気の配信を例に）</td><td>15分</td></tr>
+    <tr><td>④</td><td>1対1の返信と注意点（送信数・料金）</td><td>10分</td></tr>
+    <tr><td>⑤</td><td>質問・次のアクション</td><td>5分</td></tr>
+  </table>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>2</span></div>
+  <aside class="n"><b>ゴール：</b>この3つができれば今日はOKです。特に3つ目は、折茂さんから質問のあった「グループ分けして配信」の話なので、時間を多めに取っています。</aside>
+</section>
+
+<!-- 3 拡張ツールとは -->
+<section class="slide">
+  <div class="kicker">① WHAT IS IT</div>
+  <h2>拡張ツール（LINE Manager）とは<small>アイステの公式LINEに届いたメッセージを、メンバー全員で1か所で見て対応できるツール</small></h2>
+  <div class="row">
+    <div class="col" style="flex:0 0 430px">
+      <ul class="dots">
+        <li>メッセージを見て<b>返信</b>する</li>
+        <li><b>要対応／対応中／対応済み</b>をみんなで共有</li>
+        <li>お客様ごとに<b>社内担当</b>を決める・引き継ぐ</li>
+        <li>会社名・電話番号・<b>メモ</b>を残す</li>
+        <li><b>タグ</b>でお客様を分けて絞り込む</li>
+        <li>タグで絞って<b>配信</b>する・予約する</li>
+        <li><b>流入経路</b>（QR・リンク）で入口を数える</li>
+      </ul>
+      <div class="box ok" style="margin-top:14px">現場の人は、まず<b>「トーク」画面だけ</b>使えればOK</div>
+    </div>
+    <div class="col"><div class="shot fit"><img src="img/overview.png" alt="拡張ツールのトーク画面"></div></div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>3</span></div>
+  <aside class="n"><b>説明：</b>LINE公式の管理画面だと「誰が返したか」「対応済みか」が分かりません。拡張ツールはそこを全員で共有するための画面です。現場の方はトークだけ覚えればOKで、タグ・配信は管理者と編集者の機能です。</aside>
+</section>
+
+<!-- 4 使い分け -->
+<section class="slide">
+  <div class="kicker">① WHICH SCREEN</div>
+  <h2>拡張ツールとLINE公式管理画面の使い分け</h2>
+  <table>
+    <tr><th style="width:30%">やりたいこと</th><th class="c" style="width:16%">拡張ツール</th><th class="c" style="width:16%">LINE公式</th><th>ポイント</th></tr>
+    <tr><td>1対1の返信</td><td class="c o">◎</td><td class="c">○</td><td>拡張ツールなら「誰が返したか」「対応済みか」が残る</td></tr>
+    <tr><td>対応状況・担当・メモ</td><td class="c o">◎</td><td class="c x">×</td><td>拡張ツールだけの機能</td></tr>
+    <tr><td>タグ・絞り込み</td><td class="c o">◎</td><td class="c">△</td><td>商材タグ・接触NG・配信NG が使える</td></tr>
+    <tr><td>タグで絞った配信・予約</td><td class="c o">◎</td><td class="c">△</td><td><span class="mark">本接続のLINEだけ</span>（次のページ）</td></tr>
+    <tr><td>流入経路（QR・リンク）</td><td class="c o">◎</td><td class="c">△</td><td>入口ごとに登録数・クリック数が分かる</td></tr>
+    <tr><td>あいさつ・自動応答（見守りのLINE）</td><td class="c">—</td><td class="c o">◎</td><td>見守りのLINEは、LINE公式側の設定がそのまま動く</td></tr>
+  </table>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>4</span></div>
+  <aside class="n"><b>説明：</b>基本は「返信・タグ・配信は拡張ツール」です。ただし、つなぎ方によっては拡張ツールから配信できないLINEがあるので、次のページで説明します。</aside>
+</section>
+
+<!-- 5 本接続と見守り -->
+<section class="slide">
+  <div class="kicker">① TWO TYPES</div>
+  <h2>つなぎ方は2種類：「本接続」と「見守り」</h2>
+  <table class="compact">
+    <tr><th style="width:24%"></th><th style="width:38%">本接続</th><th>見守り</th></tr>
+    <tr><td>今つないでいるLINE</td><td>総合窓口</td><td>でんき問合せ・デリバリー導入支援・取引先様窓口・ママスクエア・医療介護サポートセンター</td></tr>
+    <tr><td>メッセージを見る・通知</td><td class="o">できる</td><td class="o">できる</td></tr>
+    <tr><td>1対1の返信</td><td class="o">できる</td><td class="o">できる（送信枠を使う）</td></tr>
+    <tr><td>タグ・メモ・対応状況</td><td class="o">できる</td><td class="o">できる</td></tr>
+    <tr><td>配信・予約・シナリオ</td><td class="o">できる</td><td class="x">できない</td></tr>
+    <tr><td>あいさつ・自動応答・メニュー</td><td>拡張ツールで設定</td><td>LINE公式（または元のツール）のまま</td></tr>
+  </table>
+  <div class="box note" style="margin-top:12px;font-size:18px;padding:12px 18px">見守りのLINEで拡張ツールに出るのは、<b>つないだあとに話しかけてきた人・友だち追加した人</b>です。前からいる友だち全員が出るわけではありません。</div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>5</span></div>
+  <aside class="n"><b>ここが大事：</b>でんき問合せは「見守り」でつないでいるので、拡張ツールから配信はできません。見守りは、今の自動応答などを壊さずに、返信と記録だけ拡張ツールに集める形です。どうぶつでんきのLINEは、まだつないでいません（今日つなぐ作業を伊藤が担当）。</aside>
+</section>
+
+<!-- 6 画面の見方 -->
+<section class="slide">
+  <div class="kicker">② SCREEN</div>
+  <h2>画面の見方</h2>
+  <div class="row">
+    <div class="col" style="flex:0 0 400px">
+      <table>
+        <tr><td style="width:56px" class="c o">①</td><td>LINEアカウントを切り替える<br><span style="color:var(--sub);font-size:17px">赤い数字＝未読の数</span></td></tr>
+        <tr><td class="c o">②</td><td>メニュー（トーク・友だち管理・タグ・配信）</td></tr>
+        <tr><td class="c o">③</td><td>お客様の一覧<br><span style="color:var(--sub);font-size:17px">未読・要対応・自分の担当で絞れる</span></td></tr>
+        <tr><td class="c o">④</td><td>会話と返信の欄</td></tr>
+      </table>
+      <div class="box ok" style="margin-top:16px">未読は<b>メンバー全員で共通</b>。誰かが開くと全員の画面で既読になる</div>
+    </div>
+    <div class="col"><div class="shot fit"><img src="img/overview.png" alt="画面の見方"></div></div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>6</span></div>
+  <aside class="n"><b>実演：</b>ここで実際の画面を開いて、左上でLINEを切り替えるところを見せます。お客様の名前が映るので、録画を配るときは小林さんの動画編集でぼかしを入れてください。</aside>
+</section>
+
+<!-- 7 トーク返信 -->
+<section class="slide">
+  <div class="kicker">② REPLY</div>
+  <h2>トークで返信する</h2>
+  <div class="row">
+    <div class="col" style="flex:0 0 470px">
+      <ol class="steps">
+        <li>左の一覧からお客様を押す（開くと既読になる）</li>
+        <li>返信の欄に入力。よく使う文は<b>「定型文」</b>から入れる</li>
+        <li>「送信」→ 確認の小窓で送り先と文面を見て<b>「送信する」</b></li>
+        <li>最初に返信した人が、自動で<b>社内担当</b>になる</li>
+      </ol>
+      <div class="box warn">「接触NG」タグの人に送ろうとすると<b>赤い注意</b>が出る。社内担当・管理者に確認してから</div>
+    </div>
+    <div class="col" style="gap:16px">
+      <div class="shot h"><img src="img/talk-send.png" alt="返信の欄" style="height:300px"></div>
+      <div class="shot h" style="max-width:62%"><img src="img/talk-confirm.png" alt="送信の確認" style="height:170px"></div>
+    </div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>7</span></div>
+  <aside class="n"><b>実演：</b>テスト用のアカウントに1通送って、送ったメッセージの下に自分の名前が出るところを見せます。</aside>
+</section>
+
+<!-- 8 対応状況・担当 -->
+<section class="slide">
+  <div class="kicker">② STATUS</div>
+  <h2>対応状況と社内担当で「対応もれ」を防ぐ</h2>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tr><th style="width:34%">対応状況</th><th>使いどころ</th></tr>
+        <tr><td><b style="color:var(--red)">要対応</b></td><td>返事が必要。お客様からメッセージが来ると自動でつく</td></tr>
+        <tr><td><b style="color:var(--amber)">対応中</b></td><td>調べている・社内で確認している</td></tr>
+        <tr><td><b class="o">対応済み</b></td><td>やりとりが終わった</td></tr>
+      </table>
+    </div>
+    <div class="col">
+      <ul class="dots">
+        <li>一覧の上の<b>「要対応」</b>を押すと、返事待ちのお客様だけ出る</li>
+        <li><b>「自分の担当」</b>で、自分が受け持つお客様だけ見られる</li>
+        <li>担当の引き継ぎは、会話の上の<b>「この人の情報」</b>から変える</li>
+      </ul>
+      <div class="box note" style="margin-top:12px">LINE公式のチャットから返信したときは、拡張ツールに出ない。<b>手で「対応済み」</b>にしておく</div>
+    </div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>8</span></div>
+  <aside class="n"><b>説明：</b>毎日「要対応」が0になっていればOK、という見方をしてもらうのが一番分かりやすいです。</aside>
+</section>
+
+<!-- 9 タグ -->
+<section class="slide">
+  <div class="kicker">③ TAGS</div>
+  <h2>タグでお客様をグループ分けする<small>配信の「送る相手」は、このタグで決まる</small></h2>
+  <div class="row">
+    <div class="col" style="flex:0 0 520px">
+      <ol class="steps">
+        <li>「タグ管理」でタグを作る（例：<b>商材:このまちでんき</b>、展示会2026）</li>
+        <li>「友だち管理」でお客様にチェック →<b>「タグを一括付与」</b></li>
+        <li>流入経路の入口に「商材」を入れると、その入口から来た人に<b>商材タグが自動でつく</b></li>
+      </ol>
+      <table style="margin-top:6px">
+        <tr><th style="width:30%">決まったタグ</th><th>動き</th></tr>
+        <tr><td><b style="color:var(--red)">接触NG</b></td><td>配信が届かない。1対1も赤い注意</td></tr>
+        <tr><td><b style="color:var(--amber)">配信NG</b></td><td>配信だけ届かない。返信はできる</td></tr>
+      </table>
+    </div>
+    <div class="col" style="gap:14px">
+      <div class="shot h"><img src="img/friends.png" alt="友だち管理" style="height:230px"></div>
+      <div class="shot h" style="max-width:64%"><img src="img/bulk-tag.png" alt="タグを一括付与" style="height:220px"></div>
+    </div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>9</span></div>
+  <aside class="n"><b>説明：</b>クレームになった方・「配信いらない」と言われた方には、すぐ接触NG・配信NGをつけてください。これをつけておけば配信で自動的に外れます。</aside>
+</section>
+
+<!-- 10 配信 -->
+<section class="slide">
+  <div class="kicker">③ BROADCAST</div>
+  <h2>配信のやり方（本接続のLINE）</h2>
+  <div class="row">
+    <div class="col" style="flex:0 0 470px">
+      <ol class="steps">
+        <li>「送る相手」で<b>友だち全員</b>か<b>タグで絞る</b>を選ぶ（除くタグも選べる）</li>
+        <li>テキスト・画像・カードで吹き出しを作る（1回で5つまで）。右にスマホでの見え方が出る</li>
+        <li><b>「テスト送信」</b>で社内の人に1通送って確かめる</li>
+        <li>「今すぐ」か「日時を決めて予約」→<b>「配信する」</b></li>
+      </ol>
+      <div class="box note">送る人数から、ブロック中・接触NG・配信NGの人は<b>自動で除かれる</b></div>
+    </div>
+    <div class="col"><div class="shot fit"><img src="img/broadcast.png" alt="メッセージ配信"></div></div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>10</span></div>
+  <aside class="n"><b>実演：</b>総合窓口で「タグで絞る」を選び、テスト送信まで見せます（「配信する」は押さない）。訴求を変えて2〜3回に分けたいときは、グループごとにタグをつけて、配信を分けて作ります。</aside>
+</section>
+
+<!-- 11 このまち電気 -->
+<section class="slide">
+  <div class="kicker">③ CASE</div>
+  <h2>このまち電気の配信は、どの画面から送る？</h2>
+  <table>
+    <tr><th style="width:26%">LINE</th><th style="width:32%">今の状態</th><th>今月の「お問い合わせ配信」</th></tr>
+    <tr><td>でんき問合せ</td><td>拡張ツールに<b>見守り</b>でつないでいる</td><td rowspan="2">拡張ツールからは配信できないため、<b>LINE公式の管理画面</b>から配信する（文面は折茂さん、配信と先方調整は伊藤）</td></tr>
+    <tr><td>どうぶつでんき</td><td>拡張ツールに<b>まだつないでいない</b></td></tr>
+  </table>
+  <div class="row" style="margin-top:22px;gap:24px">
+    <div class="col"><div class="box ok"><b>2〜3グループに分けて訴求を変える</b><br>LINE公式の管理画面の絞り込み・分け方の機能を使う。使える条件は配信前に伊藤が確認</div></div>
+    <div class="col"><div class="box note"><b>来月以降の「このまち電気」名義の配信</b><br>拡張ツールから配信できるように、つなぎ方（本接続にする／ツールを直す）を決めておく</div></div>
+  </div>
+  <div class="flow">
+    <div class="st"><b>折茂さん</b>配信の文面・画像を作る</div><div class="ar">→</div>
+    <div class="st"><b>伊藤</b>受け皿の簡易LP・フォーム（電話番号を先に）</div><div class="ar">→</div>
+    <div class="st"><b>伊藤</b>LINE公式から配信（2〜3グループ）</div><div class="ar">→</div>
+    <div class="st"><b>現場</b>フォームに入れた人へ電話</div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>11</span></div>
+  <aside class="n"><b>説明：</b>今日の定例で決めた流れ（折茂さんが文面→伊藤が配信）はそのままです。送る画面だけ、今月はLINE公式の管理画面になります。来月以降に拡張ツールから送れるようにするかは、小林さんと決めたいです。</aside>
+</section>
+
+<!-- 12 送信数・料金 -->
+<section class="slide">
+  <div class="kicker">④ COST</div>
+  <h2>送信数と料金の注意</h2>
+  <table>
+    <tr><th style="width:42%">送り方</th><th class="c" style="width:22%">送信枠を使う？</th><th>メモ</th></tr>
+    <tr><td>配信（拡張ツール・LINE公式どちらも）</td><td class="c x">使う</td><td>送る人数ぶん減る</td></tr>
+    <tr><td>拡張ツールからの1対1の返信</td><td class="c x">使う</td><td>1通につき1</td></tr>
+    <tr><td>LINE公式のチャットからの返信</td><td class="c o">使わない</td><td>無料</td></tr>
+    <tr><td>あいさつ・自動応答</td><td class="c o">使わない</td><td>無料</td></tr>
+  </table>
+  <div class="row" style="margin-top:20px;gap:24px">
+    <div class="col"><div class="box warn"><b>無料プランの送信枠は月200通</b>（配信と返信で共通）。数千人に配信するには、そのLINEのプラン変更が必要</div></div>
+    <div class="col"><div class="box note"><b>プラン変更・課金は必ず折茂さん経由</b>。配信の前に、送る人数と今のプランを確認する</div></div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>12</span></div>
+  <aside class="n"><b>説明：</b>見守りのLINEでは、返信画面の下に今月の送信数が出ます。枠が尽きたら、LINE公式のチャットから返信すれば無料です。</aside>
+</section>
+
+<!-- 13 次のアクション -->
+<section class="slide">
+  <div class="kicker">⑤ NEXT</div>
+  <h2>次のアクション</h2>
+  <table>
+    <tr><th style="width:17%">担当</th><th>やること</th><th style="width:18%">いつまで</th></tr>
+    <tr><td><b>伊藤（大）</b></td><td>どうぶつでんきの公式LINEを拡張ツールにつなぐ</td><td>今週中</td></tr>
+    <tr><td><b>折茂さん</b></td><td>このまち電気のお問い合わせ配信の文面を作って共有</td><td>配信日の前</td></tr>
+    <tr><td><b>伊藤（大）</b></td><td>受け皿の簡易LP・フォームを作る → 配信・先方調整</td><td>今月中</td></tr>
+    <tr><td><b>小林さん</b></td><td>今日の録画を研修動画にして、現場へ配る</td><td>—</td></tr>
+    <tr><td><b>全員</b></td><td>拡張ツールにログインして、テスト用アカウントで返信を1回試す</td><td>今週中</td></tr>
+  </table>
+  <div class="box ok" style="margin-top:20px">困ったら：拡張ツールの左メニュー<b>「使い方マニュアル」</b>（画面の写真つき・PDFもあり）</div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>13</span></div>
+  <aside class="n"><b>締め：</b>いつまでの欄は案です。その場で決めてください。質問タイムに移ります。</aside>
+</section>
+
+</div>
+
+<div class="note-pane" id="notePane"></div>
+<div class="hud" id="hud"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, hud=document.getElementById('hud'), pane=document.getElementById('notePane');
+  var m=location.hash.match(/^#(\d+)/); if(m){i=Math.min(Math.max(+m[1]-1,0),slides.length-1);}
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720)*0.96;
+    slides.forEach(function(el){el.style.transform='translate(-50%,-50%) scale('+s+')';});
+  }
+  function show(){
+    slides.forEach(function(el,k){el.classList.toggle('on',k===i);});
+    var n=slides[i].querySelector('aside.n'); pane.innerHTML=n?n.innerHTML:'';
+    hud.textContent=(i+1)+' / '+slides.length+'　← → で移動・N で台本';
+    history.replaceState(null,'','#'+(i+1));
+  }
+  function go(d){i=Math.min(Math.max(i+d,0),slides.length-1);show();}
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' ','Enter'].indexOf(e.key)>=0){e.preventDefault();go(1);}
+    else if(['ArrowLeft','PageUp','Backspace'].indexOf(e.key)>=0){e.preventDefault();go(-1);}
+    else if(e.key==='n'||e.key==='N'){document.body.classList.toggle('notes');}
+    else if(e.key==='Home'){i=0;show();} else if(e.key==='End'){i=slides.length-1;show();}
+  });
+  document.getElementById('deck').addEventListener('click',function(e){ if(e.clientX>window.innerWidth/3) go(1); else go(-1); });
+  var sx=null; document.addEventListener('touchstart',function(e){sx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){ if(sx===null)return; var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>40) go(dx<0?1:-1); sx=null; });
+  window.addEventListener('hashchange',function(){ var h=location.hash.match(/^#(\d+)/); if(h){ var k=Math.min(Math.max(+h[1]-1,0),slides.length-1); if(k!==i){i=k;show();} } });
+  window.addEventListener('resize',fit); fit(); show();
+})();
+</script>
+</body>
+</html>
