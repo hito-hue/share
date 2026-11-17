@@ -56,6 +56,7 @@ td.c,th.c{text-align:center}
 .goals{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:6px}
 .goal{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:#fff}
 table.compact th,table.compact td{padding:8px 14px;font-size:19px}
+table.compact.sm th,table.compact.sm td{padding:6px 10px;font-size:16px;line-height:1.45}
 .shot.h img{width:100%;object-fit:cover;object-position:left top}
 .flow{display:flex;align-items:stretch;gap:0;margin-top:22px}
 .flow .st{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:17px;line-height:1.55;position:relative}
@@ -84,6 +85,72 @@ body.notes .note-pane{display:block}
 .note-pane b{color:#7ee2a8}
 .hud{position:fixed;right:14px;bottom:12px;font-size:12px;color:#6b7785;z-index:11;background:rgba(255,255,255,.85);padding:4px 10px;border-radius:20px}
 aside.n{display:none}
+
+/* 比較（3列） */
+.cmp3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:-6px}
+.cc{border:1px solid var(--line);border-radius:12px;padding:14px 16px 10px;display:flex;flex-direction:column}
+.cc.me{border:2px solid var(--green);background:#fbfffc}
+.cc h3{font-size:19px;color:var(--navy);margin-bottom:2px}
+.cc .pr{font-size:24px;font-weight:700;color:var(--navy);line-height:1.3}
+.cc .pr small{font-size:14px;color:var(--sub);font-weight:400}
+.cc.me .pr{color:var(--green-d)}
+.cc ul{list-style:none;margin-top:8px}
+.cc li{font-size:15.5px;line-height:1.5;padding-left:22px;position:relative;margin-bottom:5px}
+.cc li::before{position:absolute;left:0;top:0;font-weight:700}
+.cc li.y::before{content:"○";color:var(--green-d)}
+.cc li.n::before{content:"△";color:var(--amber)}
+.cc li.x::before{content:"×";color:var(--red)}
+.bars{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.bars .bt{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.bar{display:grid;grid-template-columns:210px 1fr 150px;align-items:center;gap:12px;margin:5px 0;font-size:15.5px}
+.bar .b{height:20px;border-radius:4px;background:#cfd6df}
+.bar .b.ls{background:#f2b8b8}.bar .b.me{background:var(--green)}
+.bar .v{font-weight:700;text-align:right}
+.src{font-size:12.5px;color:#8a95a1;margin-top:6px;line-height:1.5}
+/* スマホの見本 */
+.phones{display:flex;gap:14px;justify-content:flex-end}
+.ph{width:132px}
+.ph .scr{position:relative;width:132px;height:262px;border-radius:22px;background:#0f1b2d;padding:7px;box-shadow:0 6px 16px rgba(15,27,45,.18)}
+.ph .in{width:100%;height:100%;border-radius:16px;overflow:hidden;background:#f2f4f7;position:relative}
+.ph .cap{font-size:13.5px;line-height:1.45;margin-top:8px;color:var(--ink)}
+.ph .cap b{display:inline-block;background:var(--green);color:#fff;border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center;font-size:12px;margin-right:4px}
+.sf-bar{position:absolute;left:0;right:0;bottom:0;height:42px;background:#fff;border-top:1px solid #dde2e8;display:flex;justify-content:space-around;align-items:center;font-size:15px;color:#2f6fd0}
+.sf-url{position:absolute;left:8px;right:8px;top:10px;height:22px;border-radius:7px;background:#e4e8ee;font-size:9px;color:#555;display:flex;align-items:center;justify-content:center}
+.hl{outline:3px solid var(--red);outline-offset:2px;border-radius:6px}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:12px 12px 0 0;padding:8px 8px 10px;box-shadow:0 -4px 12px rgba(0,0,0,.12)}
+.sheet div{font-size:9.5px;padding:6px 5px;border-bottom:1px solid #eef0f3;color:#222;white-space:nowrap}
+.ph .in.home{background:linear-gradient(160deg,#3a7bd5,#7bc6cc)}
+.home .apps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px 4px;padding:22px 6px}
+.home .apps>*{min-width:0}
+.home .apps i{display:block;width:24px;height:24px;border-radius:6px;background:rgba(255,255,255,.55);margin:0 auto}
+.home .apps .me{text-align:center;font-size:6.5px;color:#fff;white-space:nowrap;overflow:visible}
+.home .apps .me img{width:24px;height:24px;border-radius:6px;display:block;margin:0 auto 2px;box-shadow:0 0 0 2px var(--red)}
+.ph .in.lock{background:linear-gradient(170deg,#1e2a44,#4a5a7a);color:#fff}
+.lock .lt{text-align:center;font-size:30px;font-weight:300;margin-top:26px;color:#fff}
+.lock .ld{text-align:center;font-size:9px;opacity:.8;color:#fff}
+.noti{margin:16px 6px 0;background:rgba(255,255,255,.88);color:#111;border-radius:10px;padding:7px 8px;display:flex;gap:6px}
+.noti img{width:18px;height:18px;border-radius:4px;flex:none}
+.noti b{display:block;font-size:9px}
+.noti span{font-size:9px;line-height:1.35;display:block}
+/* 全体像 */
+.arch{display:flex;align-items:stretch;gap:8px}
+.arch .nd{border:1px solid var(--line);border-radius:10px;padding:10px 10px;font-size:15px;line-height:1.45;text-align:center;display:flex;flex-direction:column;justify-content:center;background:#fff}
+.arch .nd b{display:block;font-size:16px;color:var(--navy)}
+.arch .ar{display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:11.5px;color:var(--sub);min-width:62px;text-align:center;line-height:1.3}
+.arch .ar::before{content:"→";font-size:22px;color:var(--green);font-weight:700;line-height:1}
+.arch .vps{flex:1.6;border:2px solid var(--green);background:#f3fcf6;border-radius:12px;padding:8px 10px}
+.arch .vps .vt{font-size:15px;font-weight:700;color:var(--green-d);text-align:center;margin-bottom:6px}
+.arch .vps .apps2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.arch .vps .apps2 div{background:#fff;border:1px solid var(--line);border-radius:6px;font-size:13px;padding:4px 6px;text-align:center}
+.arch .vps .apps2 div.me{border-color:var(--green);font-weight:700}
+.sec{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;margin-top:12px}
+.sec div{font-size:15px;line-height:1.5;padding-left:20px;position:relative}
+.sec div::before{content:"✓";position:absolute;left:0;color:var(--green-d);font-weight:700}
+.up{display:grid;grid-template-columns:1fr 1.25fr;gap:14px;margin-top:12px}
+.meter{display:flex;align-items:center;gap:10px;font-size:15px;margin:4px 0}
+.meter .m{flex:1;height:12px;border-radius:6px;background:#e6eaef;overflow:hidden}
+.meter .m i{display:block;height:100%;background:var(--green)}
+.meter span{width:150px}
 @media print{
   html,body{background:#fff}
   .deck{width:auto;height:auto;overflow:visible}
@@ -117,17 +184,17 @@ aside.n{display:none}
   <div class="goals">
     <div class="goal"><div class="n">GOAL 1</div><h3>拡張ツールとLINE公式の使い分けが分かる</h3><p>どの作業をどちらの画面でやるか、迷わない</p></div>
     <div class="goal"><div class="n">GOAL 2</div><h3>トークの返信・タグ付けが自分でできる</h3><p>対応状況・担当の付け方まで、ひと通り</p></div>
-    <div class="goal"><div class="n">GOAL 3</div><h3>配信のやり方と注意点が分かる</h3><p>このまち電気の配信に、そのまま使える</p></div>
+    <div class="goal"><div class="n">GOAL 3</div><h3>配信と、お金がかかる送り方が分かる</h3><p>LINE公式のプランと通数の数え方まで</p></div>
   </div>
   <table class="tt compact" style="margin-top:20px">
-    <tr><td>①</td><td>拡張ツールでできること・LINE公式との使い分け</td><td>5分</td></tr>
-    <tr><td>②</td><td>画面の見方（トーク・友だち・タグ）</td><td>10分</td></tr>
-    <tr><td>③</td><td>グループ分けと配信のやり方（このまち電気の配信を例に）</td><td>15分</td></tr>
-    <tr><td>④</td><td>1対1の返信と注意点（送信数・料金）</td><td>10分</td></tr>
-    <tr><td>⑤</td><td>質問・次のアクション</td><td>5分</td></tr>
+    <tr><td>①</td><td>拡張ツールとは・LINE公式との使い分け・Lステップとの比較</td><td>10分</td></tr>
+    <tr><td>②</td><td>画面の見方・返信・対応状況・タグ</td><td>10分</td></tr>
+    <tr><td>③</td><td>配信のやり方と、LINE公式のプラン・通数の数え方</td><td>10分</td></tr>
+    <tr><td>④</td><td>Webアプリにして通知を受け取る／全体像とセキュリティ</td><td>10分</td></tr>
+    <tr><td>⑤</td><td>使い方マニュアル・質問</td><td>5分</td></tr>
   </table>
   <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>2</span></div>
-  <aside class="n"><b>ゴール：</b>この3つができれば今日はOKです。特に3つ目は、折茂さんから質問のあった「グループ分けして配信」の話なので、時間を多めに取っています。</aside>
+  <aside class="n"><b>ゴール：</b>この3つができれば今日はOKです。3つ目は「どの送り方にお金がかかるか」なので、配信する人は必ず押さえてください。</aside>
 </section>
 
 <!-- 3 拡張ツールとは -->
@@ -170,13 +237,37 @@ aside.n{display:none}
   <aside class="n"><b>説明：</b>基本は「返信・タグ・配信は拡張ツール」です。ただし、つなぎ方によっては拡張ツールから配信できないLINEがあるので、次のページで説明します。</aside>
 </section>
 
+<!-- 4b 比較 -->
+<section class="slide">
+  <div class="kicker">① COMPARE</div>
+  <h2>何もつけない・Lステップ・拡張ツールの比較</h2>
+  <div class="cmp3">
+    <div class="cc"><h3>LINE公式だけ</h3><div class="pr">0円<small>（ツール代）</small></div>
+      <ul><li class="y">チャットで1対1の返信</li><li class="y">一斉配信・あいさつ・自動応答</li><li class="n">LINEごとに管理画面が分かれる</li><li class="n">担当の割り振り・引き継ぎ、入口ごとの細かい集計は手作業</li></ul></div>
+    <div class="cc"><h3>Lステップ</h3><div class="pr">月0〜32,780円<small>（税込）×LINEの数</small></div>
+      <ul><li class="y">シナリオ・回答フォーム・予約・分析など機能がとても多い</li><li class="n">LINE1つごとに契約。有料プランは最低3か月</li><li class="x">解約すると、同じLINEでは再契約できない</li></ul></div>
+    <div class="cc me"><h3>拡張ツール（自社）</h3><div class="pr">月880円<small>（サーバー代・税込）</small></div>
+      <ul><li class="y">複数のLINEを1画面で・担当と対応状況を共有</li><li class="y">タグ・配信・予約・入口ごとの集計・スマホ通知</li><li class="y">つなぐLINEが増えても費用は同じ</li><li class="n">特別な機能は、必要になったら自社で足す</li></ul></div>
+  </div>
+  <div class="bars">
+    <div class="bt">いま拡張ツールにつないでいるLINE 9つ分を、それぞれで運用した場合のツール代（月額）</div>
+    <div class="bar"><span>LINE公式だけ</span><div><div class="b" style="width:0.6%"></div></div><span class="v">0円</span></div>
+    <div class="bar"><span>Lステップ（スタンダード）</span><div><div class="b ls" style="width:100%"></div></div><span class="v">196,020円</span></div>
+    <div class="bar"><span>拡張ツール</span><div><div class="b me" style="width:1.2%"></div></div><span class="v">約880円</span></div>
+  </div>
+  <div class="src">※どれを選んでも、LINE公式アカウントのプラン料金（次の③で説明）は別にかかります。Lステップ：スタート月5,000円・スタンダード月21,780円・プロ月32,780円（税込・各5,000／30,000／50,000通）。料金は2026年11月時点の各社公式サイトより</div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>5</span></div>
+  <aside class="n"><b>説明：</b>LINE公式だけでも返信や配信はできますが、LINEが増えるほど画面が分かれて管理が大変になります。Lステップは機能が多い反面、LINE1つごとに契約が必要で、いまつないでいる9つ分をスタンダードにすると月20万円近くかかります。拡張ツールは自社のサーバーで動かしているので、ツール代は月880円のサーバー代だけです。</aside>
+</section>
+
+
 <!-- 5 本接続と見守り -->
 <section class="slide">
   <div class="kicker">① TWO TYPES</div>
   <h2>つなぎ方は2種類：「本接続」と「見守り」</h2>
   <table class="compact">
     <tr><th style="width:24%"></th><th style="width:38%">本接続</th><th>見守り</th></tr>
-    <tr><td>今つないでいるLINE</td><td>総合窓口</td><td>でんき問合せ・デリバリー導入支援・取引先様窓口・ママスクエア・医療介護サポートセンター</td></tr>
+    <tr><td>今つないでいるLINE</td><td>総合窓口</td><td>でんき問合せ・空き家の電気・デリバリー導入支援・取引先様窓口・ママスクエア・医療介護サポートセンター・スマホコム・映像サービス窓口</td></tr>
     <tr><td>メッセージを見る・通知</td><td class="o">できる</td><td class="o">できる</td></tr>
     <tr><td>1対1の返信</td><td class="o">できる</td><td class="o">できる（送信枠を使う）</td></tr>
     <tr><td>タグ・メモ・対応状況</td><td class="o">できる</td><td class="o">できる</td></tr>
@@ -184,7 +275,7 @@ aside.n{display:none}
     <tr><td>あいさつ・自動応答・メニュー</td><td>拡張ツールで設定</td><td>LINE公式（または元のツール）のまま</td></tr>
   </table>
   <div class="box note" style="margin-top:12px;font-size:18px;padding:12px 18px">見守りのLINEで拡張ツールに出るのは、<b>つないだあとに話しかけてきた人・友だち追加した人</b>です。前からいる友だち全員が出るわけではありません。</div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>5</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>6</span></div>
   <aside class="n"><b>ここが大事：</b>でんき問合せは「見守り」でつないでいるので、拡張ツールから配信はできません。見守りは、今の自動応答などを壊さずに、返信と記録だけ拡張ツールに集める形です。どうぶつでんきのLINEは、まだつないでいません（今日つなぐ作業を伊藤が担当）。</aside>
 </section>
 
@@ -204,7 +295,7 @@ aside.n{display:none}
     </div>
     <div class="col"><div class="shot fit"><img src="img/overview.png" alt="画面の見方"></div></div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>6</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>7</span></div>
   <aside class="n"><b>実演：</b>ここで実際の画面を開いて、左上でLINEを切り替えるところを見せます。お客様の名前が映るので、録画を配るときは小林さんの動画編集でぼかしを入れてください。</aside>
 </section>
 
@@ -213,7 +304,7 @@ aside.n{display:none}
   <div class="kicker">② REPLY</div>
   <h2>トークで返信する</h2>
   <div class="row">
-    <div class="col" style="flex:0 0 470px">
+    <div class="col" style="flex:0 0 430px">
       <ol class="steps">
         <li>左の一覧からお客様を押す（開くと既読になる）</li>
         <li>返信の欄に入力。よく使う文は<b>「定型文」</b>から入れる</li>
@@ -222,12 +313,12 @@ aside.n{display:none}
       </ol>
       <div class="box warn">「接触NG」タグの人に送ろうとすると<b>赤い注意</b>が出る。社内担当・管理者に確認してから</div>
     </div>
-    <div class="col" style="gap:16px">
-      <div class="shot h"><img src="img/talk-send.png" alt="返信の欄" style="height:300px"></div>
-      <div class="shot h" style="max-width:62%"><img src="img/talk-confirm.png" alt="送信の確認" style="height:170px"></div>
+    <div class="col" style="flex-direction:row;align-items:flex-end;gap:14px">
+      <div class="shot" style="flex:0 0 420px"><img src="img/talk-send.png" alt="返信の欄"></div>
+      <div class="shot" style="flex:1"><img src="img/talk-confirm.png" alt="送信の確認"></div>
     </div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>7</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>8</span></div>
   <aside class="n"><b>実演：</b>テスト用のアカウントに1通送って、送ったメッセージの下に自分の名前が出るところを見せます。</aside>
 </section>
 
@@ -253,7 +344,7 @@ aside.n{display:none}
       <div class="box note" style="margin-top:12px">LINE公式のチャットから返信したときは、拡張ツールに出ない。<b>手で「対応済み」</b>にしておく</div>
     </div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>8</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>9</span></div>
   <aside class="n"><b>説明：</b>毎日「要対応」が0になっていればOK、という見方をしてもらうのが一番分かりやすいです。</aside>
 </section>
 
@@ -279,7 +370,7 @@ aside.n{display:none}
       <div class="shot h" style="max-width:64%"><img src="img/bulk-tag.png" alt="タグを一括付与" style="height:220px"></div>
     </div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>9</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>10</span></div>
   <aside class="n"><b>説明：</b>クレームになった方・「配信いらない」と言われた方には、すぐ接触NG・配信NGをつけてください。これをつけておけば配信で自動的に外れます。</aside>
 </section>
 
@@ -299,50 +390,107 @@ aside.n{display:none}
     </div>
     <div class="col"><div class="shot fit"><img src="img/broadcast.png" alt="メッセージ配信"></div></div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>10</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>11</span></div>
   <aside class="n"><b>実演：</b>総合窓口で「タグで絞る」を選び、テスト送信まで見せます（「配信する」は押さない）。訴求を変えて2〜3回に分けたいときは、グループごとにタグをつけて、配信を分けて作ります。</aside>
 </section>
 
-<!-- 11 このまち電気 -->
-<section class="slide">
-  <div class="kicker">③ CASE</div>
-  <h2>このまち電気の配信は、どの画面から送る？</h2>
-  <table>
-    <tr><th style="width:26%">LINE</th><th style="width:32%">今の状態</th><th>今月の「お問い合わせ配信」</th></tr>
-    <tr><td>でんき問合せ</td><td>拡張ツールに<b>見守り</b>でつないでいる</td><td rowspan="2">拡張ツールからは配信できないため、<b>LINE公式の管理画面</b>から配信する（文面は折茂さん、配信と先方調整は伊藤）</td></tr>
-    <tr><td>どうぶつでんき</td><td>拡張ツールに<b>まだつないでいない</b></td></tr>
-  </table>
-  <div class="row" style="margin-top:22px;gap:24px">
-    <div class="col"><div class="box ok"><b>2〜3グループに分けて訴求を変える</b><br>LINE公式の管理画面の絞り込み・分け方の機能を使う。使える条件は配信前に伊藤が確認</div></div>
-    <div class="col"><div class="box note"><b>来月以降の「このまち電気」名義の配信</b><br>拡張ツールから配信できるように、つなぎ方（本接続にする／ツールを直す）を決めておく</div></div>
-  </div>
-  <div class="flow">
-    <div class="st"><b>折茂さん</b>配信の文面・画像を作る</div><div class="ar">→</div>
-    <div class="st"><b>伊藤</b>受け皿の簡易LP・フォーム（電話番号を先に）</div><div class="ar">→</div>
-    <div class="st"><b>伊藤</b>LINE公式から配信（2〜3グループ）</div><div class="ar">→</div>
-    <div class="st"><b>現場</b>フォームに入れた人へ電話</div>
-  </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>11</span></div>
-  <aside class="n"><b>説明：</b>今日の定例で決めた流れ（折茂さんが文面→伊藤が配信）はそのままです。送る画面だけ、今月はLINE公式の管理画面になります。来月以降に拡張ツールから送れるようにするかは、小林さんと決めたいです。</aside>
-</section>
 
-<!-- 12 送信数・料金 -->
+<!-- 12 LINE公式のプランと通数 -->
 <section class="slide">
-  <div class="kicker">④ COST</div>
-  <h2>送信数と料金の注意</h2>
-  <table>
-    <tr><th style="width:42%">送り方</th><th class="c" style="width:22%">送信枠を使う？</th><th>メモ</th></tr>
-    <tr><td>配信（拡張ツール・LINE公式どちらも）</td><td class="c x">使う</td><td>送る人数ぶん減る</td></tr>
-    <tr><td>拡張ツールからの1対1の返信</td><td class="c x">使う</td><td>1通につき1</td></tr>
-    <tr><td>LINE公式のチャットからの返信</td><td class="c o">使わない</td><td>無料</td></tr>
-    <tr><td>あいさつ・自動応答</td><td class="c o">使わない</td><td>無料</td></tr>
-  </table>
-  <div class="row" style="margin-top:20px;gap:24px">
-    <div class="col"><div class="box warn"><b>無料プランの送信枠は月200通</b>（配信と返信で共通）。数千人に配信するには、そのLINEのプラン変更が必要</div></div>
-    <div class="col"><div class="box note"><b>プラン変更・課金は必ず折茂さん経由</b>。配信の前に、送る人数と今のプランを確認する</div></div>
+  <div class="kicker">③ LINE PLAN</div>
+  <h2>LINE公式アカウントのプランと、通数の数え方</h2>
+  <div class="row" style="gap:28px">
+    <div class="col" style="flex:0 0 540px">
+      <table class="compact sm">
+        <tr><th>プラン</th><th>月額（税別）</th><th>無料で送れる通数</th><th>超えたら</th></tr>
+        <tr><td>コミュニケーション</td><td>0円</td><td>200通</td><td class="x">送れない</td></tr>
+        <tr><td>ライト</td><td>5,000円</td><td>5,000通</td><td class="x">送れない</td></tr>
+        <tr><td>スタンダード</td><td>15,000円</td><td>30,000通</td><td>1通 約3円で追加</td></tr>
+      </table>
+      <div class="box ok" style="margin-top:10px;font-size:16px;padding:10px 16px"><b>数え方＝「送った回数 × 送った人数」</b>（1回に吹き出し3つまでは1通）<br>例：1,000人に月3回配信 → 3,000通 → ライトでOK<br>例：5,000人に月2回配信 → 10,000通 → スタンダードが必要</div>
+      <div class="box note" style="margin-top:8px;font-size:16px;padding:10px 16px">プランと通数は<b>LINEアカウントごと</b>。プラン変更・課金は<b>必ず折茂さん経由</b></div>
+    </div>
+    <div class="col">
+      <table class="compact sm">
+        <tr><th style="width:50%"><span class="x">数える</span>（お金がかかる）</th><th><span class="o">数えない</span>（無料）</th></tr>
+        <tr><td>一斉配信・絞り込み配信</td><td>LINE公式のチャットでの返信</td></tr>
+        <tr><td>予約配信・シナリオ（ステップ）配信</td><td>あいさつメッセージ</td></tr>
+        <tr><td><b>拡張ツールからの1対1の返信</b></td><td>応答メッセージ（自動返信）</td></tr>
+        <tr><td>（拡張ツール・LINE公式・Lステップのどれから送っても同じ）</td><td>拡張ツールの自動返信</td></tr>
+      </table>
+      <div class="box warn" style="margin-top:10px;font-size:16px;padding:10px 16px">見守りのLINE（でんき問合せなど）は、拡張ツールから返信すると1通ずつ数えます。今月の残りは返信画面の下に出ます。枠が尽きたら、LINE公式のチャットから返信すれば無料です</div>
+      <div class="src">出典：LINEヤフー for Business「LINE公式アカウント料金プラン」（2026年11月時点）。Messaging APIのPush・Multicast・Broadcast・Narrowcastは数える／Replyは数えない</div>
+    </div>
   </div>
   <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>12</span></div>
-  <aside class="n"><b>説明：</b>見守りのLINEでは、返信画面の下に今月の送信数が出ます。枠が尽きたら、LINE公式のチャットから返信すれば無料です。</aside>
+  <aside class="n"><b>説明：</b>お金がかかるのは「こちらから送る」配信と、拡張ツールからの1対1の返信です。お客様への返事を無料で済ませたいときは、LINE公式のチャットから返信します。数千人に配信するときは、先にプランが足りるかを確認してください。</aside>
+</section>
+
+<!-- 12b Webアプリと通知 -->
+<section class="slide">
+  <div class="kicker">④ APP & NOTICE</div>
+  <h2>Webアプリにして、スマホ・PCで通知を受け取る<small>アプリストアは使わない。ホーム画面に追加するだけで、新しいメッセージが来たら通知が届く</small></h2>
+  <div class="row" style="gap:26px">
+    <div class="col" style="flex:0 0 470px">
+      <table class="compact sm">
+        <tr><th style="width:23%">端末</th><th>入れ方</th></tr>
+        <tr><td><b>iPhone</b></td><td><b>Safari</b>で開く → 共有ボタン（□に↑）→「ホーム画面に追加」→ 増えたアイコンから開いてログイン</td></tr>
+        <tr><td><b>Windows</b></td><td><b>Edge</b>で開く →「…」→「アプリ」→「このサイトをアプリとしてインストール」</td></tr>
+        <tr><td><b>Mac</b></td><td><b>Safari</b>で開く → メニューの「ファイル」→「Dockに追加」</td></tr>
+        <tr><td><b>通知</b></td><td>「アカウント設定」→「通知をオンにする」→「許可」→「テスト通知」で届けば完了</td></tr>
+      </table>
+      <div class="box warn" style="margin-top:8px;font-size:15.5px;padding:10px 16px">iPhoneは「ホーム画面に追加」した<b>アイコンから開いたときだけ</b>通知が届きます。通知は端末ごとに1回ずつ設定</div>
+    </div>
+    <div class="col">
+      <div class="phones">
+        <div class="ph"><div class="scr"><div class="in" style="background:#fff"><div class="sf-url">ista…/manager</div><img src="img/sp-talk.png" alt="" style="position:absolute;top:38px;left:0;width:100%;opacity:.35"><div class="sf-bar"><span>‹</span><span>›</span><span class="hl">⬆︎</span><span>📖</span></div></div></div><div class="cap"><b>1</b>Safariで開いて、下の共有ボタン</div></div>
+        <div class="ph"><div class="scr"><div class="in" style="background:#9aa3ad"><div class="sheet"><div>コピー</div><div>リーディングリストに追加</div><div class="hl" style="font-weight:700">＋ ホーム画面に追加</div><div>ブックマークを追加</div></div></div></div><div class="cap"><b>2</b>「ホーム画面に追加」</div></div>
+        <div class="ph"><div class="scr"><div class="in home"><div class="apps"><i></i><i></i><i></i><i></i><i></i><div class="me"><img src="img/app-icon.png" alt="">LINE Manager</div><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div><div class="cap"><b>3</b>アイコンから開いて通知をオン</div></div>
+        <div class="ph"><div class="scr"><div class="in lock"><div class="lt">9:41</div><div class="ld">11月18日 水曜日</div><div class="noti"><img src="img/app-icon.png" alt=""><div><b>総合窓口｜山田 太郎</b><span>お問い合わせの件、よろしくお願いします</span></div></div></div></div><div class="cap"><b>4</b>メッセージが来たら通知</div></div>
+      </div>
+      <div class="src" style="text-align:right">画面はイメージです（実際の表示は端末・バージョンで少し違います）</div>
+    </div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>13</span></div>
+  <aside class="n"><b>実演：</b>自分のiPhoneで、ホーム画面のアイコンから開いて「テスト通知」を押し、通知が届くところを見せます。通知には「LINEの名前｜お客様の名前」と、メッセージの最初の部分が出ます。押すとそのお客様のトークが開きます。</aside>
+</section>
+
+<!-- 12c 全体像 -->
+<section class="slide">
+  <div class="kicker">④ OVERVIEW</div>
+  <h2>全体像：どこで動いていて、どう守っているか</h2>
+  <div class="arch">
+    <div class="nd" style="flex:.8"><b>お客様</b>LINEで<br>メッセージ</div>
+    <div class="ar">そのまま</div>
+    <div class="nd" style="flex:.9"><b>LINEのサーバー</b>LINEヤフー社</div>
+    <div class="ar">署名つきで<br>届く</div>
+    <div class="vps"><div class="vt">さくらのVPS（アイステ契約・北海道 石狩）</div>
+      <div class="apps2"><div class="me">拡張ツール（LINE Manager）</div><div>議事録BOT</div><div>SNSダッシュボード</div><div>Gloria公式HP・メール送信</div></div></div>
+    <div class="ar">暗号化<br>（HTTPS）</div>
+    <div class="nd" style="flex:.9"><b>スタッフ</b>PC・スマホ<br>（ログイン＋通知）</div>
+  </div>
+  <div class="sec">
+    <div>通信はすべて暗号化（HTTPS・HSTS）</div>
+    <div>ログインしないと何も見えない</div>
+    <div>権限は3段階（管理者・編集者・一般）。仕組みの内側でも止める</div>
+    <div>パスワードは元に戻せない形で保管</div>
+    <div>LINEからの通知は、署名で本物か毎回確認</div>
+    <div>送信・設定変更・メンバー変更は操作記録が残る</div>
+    <div>毎朝4時に自動でバックアップ（30日分）＋更新の前にも</div>
+    <div>外から入れる入口は必要なものだけ。鍵は管理者だけが読める場所に保管</div>
+  </div>
+  <div class="up">
+    <div class="box ok" style="font-size:16px;padding:12px 16px"><b>いまの状態（11/18）</b>
+      <div class="meter"><span>メモリ 1GB</span><div class="m"><i style="width:45%"></i></div>使用 約45%</div>
+      <div class="meter"><span>ディスク 50GB</span><div class="m"><i style="width:13%"></i></div>使用 13%</div>
+      <div class="meter"><span>CPU（2コア）</span><div class="m"><i style="width:3%"></i></div>ほぼ0</div>
+    </div>
+    <div class="box note" style="font-size:16px;padding:12px 16px"><b>プラン変更（1GB 月880円 → 2GB 月1,738円）が必要になる目安</b>
+      <ul class="dots" style="margin-top:4px"><li style="font-size:15.5px;margin-bottom:2px">メモリの空きが、いつも200MBを切る・動きが重い</li><li style="font-size:15.5px;margin-bottom:2px">同じサーバーに、仕組みをあと2〜3個載せる（HP・AI処理など）</li><li style="font-size:15.5px;margin-bottom:2px">ディスクが80%を超える</li></ul>
+      <div style="font-size:14px;color:var(--sub)">友だちが増えても、保存データは今3.7MBと小さいので当面は不要</div></div>
+  </div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>14</span></div>
+  <aside class="n"><b>説明：</b>拡張ツールはアイステが契約しているさくらのサーバーで動いていて、データもこの中にあります。今は1GBのプランで余裕があります。仕組みを増やしたり重くなったりしたら2GBのプラン（月1,738円・税込・月払い）に上げます。料金はさくらの公式サイトの月払いの値段です（年払いだと少し安くなります）。</aside>
 </section>
 
 <!-- 13 使い方マニュアル -->
@@ -352,38 +500,21 @@ aside.n{display:none}
   <div class="row">
     <div class="col" style="flex:0 0 430px">
       <ul class="dots">
-        <li>拡張ツールの<b>左メニューのいちばん下</b>から開く</li>
+        <li>拡張ツールの<b>左メニューのいちばん下</b>から、ブラウザで開く</li><li><b>ログインなしで誰でも開ける</b>（社外の人・アカウントがない人にも共有できる）</li>
         <li>上の検索欄に<b>知りたいこと</b>を入れて探す（例：定型文、未読、担当）</li>
-        <li><b>1つの操作につき1ページ</b>。画面の写真に赤枠と番号つき</li>
-        <li>「<b>目的から探す</b>」「<b>困りごとから探す</b>」からも探せる</li>
+                <li>「<b>目的から探す</b>」「<b>困りごとから探す</b>」からも探せる</li>
       </ul>
-      <div class="box ok" style="margin-top:6px">今日の録画（研修動画）も、このマニュアルの中に載せる想定</div>
+      <div class="box ok" style="margin-top:6px;font-size:16px;word-break:break-all">hito-hue.github.io/share/ista-line-manual-363b72/</div>
     </div>
     <div class="col" style="gap:14px">
       <div class="shot h"><img src="img/manual-home.png" alt="使い方マニュアルのトップ" style="height:250px"></div>
       <div class="shot h"><img src="img/manual-article.png" alt="使い方マニュアルの記事ページ" style="height:200px"></div>
     </div>
   </div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>13</span></div>
+  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>15</span></div>
   <aside class="n"><b>実演：</b>実際に左メニューからマニュアルを開いて、検索欄に「定型文」と入れて記事が出るところを見せます。現場の方には、まずこのマニュアルの「はじめての方へ」を読んでもらう流れにします。</aside>
 </section>
 
-<!-- 14 次のアクション -->
-<section class="slide">
-  <div class="kicker">⑤ NEXT</div>
-  <h2>次のアクション</h2>
-  <table>
-    <tr><th style="width:17%">担当</th><th>やること</th><th style="width:18%">いつまで</th></tr>
-    <tr><td><b>伊藤（大）</b></td><td>どうぶつでんきの公式LINEを拡張ツールにつなぐ</td><td>今週中</td></tr>
-    <tr><td><b>折茂さん</b></td><td>このまち電気のお問い合わせ配信の文面を作って共有</td><td>配信日の前</td></tr>
-    <tr><td><b>伊藤（大）</b></td><td>受け皿の簡易LP・フォームを作る → 配信・先方調整</td><td>今月中</td></tr>
-    <tr><td><b>小林さん</b></td><td>今日の録画を研修動画にして、現場へ配る</td><td>—</td></tr>
-    <tr><td><b>全員</b></td><td>拡張ツールにログインして、テスト用アカウントで返信を1回試す</td><td>今週中</td></tr>
-  </table>
-  <div class="box ok" style="margin-top:20px">困ったら：拡張ツールの左メニュー<b>「使い方マニュアル」</b>（画面の写真つき・PDFもあり）</div>
-  <div class="foot"><span>拡張ツールを使ったLINE運用研修</span><span>14</span></div>
-  <aside class="n"><b>締め：</b>いつまでの欄は案です。その場で決めてください。質問タイムに移ります。</aside>
-</section>
 
 </div>
 
