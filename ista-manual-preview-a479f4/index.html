@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>使い方マニュアル｜LINE Manager</title>
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#06C755;--green-d:#04A346;--teal:#0A7F8C;--ink:#333;--sub:#6B6B6B;--line:#DDDDDD;--soft:#F5F5F5;--link:#1F78D1;
+  --warn-bg:#FFF6E0;--warn:#F2A100;--note-bg:#EAF4FD;--note:#2C8BE0;--point-bg:#EAF9F0;--red:#E5484D}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;font-size:15px;line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--link)}
+/* 上の帯 */
+.top{position:sticky;top:0;z-index:30;background:linear-gradient(90deg,var(--green) 0%,#05AD5E 45%,var(--teal) 100%);color:#fff}
+.topin{max-width:1200px;margin:0 auto;height:76px;display:flex;align-items:center;gap:28px;padding:0 24px}
+.logo{display:flex;align-items:baseline;gap:6px;text-decoration:none;color:#fff;white-space:nowrap}
+.logo b{font-size:23px;font-weight:700;letter-spacing:.01em}
+.logo small{font-size:14px;font-weight:700}
+.gnav{display:flex;gap:26px}
+.gnav a{color:#fff;text-decoration:none;font-weight:700;font-size:15px;white-space:nowrap}
+.gnav a:hover{text-decoration:underline}
+.tsearch{margin-left:auto;display:flex;height:38px;width:min(300px,30vw);background:#fff;border-radius:4px;overflow:hidden}
+.tsearch input{flex:1;min-width:0;border:0;outline:none;font:inherit;font-size:14px;padding:0 12px;color:var(--ink)}
+.tsearch button,.bigsearch button{border:0;background:var(--green);color:#fff;display:grid;place-items:center;cursor:pointer}
+.tsearch button{width:40px;border-left:2px solid #fff}
+.tsearch button svg{width:17px;height:17px}
+body.is-home .tsearch{visibility:hidden}
+.menubtn{display:none;border:0;background:rgba(255,255,255,.18);color:#fff;border-radius:6px;height:38px;padding:0 12px;font:inherit;font-weight:700;font-size:14px}
+/* 並び */
+.wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;max-width:1200px;margin:0 auto;padding:0 24px}
+body.is-home .wrap{display:block}
+body.is-home .side{display:none}
+.side{position:sticky;top:76px;align-self:start;max-height:calc(100vh - 76px);overflow:auto;padding:28px 0 40px;font-size:13.5px}
+.side a{display:block;color:#444;text-decoration:none;padding:6px 10px;line-height:1.55}
+.side a::after{content:"›";margin-left:6px;color:#999}
+.side a:hover{color:var(--green-d)}
+.side a.on{color:var(--green-d);font-weight:700}
+.sfix{border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}
+.scat summary{list-style:none;cursor:pointer;padding:6px 10px;color:#444;font-weight:700;display:flex;align-items:center;gap:6px}
+.scat summary::-webkit-details-marker{display:none}
+.scat summary::after{content:"›";color:#999;transition:transform .15s;margin-left:4px}
+.scat[open] summary::after{transform:rotate(90deg)}
+.scat a{padding-left:24px;font-size:13px}
+main{min-width:0;padding:0 0 100px}
+/* ホーム */
+.homein{max-width:1200px;margin:0 auto;padding:40px 0 20px}
+.shelp{max-width:700px;margin:0 auto 12px;display:flex;justify-content:flex-end;gap:22px}
+.shelp a{display:inline-flex;align-items:center;gap:5px;text-decoration:none;font-size:15px}
+.shelp svg{width:17px;height:17px}
+.bigsearch{max-width:700px;margin:0 auto;display:flex;height:58px;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--soft)}
+.bigsearch input{flex:1;min-width:0;border:0;outline:none;background:transparent;font:inherit;font-size:19px;padding:0 20px;color:var(--ink)}
+.bigsearch button{width:92px}
+.bigsearch button svg{width:26px;height:26px}
+.popular{max-width:700px;margin:10px auto 0;font-size:12px;color:#444}
+.popular a{margin-left:12px}
+#results{max-width:700px;margin:18px auto 0;border:1px solid var(--line);border-radius:6px;padding:6px}
+#results a{display:block;padding:10px 14px;border-radius:5px;text-decoration:none;color:var(--ink)}
+#results a:hover{background:var(--soft)}
+#results b{color:var(--link)}
+#results small{display:block;color:var(--sub);font-size:12.5px;line-height:1.6}
+#results .none{padding:12px;color:var(--sub)}
+mark{background:#FFF1A8;color:inherit;padding:0 1px}
+.news{margin-top:42px;display:grid;gap:16px}
+.newsitem{display:flex;align-items:center;gap:18px;border:1px solid var(--line);border-radius:6px;padding:20px 24px;text-decoration:none;color:var(--ink)}
+.newsitem:hover{border-color:#bbb}
+.nd{flex:none;font-size:15px}
+.nt{flex:1;font-size:15px;line-height:1.6}
+.ng{color:#888;font-size:22px}
+.new{display:inline-block;vertical-align:2px;margin-left:8px;background:var(--green);color:#fff;font-size:10.5px;font-weight:700;border-radius:999px;padding:0 8px;line-height:18px}
+.morenews{text-align:right;margin:14px 0 0}
+.morenews a{color:var(--sub);font-size:14px}
+.twobox{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+.tb{border:1px solid var(--line);border-radius:6px;padding:24px 28px;min-height:208px}
+.tb h2{margin:0 0 14px;font-size:18px;display:flex;align-items:center;gap:6px}
+.tb p{margin:0 0 6px}
+.wakaba svg{width:22px;height:22px;display:block}
+ul.gdots{list-style:none;padding:0;margin:0}
+ul.gdots li{position:relative;padding-left:18px;margin:10px 0}
+ul.gdots li::before{content:"";position:absolute;left:0;top:.72em;width:9px;height:9px;border-radius:50%;background:#AAA}
+ul.gdots a,.firstlist a{text-decoration:none;font-size:16px}
+ul.gdots a:hover,.firstlist a:hover{text-decoration:underline}
+.firstlist{margin:4px 0 0;padding-left:1.4em}
+.firstlist li{margin:4px 0}
+.fourcards{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16px}
+.fourcards a{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;height:74px;padding:0 24px;text-decoration:none;color:var(--ink);font-size:16px}
+.fourcards a:hover{border-color:#bbb;background:#FAFAFA}
+.fourcards i{color:var(--green);display:grid}
+.fourcards svg{width:26px;height:26px}
+/* 記事・一覧ページ */
+.doc,.page{max-width:820px;padding:30px 0 0}
+.crumb{font-size:12.5px;color:var(--sub);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.crumb a{color:var(--sub)}
+.doc h1,.page h1{font-size:28px;line-height:1.45;margin:14px 0 18px;font-weight:700}
+.lead{margin:0 0 6px}
+.meta{display:flex;gap:16px;font-size:12.5px;color:var(--sub)}
+.toc{border:1px solid var(--line);border-radius:5px;padding:20px 28px;margin:30px 0 10px}
+.toch{font-weight:700;font-size:15px}
+.toc ul{margin:8px 0 0;padding-left:1.3em}
+.toc li{line-height:1.95}
+.toc a{color:#555;text-decoration:underline;text-decoration-color:#BBB}
+.toc a:hover{color:var(--link)}
+.body h2{margin:58px 0 20px;font-size:21px;line-height:1.5;padding-bottom:10px;border-bottom:1px solid var(--line);font-weight:700}
+.body h2.step .steppill{display:inline-block;color:var(--green-d);font-size:14px;font-weight:700;margin-right:10px;letter-spacing:.04em}
+.body p{margin:12px 0}
+.body strong{font-weight:700}
+.body code{background:#F0F0F0;border-radius:4px;padding:1px 6px;font-size:.92em}
+.maru{color:var(--red);font-weight:700}
+.inlink{color:var(--link)}
+ol.steps{padding-left:1.6em;margin:14px 0}
+ol.steps li{margin:8px 0;padding-left:4px}
+ol.steps li::marker{font-weight:700}
+ul.dots{padding-left:1.3em;margin:12px 0}
+ul.dots li{margin:4px 0}
+.box{position:relative;border-radius:6px;padding:16px 22px 14px 56px;margin:22px 0}
+.box::before{position:absolute;left:18px;top:17px;width:24px;height:24px;border-radius:50%;color:#fff;font-weight:700;font-size:15px;line-height:24px;text-align:center;font-family:Arial,sans-serif}
+.box p{margin:3px 0;font-size:14.5px;line-height:1.8}
+.boxh{font-weight:700;font-size:15px;margin-bottom:2px}
+.box.warn{background:var(--warn-bg)}.box.warn::before{content:"!";background:var(--warn)}
+.box.note{background:var(--note-bg)}.box.note::before{content:"i";background:var(--note)}
+.box.point{background:var(--point-bg)}.box.point::before{content:"✓";background:var(--green)}
+.nayami{border:1px solid var(--line);border-radius:6px;padding:16px 24px;margin:8px 0 18px}
+.nayami .face{display:none}
+.nayami ul{margin:0;padding-left:1.2em}
+.nayami li{margin:3px 0}
+.after-nayami{display:none}
+.nayami::before{content:"こんなお悩みはありませんか？";display:block;font-weight:700;margin-bottom:4px}
+.tablewrap{overflow-x:auto;margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.65}
+th{background:var(--soft);text-align:left;font-weight:700;padding:10px 14px;white-space:nowrap;border:1px solid var(--line)}
+td{padding:10px 14px;border:1px solid var(--line);vertical-align:top}
+td .ok{color:var(--green-d);font-weight:700}
+td .ng{color:#B4BDC8;font-weight:700}
+.shot{margin:16px 0 26px;max-width:700px}
+.shot a{display:block;border:1px solid var(--line);cursor:zoom-in;background:#fff}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{font-size:12.5px;color:var(--sub);margin-top:6px}
+ol.steps + .shot,ol.steps + .figrow{margin-left:1.6em}
+.shot.narrow{max-width:460px}
+.shot.sp{max-width:300px}
+.figrow{display:flex;gap:18px;flex-wrap:wrap;max-width:700px}
+.figrow .shot{flex:1 1 240px;margin-left:0}
+.faq{border:1px solid var(--line);border-radius:6px;margin:12px 0;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:flex-start;padding:14px 18px;font-weight:700}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";margin-left:auto;color:#888}
+.faq[open] summary::after{content:"－"}
+.faq.hit{border-color:var(--green);box-shadow:0 0 0 3px rgba(6,199,85,.15)}
+.q,.aa{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:var(--green);margin-top:1px}
+.aa{background:#F2A100}
+.faq .a{display:flex;gap:12px;padding:12px 18px;border-top:1px dashed var(--line)}
+.faq .a p{margin:0 0 6px;font-size:14.5px}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:64px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+.pager a{display:block;text-decoration:none;border:1px solid var(--line);border-radius:6px;padding:14px 18px;line-height:1.55}
+.pager a span{display:block;font-size:12px;color:var(--sub)}
+.pager .next{text-align:right}
+.pager a:hover{border-color:#bbb}
+/* 一覧ページ */
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.feat a{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:5px;padding:14px 18px;text-decoration:none;color:var(--ink)}
+.feat a:hover{border-color:#bbb;background:#FAFAFA}
+.feat b{font-size:15px}
+.feat span{font-size:13px;color:var(--sub);line-height:1.65;margin-top:4px;flex:1}
+.feat em{font-style:normal;font-size:11.5px;color:var(--green-d);margin-top:8px}
+.ph{font-size:19px;margin:42px 0 12px;padding-left:12px;border-left:4px solid var(--green);line-height:1.4}
+.golist{list-style:none;padding:0;margin:0;border-top:1px solid var(--line)}
+.golist a{display:flex;align-items:center;gap:16px;padding:14px 8px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.golist a:hover{background:#FAFAFA}
+.lt{flex:1;font-weight:500}
+.la{flex:none;font-size:13px;color:var(--link)}
+.la::after{content:" ›"}
+.newslist{list-style:none;padding:0;margin:22px 0 0}
+.newslist li{display:flex;gap:20px;border-bottom:1px solid var(--line);padding:16px 4px}
+.dlcards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.dlcard{display:flex;gap:14px;align-items:flex-start;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:18px}
+.dlcard:hover{border-color:#bbb}
+.dlk{flex:none;width:52px;height:52px;border-radius:8px;background:#FDECEC;color:#C2262B;font-weight:700;display:grid;place-items:center;font-size:15px}
+.dlcard.ai .dlk{background:#EAF2FE;color:#2F6FD0}
+.dlt{font-weight:700}
+.dls{font-size:13px;color:var(--sub);line-height:1.65;margin-top:2px}
+/* 下 */
+.footer{border-top:1px solid var(--line);margin-top:20px;padding:26px 24px;text-align:center;font-size:12.5px;color:var(--sub)}
+.totop{position:fixed;right:24px;bottom:24px;z-index:20;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;border:0;display:grid;place-items:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.on{opacity:1;pointer-events:auto}
+.totop svg{width:26px;height:26px}
+/* 写真を大きく見る */
+.lb{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.82);display:none;padding:28px;overflow:auto}
+.lb.on{display:block}
+.lb img{display:block;max-width:min(1400px,100%);margin:0 auto;background:#fff}
+.lb p{color:#fff;text-align:center;font-size:13px}
+.lb button{position:fixed;top:14px;right:18px;border:0;background:#fff;border-radius:999px;width:40px;height:40px;font-size:20px;cursor:pointer}
+.veil{display:none}
+@media(max-width:1000px){
+  .gnav{display:none}
+  .menubtn{display:inline-flex;align-items:center;flex:none}
+  .topin{height:auto;min-height:60px;flex-wrap:wrap;gap:10px 14px;padding:10px 14px}
+  .logo b{font-size:19px}
+  .tsearch{order:3;width:100%;margin:0}
+  body.is-home .tsearch{display:none}
+  .logo{order:1}
+  .menubtn{order:2;margin-left:auto}
+  .wrap{display:block;padding:0 16px}
+  .side{position:fixed;left:0;top:0;bottom:0;max-height:none;width:290px;z-index:50;background:#fff;transform:translateX(-100%);transition:transform .2s;padding:20px 12px}
+  .side.open{transform:none;box-shadow:10px 0 30px rgba(0,0,0,.18)}
+  body.is-home .side{display:block}
+  .veil.on{display:block;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:45}
+  .homein{padding:24px 0}
+  .shelp{justify-content:flex-start;flex-wrap:wrap;gap:8px 18px}
+  .bigsearch{height:52px}
+  .bigsearch input{font-size:16px;padding:0 14px}
+  .bigsearch button{width:64px}
+  .popular a{display:inline-block;margin:2px 8px 2px 0}
+  .newsitem{flex-wrap:wrap;gap:2px 12px;padding:14px 16px}
+  .newsitem .nd{width:100%;font-size:13px;color:var(--sub)}
+  .newsitem .ng{display:none}
+  .twobox,.fourcards,.feat,.dlcards{grid-template-columns:1fr}
+  .fourcards{gap:10px}
+  .doc,.page{padding-top:18px}
+  .doc h1,.page h1{font-size:23px}
+  .body h2{font-size:18px;margin-top:44px}
+  ol.steps + .shot,ol.steps + .figrow{margin-left:0}
+  .pager{grid-template-columns:1fr}
+  .totop{right:14px;bottom:14px;width:48px;height:48px}
+}
+@media print{
+  @page{size:A4;margin:16mm 14mm 18mm}
+  body{background:#fff;font-size:11pt;line-height:1.75}
+  .top,.side,.pager,.crumb,.toc,#v-home,.page,.lb,.veil,.footer,.totop{display:none!important}
+  .wrap{display:block;padding:0}
+  .view.doc{display:block!important;break-before:page;padding:0;max-width:none}
+  .view.doc[hidden]{display:block!important}
+  .shot{break-inside:avoid;margin-left:0!important}
+  .box,.faq,table,tr{break-inside:avoid}
+  .faq .a{display:flex}
+  .body h2{break-after:avoid}
+  .printcover{display:flex!important}
+  .printtoc{display:block!important;break-before:page}
+}
+.printcover,.printtoc{display:none}
+.printcover{height:250mm;align-items:center;justify-content:center;background:linear-gradient(120deg,var(--green),var(--teal));color:#fff}
+.pcin{text-align:center}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.12em}
+.printcover h1{font-size:40pt;line-height:1.2;margin:14px 0}
+.printtoc h2{font-size:20pt}
+.ptc{margin:12px 0}
+.ptc ol{margin:4px 0 0}
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+</style></head>
+<body class="is-home">
+<header class="top"><div class="topin">
+  <button class="menubtn" id="menubtn" aria-label="メニューを開く">☰ 目次</button>
+  <a class="logo" href="#/"><b>LINE Manager</b><small>マニュアル</small></a>
+  <nav class="gnav"><a href="#/hajimete">はじめての方へ</a><a href="#/features">機能一覧</a><a href="#/news">更新情報</a><a href="#/faq">よくある質問</a><a href="#/dl">ダウンロード</a></nav>
+  <form class="tsearch" onsubmit="return false" role="search"><input type="search" id="q1" placeholder="例）定型文　作る" aria-label="マニュアル内を検索"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg></button></form>
+</div></header>
+<div class="veil" id="veil"></div>
+<div class="wrap">
+  <aside class="side" id="side"><div class="sfix"><a href="#/features" data-id="features">機能一覧</a><a href="#/mokuteki" data-id="mokuteki">目的から探す</a><a href="#/komarigoto" data-id="komarigoto">困りごとから探す</a><a href="#/news" data-id="news">更新情報</a><a href="#/dl" data-id="dl">マニュアルのダウンロード</a></div><details class="scat" data-cat="はじめに"><summary>はじめに</summary><a href="#/hajimete" data-id="hajimete">はじめての方へ</a><a href="#/login" data-id="login">ログインと最初の設定</a><a href="#/gamen" data-id="gamen">画面の見方</a><a href="#/app" data-id="app">アプリとして入れる・通知を受け取る</a></details><details class="scat" data-cat="チャット対応"><summary>チャット対応</summary><a href="#/talk" data-id="talk">トークで返信する</a><a href="#/mitaiou" data-id="mitaiou">未読・要対応・対応状況</a><a href="#/tantou" data-id="tantou">社内担当（受け持つメンバー）</a><a href="#/kensaku" data-id="kensaku">絞り込みと検索</a><a href="#/info" data-id="info">この人の情報（会社名・電話番号・メモ）</a><a href="#/teikei" data-id="teikei">定型文（よく使う返信の文）</a></details><details class="scat" data-cat="お客様の管理"><summary>お客様の管理</summary><a href="#/friends" data-id="friends">友だち管理</a><a href="#/tags" data-id="tags">タグ管理</a></details><details class="scat" data-cat="管理者・編集者向け"><summary>管理者・編集者向け</summary><a href="#/routes" data-id="routes">流入経路（QRコード・リンク）</a><a href="#/broadcast" data-id="broadcast">メッセージ配信</a><a href="#/others" data-id="others">シナリオ・リッチメニュー・レポート</a></details><details class="scat" data-cat="設定"><summary>設定</summary><a href="#/members" data-id="members">メンバーと権限</a></details><details class="scat" data-cat="困ったとき"><summary>困ったとき</summary><a href="#/faq" data-id="faq">よくある質問</a></details></aside>
+  <main>
+    <section class="printcover"><div class="pcin"><div class="eyebrow">株式会社アイ・ステーション 公式LINE 管理ツール</div><h1>LINE Manager<br>使い方マニュアル</h1>
+  <p>版 1.1　2026年11月17日</p></div></section>
+  <section class="printtoc"><h2>目次</h2><div class="ptc"><b>はじめに</b><ol><li>はじめての方へ</li><li>ログインと最初の設定</li><li>画面の見方</li><li>アプリとして入れる・通知を受け取る</li></ol></div><div class="ptc"><b>チャット対応</b><ol><li>トークで返信する</li><li>未読・要対応・対応状況</li><li>社内担当（受け持つメンバー）</li><li>絞り込みと検索</li><li>この人の情報（会社名・電話番号・メモ）</li><li>定型文（よく使う返信の文）</li></ol></div><div class="ptc"><b>お客様の管理</b><ol><li>友だち管理</li><li>タグ管理</li></ol></div><div class="ptc"><b>管理者・編集者向け</b><ol><li>流入経路（QRコード・リンク）</li><li>メッセージ配信</li><li>シナリオ・リッチメニュー・レポート</li></ol></div><div class="ptc"><b>設定</b><ol><li>メンバーと権限</li></ol></div><div class="ptc"><b>困ったとき</b><ol><li>よくある質問</li></ol></div></section>
+    <section class="view home" id="v-home">
+  <div class="homein">
+    <div class="shelp"><a href="#/hajimete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>はじめての方へ</a><a href="#/dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>PDFでダウンロード</a></div>
+    <form class="bigsearch" onsubmit="return false" role="search"><input type="search" id="q2" placeholder="例）定型文　作る" aria-label="マニュアル内を検索"><button type="submit" aria-label="検索"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L20 20"/></svg></button></form>
+    <div class="popular">よく検索されているキーワード：<a href="#/" data-q="定型文">定型文</a><a href="#/" data-q="未読">未読</a><a href="#/" data-q="担当">担当</a><a href="#/" data-q="タグ">タグ</a><a href="#/" data-q="配信">配信</a><a href="#/" data-q="パスワード">パスワード</a><a href="#/" data-q="通知">通知</a></div>
+    <div id="results" hidden></div>
+    <div class="news"><a class="newsitem" href="#/news"><span class="nd">2026-11-17</span><span class="nt">マニュアルを見やすく作り直し（目的から探す・困りごとから探す・機能一覧を追加）。「メッセージ配信」に、見守りのLINE（でんき・デリバリーなど）からは配信できないことを追記<span class="new">NEW</span></span><span class="ng">›</span></a><a class="newsitem" href="#/news"><span class="nd">2026-11-09</span><span class="nt">LINEアカウントを「広告・採用・事業」の分類ごとにまとめて表示（分類は管理者が「アカウント設定」で選びます）<span class="new">NEW</span></span><span class="ng">›</span></a></div>
+    <div class="morenews"><a href="#/news">すべての更新情報を見る ›</a></div>
+    <div class="twobox">
+      <div class="tb"><h2>よく見られている記事</h2><ul class="gdots"><li><a href="#/talk">トークで返信する</a></li><li><a href="#/mitaiou">未読・要対応・対応状況</a></li><li><a href="#/teikei/teikei-2">定型文を作る</a></li><li><a href="#/tantou/tantou-2">担当を引き継ぐ</a></li></ul></div>
+      <div class="tb"><h2><span class="wakaba"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3l6 3.2V21l-6-3.2z" fill="#F5C518"/><path d="M18 3l-6 3.2V21l6-3.2z" fill="#06C755"/></svg></span>はじめての方へ</h2><p>ログインから毎日の対応まで、この順に読めば使えます。</p>
+        <ol class="firstlist"><li><a href="#/hajimete">はじめての方へ</a></li><li><a href="#/login">ログインと最初の設定</a></li><li><a href="#/gamen">画面の見方</a></li><li><a href="#/talk">トークで返信する</a></li><li><a href="#/mitaiou">未読・要対応・対応状況</a></li></ol></div>
+    </div>
+    <div class="fourcards">
+      <a href="#/features"><i><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1l-.4-2.6h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.4 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 2.6h4l.4-2.6a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5zM12 15.3a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6z"/></svg></i>機能一覧</a>
+      <a href="#/faq"><i><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm.1 16.2a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6zm1.6-5.6c-.8.5-1.1.8-1.1 1.6v.4h-2.2v-.6c0-1.4.6-2.1 1.6-2.8.8-.5 1.2-.9 1.2-1.6 0-.8-.6-1.3-1.5-1.3s-1.6.6-1.7 1.6H7.8C8 7.4 9.6 6 12.1 6c2.4 0 3.9 1.3 3.9 3.2 0 1.4-.8 2.3-2.3 3.4z"/></svg></i>よくある質問</a>
+      <a href="#/komarigoto"><i><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5L1.5 21h21L12 2.5zm1.1 15.7h-2.2V16h2.2v2.2zm0-3.6h-2.2V9.2h2.2v5.4z"/></svg></i>困りごとから探す</a>
+      <a href="#/mokuteki"><i><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 2h2v20H5zM8 3h11l-2.5 4.5L19 12H8z"/></svg></i>目的から探す</a>
+    </div>
+  </div>
+</section>
+    <section class="view page" id="v-features" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>機能一覧</nav>
+  <h1>機能一覧</h1><p class="lead">このツールの機能と、それぞれの使い方のページです。</p>
+  <div class="feat"><a href="#/hajimete"><b>はじめての方へ</b><span>このツールでできること、最初に読む順番、よく出てくる言葉</span><em>はじめに｜全員</em></a><a href="#/login"><b>ログインと最初の設定</b><span>招待メールからパスワードを決める、ログインのしかた、仮パスワードの変更、お名前を漢字フルネームにする</span><em>はじめに｜全員</em></a><a href="#/gamen"><b>画面の見方</b><span>左のメニュー、LINEアカウントの切り替え、赤い未読の数</span><em>はじめに｜全員</em></a><a href="#/app"><b>アプリとして入れる・通知を受け取る</b><span>パソコン・スマホにアプリとして入れて、新しいメッセージの通知を受け取る</span><em>はじめに｜全員</em></a><a href="#/talk"><b>トークで返信する</b><span>お客様の会話を開いて返信する。でんき・デリバリーなど見守りのLINEからの返信と送信枠</span><em>チャット対応｜全員</em></a><a href="#/mitaiou"><b>未読・要対応・対応状況</b><span>未読は全員で共通。お客様から届くと自動で「要対応」。対応が終わったら「対応済み」に</span><em>チャット対応｜全員</em></a><a href="#/tantou"><b>社内担当（受け持つメンバー）</b><span>最初に返信した人が自動で担当に。引き継ぐときはプルダウンで変える</span><em>チャット対応｜全員</em></a><a href="#/kensaku"><b>絞り込みと検索</b><span>社内担当・タグで絞り込む。名前・会社名・電話番号・メモで検索。部分一致と完全一致</span><em>チャット対応｜全員</em></a><a href="#/info"><b>この人の情報（会社名・電話番号・メモ）</b><span>お客様の情報を残す。権限によって直せる項目が違う。メモは全員に共有</span><em>チャット対応｜全員</em></a><a href="#/teikei"><b>定型文（よく使う返信の文）</b><span>定型文を入れる・作る・直す。全員で共有し、グループで分ける</span><em>チャット対応｜全員</em></a><a href="#/friends"><b>友だち管理</b><span>お客様の一覧。タグ・状態・社内担当で絞り込む。CSVで書き出す</span><em>お客様の管理｜全員</em></a><a href="#/tags"><b>タグ管理</b><span>タグを作る・フォルダに分ける・編集・削除。接触NGと配信NG</span><em>お客様の管理｜管理者・編集者</em></a><a href="#/routes"><b>流入経路（QRコード・リンク）</b><span>友だち追加の入口を作る。商材タグ。QR画像のコピー。登録数とクリック数</span><em>管理者・編集者向け｜管理者</em></a><a href="#/broadcast"><b>メッセージ配信</b><span>全員またはタグで絞った人へお知らせを送る。予約・テスト送信</span><em>管理者・編集者向け｜管理者・編集者</em></a><a href="#/others"><b>シナリオ・リッチメニュー・レポート</b><span>そのほかの機能のかんたんな説明</span><em>管理者・編集者向け｜管理者・編集者</em></a><a href="#/members"><b>メンバーと権限</b><span>メンバーを招待メールで追加する。見られるLINEを決める。名前を直す。仮パスワード。権限でできること</span><em>設定｜管理者・編集者</em></a><a href="#/faq"><b>よくある質問</b><span>困ったときに見るページ</span><em>困ったとき｜全員</em></a></div>
+</section>
+<section class="view page" id="v-mokuteki" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>目的から探す</nav>
+  <h1>目的から探す</h1><p class="lead">「〇〇したい」から、使い方のページを探せます。</p>
+  <h2 class="ph">チャット対応</h2><ul class="golist"><li><a href="#/talk/talk-2"><span class="lt">お客様のメッセージに返信したい</span><span class="la">トークで返信する</span></a></li><li><a href="#/mitaiou/mitaiou-2"><span class="lt">返事がまだのお客様だけを見たい</span><span class="la">未読・要対応・対応状況</span></a></li><li><a href="#/mitaiou/mitaiou-1"><span class="lt">対応が終わったことを、みんなに知らせたい</span><span class="la">未読・要対応・対応状況</span></a></li><li><a href="#/tantou/tantou-3"><span class="lt">自分が受け持つお客様だけを見たい</span><span class="la">社内担当（受け持つメンバー）</span></a></li><li><a href="#/tantou/tantou-2"><span class="lt">担当をほかの人に引き継ぎたい</span><span class="la">社内担当（受け持つメンバー）</span></a></li><li><a href="#/kensaku/kensaku-3"><span class="lt">お客様を名前・会社名・電話番号で探したい</span><span class="la">絞り込みと検索</span></a></li><li><a href="#/info"><span class="lt">お客様の会社名・電話番号・メモを残したい</span><span class="la">この人の情報（会社名・電話番号・メモ）</span></a></li><li><a href="#/teikei/teikei-2"><span class="lt">よく使う返信の文を登録して使い回したい</span><span class="la">定型文（よく使う返信の文）</span></a></li></ul><h2 class="ph">お客様の管理</h2><ul class="golist"><li><a href="#/friends"><span class="lt">お客様の一覧を見たい・Excelで書き出したい</span><span class="la">友だち管理</span></a></li><li><a href="#/tags/tags-1"><span class="lt">お客様に目印（タグ）をつけて分けたい</span><span class="la">タグ管理</span></a></li><li><a href="#/friends/friends-1"><span class="lt">何人かにまとめてタグをつけたい</span><span class="la">友だち管理</span></a></li><li><a href="#/tags/tags-3"><span class="lt">お知らせを送らないお客様を決めたい</span><span class="la">タグ管理</span></a></li></ul><h2 class="ph">集客・配信</h2><ul class="golist"><li><a href="#/routes/routes-1"><span class="lt">QRコード・リンクを作って、どこから来たか数えたい</span><span class="la">流入経路（QRコード・リンク）</span></a></li><li><a href="#/routes/routes-2"><span class="lt">商材ごとにお客様を分けたい</span><span class="la">流入経路（QRコード・リンク）</span></a></li><li><a href="#/broadcast"><span class="lt">お知らせをまとめて送りたい（配信）</span><span class="la">メッセージ配信</span></a></li></ul><h2 class="ph">メンバー・設定</h2><ul class="golist"><li><a href="#/members/members-1"><span class="lt">メンバーを追加したい</span><span class="la">メンバーと権限</span></a></li><li><a href="#/members/members-2"><span class="lt">人ごとに見られるLINEを分けたい</span><span class="la">メンバーと権限</span></a></li><li><a href="#/app/app-3"><span class="lt">スマホ・パソコンで通知を受け取りたい</span><span class="la">アプリとして入れる・通知を受け取る</span></a></li></ul>
+</section>
+<section class="view page" id="v-komarigoto" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>困りごとから探す</nav>
+  <h1>困りごとから探す</h1><p class="lead">困ったときは、近いものを選んでください。見つからないときは<a href="#/faq" class="inlink">よくある質問</a>や、画面上の検索もお試しください。</p>
+  <h2 class="ph">ログイン・アカウント</h2><ul class="golist"><li><a href="#/login/login-4"><span class="lt">パスワードを忘れた</span><span class="la">ログインと最初の設定</span></a></li><li><a href="#/faq/faq-q9"><span class="lt">招待メールが届かない・期限が切れた</span><span class="la">よくある質問</span></a></li><li><a href="#/faq/faq-q10"><span class="lt">ほかのLINE（でんき・デリバリーなど）が左の一覧に出ない</span><span class="la">よくある質問</span></a></li></ul><h2 class="ph">チャット対応</h2><ul class="golist"><li><a href="#/faq/faq-q2"><span class="lt">ほかの人がもう返信したか分からない</span><span class="la">よくある質問</span></a></li><li><a href="#/faq/faq-q5"><span class="lt">新しいメッセージが画面に出てこない</span><span class="la">よくある質問</span></a></li><li><a href="#/faq/faq-q1"><span class="lt">未読が自分だけのものか分からない</span><span class="la">よくある質問</span></a></li><li><a href="#/talk/talk-3"><span class="lt">でんき・デリバリーのLINEから返信できるか分からない</span><span class="la">トークで返信する</span></a></li><li><a href="#/talk/talk-3"><span class="lt">「送信枠」が何か分からない・送れなくなった</span><span class="la">トークで返信する</span></a></li></ul><h2 class="ph">配信・タグ</h2><ul class="golist"><li><a href="#/broadcast"><span class="lt">見守りのLINEから配信できない</span><span class="la">メッセージ配信</span></a></li><li><a href="#/tags/tags-3"><span class="lt">クレームのお客様に、間違って送らないようにしたい</span><span class="la">タグ管理</span></a></li><li><a href="#/faq/faq-q7"><span class="lt">タグを新しく作りたい</span><span class="la">よくある質問</span></a></li></ul><h2 class="ph">通知</h2><ul class="golist"><li><a href="#/faq/faq-q11"><span class="lt">通知が来ない</span><span class="la">よくある質問</span></a></li></ul>
+</section>
+<section class="view page" id="v-news" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>更新情報</nav>
+  <h1>更新情報</h1><p class="lead">ツールとマニュアルを更新した内容です。</p>
+  <ul class="newslist"><li><span class="nd">2026-11-17</span><span class="nt">マニュアルを見やすく作り直し（目的から探す・困りごとから探す・機能一覧を追加）。「メッセージ配信」に、見守りのLINE（でんき・デリバリーなど）からは配信できないことを追記<span class="new">NEW</span></span></li><li><span class="nd">2026-11-09</span><span class="nt">LINEアカウントを「広告・採用・事業」の分類ごとにまとめて表示（分類は管理者が「アカウント設定」で選びます）<span class="new">NEW</span></span></li><li><span class="nd">2026-11-04</span><span class="nt">見られるLINE：「すべてのLINE」が選ばれたままでも、個別のLINEを押して外せるように（1つ外すと「すべて」も自動で外れます）<span class="new">NEW</span></span></li><li><span class="nd">2026-11-02</span><span class="nt">メンバーの追加を「招待メール」に（仮パスワードを作って伝えなくてよい）・仮パスワードのままはパスワード変更が必須に・人ごとの「見られるLINE」・流入経路の「商材」タグ・タグを複数で絞り込む（どれか・すべて・除外）</span></li><li><span class="nd">2026-10-22</span><span class="nt">初版を公開（トーク・未読と要対応・社内担当・絞り込みと検索・この人の情報・定型文・友だち管理・タグ管理・流入経路・配信・メンバーと権限・よくある質問）。見守りのLINE（でんき・デリバリーなど）もツールから返信できます</span></li></ul>
+</section>
+<section class="view page" id="v-dl" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>マニュアルのダウンロード</nav>
+  <h1>マニュアルのダウンロード</h1><p class="lead">版 1.1／最終更新 2026年11月17日</p>
+  <div class="dlcards">
+      <a class="dlcard" href="LINE-Manager_%E4%BD%BF%E3%81%84%E6%96%B9%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB.pdf" download="LINE-Manager_使い方マニュアル.pdf"><div class="dlk">PDF</div><div><div class="dlt">PDFでダウンロード</div><div class="dls">印刷したり、パソコンに保存して読む方に。全ページ・画面写真つき。</div></div></a>
+      <a class="dlcard ai" href="LINE-Manager_%E4%BD%BF%E3%81%84%E6%96%B9%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB_AI%E7%94%A8.md" download="LINE-Manager_使い方マニュアル_AI用.md"><div class="dlk">AI</div><div><div class="dlt">AIに読ませる用（テキスト）</div><div class="dls">ChatGPT・Claude などに渡して「このツールの使い方を覚えて」と頼むと、使い方の質問に答えてくれます。</div></div></a>
+    </div>
+</section>
+    <article class="view doc" id="v-hajimete" data-id="hajimete" data-cat="はじめに" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>はじめに<span>›</span>はじめての方へ</nav>
+  <h1>はじめての方へ</h1>
+  <p class="lead">このツールでできること、最初に読む順番、よく出てくる言葉</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/hajimete/hajimete-1">このツールでできること</a></li><li><a href="#/hajimete/hajimete-2">最初に読む順番</a></li><li><a href="#/hajimete/hajimete-3">よく出てくる言葉</a></li></ul></div>
+  <div class="body"><div class="nayami"><div class="face" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="31" fill="#EAF0F7"/><circle cx="32" cy="26" r="11" fill="#19314C"/><path d="M12 58c3-12 11-18 20-18s17 6 20 18" fill="#19314C"/><circle cx="28" cy="25" r="1.6" fill="#fff"/><circle cx="36" cy="25" r="1.6" fill="#fff"/></svg></div><ul><li>LINEのお問い合わせ、どこで返せばいいの？</li><li>ほかの人がもう返したか分からない…</li><li>自分が担当しているお客様だけ見たい</li></ul></div><p class="after-nayami">こんなお悩みはありませんか？</p>
+<p>「LINE Manager」は、株式会社アイ・ステーションの公式LINE（総合窓口・でんき・デリバリーなど）に届いたメッセージを、<strong>メンバー全員で1か所で見て、対応できる</strong>ツールです。</p>
+<h2 id="hajimete-1">このツールでできること</h2>
+<ul class="dots"><li>お客様から届いたメッセージを見て、返信する（トーク）</li><li>「要対応」「対応中」「対応済み」で、対応の状況をみんなで共有する</li><li>お客様ごとに「社内担当（受け持つメンバー）」を決めて、引き継ぎもできる</li><li>お客様の会社名・電話番号・メモを残して、あとから検索する</li><li>タグでお客様を分けて、絞り込む</li><li>よく使う文（定型文）をみんなで共有して、すぐ入れる</li></ul>
+<h2 id="hajimete-2">最初に読む順番</h2>
+<ol class="steps"><li><a href="#/login" class="inlink">ログインと最初の設定</a>：パスワードとお名前を設定します</li><li><a href="#/gamen" class="inlink">画面の見方</a>：どこに何があるかを知ります</li><li><a href="#/talk" class="inlink">トークで返信する</a>：お客様への返信のしかたです</li><li><a href="#/mitaiou" class="inlink">未読・要対応・対応状況</a>：対応もれを防ぐしくみです</li><li><a href="#/tantou" class="inlink">社内担当</a>：誰がどのお客様を受け持つかの決め方です</li></ol>
+<div class="box point"><div class="boxh">ポイント</div><p>まずは「トーク」画面だけ使えれば大丈夫です。タグ・配信・流入経路などは、管理者・編集者が使う機能です。</p></div>
+<h2 id="hajimete-3">よく出てくる言葉</h2>
+<div class="tablewrap"><table><thead><tr><th>言葉</th><th>意味</th></tr></thead><tbody><tr><td>友だち</td><td>LINEでアイステの公式アカウントを友だち追加したお客様</td></tr><tr><td>トーク</td><td>お客様とのLINEのやりとりの画面</td></tr><tr><td>未読</td><td>まだ誰も開いていないメッセージ。<strong>メンバー全員で共通</strong>です</td></tr><tr><td>対応状況</td><td>要対応／対応中／対応済み。チャットの対応がどこまで進んだか</td></tr><tr><td>社内担当</td><td>そのお客様を受け持つアイステのメンバー</td></tr><tr><td>ご担当者名</td><td><strong>お客様側</strong>の担当者のお名前（社内担当とは別です）</td></tr><tr><td>タグ</td><td>お客様につける目印（例：興味:でんき、VIP）</td></tr><tr><td>定型文</td><td>よく使う返信の文。全員で共有されます</td></tr><tr><td>見守りのLINE</td><td>でんき・デリバリーなど、あとからこのツールにつないだLINE。返信はこのツールからも、LINE公式のチャットからもできます</td></tr></tbody></table></div></div>
+  <div class="pager"><span></span><a class="next" href="#/login"><span>次の記事 ›</span>ログインと最初の設定</a></div>
+</article>
+<article class="view doc" id="v-login" data-id="login" data-cat="はじめに" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>はじめに<span>›</span>ログインと最初の設定</nav>
+  <h1>ログインと最初の設定</h1>
+  <p class="lead">招待メールからパスワードを決める、ログインのしかた、仮パスワードの変更、お名前を漢字フルネームにする</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/login/login-1">STEP0：招待メールからパスワードを決める</a></li><li><a href="#/login/login-2">STEP1：ログインする</a></li><li><a href="#/login/login-3">STEP2：パスワードを自分だけのものに変える</a></li><li><a href="#/login/login-4">パスワードを忘れたとき</a></li></ul></div>
+  <div class="body"><p>管理者・編集者があなたをメンバーに追加すると、あなたのメールアドレスに<strong>「管理画面へのご招待」メール</strong>が届きます。</p>
+<h2 id="login-1" class="step"><span class="steppill">STEP0</span>招待メールからパスワードを決める</h2>
+<ol class="steps"><li>「【総合窓口LINE】管理画面へのご招待（パスワードの設定）」というメールを開きます（届かないときは迷惑メールもご確認ください）。</li><li>メールのリンクを開き、<strong>ご自身のパスワード（8文字以上）</strong>を2回入れて「このパスワードで始める」を押します。</li><li>ログイン画面に戻るので、メールアドレスと今決めたパスワードでログインします。</li></ol>
+<div class="box warn"><div class="boxh">注意</div><p>リンクは<strong>72時間以内・1回だけ</strong>使えます。期限が切れたときは、ログイン画面の「パスワードを忘れた方」から同じメールアドレスで手続きするか、管理者に「招待メールを送り直す」を押してもらってください。</p></div>
+<h2 id="login-2" class="step"><span class="steppill">STEP1</span>ログインする</h2>
+<ol class="steps"><li>ブラウザ（Chrome・Edge・Safari）で管理画面を開きます。</li><li>メールアドレスとパスワードを入れて「ログイン」を押します。</li></ol>
+<figure class="shot "><a href="img/login.png" class="zoom" data-cap="ログイン画面"><img src="img/login.png" alt="ログイン画面" loading="lazy"></a><figcaption>ログイン画面</figcaption></figure>
+<div class="box point"><div class="boxh">ポイント</div><p>一度ログインすると、60日間はログインしたままになります。共用のパソコンでは使い終わったらログアウトしてください。</p></div>
+<h2 id="login-3" class="step"><span class="steppill">STEP2</span>パスワードを自分だけのものに変える</h2>
+<p>管理者から<strong>仮パスワード</strong>を伝えられてログインした方は、「あなたの設定」画面が開きます。<strong>パスワードを変えるまで、ほかの画面は使えません</strong>（仮パスワードのまま使い続けないように、2026/11/2から必須にしました）。</p>
+<figure class="shot "><a href="img/me.png" class="zoom" data-cap="あなたの設定"><img src="img/me.png" alt="あなたの設定" loading="lazy"></a><figcaption>あなたの設定</figcaption></figure>
+<ol class="steps"><li><span class="maru">①</span>「お名前を変える」に、<strong>漢字のフルネーム</strong>を入れて「保存」を押します（例：伊藤 大峻）。</li><li><span class="maru">②</span>「今のパスワード」に仮パスワード、その下に<strong>新しいパスワード（8文字以上）</strong>を入れて「この内容で変更する」を押します。</li></ol>
+<div class="box warn"><div class="boxh">注意</div><p>お名前は<strong>漢字フルネーム・姓と名の間は半角スペース</strong>でそろえます。全角スペースで入れても、自動で半角に直ります。お客様への返信の記録や「社内担当」に、このお名前が出ます。</p></div>
+<h2 id="login-4">パスワードを忘れたとき</h2>
+<ul class="dots"><li>ログイン画面の「パスワードを忘れた方」を押すと、登録のメールアドレスあてに再設定のリンクが届きます（30分有効・1回だけ使えます）。</li><li>メールが届かないときは、管理者に「仮パスワード」を出してもらってください。</li></ul></div>
+  <div class="pager"><a class="prev" href="#/hajimete"><span>‹ 前の記事</span>はじめての方へ</a><a class="next" href="#/gamen"><span>次の記事 ›</span>画面の見方</a></div>
+</article>
+<article class="view doc" id="v-gamen" data-id="gamen" data-cat="はじめに" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>はじめに<span>›</span>画面の見方</nav>
+  <h1>画面の見方</h1>
+  <p class="lead">左のメニュー、LINEアカウントの切り替え、赤い未読の数</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/gamen/gamen-1">LINEアカウントの分類（広告・採用・事業）</a></li><li><a href="#/gamen/gamen-2">スマホで見るとき</a></li><li><a href="#/gamen/gamen-3">使い方マニュアルを開く</a></li></ul></div>
+  <div class="body"><figure class="shot "><a href="img/overview.png" class="zoom" data-cap="パソコンで開いたトーク画面"><img src="img/overview.png" alt="パソコンで開いたトーク画面" loading="lazy"></a><figcaption>パソコンで開いたトーク画面</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>番号</th><th>場所</th><th>できること</th></tr></thead><tbody><tr><td><span class="maru">①</span></td><td>LINEアカウント</td><td>総合窓口・でんき問合せなど、見るLINEを切り替えます。<strong>赤い数字はそのLINEの未読の数</strong>です</td></tr><tr><td><span class="maru">②</span></td><td>メニュー</td><td>トーク・友だち管理・タグ管理などの画面へ移ります</td></tr><tr><td><span class="maru">③</span></td><td>お客様の一覧</td><td>新しいやりとりが上に並びます。絞り込みと検索もここです</td></tr><tr><td><span class="maru">④</span></td><td>会話</td><td>選んだお客様とのやりとり。下の欄から返信します</td></tr></tbody></table></div>
+<div class="box point"><div class="boxh">ポイント</div><p>左の一覧の赤い数字を見れば、どのLINEに未読があるか、押さなくても分かります。</p></div>
+<h2 id="gamen-1">LINEアカウントの分類（広告・採用・事業）</h2>
+<p>左の「LINEアカウント」は、<strong>広告・採用・事業</strong>の分類ごとに見出しを付けて並びます。分類が決まっていないLINEは、いちばん下の「その他」に入ります。</p>
+<ul class="dots"><li>分類を決める・変えるのは<strong>管理者</strong>です。メニューの「アカウント設定」→「連携アカウント」の表の「分類」で選ぶと、すぐ保存され、左の並びも変わります。</li><li>管理者以外の方は、分類を見るだけです（変えられません）。</li></ul>
+<h2 id="gamen-2">スマホで見るとき</h2>
+<p>スマホでは、下のタブ（トーク・数字・友だち・その他）で画面を切り替えます。一覧でお客様を押すと会話が開き、「‹ 一覧」で戻ります。</p>
+<div class="figrow"><figure class="shot sp"><a href="img/sp-talk.png" class="zoom" data-cap="スマホのトーク一覧"><img src="img/sp-talk.png" alt="スマホのトーク一覧" loading="lazy"></a><figcaption>スマホのトーク一覧</figcaption></figure><figure class="shot sp"><a href="img/sp-chat.png" class="zoom" data-cap="スマホの会話"><img src="img/sp-chat.png" alt="スマホの会話" loading="lazy"></a><figcaption>スマホの会話</figcaption></figure></div>
+<h2 id="gamen-3">使い方マニュアルを開く</h2>
+<p>左のメニューのいちばん下の「使い方マニュアル」から、いつでもこのマニュアルを開けます。</p>
+<figure class="shot narrow"><a href="img/nav-manual.png" class="zoom" data-cap="使い方マニュアルの入口"><img src="img/nav-manual.png" alt="使い方マニュアルの入口" loading="lazy"></a><figcaption>使い方マニュアルの入口</figcaption></figure></div>
+  <div class="pager"><a class="prev" href="#/login"><span>‹ 前の記事</span>ログインと最初の設定</a><a class="next" href="#/app"><span>次の記事 ›</span>アプリとして入れる・通知を受け取る</a></div>
+</article>
+<article class="view doc" id="v-app" data-id="app" data-cat="はじめに" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>はじめに<span>›</span>アプリとして入れる・通知を受け取る</nav>
+  <h1>アプリとして入れる・通知を受け取る</h1>
+  <p class="lead">パソコン・スマホにアプリとして入れて、新しいメッセージの通知を受け取る</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/app/app-1">パソコン</a></li><li><a href="#/app/app-2">iPhone</a></li><li><a href="#/app/app-3">通知をオンにする</a></li></ul></div>
+  <div class="body"><p>ブラウザで開くだけでも使えますが、アプリとして入れると<strong>新しいメッセージが届いたときに通知</strong>が出ます。</p>
+<h2 id="app-1">パソコン</h2>
+<ul class="dots"><li><strong>Windows：Microsoft Edge</strong> で開き、右上の「…」→「アプリ」→「このサイトをアプリとしてインストール」を押します。</li><li><strong>Mac：Safari</strong> で開き、メニューバーの「ファイル」→「Dockに追加」を押します（macOS 14 以降）。</li><li>Chrome の場合は、アドレスバー右端のインストールのマーク（見当たらないときは「︙」→「キャスト、保存、共有」→「ページをアプリとしてインストール」）。</li></ul>
+<div class="box point"><div class="boxh">ポイント</div><p>Windows の Edge と Mac の Safari「Dockに追加」は、ブラウザを閉じていても通知が届きます。</p></div>
+<h2 id="app-2">iPhone</h2>
+<ol class="steps"><li><strong>Safari</strong> で管理画面を開きます。</li><li>画面下の共有ボタン（□に↑）→「ホーム画面に追加」を押します。</li><li>ホーム画面に増えたアイコンから開き、ログインします。</li></ol>
+<div class="box warn"><div class="boxh">注意</div><p>iPhone は「ホーム画面に追加」したアイコンから開いたときだけ、通知を受け取れます。</p></div>
+<h2 id="app-3">通知をオンにする</h2>
+<ol class="steps"><li>メニューの「アカウント設定」を開きます。</li><li>「通知」の欄の「通知をオンにする」を押し、端末の確認で「許可」を選びます。</li><li>「テスト通知」を押して、通知が届けば完了です。</li></ol>
+<p>通知は、パソコン・スマホなど<strong>端末ごと</strong>に設定します。</p></div>
+  <div class="pager"><a class="prev" href="#/gamen"><span>‹ 前の記事</span>画面の見方</a><a class="next" href="#/talk"><span>次の記事 ›</span>トークで返信する</a></div>
+</article>
+<article class="view doc" id="v-talk" data-id="talk" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>トークで返信する</nav>
+  <h1>トークで返信する</h1>
+  <p class="lead">お客様の会話を開いて返信する。でんき・デリバリーなど見守りのLINEからの返信と送信枠</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/talk/talk-1">STEP1：お客様を選ぶ</a></li><li><a href="#/talk/talk-2">STEP2：返信する</a></li><li><a href="#/talk/talk-3">見守りのLINE（でんき・デリバリーなど）から返信するとき</a></li></ul></div>
+  <div class="body"><h2 id="talk-1" class="step"><span class="steppill">STEP1</span>お客様を選ぶ</h2>
+<p>左の一覧からお客様を押すと、右に会話が開きます。開いた時点で、その会話は<strong>既読</strong>になります（メンバー全員の画面で既読になります）。</p>
+<h2 id="talk-2" class="step"><span class="steppill">STEP2</span>返信する</h2>
+<figure class="shot "><a href="img/talk-send.png" class="zoom" data-cap="返信の欄"><img src="img/talk-send.png" alt="返信の欄" loading="lazy"></a><figcaption>返信の欄</figcaption></figure>
+<ol class="steps"><li><span class="maru">①</span>の欄にメッセージを入れます。</li><li>よく使う文は <span class="maru">②</span>「定型文」から入れられます（<a href="#/teikei" class="inlink">定型文</a>）。</li><li><span class="maru">③</span>「送信」を押すと、確認の小窓が出ます。</li></ol>
+<figure class="shot narrow"><a href="img/talk-confirm.png" class="zoom" data-cap="送信の確認"><img src="img/talk-confirm.png" alt="送信の確認" loading="lazy"></a><figcaption>送信の確認</figcaption></figure>
+<ol class="steps" start="4" style="counter-reset:s 3"><li>送り先と文面を確かめて <span class="maru">①</span>「送信する」を押します。</li></ol>
+<p>送ったメッセージの下には、<strong>送ったメンバーの名前</strong>が出ます。まだ社内担当がいないお客様には、最初に返信した人が自動で<a href="#/tantou" class="inlink">社内担当</a>として入ります。</p>
+<div class="box warn"><div class="boxh">注意</div><p>「接触NG」のタグが付いたお客様に送ろうとすると、確認の小窓に赤い注意が出ます。本当に送ってよいか、社内担当や管理者に確かめてください。</p></div>
+<h2 id="talk-3">見守りのLINE（でんき・デリバリーなど）から返信するとき</h2>
+<p>でんき問合せ・デリバリー導入支援・取引先様窓口・ママスクエアは、あとからこのツールにつないだ「見守り」のLINEです。総合窓口と同じように、<strong>このツールから返信できます</strong>。会話の下に、送信枠についての黄色いお知らせ（<span class="maru">①</span>）が出ます。返信のしかたは同じです（<span class="maru">②</span>）。</p>
+<figure class="shot "><a href="img/talk-mimamori.png" class="zoom" data-cap="見守りのLINEの返信欄"><img src="img/talk-mimamori.png" alt="見守りのLINEの返信欄" loading="lazy"></a><figcaption>見守りのLINEの返信欄</figcaption></figure>
+<div class="box warn"><div class="boxh">注意</div><p>見守りのLINEは、ツールから返信するたびにLINEの<strong>送信枠</strong>（無料は月200通・お知らせ配信と共通）を1通使います。今月の送信数は、お知らせと送信の確認に出ます。</p><p>枠が尽きて送れなくなったときは、お知らせの「LINE公式のチャット」から返信してください（チャットからの返信は無料です）。</p></div>
+<div class="box note"><div class="boxh">補足</div><p>LINE公式のチャットで返信した場合は、このツールの会話には出ません。「対応状況」を手で「対応済み」にしておきましょう。</p><p>管理者の設定で、LINEごとに「ツールから返信しない」にすることもできます。そのLINEでは返信欄の代わりに「LINE公式のチャットを開く」が出ます。</p></div></div>
+  <div class="pager"><a class="prev" href="#/app"><span>‹ 前の記事</span>アプリとして入れる・通知を受け取る</a><a class="next" href="#/mitaiou"><span>次の記事 ›</span>未読・要対応・対応状況</a></div>
+</article>
+<article class="view doc" id="v-mitaiou" data-id="mitaiou" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>未読・要対応・対応状況</nav>
+  <h1>未読・要対応・対応状況</h1>
+  <p class="lead">未読は全員で共通。お客様から届くと自動で「要対応」。対応が終わったら「対応済み」に</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/mitaiou/mitaiou-1">対応状況を変える</a></li><li><a href="#/mitaiou/mitaiou-2">一覧の上の数字とボタン</a></li></ul></div>
+  <div class="body"><p>「誰も見ていないもの」と「まだ返していないもの」を分けて見られるようにしています。</p>
+<div class="tablewrap"><table><thead><tr><th>しるし</th><th>意味</th><th>どうなると消える？</th></tr></thead><tbody><tr><td>未読（赤い数字）</td><td>まだ<strong>誰も</strong>会話を開いていない</td><td>誰か1人が会話を開くと、全員の画面で消えます</td></tr><tr><td>要対応</td><td>お客様から届いて、まだ対応が終わっていない</td><td>「対応済み」にすると消えます</td></tr><tr><td>対応中</td><td>誰かが対応している途中</td><td>自分で「対応済み」にします</td></tr><tr><td>対応済み</td><td>対応が終わった</td><td>お客様からまた届くと、自動で「要対応」に戻ります</td></tr></tbody></table></div>
+<h2 id="mitaiou-1">対応状況を変える</h2>
+<p>会話の上の <span class="maru">①</span> のプルダウンで変えます。</p>
+<figure class="shot "><a href="img/talk-head.png" class="zoom" data-cap="会話の上"><img src="img/talk-head.png" alt="会話の上" loading="lazy"></a><figcaption>会話の上</figcaption></figure>
+<ol class="steps"><li>返信を考えている間は「対応中」にします。</li><li>対応が終わったら「対応済み」にします。<strong>対応済みにすると未読も消えます。</strong></li></ol>
+<div class="box point"><div class="boxh">ポイント</div><p>お客様からメッセージが届くと、対応状況が<strong>自動で「要対応」</strong>になります（「対応中」のときはそのまま）。</p><p>メニューで「サービスを見る」などを押しただけのときは、未読にも要対応にもなりません（会話の記録には残ります）。</p></div>
+<h2 id="mitaiou-2">一覧の上の数字とボタン</h2>
+<figure class="shot narrow"><a href="img/talk-left.png" class="zoom" data-cap="一覧の上の部分"><img src="img/talk-left.png" alt="一覧の上の部分" loading="lazy"></a><figcaption>一覧の上の部分</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>番号</th><th>名前</th><th>できること</th></tr></thead><tbody><tr><td><span class="maru">①</span></td><td>友だち・有効・未読</td><td>人数と未読の数。<strong>絞り込み・検索をしているときは、その中の数</strong>になります</td></tr><tr><td><span class="maru">②</span></td><td>すべて／未読／要対応／自分の担当／有効／ブロック</td><td>押すと、その人だけを一覧に出します</td></tr><tr><td><span class="maru">③</span></td><td>更新</td><td>最新の状態に読み直します（アプリで開いているときに便利です）</td></tr><tr><td><span class="maru">④</span></td><td>すべて既読にする</td><td>このLINEの未読をまとめて既読にします（対応状況は変わりません）</td></tr><tr><td><span class="maru">⑤</span>〜<span class="maru">⑧</span></td><td>絞り込み・タグを複数で・検索</td><td><a href="#/kensaku" class="inlink">絞り込みと検索</a>を見てください</td></tr></tbody></table></div></div>
+  <div class="pager"><a class="prev" href="#/talk"><span>‹ 前の記事</span>トークで返信する</a><a class="next" href="#/tantou"><span>次の記事 ›</span>社内担当（受け持つメンバー）</a></div>
+</article>
+<article class="view doc" id="v-tantou" data-id="tantou" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>社内担当（受け持つメンバー）</nav>
+  <h1>社内担当（受け持つメンバー）</h1>
+  <p class="lead">最初に返信した人が自動で担当に。引き継ぐときはプルダウンで変える</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/tantou/tantou-1">社内担当はどう決まる？</a></li><li><a href="#/tantou/tantou-2">担当を引き継ぐ・変える</a></li><li><a href="#/tantou/tantou-3">自分の担当だけを見る</a></li></ul></div>
+  <div class="body"><p>お客様ごとに「社内担当」を決めると、<strong>誰がこのお客様を受け持っているか</strong>がひと目で分かります。</p>
+<h2 id="tantou-1">社内担当はどう決まる？</h2>
+<ul class="dots"><li>まだ担当がいないお客様に、ツールから<strong>最初に返信した人</strong>が自動で入ります。</li><li>対応状況を「対応中」「対応済み」にした人も、担当がいなければ自動で入ります。</li><li>2人目以降が返信しても、担当は変わりません。</li></ul>
+<h2 id="tantou-2">担当を引き継ぐ・変える</h2>
+<ol class="steps"><li>会話の上の「担当：○○」か「この人の情報」を押します。</li><li>いちばん上の <span class="maru">①</span>「社内担当」のプルダウンで、引き継ぐメンバーを選びます。</li><li>下の「保存する」を押します。</li></ol>
+<figure class="shot narrow"><a href="img/info-admin.png" class="zoom" data-cap="この人の情報（社内担当）"><img src="img/info-admin.png" alt="この人の情報（社内担当）" loading="lazy"></a><figcaption>この人の情報（社内担当）</figcaption></figure>
+<div class="box point"><div class="boxh">ポイント</div><p>社内担当は、一般の方も変えられます。引き継いだら、ひと言チャットなどで相手に伝えてください。</p></div>
+<h2 id="tantou-3">自分の担当だけを見る</h2>
+<p>一覧の上の「自分の担当」を押すと、自分が受け持つお客様だけが出ます。ほかのメンバーの担当を見たいときは「絞り込み」の「社内担当」から選びます。</p>
+<figure class="shot narrow"><a href="img/talk-mine.png" class="zoom" data-cap="自分の担当"><img src="img/talk-mine.png" alt="自分の担当" loading="lazy"></a><figcaption>自分の担当</figcaption></figure>
+<p>一覧の右側の小さな名前（<span class="maru">②</span>）が、そのお客様の社内担当です。</p></div>
+  <div class="pager"><a class="prev" href="#/mitaiou"><span>‹ 前の記事</span>未読・要対応・対応状況</a><a class="next" href="#/kensaku"><span>次の記事 ›</span>絞り込みと検索</a></div>
+</article>
+<article class="view doc" id="v-kensaku" data-id="kensaku" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>絞り込みと検索</nav>
+  <h1>絞り込みと検索</h1>
+  <p class="lead">社内担当・タグで絞り込む。名前・会社名・電話番号・メモで検索。部分一致と完全一致</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/kensaku/kensaku-1">絞り込み</a></li><li><a href="#/kensaku/kensaku-2">タグを複数で絞り込む</a></li><li><a href="#/kensaku/kensaku-3">検索</a></li></ul></div>
+  <div class="body"><h2 id="kensaku-1">絞り込み</h2>
+<p>一覧の上の「絞り込み」から選びます。</p>
+<ul class="dots"><li><strong>社内担当</strong>：自分／各メンバー／担当なし</li><li><strong>タグ</strong>：興味:でんき、商材:このまちでんき、VIP など（1つ選ぶとき）</li></ul>
+<h2 id="kensaku-2">タグを複数で絞り込む</h2>
+<p>「タグを複数で」を押すと、タグを<strong>いくつでも</strong>選んで絞り込めます（Lステップの絞り込みと同じ考え方です）。トークと友だち管理の両方で使えます。</p>
+<figure class="shot "><a href="img/tag-multi.png" class="zoom" data-cap="タグを複数で絞り込む"><img src="img/tag-multi.png" alt="タグを複数で絞り込む" loading="lazy"></a><figcaption>タグを複数で絞り込む</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>選び方</th><th>出る人</th></tr></thead><tbody><tr><td>含むタグ：<strong>どれか</strong></td><td>選んだタグの<strong>どれか1つ</strong>が付いている人（例：商材:このまちでんき か 興味:でんき）</td></tr><tr><td>含むタグ：<strong>すべて</strong></td><td>選んだタグが<strong>全部</strong>付いている人（例：商材:このまちでんき と VIP）</td></tr><tr><td>除外するタグ</td><td>このタグが付いている人は<strong>出さない</strong>（例：接触NG を除く）</td></tr></tbody></table></div>
+<p>条件を消すときは「すべて外す」を押します。ボタンの文字が「タグ 2個・どれか」のように変わっているときは、絞り込み中です。</p>
+<h2 id="kensaku-3">検索</h2>
+<p>「検索」の欄に言葉を入れると、次の項目から探します。</p>
+<ul class="dots"><li>お客様のLINEの名前・会社名・ご担当者名・電話番号（ハイフンなしでも探せます）</li><li><strong>メモ</strong>・タグ・興味・社内担当の名前</li></ul>
+<figure class="shot narrow"><a href="img/talk-search.png" class="zoom" data-cap="メモの中の言葉で検索"><img src="img/talk-search.png" alt="メモの中の言葉で検索" loading="lazy"></a><figcaption>メモの中の言葉で検索</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>探し方</th><th>どう探す？</th><th>例</th></tr></thead><tbody><tr><td>部分一致（ふつう）</td><td>言葉が<strong>どこかに含まれる</strong>人</td><td>「料金」→ メモに「料金の見直し」とある人</td></tr><tr><td>完全一致</td><td>項目、またはメモの<strong>ひとかたまりの言葉が同じ</strong>人</td><td>「★クレーム」→ メモに「★クレーム」と書いた人だけ</td></tr></tbody></table></div>
+<div class="box point"><div class="boxh">ポイント</div><p>スペースで区切って入れると、<strong>すべての言葉を含む人</strong>を探します（例：「でんき 折り返し」）。</p><p>メモに「★クレーム」「★折り返し待ち」のような決まった書き方をしておくと、完全一致ですぐに探せます。</p></div>
+<p>絞り込み・検索をしているときは、一覧の上の数字（友だち・有効・未読）と「要対応」「自分の担当」の数も、<strong>その中の数</strong>になります。</p></div>
+  <div class="pager"><a class="prev" href="#/tantou"><span>‹ 前の記事</span>社内担当（受け持つメンバー）</a><a class="next" href="#/info"><span>次の記事 ›</span>この人の情報（会社名・電話番号・メモ）</a></div>
+</article>
+<article class="view doc" id="v-info" data-id="info" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>この人の情報（会社名・電話番号・メモ）</nav>
+  <h1>この人の情報（会社名・電話番号・メモ）</h1>
+  <p class="lead">お客様の情報を残す。権限によって直せる項目が違う。メモは全員に共有</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  
+  <div class="body"><p>会話の上の「この人の情報」を押すと、右からパネルが開きます。</p>
+<figure class="shot narrow"><a href="img/info-admin.png" class="zoom" data-cap="この人の情報（管理者・編集者）"><img src="img/info-admin.png" alt="この人の情報（管理者・編集者）" loading="lazy"></a><figcaption>この人の情報（管理者・編集者）</figcaption></figure>
+<ol class="steps"><li>直したい項目を入れます。</li><li>いちばん下の「保存する」を押します（保存ボタンは下に固定されていて、いつでも押せます）。</li></ol>
+<h2 id="info-1">項目と、直せる人</h2>
+<div class="tablewrap"><table><thead><tr><th>項目</th><th>管理者</th><th>編集者</th><th>一般</th></tr></thead><tbody><tr><td>社内担当</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>会社名／屋号名</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td>見るだけ</td></tr><tr><td>ご担当者名（お客様側）</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>電話番号</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>タグ</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td>見るだけ</td></tr><tr><td>流入経路</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td>見るだけ</td></tr><tr><td>対応状況</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>メモ</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr></tbody></table></div>
+<p>一般の方のパネルは、会社名・タグ・流入経路が「見るだけ」で表示されます。</p>
+<figure class="shot narrow"><a href="img/info-ippan.png" class="zoom" data-cap="この人の情報（一般）"><img src="img/info-ippan.png" alt="この人の情報（一般）" loading="lazy"></a><figcaption>この人の情報（一般）</figcaption></figure>
+<div class="box point"><div class="boxh">ポイント</div><p><strong>メモはメンバー全員に共有されます。</strong> ヒアリングした内容や、次にすることを書いておきましょう。メモは<a href="#/kensaku" class="inlink">検索</a>で探せます。</p></div>
+<div class="box note"><div class="boxh">補足</div><p>タグはこのパネルでは新しく作れません。新しいタグが必要なときは、管理者・編集者が「タグ管理」で作ります。現場で自由に残したいことは、メモに書いてください。</p></div></div>
+  <div class="pager"><a class="prev" href="#/kensaku"><span>‹ 前の記事</span>絞り込みと検索</a><a class="next" href="#/teikei"><span>次の記事 ›</span>定型文（よく使う返信の文）</a></div>
+</article>
+<article class="view doc" id="v-teikei" data-id="teikei" data-cat="チャット対応" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>チャット対応<span>›</span>定型文（よく使う返信の文）</nav>
+  <h1>定型文（よく使う返信の文）</h1>
+  <p class="lead">定型文を入れる・作る・直す。全員で共有し、グループで分ける</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/teikei/teikei-1">定型文を入れる</a></li><li><a href="#/teikei/teikei-2">定型文を作る</a></li></ul></div>
+  <div class="body"><p>よく使う文を「定型文」として登録しておくと、ボタン1つで入れられます。<strong>定型文はメンバー全員で共有</strong>されます。</p>
+<h2 id="teikei-1">定型文を入れる</h2>
+<ol class="steps"><li>会話の下の「定型文」を押します。</li><li>上の <span class="maru">①</span> のボタンでグループ（共通・ビズプラスなど）を選ぶと、そのグループだけが出ます。</li><li>使いたい文の <span class="maru">②</span>「入れる」を押すと、入力欄に入ります。必要なら直してから送信します。</li></ol>
+<figure class="shot "><a href="img/templates.png" class="zoom" data-cap="定型文の一覧"><img src="img/templates.png" alt="定型文の一覧" loading="lazy"></a><figcaption>定型文の一覧</figcaption></figure>
+<h2 id="teikei-2">定型文を作る</h2>
+<ol class="steps"><li>定型文の小窓の下の「＋ 新しい定型文を作る」を押します。</li><li><span class="maru">①</span>グループ、<span class="maru">②</span>名前、<span class="maru">③</span>本文を入れて、<span class="maru">④</span>「作る」を押します。</li></ol>
+<figure class="shot "><a href="img/templates-new.png" class="zoom" data-cap="定型文を作る"><img src="img/templates-new.png" alt="定型文を作る" loading="lazy"></a><figcaption>定型文を作る</figcaption></figure>
+<div class="box point"><div class="boxh">ポイント</div><p>本文に <code>{名前}</code> <code>{会社名}</code> <code>{担当者名}</code> と書くと、入れるときにそのお客様の情報に入れ替わります。</p></div>
+<div class="box warn"><div class="boxh">注意</div><p>誰かが定型文を直すと、全員の定型文が変わります。会社として決めた「共通」グループの文は、勝手に直さないでください。</p></div></div>
+  <div class="pager"><a class="prev" href="#/info"><span>‹ 前の記事</span>この人の情報（会社名・電話番号・メモ）</a><a class="next" href="#/friends"><span>次の記事 ›</span>友だち管理</a></div>
+</article>
+<article class="view doc" id="v-friends" data-id="friends" data-cat="お客様の管理" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>お客様の管理<span>›</span>友だち管理</nav>
+  <h1>友だち管理</h1>
+  <p class="lead">お客様の一覧。タグ・状態・社内担当で絞り込む。CSVで書き出す</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  
+  <div class="body"><p>メニューの「友だち管理」で、お客様を表で見られます。</p>
+<figure class="shot "><a href="img/friends.png" class="zoom" data-cap="友だち管理"><img src="img/friends.png" alt="友だち管理" loading="lazy"></a><figcaption>友だち管理</figcaption></figure>
+<div class="tablewrap"><table><thead><tr><th>番号</th><th>できること</th></tr></thead><tbody><tr><td><span class="maru">①</span></td><td>タグで絞り込む（1つ）</td></tr><tr><td><span class="maru">②</span></td><td>タグを複数で絞り込む（どれか・すべて・除外）。<a href="#/kensaku" class="inlink">タグを複数で絞り込む</a>を見てください</td></tr><tr><td><span class="maru">③</span></td><td>状態（要対応・未読あり・有効・ブロック）で絞り込む</td></tr><tr><td><span class="maru">④</span></td><td>社内担当（自分の担当・各メンバー・担当なし）で絞り込む</td></tr><tr><td><span class="maru">⑤</span></td><td>上の検索欄の探し方（部分一致・完全一致）</td></tr><tr><td><span class="maru">⑥</span></td><td>タグが多い人は「＋N もっと見る」で全部を出せます</td></tr><tr><td><span class="maru">⑦</span></td><td>今の一覧をCSV（Excelで開ける形）で書き出します</td></tr></tbody></table></div>
+<p>画面の右上の検索欄に言葉を入れると、名前・会社名・メモなどから探せます。</p>
+<h2 id="friends-1">タグをまとめて付ける・外す（管理者・編集者）</h2>
+<ol class="steps"><li>付けたいお客様の左のチェックを入れます。</li><li>「タグを一括付与」を押します。</li><li><span class="maru">①</span>でタグを選び、<span class="maru">②</span>「付ける」か<span class="maru">③</span>「外す」を押します。</li></ol>
+<figure class="shot narrow"><a href="img/bulk-tag.png" class="zoom" data-cap="タグを一括付与"><img src="img/bulk-tag.png" alt="タグを一括付与" loading="lazy"></a><figcaption>タグを一括付与</figcaption></figure></div>
+  <div class="pager"><a class="prev" href="#/teikei"><span>‹ 前の記事</span>定型文（よく使う返信の文）</a><a class="next" href="#/tags"><span>次の記事 ›</span>タグ管理</a></div>
+</article>
+<article class="view doc" id="v-tags" data-id="tags" data-cat="お客様の管理" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>お客様の管理<span>›</span>タグ管理</nav>
+  <h1>タグ管理</h1>
+  <p class="lead">タグを作る・フォルダに分ける・編集・削除。接触NGと配信NG</p>
+  <div class="meta"><span>対象：管理者・編集者</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/tags/tags-1">タグを作る</a></li><li><a href="#/tags/tags-2">名前を直す・消す</a></li><li><a href="#/tags/tags-3">決まったタグ：接触NG と 配信NG</a></li></ul></div>
+  <div class="body"><p>タグは、お客様に付ける目印です。会社として決めたタグを、ここで作って管理します。</p>
+<figure class="shot "><a href="img/tags.png" class="zoom" data-cap="タグ管理"><img src="img/tags.png" alt="タグ管理" loading="lazy"></a><figcaption>タグ管理</figcaption></figure>
+<h2 id="tags-1">タグを作る</h2>
+<ol class="steps"><li><span class="maru">①</span>「新しいタグ」に名前を入れます（例：商談中、展示会2026）。</li><li><span class="maru">②</span>でフォルダを選びます。</li><li><span class="maru">③</span>「作成」を押します。</li></ol>
+<h2 id="tags-2">名前を直す・消す</h2>
+<ul class="dots"><li><span class="maru">④</span>「編集」で名前を直せます。付いているお客様のタグ、シナリオ・予約配信の条件も、まとめて新しい名前に変わります。</li><li>「削除」で消せます。付いている人からも外れます（元に戻せません）。</li></ul>
+<h2 id="tags-3">決まったタグ：接触NG と 配信NG</h2>
+<p>どのLINEにも最初から入っているタグです。名前の変更・削除はできません。</p>
+<div class="tablewrap"><table><thead><tr><th>タグ</th><th>意味</th><th>このツールでの動き</th></tr></thead><tbody><tr><td><span class="maru">⑤</span> 接触NG</td><td>こちらから連絡しない（クレーム案件など）</td><td>一斉配信・予約配信・シナリオ配信・テスト送信が届きません。1対1で送るときは赤い注意が出ます</td></tr><tr><td><span class="maru">⑥</span> 配信NG</td><td>お知らせの配信はいらない</td><td>一斉配信・予約配信・シナリオ配信・テスト送信が届きません。問い合わせへの返信（1対1）は普通にできます</td></tr></tbody></table></div>
+<div class="box warn"><div class="boxh">注意</div><p>会話の中でクレームになったお客様や、「配信はいらない」と言われたお客様には、すぐにこのタグを付けてください（付けられない方は、管理者・編集者に依頼してください）。</p></div></div>
+  <div class="pager"><a class="prev" href="#/friends"><span>‹ 前の記事</span>友だち管理</a><a class="next" href="#/routes"><span>次の記事 ›</span>流入経路（QRコード・リンク）</a></div>
+</article>
+<article class="view doc" id="v-routes" data-id="routes" data-cat="管理者・編集者向け" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>管理者・編集者向け<span>›</span>流入経路（QRコード・リンク）</nav>
+  <h1>流入経路（QRコード・リンク）</h1>
+  <p class="lead">友だち追加の入口を作る。商材タグ。QR画像のコピー。登録数とクリック数</p>
+  <div class="meta"><span>対象：管理者</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/routes/routes-1">入口を作る</a></li><li><a href="#/routes/routes-2">商材タグ（商材ごとに絞り込む）</a></li><li><a href="#/routes/routes-3">QRコードとリンクを使う</a></li><li><a href="#/routes/routes-4">登録数とクリック数</a></li></ul></div>
+  <div class="body"><p>「どこから友だち追加されたか」を数えるための入口（専用リンクとQRコード）を作ります。入口を作れるのは<strong>管理者</strong>だけです。</p>
+<figure class="shot "><a href="img/routes.png" class="zoom" data-cap="流入経路"><img src="img/routes.png" alt="流入経路" loading="lazy"></a><figcaption>流入経路</figcaption></figure>
+<h2 id="routes-1">入口を作る</h2>
+<ol class="steps"><li><span class="maru">①</span>で入口の種類（テレマ・対面・Web・紹介）を選び、名前とメモを入れます。</li><li><span class="maru">②</span>「商材」に、この入口で案内する商材（例：このまちでんき・墓守）を入れます（なければ空のままでOK）。</li><li><span class="maru">③</span>「この入口を作る」を押します。</li><li>続けて開く「アクション設定」で、この入口から追加した人に自動で付けるタグを選んで保存します。</li></ol>
+<h2 id="routes-2">商材タグ（商材ごとに絞り込む）</h2>
+<p>入口に「商材」を入れると、その入口から友だち追加した人に<strong>「商材:〇〇」のタグ</strong>が自動で付きます。テレマ・Webなど入口が分かれていても、トークや友だち管理の絞り込みで<strong>「商材:このまちでんき」を1つ選ぶだけ</strong>で、その商材のお客様がまとめて出ます。</p>
+<div class="box point"><div class="boxh">ポイント</div><p>あとから入口の「編集」で商材を入れたり変えたりすると、<strong>今までその入口から来た人の商材タグも付け替わります</strong>（シナリオ配信は始まりません）。サービス一覧に無い商材（墓守など）も、入口の商材で分けられます。</p></div>
+<h2 id="routes-3">QRコードとリンクを使う</h2>
+<ol class="steps"><li>一覧の「QR・コピー」を押します。</li><li><span class="maru">⑤</span>「QR画像をコピー」を押すと、同じ大きさのQR画像がコピーされます。資料・メール・チャットに貼り付けられます（「画像を保存」でファイルにもできます）。</li><li><span class="maru">⑥</span>「リンクをコピー」でリンクもコピーできます。</li></ol>
+<h2 id="routes-4">登録数とクリック数</h2>
+<div class="tablewrap"><table><thead><tr><th>数</th><th>意味</th></tr></thead><tbody><tr><td><span class="maru">④</span> 登録数</td><td>この入口から<strong>実際に友だち追加した人の数</strong>（あとでブロックした人も含む）</td></tr><tr><td>クリック数</td><td>リンクやQRが<strong>開かれた回数</strong>（友だち追加まで進まなかった人も含む）</td></tr></tbody></table></div></div>
+  <div class="pager"><a class="prev" href="#/tags"><span>‹ 前の記事</span>タグ管理</a><a class="next" href="#/broadcast"><span>次の記事 ›</span>メッセージ配信</a></div>
+</article>
+<article class="view doc" id="v-broadcast" data-id="broadcast" data-cat="管理者・編集者向け" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>管理者・編集者向け<span>›</span>メッセージ配信</nav>
+  <h1>メッセージ配信</h1>
+  <p class="lead">全員またはタグで絞った人へお知らせを送る。予約・テスト送信</p>
+  <div class="meta"><span>対象：管理者・編集者</span><span>最終更新：2026年11月17日</span></div>
+  
+  <div class="body"><p>友だち全員、またはタグで絞ったお客様に、お知らせをまとめて送ります（管理者・編集者）。</p>
+<figure class="shot "><a href="img/broadcast.png" class="zoom" data-cap="メッセージ配信"><img src="img/broadcast.png" alt="メッセージ配信" loading="lazy"></a><figcaption>メッセージ配信</figcaption></figure>
+<ol class="steps"><li>「送る相手」で「友だち全員」か「タグで絞る」を選びます。除きたいタグも選べます。</li><li>吹き出し（テキスト・画像・カード）を作ります。右に、スマホでの見え方が出ます。</li><li>「テスト送信」で、社内の人に1通だけ送って確かめます。</li><li>「今すぐ」か「日時を決めて予約」を選び、「配信する」を押します。</li></ol>
+<div class="box warn"><div class="boxh">注意</div><p><span class="maru">①</span>送る人数からは、<strong>ブロック中の人と「接触NG」「配信NG」タグの人は自動で除かれます</strong>。</p><p>配信はLINEの送信枠（無料プランは月200通）を使います。送る前に人数を確かめてください。</p></div>
+<div class="box note"><div class="boxh">補足</div><p>配信できるのは、総合窓口など<strong>このツールに直接つないでいるLINEだけ</strong>です。見守りのLINE（でんき問合せ・デリバリーなど）からは配信できません。</p><p>見守りのLINEでお知らせを送るときは、LINE公式アカウントの管理画面（またはエルメ・Lステップなど元の仕組み）から送ってください。</p></div></div>
+  <div class="pager"><a class="prev" href="#/routes"><span>‹ 前の記事</span>流入経路（QRコード・リンク）</a><a class="next" href="#/others"><span>次の記事 ›</span>シナリオ・リッチメニュー・レポート</a></div>
+</article>
+<article class="view doc" id="v-others" data-id="others" data-cat="管理者・編集者向け" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>管理者・編集者向け<span>›</span>シナリオ・リッチメニュー・レポート</nav>
+  <h1>シナリオ・リッチメニュー・レポート</h1>
+  <p class="lead">そのほかの機能のかんたんな説明</p>
+  <div class="meta"><span>対象：管理者・編集者</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/others/others-1">シナリオ配信</a></li><li><a href="#/others/others-2">リッチメニュー</a></li><li><a href="#/others/others-3">レポート・ダッシュボード</a></li><li><a href="#/others/others-4">AI接続</a></li></ul></div>
+  <div class="body"><h2 id="others-1">シナリオ配信</h2>
+<p>友だち追加やタグが付いたときをきっかけに、決めた日数・時刻に順番にメッセージを送ります（最大30通）。「除外タグ」が付いた人と「接触NG」「配信NG」の人には送りません。</p>
+<h2 id="others-2">リッチメニュー</h2>
+<p>LINEのトーク画面の下に出るメニューを作ります。「1人で試す」で自分だけに出して確かめてから、管理者が「全員に公開」します。</p>
+<h2 id="others-3">レポート・ダッシュボード</h2>
+<p>友だち数・ブロック数・問い合わせ件数・ボタンのタップ数などを、期間を決めて見られます。CSV・PDF・画像で書き出せます。</p>
+<h2 id="others-4">AI接続</h2>
+<p>自分のAI（Claude・ChatGPTなど）からこのツールの情報を見たり、返信の下書きを作らせたりできます。AIができるのは「見る」と「下書きを作る」だけで、送信や配信はできません。</p></div>
+  <div class="pager"><a class="prev" href="#/broadcast"><span>‹ 前の記事</span>メッセージ配信</a><a class="next" href="#/members"><span>次の記事 ›</span>メンバーと権限</a></div>
+</article>
+<article class="view doc" id="v-members" data-id="members" data-cat="設定" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>設定<span>›</span>メンバーと権限</nav>
+  <h1>メンバーと権限</h1>
+  <p class="lead">メンバーを招待メールで追加する。見られるLINEを決める。名前を直す。仮パスワード。権限でできること</p>
+  <div class="meta"><span>対象：管理者・編集者</span><span>最終更新：2026年11月17日</span></div>
+  <div class="toc"><div class="toch">目次</div><ul><li><a href="#/members/members-1">メンバーを追加する（管理者・編集者）</a></li><li><a href="#/members/members-2">見られるLINE（人ごとに見られるLINEを分ける）</a></li><li><a href="#/members/members-3">名前を直す・仮パスワードを出す</a></li><li><a href="#/members/members-4">権限でできること</a></li></ul></div>
+  <div class="body"><figure class="shot "><a href="img/members.png" class="zoom" data-cap="メンバー"><img src="img/members.png" alt="メンバー" loading="lazy"></a><figcaption>メンバー</figcaption></figure>
+<h2 id="members-1">メンバーを追加する（管理者・編集者）</h2>
+<ol class="steps"><li><span class="maru">①</span>メールアドレス、<span class="maru">②</span>お名前（<strong>漢字フルネーム・姓と名の間は半角スペース</strong>）、<span class="maru">③</span>権限を入れます。</li><li><span class="maru">④</span>「見られるLINE」で、この人が見られるLINEアカウントを選びます（最初は「総合窓口」だけが選ばれています）。</li><li><span class="maru">⑤</span>「招待メールを送って追加」を押します。</li></ol>
+<p>その方のメールアドレスに<strong>パスワードを決めるリンク</strong>が届きます（72時間有効）。<strong>仮パスワードを作って伝える必要はありません。</strong> 本人がリンクからパスワードを決めるまで、一覧には「招待中（パスワード未設定）」と出ます。</p>
+<div class="box point"><div class="boxh">ポイント</div><p>期限が切れた・メールが見つからないときは、一覧の「招待メールを送り直す」を押してください（前のリンクは使えなくなります）。</p></div>
+<h2 id="members-2">見られるLINE（人ごとに見られるLINEを分ける）</h2>
+<p>LINE公式アカウントの「権限」と同じように、<strong>人ごとに見られるLINEアカウント</strong>を決められます。</p>
+<ul class="dots"><li><span class="maru">⑥</span>「見られるLINE」を押して、見られるLINEにチェックを入れて保存します。「すべてのLINE」にすると、今後つなぐLINEも見られます。</li><li>「すべてのLINE」が選ばれたままでも、個別のLINEを押して外せます。1つ外すと「すべてのLINE」も自動で外れ、残りのLINEだけが選ばれた状態になります。</li><li>選んだLINEだけが、その人のトーク・友だち管理・配信・レポート・<strong>スマホの通知</strong>・AI接続に出ます。ほかのLINEは左の一覧にも出ません。</li><li><strong>管理者は、いつもすべてのLINE</strong>を見られます。編集者の見られるLINEを変えられるのは管理者だけです。編集者は、自分が見られるLINEの中から一般の人に割り当てられます。</li></ul>
+<h2 id="members-3">名前を直す・仮パスワードを出す</h2>
+<ul class="dots"><li><span class="maru">⑦</span>「名前を変える」で、ほかのメンバーの名前を直せます（自分の名前は「あなたの設定」から）。</li><li>「仮パスワード発行」で、パスワードを忘れた人に新しい仮パスワードを出せます。仮パスワードで入った人は、<strong>パスワードを変えるまでほかの画面は使えません</strong>。</li></ul>
+<h2 id="members-4">権限でできること</h2>
+<div class="tablewrap"><table><thead><tr><th>できること</th><th>管理者</th><th>編集者</th><th>一般</th></tr></thead><tbody><tr><td>トークを見る・返信する</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>対応状況・社内担当を変える</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>ご担当者名・電話番号・メモを直す</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>定型文を作る・直す</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ok">○</span></td></tr><tr><td>会社名・タグ・流入経路を直す</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ng">×</span></td></tr><tr><td>タグ管理・リッチメニュー</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ng">×</span></td></tr><tr><td>メッセージ配信・シナリオ配信</td><td><span class="ok">○</span></td><td><span class="ok">○</span></td><td><span class="ng">×</span></td></tr><tr><td>メンバーを追加する</td><td><span class="ok">○</span></td><td>○（管理者は作れない）</td><td><span class="ng">×</span></td></tr><tr><td>流入経路の入口を作る</td><td><span class="ok">○</span></td><td><span class="ng">×</span></td><td><span class="ng">×</span></td></tr><tr><td>権限を変える・メンバーを消す・アカウント設定</td><td><span class="ok">○</span></td><td><span class="ng">×</span></td><td><span class="ng">×</span></td></tr></tbody></table></div>
+<div class="box note"><div class="boxh">補足</div><p>「誰がどのLINEアカウントを見られるか」は、メンバー画面の「見られるLINE」で設定します（2026/11/2〜）。誰にどのLINEを割り当てるかの運用ルールは、別に決めて追記します。</p></div></div>
+  <div class="pager"><a class="prev" href="#/others"><span>‹ 前の記事</span>シナリオ・リッチメニュー・レポート</a><a class="next" href="#/faq"><span>次の記事 ›</span>よくある質問</a></div>
+</article>
+<article class="view doc" id="v-faq" data-id="faq" data-cat="困ったとき" hidden>
+  <nav class="crumb"><a href="#/">マニュアル</a><span>›</span>困ったとき<span>›</span>よくある質問</nav>
+  <h1>よくある質問</h1>
+  <p class="lead">困ったときに見るページ</p>
+  <div class="meta"><span>対象：全員</span><span>最終更新：2026年11月17日</span></div>
+  
+  <div class="body"><details class="faq" id="faq-q1"><summary><span class="q">Q</span>未読は、自分だけの未読ですか？</summary><div class="a"><span class="aa">A</span><div><p>いいえ。<strong>メンバー全員で共通</strong>です。誰か1人が会話を開くと、全員の画面で既読になります。「まだ返していない」は「要対応」で見てください。</p></div></div></details>
+<details class="faq" id="faq-q2"><summary><span class="q">Q</span>ほかの人がもう返信したか知りたい</summary><div class="a"><span class="aa">A</span><div><p>会話を開くと、送ったメッセージの下に送った人の名前が出ます。一覧の右側の小さな名前は社内担当です。</p></div></div></details>
+<details class="faq" id="faq-q3"><summary><span class="q">Q</span>メモはほかの人にも見えますか？</summary><div class="a"><span class="aa">A</span><div><p>はい。メモはメンバー全員に共有されます。</p></div></div></details>
+<details class="faq" id="faq-q4"><summary><span class="q">Q</span>定型文は自分だけのものですか？</summary><div class="a"><span class="aa">A</span><div><p>いいえ。全員で共有されます。グループで分けて使ってください。</p></div></div></details>
+<details class="faq" id="faq-q5"><summary><span class="q">Q</span>新しいメッセージが画面に出てこない</summary><div class="a"><span class="aa">A</span><div><p>一覧の上の「↻ 更新」を押してください。アプリで開いているときも、これで読み直せます。</p></div></div></details>
+<details class="faq" id="faq-q6"><summary><span class="q">Q</span>でんき・デリバリーのLINEから返信できますか？</summary><div class="a"><span class="aa">A</span><div><p>できます。ただし返信するたびにLINEの送信枠（無料は月200通）を使います。枠が尽きたら、LINE公式のチャットから返信してください。管理者が「ツールから返信しない」にしたLINEでは、返信欄の代わりに「LINE公式のチャットを開く」が出ます。</p></div></div></details>
+<details class="faq" id="faq-q7"><summary><span class="q">Q</span>タグを新しく作りたい</summary><div class="a"><span class="aa">A</span><div><p>タグは管理者・編集者が「タグ管理」で作ります。現場で自由に残したいことは、メモに書いてください（メモは検索できます）。</p></div></div></details>
+<details class="faq" id="faq-q8"><summary><span class="q">Q</span>パスワードを忘れた</summary><div class="a"><span class="aa">A</span><div><p>ログイン画面の「パスワードを忘れた方」から再設定できます。メールが届かないときは管理者に「仮パスワード」を出してもらってください。</p></div></div></details>
+<details class="faq" id="faq-q9"><summary><span class="q">Q</span>招待メールが届かない・期限が切れた</summary><div class="a"><span class="aa">A</span><div><p>迷惑メールのフォルダも確かめてください。見つからない・72時間を過ぎたときは、管理者・編集者に「招待メールを送り直す」を押してもらうか、ログイン画面の「パスワードを忘れた方」から同じメールアドレスで手続きしてください。</p></div></div></details>
+<details class="faq" id="faq-q10"><summary><span class="q">Q</span>ほかのLINE（でんき・デリバリーなど）が左の一覧に出ない</summary><div class="a"><span class="aa">A</span><div><p>あなたの「見られるLINE」に入っていないLINEは出ません。必要なときは管理者に「メンバー」画面で追加してもらってください。</p></div></div></details>
+<details class="faq" id="faq-q11"><summary><span class="q">Q</span>通知が来ない</summary><div class="a"><span class="aa">A</span><div><p>「アカウント設定」で「通知をオンにする」を押したか確かめてください。iPhone は「ホーム画面に追加」したアイコンから開いたときだけ通知が届きます。</p></div></div></details></div>
+  <div class="pager"><a class="prev" href="#/members"><span>‹ 前の記事</span>メンバーと権限</a><span></span></div>
+</article>
+  </main>
+</div>
+<footer class="footer">LINE Manager 使い方マニュアル｜株式会社アイ・ステーション｜版 1.1（2026年11月17日）</footer>
+<button class="totop" id="totop" aria-label="ページの上へ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+<div class="lb" id="lb"><button aria-label="閉じる">×</button><img alt=""><p></p></div>
+<script>
+var 検索用 = [{"id":"hajimete","t":"はじめての方へ","c":"はじめに","s":"このツールでできること、最初に読む順番、よく出てくる言葉","x":" 悩み LINEのお問い合わせ、どこで返せばいいの？ ほかの人がもう返したか分からない… 自分が担当しているお客様だけ見たい 「LINE Manager」は、株式会社アイ・ステーションの公式LINE（総合窓口・でんき・デリバリーなど）に届いたメッセージを、 メンバー全員で1か所で見て、対応できる ツールです。 このツールでできること お客様から届いたメッセージを見て、返信する（トーク） 「要対応」「対応中」「対応済み」で、対応の状況をみんなで共有する お客様ごとに「社内担当（受け持つメンバー）」を決めて、引き継ぎもできる お客様の会社名・電話番号・メモを残して、あとから検索する タグでお客様を分けて、絞り込む よく使う文（定型文）をみんなで共有して、すぐ入れる 最初に読む順番 1. ログインと最初の設定 login ：パスワードとお名前を設定します 2. 画面の見方 gamen ：どこに何があるかを知ります 3. トークで返信する talk ：お客様への返信のしかたです 4. 未読・要対応・対応状況 mitaiou ：対応もれを防ぐしくみです 5. 社内担当 tantou ：誰がどのお客様を受け持つかの決め方です POINT まずは「トーク」画面だけ使えれば大丈夫です。タグ・配信・流入経路などは、管理者・編集者が使う機能です。 よく出てくる言葉 言葉 意味 友だち LINEでアイステの公式アカウントを友だち追加したお客様 トーク お客様とのLINEのやりとりの画面 未読 まだ誰も開いていないメッセージ。 メンバー全員で共通 です 対応状況 要対応／対応中／対応済み。チャットの対応がどこまで進んだか 社内担当 そのお客様を受け持つアイステのメンバー ご担当者名 お客様側 の担当者のお名前（社内担当とは別です） タグ お客様につける目印（例：興味:でんき、VIP） 定型文 よく使う返信の文。全員で共有されます 見守りのLINE でんき・デリバリーなど、あとからこのツールにつないだLINE。返信はこのツールからも、LINE公式のチャットからもできます "},{"id":"login","t":"ログインと最初の設定","c":"はじめに","s":"招待メールからパスワードを決める、ログインのしかた、仮パスワードの変更、お名前を漢字フルネームにする","x":"管理者・編集者があなたをメンバーに追加すると、あなたのメールアドレスに 「管理画面へのご招待」メール が届きます。 STEP0：招待メールからパスワードを決める 1. 「【総合窓口LINE】管理画面へのご招待（パスワードの設定）」というメールを開きます（届かないときは迷惑メールもご確認ください）。 2. メールのリンクを開き、 ご自身のパスワード（8文字以上） を2回入れて「このパスワードで始める」を押します。 3. ログイン画面に戻るので、メールアドレスと今決めたパスワードでログインします。 注意 リンクは 72時間以内・1回だけ 使えます。期限が切れたときは、ログイン画面の「パスワードを忘れた方」から同じメールアドレスで手続きするか、管理者に「招待メールを送り直す」を押してもらってください。 STEP1：ログインする 1. ブラウザ（Chrome・Edge・Safari）で管理画面を開きます。 2. メールアドレスとパスワードを入れて「ログイン」を押します。 POINT 一度ログインすると、60日間はログインしたままになります。共用のパソコンでは使い終わったらログアウトしてください。 STEP2：パスワードを自分だけのものに変える 管理者から 仮パスワード を伝えられてログインした方は、「あなたの設定」画面が開きます。 パスワードを変えるまで、ほかの画面は使えません （仮パスワードのまま使い続けないように、2026/11/2から必須にしました）。 1. ①「お名前を変える」に、 漢字のフルネーム を入れて「保存」を押します（例：伊藤 大峻）。 2. ②「今のパスワード」に仮パスワード、その下に 新しいパスワード（8文字以上） を入れて「この内容で変更する」を押します。 注意 お名前は 漢字フルネーム・姓と名の間は半角スペース でそろえます。全角スペースで入れても、自動で半角に直ります。お客様への返信の記録や「社内担当」に、このお名前が出ます。 パスワードを忘れたとき ログイン画面の「パスワードを忘れた方」を押すと、登録のメールアドレスあてに再設定のリンクが届きます（30分有効・1回だけ使えます）。 メールが届かないときは、管理者に「仮パスワード」を出してもらってください。"},{"id":"gamen","t":"画面の見方","c":"はじめに","s":"左のメニュー、LINEアカウントの切り替え、赤い未読の数","x":" 番号 場所 できること ① LINEアカウント 総合窓口・でんき問合せなど、見るLINEを切り替えます。 赤い数字はそのLINEの未読の数 です ② メニュー トーク・友だち管理・タグ管理などの画面へ移ります ③ お客様の一覧 新しいやりとりが上に並びます。絞り込みと検索もここです ④ 会話 選んだお客様とのやりとり。下の欄から返信します POINT 左の一覧の赤い数字を見れば、どのLINEに未読があるか、押さなくても分かります。 LINEアカウントの分類（広告・採用・事業） 左の「LINEアカウント」は、 広告・採用・事業 の分類ごとに見出しを付けて並びます。分類が決まっていないLINEは、いちばん下の「その他」に入ります。 分類を決める・変えるのは 管理者 です。メニューの「アカウント設定」→「連携アカウント」の表の「分類」で選ぶと、すぐ保存され、左の並びも変わります。 管理者以外の方は、分類を見るだけです（変えられません）。 スマホで見るとき スマホでは、下のタブ（トーク・数字・友だち・その他）で画面を切り替えます。一覧でお客様を押すと会話が開き、「‹ 一覧」で戻ります。 使い方マニュアルを開く 左のメニューのいちばん下の「使い方マニュアル」から、いつでもこのマニュアルを開けます。 "},{"id":"app","t":"アプリとして入れる・通知を受け取る","c":"はじめに","s":"パソコン・スマホにアプリとして入れて、新しいメッセージの通知を受け取る","x":"ブラウザで開くだけでも使えますが、アプリとして入れると 新しいメッセージが届いたときに通知 が出ます。 パソコン Windows：Microsoft Edge で開き、右上の「…」→「アプリ」→「このサイトをアプリとしてインストール」を押します。 Mac：Safari で開き、メニューバーの「ファイル」→「Dockに追加」を押します（macOS 14 以降）。 Chrome の場合は、アドレスバー右端のインストールのマーク（見当たらないときは「︙」→「キャスト、保存、共有」→「ページをアプリとしてインストール」）。 POINT Windows の Edge と Mac の Safari「Dockに追加」は、ブラウザを閉じていても通知が届きます。 iPhone 1. Safari で管理画面を開きます。 2. 画面下の共有ボタン（□に↑）→「ホーム画面に追加」を押します。 3. ホーム画面に増えたアイコンから開き、ログインします。 注意 iPhone は「ホーム画面に追加」したアイコンから開いたときだけ、通知を受け取れます。 通知をオンにする 1. メニューの「アカウント設定」を開きます。 2. 「通知」の欄の「通知をオンにする」を押し、端末の確認で「許可」を選びます。 3. 「テスト通知」を押して、通知が届けば完了です。 通知は、パソコン・スマホなど 端末ごと に設定します。"},{"id":"talk","t":"トークで返信する","c":"チャット対応","s":"お客様の会話を開いて返信する。でんき・デリバリーなど見守りのLINEからの返信と送信枠","x":" STEP1：お客様を選ぶ 左の一覧からお客様を押すと、右に会話が開きます。開いた時点で、その会話は 既読 になります（メンバー全員の画面で既読になります）。 STEP2：返信する 1. ①の欄にメッセージを入れます。 2. よく使う文は ②「定型文」から入れられます（ 定型文 teikei ）。 3. ③「送信」を押すと、確認の小窓が出ます。 4. 送り先と文面を確かめて ①「送信する」を押します。 送ったメッセージの下には、 送ったメンバーの名前 が出ます。まだ社内担当がいないお客様には、最初に返信した人が自動で 社内担当 tantou として入ります。 注意 「接触NG」のタグが付いたお客様に送ろうとすると、確認の小窓に赤い注意が出ます。本当に送ってよいか、社内担当や管理者に確かめてください。 見守りのLINE（でんき・デリバリーなど）から返信するとき でんき問合せ・デリバリー導入支援・取引先様窓口・ママスクエアは、あとからこのツールにつないだ「見守り」のLINEです。総合窓口と同じように、 このツールから返信できます 。会話の下に、送信枠についての黄色いお知らせ（①）が出ます。返信のしかたは同じです（②）。 注意 見守りのLINEは、ツールから返信するたびにLINEの 送信枠 （無料は月200通・お知らせ配信と共通）を1通使います。今月の送信数は、お知らせと送信の確認に出ます。 枠が尽きて送れなくなったときは、お知らせの「LINE公式のチャット」から返信してください（チャットからの返信は無料です）。 補足 LINE公式のチャットで返信した場合は、このツールの会話には出ません。「対応状況」を手で「対応済み」にしておきましょう。 管理者の設定で、LINEごとに「ツールから返信しない」にすることもできます。そのLINEでは返信欄の代わりに「LINE公式のチャットを開く」が出ます。"},{"id":"mitaiou","t":"未読・要対応・対応状況","c":"チャット対応","s":"未読は全員で共通。お客様から届くと自動で「要対応」。対応が終わったら「対応済み」に","x":"「誰も見ていないもの」と「まだ返していないもの」を分けて見られるようにしています。 しるし 意味 どうなると消える？ 未読（赤い数字） まだ 誰も 会話を開いていない 誰か1人が会話を開くと、全員の画面で消えます 要対応 お客様から届いて、まだ対応が終わっていない 「対応済み」にすると消えます 対応中 誰かが対応している途中 自分で「対応済み」にします 対応済み 対応が終わった お客様からまた届くと、自動で「要対応」に戻ります 対応状況を変える 会話の上の ① のプルダウンで変えます。 1. 返信を考えている間は「対応中」にします。 2. 対応が終わったら「対応済み」にします。 対応済みにすると未読も消えます。 POINT お客様からメッセージが届くと、対応状況が 自動で「要対応」 になります（「対応中」のときはそのまま）。 メニューで「サービスを見る」などを押しただけのときは、未読にも要対応にもなりません（会話の記録には残ります）。 一覧の上の数字とボタン 番号 名前 できること ① 友だち・有効・未読 人数と未読の数。 絞り込み・検索をしているときは、その中の数 になります ② すべて／未読／要対応／自分の担当／有効／ブロック 押すと、その人だけを一覧に出します ③ 更新 最新の状態に読み直します（アプリで開いているときに便利です） ④ すべて既読にする このLINEの未読をまとめて既読にします（対応状況は変わりません） ⑤〜⑧ 絞り込み・タグを複数で・検索 絞り込みと検索 kensaku を見てください "},{"id":"tantou","t":"社内担当（受け持つメンバー）","c":"チャット対応","s":"最初に返信した人が自動で担当に。引き継ぐときはプルダウンで変える","x":"お客様ごとに「社内担当」を決めると、 誰がこのお客様を受け持っているか がひと目で分かります。 社内担当はどう決まる？ まだ担当がいないお客様に、ツールから 最初に返信した人 が自動で入ります。 対応状況を「対応中」「対応済み」にした人も、担当がいなければ自動で入ります。 2人目以降が返信しても、担当は変わりません。 担当を引き継ぐ・変える 1. 会話の上の「担当：○○」か「この人の情報」を押します。 2. いちばん上の ①「社内担当」のプルダウンで、引き継ぐメンバーを選びます。 3. 下の「保存する」を押します。 POINT 社内担当は、一般の方も変えられます。引き継いだら、ひと言チャットなどで相手に伝えてください。 自分の担当だけを見る 一覧の上の「自分の担当」を押すと、自分が受け持つお客様だけが出ます。ほかのメンバーの担当を見たいときは「絞り込み」の「社内担当」から選びます。 一覧の右側の小さな名前（②）が、そのお客様の社内担当です。"},{"id":"kensaku","t":"絞り込みと検索","c":"チャット対応","s":"社内担当・タグで絞り込む。名前・会社名・電話番号・メモで検索。部分一致と完全一致","x":" 絞り込み 一覧の上の「絞り込み」から選びます。 社内担当 ：自分／各メンバー／担当なし タグ ：興味:でんき、商材:このまちでんき、VIP など（1つ選ぶとき） タグを複数で絞り込む 「タグを複数で」を押すと、タグを いくつでも 選んで絞り込めます（Lステップの絞り込みと同じ考え方です）。トークと友だち管理の両方で使えます。 選び方 出る人 含むタグ： どれか 選んだタグの どれか1つ が付いている人（例：商材:このまちでんき か 興味:でんき） 含むタグ： すべて 選んだタグが 全部 付いている人（例：商材:このまちでんき と VIP） 除外するタグ このタグが付いている人は 出さない （例：接触NG を除く） 条件を消すときは「すべて外す」を押します。ボタンの文字が「タグ 2個・どれか」のように変わっているときは、絞り込み中です。 検索 「検索」の欄に言葉を入れると、次の項目から探します。 お客様のLINEの名前・会社名・ご担当者名・電話番号（ハイフンなしでも探せます） メモ ・タグ・興味・社内担当の名前 探し方 どう探す？ 例 部分一致（ふつう） 言葉が どこかに含まれる 人 「料金」→ メモに「料金の見直し」とある人 完全一致 項目、またはメモの ひとかたまりの言葉が同じ 人 「★クレーム」→ メモに「★クレーム」と書いた人だけ POINT スペースで区切って入れると、 すべての言葉を含む人 を探します（例：「でんき 折り返し」）。 メモに「★クレーム」「★折り返し待ち」のような決まった書き方をしておくと、完全一致ですぐに探せます。 絞り込み・検索をしているときは、一覧の上の数字（友だち・有効・未読）と「要対応」「自分の担当」の数も、 その中の数 になります。"},{"id":"info","t":"この人の情報（会社名・電話番号・メモ）","c":"チャット対応","s":"お客様の情報を残す。権限によって直せる項目が違う。メモは全員に共有","x":"会話の上の「この人の情報」を押すと、右からパネルが開きます。 1. 直したい項目を入れます。 2. いちばん下の「保存する」を押します（保存ボタンは下に固定されていて、いつでも押せます）。 項目と、直せる人 項目 管理者 編集者 一般 社内担当 ○ ○ ○ 会社名／屋号名 ○ ○ 見るだけ ご担当者名（お客様側） ○ ○ ○ 電話番号 ○ ○ ○ タグ ○ ○ 見るだけ 流入経路 ○ ○ 見るだけ 対応状況 ○ ○ ○ メモ ○ ○ ○ 一般の方のパネルは、会社名・タグ・流入経路が「見るだけ」で表示されます。 POINT メモはメンバー全員に共有されます。 ヒアリングした内容や、次にすることを書いておきましょう。メモは 検索 kensaku で探せます。 補足 タグはこのパネルでは新しく作れません。新しいタグが必要なときは、管理者・編集者が「タグ管理」で作ります。現場で自由に残したいことは、メモに書いてください。"},{"id":"teikei","t":"定型文（よく使う返信の文）","c":"チャット対応","s":"定型文を入れる・作る・直す。全員で共有し、グループで分ける","x":"よく使う文を「定型文」として登録しておくと、ボタン1つで入れられます。 定型文はメンバー全員で共有 されます。 定型文を入れる 1. 会話の下の「定型文」を押します。 2. 上の ① のボタンでグループ（共通・ビズプラスなど）を選ぶと、そのグループだけが出ます。 3. 使いたい文の ②「入れる」を押すと、入力欄に入ります。必要なら直してから送信します。 定型文を作る 1. 定型文の小窓の下の「＋ 新しい定型文を作る」を押します。 2. ①グループ、②名前、③本文を入れて、④「作る」を押します。 POINT 本文に {名前} {会社名} {担当者名} と書くと、入れるときにそのお客様の情報に入れ替わります。 注意 誰かが定型文を直すと、全員の定型文が変わります。会社として決めた「共通」グループの文は、勝手に直さないでください。"},{"id":"friends","t":"友だち管理","c":"お客様の管理","s":"お客様の一覧。タグ・状態・社内担当で絞り込む。CSVで書き出す","x":"メニューの「友だち管理」で、お客様を表で見られます。 番号 できること ① タグで絞り込む（1つ） ② タグを複数で絞り込む（どれか・すべて・除外）。 タグを複数で絞り込む kensaku を見てください ③ 状態（要対応・未読あり・有効・ブロック）で絞り込む ④ 社内担当（自分の担当・各メンバー・担当なし）で絞り込む ⑤ 上の検索欄の探し方（部分一致・完全一致） ⑥ タグが多い人は「＋N もっと見る」で全部を出せます ⑦ 今の一覧をCSV（Excelで開ける形）で書き出します 画面の右上の検索欄に言葉を入れると、名前・会社名・メモなどから探せます。 タグをまとめて付ける・外す（管理者・編集者） 1. 付けたいお客様の左のチェックを入れます。 2. 「タグを一括付与」を押します。 3. ①でタグを選び、②「付ける」か③「外す」を押します。 "},{"id":"tags","t":"タグ管理","c":"お客様の管理","s":"タグを作る・フォルダに分ける・編集・削除。接触NGと配信NG","x":"タグは、お客様に付ける目印です。会社として決めたタグを、ここで作って管理します。 タグを作る 1. ①「新しいタグ」に名前を入れます（例：商談中、展示会2026）。 2. ②でフォルダを選びます。 3. ③「作成」を押します。 名前を直す・消す ④「編集」で名前を直せます。付いているお客様のタグ、シナリオ・予約配信の条件も、まとめて新しい名前に変わります。 「削除」で消せます。付いている人からも外れます（元に戻せません）。 決まったタグ：接触NG と 配信NG どのLINEにも最初から入っているタグです。名前の変更・削除はできません。 タグ 意味 このツールでの動き ⑤ 接触NG こちらから連絡しない（クレーム案件など） 一斉配信・予約配信・シナリオ配信・テスト送信が届きません。1対1で送るときは赤い注意が出ます ⑥ 配信NG お知らせの配信はいらない 一斉配信・予約配信・シナリオ配信・テスト送信が届きません。問い合わせへの返信（1対1）は普通にできます 注意 会話の中でクレームになったお客様や、「配信はいらない」と言われたお客様には、すぐにこのタグを付けてください（付けられない方は、管理者・編集者に依頼してください）。"},{"id":"routes","t":"流入経路（QRコード・リンク）","c":"管理者・編集者向け","s":"友だち追加の入口を作る。商材タグ。QR画像のコピー。登録数とクリック数","x":"「どこから友だち追加されたか」を数えるための入口（専用リンクとQRコード）を作ります。入口を作れるのは 管理者 だけです。 入口を作る 1. ①で入口の種類（テレマ・対面・Web・紹介）を選び、名前とメモを入れます。 2. ②「商材」に、この入口で案内する商材（例：このまちでんき・墓守）を入れます（なければ空のままでOK）。 3. ③「この入口を作る」を押します。 4. 続けて開く「アクション設定」で、この入口から追加した人に自動で付けるタグを選んで保存します。 商材タグ（商材ごとに絞り込む） 入口に「商材」を入れると、その入口から友だち追加した人に 「商材:〇〇」のタグ が自動で付きます。テレマ・Webなど入口が分かれていても、トークや友だち管理の絞り込みで 「商材:このまちでんき」を1つ選ぶだけ で、その商材のお客様がまとめて出ます。 POINT あとから入口の「編集」で商材を入れたり変えたりすると、 今までその入口から来た人の商材タグも付け替わります （シナリオ配信は始まりません）。サービス一覧に無い商材（墓守など）も、入口の商材で分けられます。 QRコードとリンクを使う 1. 一覧の「QR・コピー」を押します。 2. ⑤「QR画像をコピー」を押すと、同じ大きさのQR画像がコピーされます。資料・メール・チャットに貼り付けられます（「画像を保存」でファイルにもできます）。 3. ⑥「リンクをコピー」でリンクもコピーできます。 登録数とクリック数 数 意味 ④ 登録数 この入口から 実際に友だち追加した人の数 （あとでブロックした人も含む） クリック数 リンクやQRが 開かれた回数 （友だち追加まで進まなかった人も含む） "},{"id":"broadcast","t":"メッセージ配信","c":"管理者・編集者向け","s":"全員またはタグで絞った人へお知らせを送る。予約・テスト送信","x":"友だち全員、またはタグで絞ったお客様に、お知らせをまとめて送ります（管理者・編集者）。 1. 「送る相手」で「友だち全員」か「タグで絞る」を選びます。除きたいタグも選べます。 2. 吹き出し（テキスト・画像・カード）を作ります。右に、スマホでの見え方が出ます。 3. 「テスト送信」で、社内の人に1通だけ送って確かめます。 4. 「今すぐ」か「日時を決めて予約」を選び、「配信する」を押します。 注意 ①送る人数からは、 ブロック中の人と「接触NG」「配信NG」タグの人は自動で除かれます 。 配信はLINEの送信枠（無料プランは月200通）を使います。送る前に人数を確かめてください。 補足 配信できるのは、総合窓口など このツールに直接つないでいるLINEだけ です。見守りのLINE（でんき問合せ・デリバリーなど）からは配信できません。 見守りのLINEでお知らせを送るときは、LINE公式アカウントの管理画面（またはエルメ・Lステップなど元の仕組み）から送ってください。"},{"id":"others","t":"シナリオ・リッチメニュー・レポート","c":"管理者・編集者向け","s":"そのほかの機能のかんたんな説明","x":" シナリオ配信 友だち追加やタグが付いたときをきっかけに、決めた日数・時刻に順番にメッセージを送ります（最大30通）。「除外タグ」が付いた人と「接触NG」「配信NG」の人には送りません。 リッチメニュー LINEのトーク画面の下に出るメニューを作ります。「1人で試す」で自分だけに出して確かめてから、管理者が「全員に公開」します。 レポート・ダッシュボード 友だち数・ブロック数・問い合わせ件数・ボタンのタップ数などを、期間を決めて見られます。CSV・PDF・画像で書き出せます。 AI接続 自分のAI（Claude・ChatGPTなど）からこのツールの情報を見たり、返信の下書きを作らせたりできます。AIができるのは「見る」と「下書きを作る」だけで、送信や配信はできません。"},{"id":"members","t":"メンバーと権限","c":"設定","s":"メンバーを招待メールで追加する。見られるLINEを決める。名前を直す。仮パスワード。権限でできること","x":" メンバーを追加する（管理者・編集者） 1. ①メールアドレス、②お名前（ 漢字フルネーム・姓と名の間は半角スペース ）、③権限を入れます。 2. ④「見られるLINE」で、この人が見られるLINEアカウントを選びます（最初は「総合窓口」だけが選ばれています）。 3. ⑤「招待メールを送って追加」を押します。 その方のメールアドレスに パスワードを決めるリンク が届きます（72時間有効）。 仮パスワードを作って伝える必要はありません。 本人がリンクからパスワードを決めるまで、一覧には「招待中（パスワード未設定）」と出ます。 POINT 期限が切れた・メールが見つからないときは、一覧の「招待メールを送り直す」を押してください（前のリンクは使えなくなります）。 見られるLINE（人ごとに見られるLINEを分ける） LINE公式アカウントの「権限」と同じように、 人ごとに見られるLINEアカウント を決められます。 ⑥「見られるLINE」を押して、見られるLINEにチェックを入れて保存します。「すべてのLINE」にすると、今後つなぐLINEも見られます。 「すべてのLINE」が選ばれたままでも、個別のLINEを押して外せます。1つ外すと「すべてのLINE」も自動で外れ、残りのLINEだけが選ばれた状態になります。 選んだLINEだけが、その人のトーク・友だち管理・配信・レポート・ スマホの通知 ・AI接続に出ます。ほかのLINEは左の一覧にも出ません。 管理者は、いつもすべてのLINE を見られます。編集者の見られるLINEを変えられるのは管理者だけです。編集者は、自分が見られるLINEの中から一般の人に割り当てられます。 名前を直す・仮パスワードを出す ⑦「名前を変える」で、ほかのメンバーの名前を直せます（自分の名前は「あなたの設定」から）。 「仮パスワード発行」で、パスワードを忘れた人に新しい仮パスワードを出せます。仮パスワードで入った人は、 パスワードを変えるまでほかの画面は使えません 。 権限でできること できること 管理者 編集者 一般 トークを見る・返信する ○ ○ ○ 対応状況・社内担当を変える ○ ○ ○ ご担当者名・電話番号・メモを直す ○ ○ ○ 定型文を作る・直す ○ ○ ○ 会社名・タグ・流入経路を直す ○ ○ × タグ管理・リッチメニュー ○ ○ × メッセージ配信・シナリオ配信 ○ ○ × メンバーを追加する ○ ○（管理者は作れない） × 流入経路の入口を作る ○ × × 権限を変える・メンバーを消す・アカウント設定 ○ × × 補足 「誰がどのLINEアカウントを見られるか」は、メンバー画面の「見られるLINE」で設定します（2026/11/2〜）。誰にどのLINEを割り当てるかの運用ルールは、別に決めて追記します。"},{"id":"faq","t":"よくある質問","c":"困ったとき","s":"困ったときに見るページ","x":" 未読は、自分だけの未読ですか？ いいえ。 メンバー全員で共通 です。誰か1人が会話を開くと、全員の画面で既読になります。「まだ返していない」は「要対応」で見てください。 ほかの人がもう返信したか知りたい 会話を開くと、送ったメッセージの下に送った人の名前が出ます。一覧の右側の小さな名前は社内担当です。 メモはほかの人にも見えますか？ はい。メモはメンバー全員に共有されます。 定型文は自分だけのものですか？ いいえ。全員で共有されます。グループで分けて使ってください。 新しいメッセージが画面に出てこない 一覧の上の「↻ 更新」を押してください。アプリで開いているときも、これで読み直せます。 でんき・デリバリーのLINEから返信できますか？ できます。ただし返信するたびにLINEの送信枠（無料は月200通）を使います。枠が尽きたら、LINE公式のチャットから返信してください。管理者が「ツールから返信しない」にしたLINEでは、返信欄の代わりに「LINE公式のチャットを開く」が出ます。 タグを新しく作りたい タグは管理者・編集者が「タグ管理」で作ります。現場で自由に残したいことは、メモに書いてください（メモは検索できます）。 パスワードを忘れた ログイン画面の「パスワードを忘れた方」から再設定できます。メールが届かないときは管理者に「仮パスワード」を出してもらってください。 招待メールが届かない・期限が切れた 迷惑メールのフォルダも確かめてください。見つからない・72時間を過ぎたときは、管理者・編集者に「招待メールを送り直す」を押してもらうか、ログイン画面の「パスワードを忘れた方」から同じメールアドレスで手続きしてください。 ほかのLINE（でんき・デリバリーなど）が左の一覧に出ない あなたの「見られるLINE」に入っていないLINEは出ません。必要なときは管理者に「メンバー」画面で追加してもらってください。 通知が来ない 「アカウント設定」で「通知をオンにする」を押したか確かめてください。iPhone は「ホーム画面に追加」したアイコンから開いたときだけ通知が届きます。"}];
+var $ = function (s) { return document.querySelector(s); };
+function 見せる() {
+  var h = location.hash.replace(/^#\/?/, '');
+  var 部分 = h.split('/'), id = 部分[0] || 'home', 先 = 部分[1];
+  var v = document.getElementById('v-' + id) || document.getElementById('v-home');
+  document.querySelectorAll('.view').forEach(function (x) { x.hidden = x !== v; });
+  document.body.classList.toggle('is-home', v.id === 'v-home');
+  var 今のid = v.id.slice(2);
+  document.querySelectorAll('.side a[data-id]').forEach(function (a) { a.classList.toggle('on', a.dataset.id === 今のid); });
+  var cat = v.dataset.cat;
+  document.querySelectorAll('.scat').forEach(function (d) { if (d.dataset.cat === cat) d.open = true; });
+  var t = v.id === 'v-home' ? '' : (v.querySelector('h1') || {}).textContent;
+  document.title = (t ? t + '｜' : '') + '使い方マニュアル｜LINE Manager';
+  $('#side').classList.remove('open'); $('#veil').classList.remove('on');
+  document.querySelectorAll('.faq.hit').forEach(function (x) { x.classList.remove('hit'); });
+  var 的 = 先 && document.getElementById(先);
+  if (的) { if (的.tagName === 'DETAILS') { 的.open = true; 的.classList.add('hit'); } 的.scrollIntoView(); }
+  else window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', 見せる);
+見せる();
+$('#menubtn').onclick = function () { $('#side').classList.add('open'); $('#veil').classList.add('on'); };
+$('#veil').onclick = function () { $('#side').classList.remove('open'); $('#veil').classList.remove('on'); };
+/* 検索（タイトル・概要・本文から探す。スペースで区切ると、すべてを含むページ） */
+function 探す(語) {
+  var 箱 = $('#results');
+  var ws = 語.trim().toLowerCase().split(/[\s\u3000]+/).filter(Boolean);
+  if (!ws.length) { 箱.hidden = true; return; }
+  var 合う = 検索用.filter(function (a) { var s = (a.t + ' ' + a.s + ' ' + a.x).toLowerCase(); return ws.every(function (w) { return s.indexOf(w) >= 0; }); });
+  var 印 = function (s) { var e = s.replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); ws.forEach(function (w) { e = e.split(w).join('<mark>' + w + '</mark>'); }); return e; };
+  var 抜き = function (a) { var s = a.x, k = s.toLowerCase().indexOf(ws[0]); return k < 0 ? a.s : (k > 30 ? '…' : '') + s.slice(Math.max(0, k - 30), k + 60) + '…'; };
+  箱.innerHTML = '<div style="font-size:12.5px;color:#6B6B6B;padding:4px 14px">「' + 印(語.trim()) + '」の検索結果：' + 合う.length + '件</div>'
+    + (合う.map(function (a) { return '<a href="#/' + a.id + '"><b>' + 印(a.t) + '</b><small>' + a.c + '｜' + 印(抜き(a)) + '</small></a>'; }).join('') || '<div class="none">見つかりませんでした。別の言葉でお試しください。</div>');
+  箱.hidden = false;
+}
+$('#q2').oninput = function () { 探す(this.value); };
+/* 上の帯の検索：日本語の変換中に邪魔をしないよう、Enter（虫眼鏡）で探す */
+$('.tsearch').onsubmit = function (e) {
+  e.preventDefault();
+  var 語 = $('#q1').value.trim(); if (!語) return false;
+  location.hash = '#/'; $('#q2').value = 語; 探す(語); $('#q1').value = '';
+  return false;
+};
+document.querySelectorAll('.popular a[data-q]').forEach(function (a) { a.onclick = function (e) { e.preventDefault(); $('#q2').value = a.dataset.q; 探す(a.dataset.q); }; });
+/* 写真を押すと大きく見る */
+document.querySelectorAll('a.zoom').forEach(function (a) {
+  a.onclick = function (e) { e.preventDefault(); $('#lb img').src = a.getAttribute('href'); $('#lb p').textContent = a.dataset.cap; $('#lb').classList.add('on'); };
+});
+$('#lb').onclick = function () { $('#lb').classList.remove('on'); };
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') $('#lb').classList.remove('on'); });
+/* ページの上へ */
+window.addEventListener('scroll', function () { $('#totop').classList.toggle('on', window.scrollY > 500); }, { passive: true });
+$('#totop').onclick = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+</script>
+</body></html>
