@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>はかめぐり 改修案</title>
+<style>
+:root{--bg:#F5F2EA;--paper:#FBF9F4;--text:#2A2926;--muted:#6B675E;--line:#D8D2C4;--accent:#3E5A4B;--soft:#E3ECE7;--warn:#8A5A1E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.85 "Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 80px}
+header{border-bottom:1px solid var(--line);padding:22px 0 18px;margin-bottom:28px}
+.kicker{color:var(--muted);font-size:14px;margin:0}
+h1,h2,h3{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600;line-height:1.45}
+h1{font-size:clamp(26px,4.4vw,38px);margin:.3em 0 .2em}
+h2{font-size:clamp(21px,3vw,26px);margin:56px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:19px;margin:28px 0 8px}
+p{margin:.6em 0}
+.lead{font-size:18px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:18px 20px;margin:16px 0}
+.box.green{background:var(--soft);border-color:#C9D9CF}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:18px 0}
+.num{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:14px 16px}
+.num b{display:block;font-size:13px;color:var(--muted);font-weight:500}
+.num .v{font-size:26px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600;color:var(--accent);line-height:1.3}
+.num .v s{color:var(--muted);font-size:18px;text-decoration-thickness:1px}
+table{width:100%;border-collapse:collapse;font-size:15.5px;background:var(--paper)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#EFEBE1;font-weight:600;white-space:nowrap}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:12px 0}
+.tw table{min-width:620px}
+ol,ul{padding-left:1.3em}li{margin:.35em 0}
+.tag{display:inline-block;font-size:13px;padding:0 8px;border-radius:2px;background:var(--soft);color:var(--accent);font-weight:600;margin-right:6px}
+.tag.todo{background:#F1E6D3;color:var(--warn)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.pair figure{margin:0}
+.pair img{width:100%;height:auto;border:1px solid var(--line);border-radius:2px;display:block;background:#fff}
+figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+.sp-pair{max-width:620px}
+.btn{display:inline-block;background:var(--accent);color:var(--paper);text-decoration:none;padding:12px 20px;border-radius:2px;font-weight:600;margin:6px 8px 6px 0}
+.btn.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.note{font-size:14.5px;color:var(--muted)}
+code{font-size:14px;background:#EFEBE1;padding:1px 5px;border-radius:2px}
+@media (max-width:640px){.pair{grid-template-columns:1fr}body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <p class="kicker">はかめぐり（霊園紹介サイト）｜2026年11月18日｜作成：伊藤</p>
+  <h1>はかめぐり 改修案と、表示を速くした見本</h1>
+  <p class="lead">「地図が重くて遅い」の原因を測って突き止め、まず速さと引き継ぎ書の1〜5を直しました。あわせて、使いやすさ・デザインの次の改修案と、ISTのサーバーへの引っ越し案をまとめています。</p>
+  <a class="btn" href="demo/index.html">改修後の見本を開く</a>
+  <a class="btn outline" href="demo/index.html?view=map">地図で見る画面を開く</a>
+  <p class="note">※見本は写真を外しています（霊園の許可前のため、外から見えるこのページには載せない）。写真入りの完全版は、ファイル一式でお渡しします。</p>
+</header>
+
+<h2>1. 結論</h2>
+<div class="box green">
+  <ol>
+    <li><b>遅さの一番の原因は「写真が大きすぎること」でした。</b>地図のサービス（OpenFreeMap）自体は東京から配信されていて速く、原因ではありません。</li>
+    <li>写真を自動で軽くする仕組みと「見える所だけ読む」仕組みを入れ、<b>遅めのスマホ回線で26.5秒 → 3.6秒</b>になりました。</li>
+    <li>引き継ぎ書の「改修してほしいこと」1〜5は対応済みです。次は「PCの最初の画面で地図と霊園が見えるようにする」などの改修を提案します（下の4章）。</li>
+  </ol>
+</div>
+
+<h2>2. 測った結果（直す前 → 直した後）</h2>
+<p>同じ「遅めのスマホ回線」（4G電波が弱い時くらい）をまねて、「地図で見る」画面を開くまでを測りました。</p>
+<div class="nums">
+  <div class="num"><b>画面が出るまで</b><span class="v"><s>26.5秒</s> → 3.6秒</span></div>
+  <div class="num"><b>読み込みが落ち着くまで</b><span class="v"><s>27.0秒</s> → 8.4秒</span></div>
+  <div class="num"><b>通信量（ギガの消費）</b><span class="v"><s>4.4MB</s> → 0.9MB</span></div>
+  <div class="num"><b>一覧で読む写真の合計</b><span class="v"><s>5.6MB</s> → 1.3MB</span></div>
+</div>
+<p class="note">測り方：裏側で動くブラウザ（画面を出さないChrome）で、通信の速さを「1.6Mbps・遅れ0.15秒」に絞って計測。直す前は今のNetlify版、直した後は手元のサーバーで同じ条件にしています。</p>
+
+<h3>遅かった原因（大きい順）</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>原因</th><th>中身</th></tr>
+<tr><td>1</td><td>写真が大きすぎる</td><td>1枚で最大550KB・横1,920px。一覧のカードは横360px程度でしか出さないのに、その3〜5倍の大きさを読んでいた。</td></tr>
+<tr><td>2</td><td>写真を全部いっぺんに読む</td><td>画面に見えていない下の霊園の写真まで最初に全部読んでいた（約4MB）。地図の読み込みと回線を取り合う。</td></tr>
+<tr><td>3</td><td>地図の部品を押してから読み始める</td><td>地図を描く部品（MapLibre・約800KB）を「地図で見る」を押した後に読み始めていた。</td></tr>
+<tr><td>—</td><td>地図サービス自体（原因ではない）</td><td>OpenFreeMap は東京の配信網（Cloudflare）から0.04秒で返ってくる。乗り換えの必要はなし。</td></tr>
+</table></div>
+
+<h2>3. 今回直したこと（見本に反映済み）</h2>
+<h3>速さ</h3>
+<ul>
+  <li><span class="tag">済</span>写真を自動で軽くする道具を追加（本体は長い辺1,280pxに縮小、一覧用に横800pxの小さい版を自動で作る）。霊園を足した時も1回動かすだけ。</li>
+  <li><span class="tag">済</span>一覧の写真は「画面に近づいたら読む」形に（見えない所は後回し）。</li>
+  <li><span class="tag">済</span>地図の部品は「地図で見る」に指やマウスが触れた時点で先に読み始める（押した瞬間に出やすくなる）。</li>
+</ul>
+<h3>地図の見やすさ</h3>
+<ul>
+  <li><span class="tag">済</span>地図の色を、オレンジの道路だらけの地図から、サイトの生成りに合う<b>薄いグレーの地図</b>に変更（描く量も減って軽くなる）。</li>
+  <li><span class="tag">済</span>「地図で見る」を押したら、地図が画面の上の方に来るように自動でスクロール。</li>
+  <li><span class="tag">済</span>スマホ・タブレットでは、地図が19件の一覧の<b>一番下に隠れていた</b>のを、一覧より先に出すように修正。</li>
+  <li><span class="tag">済</span>スマホで「一覧で見る｜地図で見る｜気になる」のボタンが右にはみ出していたのを修正。</li>
+  <li><span class="tag">済</span>地図の右下の出典表示が大きく広がって地図を隠していたのを、「i」に畳む形に。</li>
+</ul>
+<h3>引き継ぎ書の「改修してほしいこと」</h3>
+<div class="tw"><table>
+<tr><th>#</th><th>内容</th><th>結果</th></tr>
+<tr><td>1</td><td>地図で選んだ霊園の緑の枠が、一覧・気になるに切り替えても残る</td><td><span class="tag">済</span>地図の画面のときだけ出すように修正</td></tr>
+<tr><td>2</td><td>地図の画面のくずれ（PC1,400px・スマホ375px）</td><td><span class="tag">済</span>横のはみ出し0px・地図が上の方に出ることを確認</td></tr>
+<tr><td>3</td><td>永代供養墓がある霊園なのに設備の表が「確認中」</td><td><span class="tag">済</span>回向院・都立多磨・都立小平の3件を「あり」に（種類の欄と一致）</td></tr>
+<tr><td>4</td><td>ファビコン（タブの小さな絵）が古いマーク</td><td><span class="tag">済</span>文字ロゴに合わせた緑の「h」に</td></tr>
+<tr><td>5</td><td>書き出して全ページのエラー確認</td><td><span class="tag">済</span>19霊園＋一覧・ガイドを書き出し、PC・スマホともエラー0件</td></tr>
+</table></div>
+
+<h3>画面の比較</h3>
+<div class="pair">
+  <figure><img src="img/before-blur-pc-map.jpg" alt="直す前：PCで地図で見るを押した画面" loading="lazy"><figcaption>直す前（PC）：「地図で見る」を押しても地図は画面の下。道路がオレンジで多い</figcaption></figure>
+  <figure><img src="img/after-blur-pc-map.jpg" alt="直した後：PCで地図で見るを押した画面" loading="lazy"><figcaption>直した後（PC）：地図が上に来る・落ち着いた薄いグレーの地図</figcaption></figure>
+</div>
+<div class="pair sp-pair">
+  <figure><img src="img/before-blur-sp-map.jpg" alt="直す前：スマホで地図で見るを押した画面" loading="lazy"><figcaption>直す前（スマホ）：地図は一覧の一番下・ボタンが右にはみ出す</figcaption></figure>
+  <figure><img src="img/after-blur-sp-map.jpg" alt="直した後：スマホで地図で見るを押した画面" loading="lazy"><figcaption>直した後（スマホ）：地図がすぐ出る・ボタンが幅に収まる</figcaption></figure>
+</div>
+<p class="note">※画面の写しの写真は、許可前のためぼかしています。</p>
+
+<h2>4. 次の改修案（使いやすさ・デザイン）</h2>
+<p>「いいお墓」など大手の霊園サイトと、引き継ぎ書の「使いやすさの要件」を見比べて、効果が大きい順に並べました。どれも追加費用なしで作れます。</p>
+<div class="tw"><table>
+<tr><th>順</th><th>改修案</th><th>なぜ</th><th>手間</th></tr>
+<tr><td>A</td><td><b>PCの最初の画面で、探す欄と地図・霊園が見えるようにする</b>（上の大きな見出しを詰めて、探す欄を1画面目に）</td><td>今はPCで開くと見出しだけで1画面が終わり、霊園は下へスクロールしないと出ない。大手サイトは1画面目から「探す」が主役。</td><td>小</td></tr>
+<tr><td>B</td><td><b>地図表示の左の一覧を「横長の小さいカード」に</b>（写真は左に小さく、文字は右）</td><td>今は1件が縦に大きく、左の欄に1〜2件しか見えない。小さくすれば4〜5件を見比べながら地図を動かせる。</td><td>中</td></tr>
+<tr><td>C</td><td><b>霊園ページに道しるべ（はかめぐり ＞ 東京都 ＞ 港区）と「前の霊園／次の霊園」</b></td><td>要件A-3・A-4（未実装）。3件見比べたい人が、毎回一覧に戻らずに済む。</td><td>中</td></tr>
+<tr><td>D</td><td><b>霊園ページのヘッダーにも探す欄（虫めがね）</b></td><td>要件B-1（未実装）。検索から霊園ページに直接来た人が、別の地名で探し直せる。</td><td>小</td></tr>
+<tr><td>E</td><td><b>絞り込みの横に件数（樹木葬（4））、0件の条件は押せない見た目に</b></td><td>要件B-3。押してから0件と分かるのを防ぐ。</td><td>小</td></tr>
+<tr><td>F</td><td><b>地図の札：近い霊園の丸をもう少し細かく分ける・選んだ霊園を地図の中央へ</b></td><td>関東50件に増やすと、23区は丸1つに固まりやすい。</td><td>小</td></tr>
+<tr><td>G</td><td><b>写真は「霊園から提供」か「撮影」に切り替える流れを作る</b>（掲載インタビュー時にもらう）</td><td>今の写真はすべて許可前。営業の「無料掲載」とセットで写真の許可・提供をもらえば、そのまま正式公開できる。</td><td>—</td></tr>
+</table></div>
+
+<h2>5. ISTのサーバーへの引っ越し案</h2>
+<div class="box">
+  <p><b>置き場所：</b>アイステの「さくらのVPS」（議事録BOT・SNSダッシュボード・総合窓口LINEツールと同じサーバー）。空き容量は41GBあり、このサイト（約6MB）は問題なく載ります。<b>追加費用は0円</b>です。</p>
+  <p><b>アドレス：</b>まずは仮のアドレス（例 <code>hakameguri.153.127.42.158.nip.io</code>）で出し、独自ドメインが決まったら付け替えます。</p>
+  <p><b>見られる人：</b>写真が許可前のあいだは、パスワード付き＋検索に出さない設定にします。写真の許可が取れたら外します。</p>
+  <p><b>作業：</b>サイトをサーバーに置く → 設定を1つ足す → 反映。同じサーバーの他のツールは止めずに切り替えられます（作業10分ほど）。Netlify版は、引っ越しを確認できた後に小林さん側で止めていただく形です。</p>
+</div>
+<h3>決めていただきたいこと</h3>
+<ol>
+  <li>置き場所は上の「さくらのVPS」でよいか（hakamory本体のGoogle Cloudに置く案もありますが、本体は商用のシステムなので分けておく方が安全です）</li>
+  <li>独自ドメインは取る予定か（取るまでは仮のアドレスで運用）</li>
+  <li>写真が許可前のあいだ、パスワード付きにするか ※今のNetlify版はパスワード無しで開ける状態でした</li>
+  <li>4章の改修案のうち、どれから進めるか（おすすめは A → B → C）</li>
+</ol>
+
+<p class="note" style="margin-top:48px">このページは確認用です（検索エンジンには出ません）。</p>
+</div>
+</body>
+</html>
