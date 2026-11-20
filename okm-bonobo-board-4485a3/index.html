@@ -37,6 +37,26 @@ ol{margin:0;padding-left:1.3em}ol li{margin:6px 0}
 .copy b{display:block;font-size:12px;color:var(--sub);margin-top:6px}
 .copy b:first-child{margin-top:0}
 footer{margin-top:22px;font-size:12px;color:var(--sub)}
+/* 画面の画像（スクショ） */
+.shot{position:relative;margin:0;background:#fff;padding:10px 10px 8px;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 10px 22px -12px rgba(31,42,55,.45)}
+.shot a{display:block;line-height:0}
+.shot img{display:block;width:100%;height:auto;border:1px solid #e5e2da;border-radius:2px}
+.shot figcaption{font-size:13px;color:var(--sub);margin-top:8px;line-height:1.55}
+.shot figcaption b{color:var(--ink)}
+.tag{position:absolute;top:18px;right:18px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;line-height:1.6;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.tag.n{background:var(--navy)}
+.overview{margin:0 0 22px}
+.overview .shot{padding:12px}
+.gal{margin-top:30px}
+.gal>h2{font-size:21px;margin-bottom:4px}
+.gal>p{margin:0 0 6px;color:var(--sub);font-size:13px}
+.blk{margin-top:18px}
+.blk>h3{margin:0 0 10px;font-size:17px;font-weight:900}
+.grid{display:grid;gap:16px;align-items:start}
+.g-lp{grid-template-columns:2.3fr 1fr 1fr}
+.g-two{grid-template-columns:1.35fr 1fr}
+.stack{display:grid;gap:16px}
+@media(max-width:900px){.g-lp{grid-template-columns:1fr 1fr}.g-lp>.shot:first-child{grid-column:1/-1}.g-two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -45,6 +65,13 @@ footer{margin-top:22px;font-size:12px;color:var(--sub)}
   <h1><small>OKマーケティング｜bonobo（お店の弁護士保険）テスト広告</small>広告スタート前の確認ボード</h1>
   <span class="stamp"><i></i>2026/11/21 時点・Meta広告は「下書き」（配信されません）</span>
 </header>
+
+<div class="overview">
+  <figure class="shot">
+    <a href="img/zukai.jpg" target="_blank" rel="noopener"><img src="img/zukai.jpg" width="1600" height="900" alt="bonobo LP 広告スタートまでの状況の図解（お客さま→LP→スプレッドシート→公式LINEに通知→小林さん・佐治さん／できたこと・待っていること・ゴール）"></a>
+    <figcaption><b>全体の流れ</b>：お客さまがLPのフォームに入力 → スプシに自動で保存 → 公式LINEのグループにお知らせ。画像はタップ（クリック）で大きく開きます。</figcaption>
+  </figure>
+</div>
 
 <div class="flow">
   <section class="note y">
@@ -113,6 +140,66 @@ footer{margin-top:22px;font-size:12px;color:var(--sub)}
 ※保険金のお支払いには限度額・支払条件等があります。詳細は重要事項説明書をご確認ください。<b>見出し</b>お店のトラブルに備える弁護士費用保険<b>説明</b>説明・資料は無料<b>ボタン</b>詳しくはこちら</div>
   </section>
 </div>
+
+<section class="gal">
+  <h2>📸 実際の画面で確認</h2>
+  <p>画像はタップ（クリック）で大きく開きます。スプシとLINEの画像は<b>見本のデータ</b>です（実際のお申し込みではありません）。</p>
+
+  <div class="blk">
+    <h3><span class="step">① LP</span> 配信用のLP</h3>
+    <div class="grid g-lp">
+      <figure class="shot">
+        <a href="img/lp_pc.jpg" target="_blank" rel="noopener"><img src="img/lp_pc.jpg" width="1400" height="689" alt="LPのパソコン表示（トップ）"></a>
+        <figcaption><b>パソコン</b>：トップ（?v=1＝口コミの見せ方）</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="img/lp_sp_top.jpg" target="_blank" rel="noopener"><img src="img/lp_sp_top.jpg" width="600" height="1200" alt="LPのスマホ表示（トップ）"></a>
+        <figcaption><b>スマホ</b>：トップ</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="img/lp_sp_form.jpg" target="_blank" rel="noopener"><img src="img/lp_sp_form.jpg" width="600" height="1200" alt="LPのスマホ表示（申込フォーム）"></a>
+        <figcaption><b>スマホ</b>：申込フォーム。ここに入力された内容が②に届きます</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3><span class="step">② 保存・通知</span> スプシとLINEのお知らせ</h3>
+    <div class="grid g-two">
+      <div class="stack">
+        <figure class="shot">
+          <span class="tag">見本</span>
+          <a href="img/sheet_submit.jpg" target="_blank" rel="noopener"><img src="img/sheet_submit.jpg" width="1432" height="496" alt="スプシの「申込」タブ（見本の行）"></a>
+          <figcaption><b>スプシ「申込」タブ</b>：送信まで完了した方が1行ずつ入ります。「対応状況」は選ぶだけ（未対応／架電済み／商談設定／成約 など）、「対応メモ」は自由に書けます</figcaption>
+        </figure>
+        <figure class="shot">
+          <span class="tag">見本</span>
+          <a href="img/sheet_partial.jpg" target="_blank" rel="noopener"><img src="img/sheet_partial.jpg" width="1432" height="496" alt="スプシの「記入途中」タブ（見本の行）"></a>
+          <figcaption><b>スプシ「記入途中」タブ</b>：途中で止まった方。あとで送信されると「状態」が「申込完了」に変わります</figcaption>
+        </figure>
+      </div>
+      <figure class="shot">
+        <span class="tag">見本</span>
+        <a href="img/line_cards.jpg" target="_blank" rel="noopener"><img src="img/line_cards.jpg" width="1400" height="1358" alt="【OKM】リード通知グループに届くLINEのカード（送信完了・記入途中）の見本"></a>
+        <figcaption><b>LINE「【OKM】リード通知」に届くカード</b>（イメージ）：@Allで全員に通知 → 📞ボタンでそのまま電話、📋でスプシが開きます</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="blk">
+    <h3><span class="step">③ Meta広告</span> 下書きの状態</h3>
+    <div class="grid g-two">
+      <figure class="shot">
+        <a href="img/meta_campaigns.jpg" target="_blank" rel="noopener"><img src="img/meta_campaigns.jpg" width="1300" height="749" alt="広告マネージャのキャンペーン一覧（bonoboは下書き・スイッチOFF）"></a>
+        <figcaption><b>キャンペーン一覧</b>（もぐ雄アカウント）：一番上が bonobo。配信は「<b>下書き</b>」・スイッチは<b>OFF</b>なので、公開しない限り配信されません</figcaption>
+      </figure>
+      <figure class="shot">
+        <a href="img/meta_adset.jpg" target="_blank" rel="noopener"><img src="img/meta_adset.jpg" width="1100" height="1018" alt="広告セットの設定画面（詳細ターゲット・年齢・推定オーディエンスサイズ）"></a>
+        <figcaption><b>広告セットの設定</b>：詳細ターゲット（中小企業のオーナー・店舗系のページ管理者）／年齢25〜65歳以上／推定 約110〜120万人</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <footer>作成：伊藤／このページは確認用です（検索には出ません）。</footer>
 </div>
