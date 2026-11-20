@@ -4,204 +4,321 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>bonobo 広告スタート前ボード</title>
+<title>bonobo 配信前の確認</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1f2a37;--sub:#5b6573;--board:#f6f5f1;--grid:#e7e4dc;--navy:#17314c;--yellow:#fff4b8;--blue:#dff0ff;--green:#e2f6e7;--pink:#ffe1e1;--line:#d6d2c7;--accent:#e2504c}
+:root{
+  --canvas:#f3f4f6;--dot:#d7dae0;--panel:#fff;--line:#e4e7ec;--line2:#eef0f3;
+  --ink:#101828;--sub:#475467;--muted:#98a2b3;
+  --navy:#17314c;--teal:#1fa5a3;--blue:#2563eb;--ok:#0f9d58;--okbg:#e8f6ee;--wait:#b54708;--waitbg:#fef3e2;--off:#b42318;--offbg:#fdecea;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--board);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;color:var(--ink);font-family:"Zen Kaku Gothic New",sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 48px}
-header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 20px;margin-bottom:18px}
-h1{margin:0;font-size:clamp(20px,3.2vw,28px);font-weight:900;letter-spacing:.02em}
-h1 small{display:block;font-size:13px;font-weight:500;color:var(--sub);letter-spacing:0}
-.stamp{display:inline-flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--navy);border-radius:999px;padding:6px 14px;font-weight:700;font-size:13px}
-.stamp i{width:10px;height:10px;border-radius:50%;background:#f0a500;display:inline-block}
-.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
-@media(max-width:900px){.flow{grid-template-columns:1fr}}
-.note{position:relative;border-radius:6px;padding:18px 18px 16px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 8px 18px -10px rgba(31,42,55,.35)}
-.note::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-2deg);width:70px;height:18px;background:rgba(255,255,255,.75);border:1px solid rgba(0,0,0,.06)}
-.y{background:var(--yellow)}.b{background:var(--blue)}.g{background:var(--green)}.p{background:var(--pink)}
-.step{display:inline-block;font-size:12px;font-weight:900;color:#fff;background:var(--navy);border-radius:4px;padding:1px 8px;margin-bottom:6px}
-h2{margin:0 0 8px;font-size:18px;font-weight:900}
-ul{margin:0;padding-left:1.15em}li{margin:2px 0}
-li ul{margin-top:2px}
-.k{font-weight:700}
-.url{word-break:break-all;font-size:13px;background:rgba(255,255,255,.7);border-radius:4px;padding:2px 6px;display:inline-block}
-.ok{color:#1d7a3a;font-weight:700}.wait{color:#b25e00;font-weight:700}.off{color:var(--accent);font-weight:700}
-.arrow{display:none}
-.row2{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;margin-top:22px;align-items:start}
-@media(max-width:900px){.row2{grid-template-columns:1fr}}
-ol{margin:0;padding-left:1.3em}ol li{margin:6px 0}
-.copy{background:#fff;border:1px dashed var(--line);border-radius:6px;padding:10px 12px;font-size:14px;white-space:pre-wrap}
-.copy b{display:block;font-size:12px;color:var(--sub);margin-top:6px}
-.copy b:first-child{margin-top:0}
-footer{margin-top:22px;font-size:12px;color:var(--sub)}
-/* 画面の画像（スクショ） */
-.shot{position:relative;margin:0;background:#fff;padding:10px 10px 8px;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 10px 22px -12px rgba(31,42,55,.45)}
-.shot a{display:block;line-height:0}
-.shot img{display:block;width:100%;height:auto;border:1px solid #e5e2da;border-radius:2px}
-.shot figcaption{font-size:13px;color:var(--sub);margin-top:8px;line-height:1.55}
-.shot figcaption b{color:var(--ink)}
-.tag{position:absolute;top:18px;right:18px;background:var(--accent);color:#fff;font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;line-height:1.6;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-.tag.n{background:var(--navy)}
-.overview{margin:0 0 22px}
-.overview .shot{padding:12px}
-.gal{margin-top:30px}
-.gal>h2{font-size:21px;margin-bottom:4px}
-.gal>p{margin:0 0 6px;color:var(--sub);font-size:13px}
-.blk{margin-top:18px}
-.blk>h3{margin:0 0 10px;font-size:17px;font-weight:900}
-.grid{display:grid;gap:16px;align-items:start}
-.g-lp{grid-template-columns:2.3fr 1fr 1fr}
-.g-two{grid-template-columns:1.35fr 1fr}
-.stack{display:grid;gap:16px}
-@media(max-width:900px){.g-lp{grid-template-columns:1fr 1fr}.g-lp>.shot:first-child{grid-column:1/-1}.g-two{grid-template-columns:1fr}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.num,.kpi b,.badge{font-family:Inter,"Noto Sans JP",sans-serif}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+
+/* 上のバー（Figmaのファイル名のような帯） */
+.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);min-width:0}
+.crumb .logo{width:22px;height:22px;border-radius:6px;background:var(--navy);display:grid;place-items:center;flex:none}
+.crumb .logo svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2}
+.crumb b{color:var(--ink);font-weight:700}
+.chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.chip.ok i{background:var(--ok)}.chip.wait i{background:#f79009}.chip.off i{background:var(--off)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:22px 16px 56px}
+.frame{margin-top:30px}
+.frame:first-child{margin-top:4px}
+.flabel{font-size:12px;color:var(--muted);font-weight:500;margin:0 0 8px 2px;letter-spacing:.02em}
+.flabel b{color:var(--sub);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05);padding:24px}
+h1{margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:.01em}
+h2{margin:0;font-size:18px;font-weight:700}
+.lead{margin:6px 0 0;color:var(--sub)}
+.hint{font-size:12px;color:var(--muted)}
+.sp-only{display:none}
+@media(max-width:1000px){.sp-only{display:inline}}
+
+/* 概要 */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fcfcfd}
+.kpi span{display:block;font-size:12px;color:var(--sub)}
+.kpi b{display:block;font-size:24px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.kpi small{display:block;font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px}
+.kpi.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.kpi.dark span,.kpi.dark small{color:#c7d2df}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.st{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line2);border-radius:12px;padding:12px 14px}
+.st .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.st .ic svg{width:12px;height:12px;fill:none;stroke-width:2.6}
+.st.ok .ic{background:var(--okbg)}.st.ok .ic svg{stroke:var(--ok)}
+.st.wait .ic{background:var(--waitbg)}.st.wait .ic svg{stroke:var(--wait)}
+.st b{display:block;font-size:13px}
+.st small{display:block;font-size:12px;color:var(--sub);line-height:1.5}
+@media(max-width:900px){.kpis,.status{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.kpis,.status{grid-template-columns:1fr}}
+
+/* 流れ（スマホ画面を横に並べる） */
+.flowhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;margin-top:20px;position:relative}
+.step{position:relative;min-width:0}
+.step:not(:last-child)::after{content:"";position:absolute;top:calc(64px + 38%);right:-24px;width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(16,24,40,.06);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475467' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");background-size:12px;background-position:center;background-repeat:no-repeat}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;padding:0 6px;border-radius:6px;background:var(--navy);color:#fff;font-size:11px;font-weight:700}
+.step h3{margin:6px 0 0;font-size:14px;font-weight:700;line-height:1.4}
+.step p{margin:2px 0 10px;font-size:12px;color:var(--sub);line-height:1.55;min-height:4.65em}
+.step.noarrow::after{display:none}
+.phone{position:relative;border-radius:26px;background:#0b1220;padding:7px;box-shadow:0 12px 24px -14px rgba(16,24,40,.55)}
+.phone a{display:block;border-radius:20px;overflow:hidden;background:#fff}
+.phone::before{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:34%;height:5px;border-radius:5px;background:#0b1220;z-index:1;opacity:.0}
+.phone img{width:100%;aspect-ratio:1/2;object-fit:cover;object-position:top}
+.tagimg{position:absolute;top:14px;right:14px;z-index:2;font-size:11px;font-weight:700;color:#fff;background:rgba(16,24,40,.78);border-radius:6px;padding:1px 7px}
+.branch{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;align-items:start}
+.branch .note{grid-column:span 2}
+.branch .note{font-size:13px;color:var(--sub)}
+.branch .note b{color:var(--ink)}
+@media(max-width:1000px){
+  .flow{display:flex;overflow-x:auto;gap:28px;padding:2px 2px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .flow .step{flex:0 0 200px;scroll-snap-align:start}
+  .step:not(:last-child)::after{right:-23px}
+  .branch{grid-template-columns:1fr 1fr}
+  .branch .note{grid-column:1/-1}
+}
+
+/* 社内の流れ */
+.inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px 32px;margin-top:20px;align-items:start}
+.inner .full{grid-column:1/-1}
+.col h3{margin:6px 0 2px;font-size:15px;font-weight:700}
+.col>p{margin:0 0 12px;font-size:12.5px;color:var(--sub)}
+.browser{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 8px 20px -14px rgba(16,24,40,.45)}
+.browser .bar{height:26px;background:#f2f4f7;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;padding:0 10px;font-size:11px;color:var(--muted)}
+.browser .bar i{width:8px;height:8px;border-radius:50%;background:#d0d5dd}
+.browser .bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser+.browser{margin-top:12px}
+.cap{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.5}
+.phones2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.phones2 .phone{border-radius:22px;padding:6px}
+.phones2 .phone a{border-radius:17px}
+.todo{list-style:none;margin:0;padding:0;counter-reset:t}
+.todo li{position:relative;padding:0 0 14px 34px;counter-increment:t}
+.todo li::before{content:counter(t);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:#eef2f6;color:var(--navy);font:700 12px/22px Inter,sans-serif;text-align:center}
+.todo li:not(:last-child)::after{content:"";position:absolute;left:10.5px;top:26px;bottom:2px;width:1px;background:var(--line)}
+.todo b{display:block;font-size:13px}
+.todo span{display:block;font-size:12.5px;color:var(--sub);line-height:1.6}
+.pipe{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pipe em{font-style:normal;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:0 6px;background:#fff;color:var(--sub)}
+.pipe em.on{border-color:#bfd3ea;background:#eef4fb;color:var(--navy);font-weight:600}
+.callout{margin-top:22px;display:flex;gap:14px;align-items:flex-start;border:1px solid #c7dafc;background:#f2f7ff;border-radius:12px;padding:14px 16px}
+.callout .ic{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;flex:none}
+.callout .ic svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2}
+.callout b{display:block;font-size:14px}
+.callout span{display:block;font-size:13px;color:var(--sub)}
+@media(max-width:1000px){.inner{grid-template-columns:1fr}}
+
+/* Meta */
+.meta{display:grid;grid-template-columns:1fr 1.5fr;gap:26px;margin-top:18px;align-items:start}
+dl.spec{margin:0;display:grid;grid-template-columns:auto 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+dl.spec dt,dl.spec dd{margin:0;padding:10px 14px;border-bottom:1px solid var(--line2);font-size:13px}
+dl.spec dt{background:#f9fafb;color:var(--sub);white-space:nowrap}
+dl.spec dd{line-height:1.6}
+dl.spec dt:nth-last-of-type(1),dl.spec dd:last-of-type{border-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:4px}
+.pill.off{background:var(--offbg);color:var(--off)}.pill.wait{background:var(--waitbg);color:var(--wait)}.pill.ok{background:var(--okbg);color:var(--ok)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.shots .wide{grid-column:1/-1}
+@media(max-width:1000px){.meta{grid-template-columns:1fr}}
+@media(max-width:560px){.shots{grid-template-columns:1fr}}
+
+/* 確認事項 */
+.asks{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px}
+.ask{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+@media(max-width:560px){.ask{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px}.panel{padding:18px 14px}table.calc th,table.calc td,table.calc td.r{white-space:normal}}
+.ask .n{width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 13px Inter,sans-serif}
+.ask h3{margin:2px 0 4px;font-size:15px;font-weight:700}
+.ask p{margin:0;color:var(--sub);font-size:13.5px}
+.ask .q{margin-top:8px;font-size:13.5px;color:var(--ink);background:#f9fafb;border-left:3px solid var(--navy);padding:8px 12px;border-radius:0 8px 8px 0}
+table.calc{border-collapse:collapse;margin-top:10px;font-size:13px;width:100%;max-width:560px}
+table.calc th,table.calc td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+table.calc th{background:#f9fafb;font-weight:500;color:var(--sub);white-space:nowrap}
+table.calc td.r{text-align:right;font-family:Inter,"Noto Sans JP",sans-serif;font-weight:600;white-space:nowrap}
+.copy{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.75;background:#fcfcfd}
+.copy dt{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:8px}
+.copy dt:first-child{margin-top:0}
+.copy dd{margin:0;white-space:pre-wrap}
+.url{font-family:Inter,"Noto Sans JP",sans-serif;font-size:12.5px;word-break:break-all;background:#f2f4f7;border-radius:6px;padding:1px 6px}
+footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center}
+@media(max-width:560px){
+  table.calc,table.calc tbody,table.calc tr,table.calc th,table.calc td{display:block;width:100%}
+  table.calc tr{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}
+  table.calc th,table.calc td,table.calc td.r{border:0;white-space:normal;text-align:left;padding:5px 10px}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header>
-  <h1><small>OKマーケティング｜bonobo（お店の弁護士保険）テスト広告</small>広告スタート前の確認ボード</h1>
-  <span class="stamp"><i></i>2026/11/21 時点・Meta広告は「下書き」（配信されません）</span>
-</header>
 
-<div class="overview">
-  <figure class="shot">
-    <a href="img/zukai.jpg" target="_blank" rel="noopener"><img src="img/zukai.jpg" width="1600" height="900" alt="bonobo LP 広告スタートまでの状況の図解（お客さま→LP→スプレッドシート→公式LINEに通知→小林さん・佐治さん／できたこと・待っていること・ゴール）"></a>
-    <figcaption><b>全体の流れ</b>：お客さまがLPのフォームに入力 → スプシに自動で保存 → 公式LINEのグループにお知らせ。画像はタップ（クリック）で大きく開きます。</figcaption>
-  </figure>
-</div>
-
-<div class="flow">
-  <section class="note y">
-    <span class="step">① LP</span>
-    <h2>配信用のLP</h2>
-    <ul>
-      <li class="k">URL：<span class="url">https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/</span></li>
-      <li>中身は小林さんのNetlify版（ver22）と同じ。追加したのは2か所だけ
-        <ul><li>フォームの送り先（下の②）</li><li>Metaピクセル（ページ表示／送信完了で「リード」）</li></ul></li>
-      <li>トップの見せ方は <b>?v=1〜3</b> で切替（1＝口コミ／2＝ドタキャン／3＝器物破損）</li>
-      <li>会社PCからも開けるアドレスです</li>
-    </ul>
-  </section>
-
-  <section class="note b">
-    <span class="step">② 申込の保存・通知</span>
-    <h2>スプシ＋通知</h2>
-    <ul>
-      <li class="k">スプシ「bonobo LP リード管理（OKマーケ）」<br><span class="ok">小林さん・佐治さん 編集可で共有済み</span>
-        <ul><li>申込：送信まで完了した方（説明希望／資料DL）</li><li>記入途中：送信まで行かなかった方</li><li>対応状況・対応メモ＝佐治さん用の列</li></ul></li>
-      <li class="k">通知</li>
-      <li>送信完了 → すぐ／記入途中 → 30分たっても送信なしなら1回</li>
-      <li><span class="ok">LINE：</span>公式LINE「OKマーケ 申込通知」から、もぐ雄・防犯カメラと同じ「【OKM】リード通知」グループにカードで届きます（🛡️bonobo の印・📞電話する／📋スプシを開くボタン付き）</li>
-      <li>種類は3つ：サービスの説明希望／資料ダウンロード／記入途中（送信は未完了）</li>
-      <li><span class="ok">テスト済み：</span>LP画面から送信 → スプシ保存、LINEのカードはLINEの検査窓口で形を確認（グループには未送信）</li>
-    </ul>
-  </section>
-
-  <section class="note g">
-    <span class="step">③ Meta広告</span>
-    <h2>下書き（配信スイッチOFF）</h2>
-    <ul>
-      <li class="k">アカウント：もぐ雄（OTOMO）</li>
-      <li><b>キャンペーン</b>：bonobo_LP申込（説明・資料）_202611<br>目的 リード／<b>1日2,500円</b>（約20日で5万円）</li>
-      <li><b>広告セット</b>：全国_店舗・サロン経営者_25-65
-        <ul><li>成果地点 ウェブサイト／データセット「bonobo LP」／イベント リード</li>
-        <li>日本・25〜65歳以上</li>
-        <li>詳細ターゲット（いずれか）：中小企業のオーナー／ビジネスページ管理者／健康・美容・小売り・食品レストランのページ管理者</li>
-        <li>推定 約110〜120万人</li>
-        <li>配置は自動（広告セット単位の除外はMetaの仕様変更でできなくなりました）</li></ul></li>
-      <li><b>広告</b>：集客支援サポート（IG shiensupport）→ LP（?v=1）<br><span class="wait">バナー・広告文：審査済みバナー待ち</span></li>
-    </ul>
-  </section>
-</div>
-
-<div class="row2">
-  <section class="note p">
-    <span class="step" style="background:var(--accent)">小林さんへ</span>
-    <h2>確認・お願いしたいこと</h2>
-    <ol>
-      <li><b>審査済みバナーの画像ファイル</b>をください（LINEの画像ではなく元データ）。入れればすぐ公開できる状態です</li>
-      <li><b>広告文</b>は右の案でよいか。アシロの確認が要るか、募集文書番号（LPは KL2026・SP・580）を広告文にも入れるか</li>
-      <li><b>配信先のLP</b>は①のURLでよいか（Netlify版を使う場合は、フォームの送り先とピクセルの2か所を同じように入れます）</li>
-      <li><b>開始日と予算</b>（今は1日2,500円・約20日で5万円）</li>
-      <li>広告の「広告主・スポンサー」表示が <b>HEROES LIMITED LIABILITY COMPANY</b> になっています（アカウントの設定）。OKマーケ名義に変えるかご判断ください</li>
-      <li>（任意）Clarityも入れる場合はプロジェクトIDをください</li>
-    </ol>
-  </section>
-
-  <section class="note y">
-    <span class="step">広告文の案</span>
-    <h2>LPの言葉だけで作った案</h2>
-    <div class="copy"><b>メインテキスト</b>事実と違う口コミ、大口予約のドタキャン、酔ったお客様の器物破損…泣き寝入りしていませんか？
-お店のトラブルに備える弁護士費用保険「bonobo」。法律相談料と弁護士費用を保険で備えられます。
-サービスの説明・資料ダウンロードは無料です。
-※保険金のお支払いには限度額・支払条件等があります。詳細は重要事項説明書をご確認ください。<b>見出し</b>お店のトラブルに備える弁護士費用保険<b>説明</b>説明・資料は無料<b>ボタン</b>詳しくはこちら</div>
-  </section>
-</div>
-
-<section class="gal">
-  <h2>📸 実際の画面で確認</h2>
-  <p>画像はタップ（クリック）で大きく開きます。スプシとLINEの画像は<b>見本のデータ</b>です（実際のお申し込みではありません）。</p>
-
-  <div class="blk">
-    <h3><span class="step">① LP</span> 配信用のLP</h3>
-    <div class="grid g-lp">
-      <figure class="shot">
-        <a href="img/lp_pc.jpg" target="_blank" rel="noopener"><img src="img/lp_pc.jpg" width="1400" height="689" alt="LPのパソコン表示（トップ）"></a>
-        <figcaption><b>パソコン</b>：トップ（?v=1＝口コミの見せ方）</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/lp_sp_top.jpg" target="_blank" rel="noopener"><img src="img/lp_sp_top.jpg" width="600" height="1200" alt="LPのスマホ表示（トップ）"></a>
-        <figcaption><b>スマホ</b>：トップ</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/lp_sp_form.jpg" target="_blank" rel="noopener"><img src="img/lp_sp_form.jpg" width="600" height="1200" alt="LPのスマホ表示（申込フォーム）"></a>
-        <figcaption><b>スマホ</b>：申込フォーム。ここに入力された内容が②に届きます</figcaption>
-      </figure>
-    </div>
+<div class="topbar"><div class="in">
+  <div class="crumb"><span class="logo"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/></svg></span>
+    <span>OKマーケティング</span><span>/</span><b>bonobo テスト広告</b></div>
+  <div class="chips">
+    <span class="chip off"><i></i>Meta：下書き・配信OFF</span>
+    <span class="chip ok"><i></i>通知：公式LINE</span>
+    <span class="chip"><i></i>2026/11/21 時点</span>
   </div>
+</div></div>
 
-  <div class="blk">
-    <h3><span class="step">② 保存・通知</span> スプシとLINEのお知らせ</h3>
-    <div class="grid g-two">
-      <div class="stack">
-        <figure class="shot">
-          <span class="tag">見本</span>
-          <a href="img/sheet_submit.jpg" target="_blank" rel="noopener"><img src="img/sheet_submit.jpg" width="1432" height="496" alt="スプシの「申込」タブ（見本の行）"></a>
-          <figcaption><b>スプシ「申込」タブ</b>：送信まで完了した方が1行ずつ入ります。「対応状況」は選ぶだけ（未対応／架電済み／商談設定／成約 など）、「対応メモ」は自由に書けます</figcaption>
-        </figure>
-        <figure class="shot">
-          <span class="tag">見本</span>
-          <a href="img/sheet_partial.jpg" target="_blank" rel="noopener"><img src="img/sheet_partial.jpg" width="1432" height="496" alt="スプシの「記入途中」タブ（見本の行）"></a>
-          <figcaption><b>スプシ「記入途中」タブ</b>：途中で止まった方。あとで送信されると「状態」が「申込完了」に変わります</figcaption>
-        </figure>
-      </div>
-      <figure class="shot">
-        <span class="tag">見本</span>
-        <a href="img/line_cards.jpg" target="_blank" rel="noopener"><img src="img/line_cards.jpg" width="1400" height="1358" alt="【OKM】リード通知グループに届くLINEのカード（送信完了・記入途中）の見本"></a>
-        <figcaption><b>LINE「【OKM】リード通知」に届くカード</b>（イメージ）：@Allで全員に通知 → 📞ボタンでそのまま電話、📋でスプシが開きます</figcaption>
-      </figure>
+<main class="wrap">
+
+<!-- 00 概要 -->
+<section class="frame">
+  <p class="flabel"><b>00</b>　概要</p>
+  <div class="panel">
+    <h1>bonobo（お店の弁護士保険）テスト広告　配信前のご確認</h1>
+    <p class="lead">LP・申込の保存先・LINEのお知らせ・Meta広告（下書き）まで準備ができています。バナーをいただき、内容のOKが出れば配信を始められます。</p>
+    <div class="kpis">
+      <div class="kpi"><span>月の広告費</span><b class="num">¥50,000</b><small>11月のテスト予算</small></div>
+      <div class="kpi"><span>1日の予算（11月）</span><b class="num">¥1,667</b><small>¥50,000 ÷ 30日（11月の日数）</small></div>
+      <div class="kpi"><span>11月の想定（11/23〜30・8日間）</span><b class="num">約¥13,336</b><small>仮に11/23（月・祝）から配信した場合</small></div>
+      <div class="kpi dark"><span>いまの状態</span><b>下書き</b><small>配信スイッチOFF。公開しない限り広告費はかかりません</small></div>
     </div>
-  </div>
-
-  <div class="blk">
-    <h3><span class="step">③ Meta広告</span> 下書きの状態</h3>
-    <div class="grid g-two">
-      <figure class="shot">
-        <a href="img/meta_campaigns.jpg" target="_blank" rel="noopener"><img src="img/meta_campaigns.jpg" width="1300" height="749" alt="広告マネージャのキャンペーン一覧（bonoboは下書き・スイッチOFF）"></a>
-        <figcaption><b>キャンペーン一覧</b>（もぐ雄アカウント）：一番上が bonobo。配信は「<b>下書き</b>」・スイッチは<b>OFF</b>なので、公開しない限り配信されません</figcaption>
-      </figure>
-      <figure class="shot">
-        <a href="img/meta_adset.jpg" target="_blank" rel="noopener"><img src="img/meta_adset.jpg" width="1100" height="1018" alt="広告セットの設定画面（詳細ターゲット・年齢・推定オーディエンスサイズ）"></a>
-        <figcaption><b>広告セットの設定</b>：詳細ターゲット（中小企業のオーナー・店舗系のページ管理者）／年齢25〜65歳以上／推定 約110〜120万人</figcaption>
-      </figure>
+    <div class="status">
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>LP</b><small>配信用URLを用意。送信・計測タグも確認済み</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>申込の保存（スプシ）</b><small>小林さん・佐治さんに編集権限で共有済み</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>LINEのお知らせ</b><small>【OKM】リード通知へ。11/21 9:00 にテスト送信</small></div></div>
+      <div class="st wait"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg></span><div><b>Meta広告</b><small>下書き済み。バナーと広告文の確定待ち</small></div></div>
     </div>
   </div>
 </section>
 
-<footer>作成：伊藤／このページは確認用です（検索には出ません）。</footer>
-</div>
+<!-- 01 お客さまの流れ -->
+<section class="frame">
+  <p class="flabel"><b>01</b>　お客さまの流れ（スマホで見た実際の画面）</p>
+  <div class="panel">
+    <div class="flowhead"><h2>広告を見てから、日程を予約するまで</h2><span class="hint">画像はタップで大きく開きます<span class="sp-only">（スマホでは横にスクロール）</span></span></div>
+    <div class="flow">
+      <div class="step"><span class="badge">01</span><h3>広告を見る</h3><p>Instagram・Facebookに表示（出稿元：集客支援サポート）</p>
+        <div class="phone"><span class="tagimg">イメージ</span><a href="img/p01_ad.jpg" target="_blank" rel="noopener"><img src="img/p01_ad.jpg" width="600" height="1200" alt="Instagramのフィードに出る広告のイメージ（バナーは審査済みのものに差し替え）"></a></div></div>
+      <div class="step"><span class="badge">02</span><h3>LPを見る</h3><p>「詳しくはこちら」から配信用LPへ</p>
+        <div class="phone"><a href="img/p02_lp.jpg" target="_blank" rel="noopener"><img src="img/p02_lp.jpg" width="600" height="1200" alt="LPのトップ画面（スマホ）"></a></div></div>
+      <div class="step"><span class="badge">03</span><h3>フォーム STEP1</h3><p>会社名・業種・お名前・電話番号</p>
+        <div class="phone"><a href="img/p03_step1.jpg" target="_blank" rel="noopener"><img src="img/p03_step1.jpg" width="600" height="1200" alt="申込フォーム STEP1の入力画面"></a></div></div>
+      <div class="step"><span class="badge">04</span><h3>フォーム STEP2</h3><p>法人／個人・メール・気になっていること</p>
+        <div class="phone"><a href="img/p04_step2.jpg" target="_blank" rel="noopener"><img src="img/p04_step2.jpg" width="600" height="1200" alt="申込フォーム STEP2の入力画面"></a></div></div>
+      <div class="step"><span class="badge">05</span><h3>送信完了</h3><p>このタイミングでスプシ保存とLINEのお知らせ</p>
+        <div class="phone"><a href="img/p05_done.jpg" target="_blank" rel="noopener"><img src="img/p05_done.jpg" width="600" height="1200" alt="送信完了の画面（このあと日程調整へ）"></a></div></div>
+      <div class="step"><span class="badge">06</span><h3>日程を選ぶ</h3><p>5秒後に日程調整（Spir）へ自動で移動</p>
+        <div class="phone"><a href="img/p06_spir.jpg" target="_blank" rel="noopener"><img src="img/p06_spir.jpg" width="600" height="1200" alt="日程調整（Spir）の画面"></a></div></div>
+    </div>
+    <div class="branch">
+      <div class="note"><b>資料をもらう場合</b><br>フォーム上部のタブで「資料をもらう」を選ぶと、会社名・お名前・メールだけで申し込めます。資料（PDF）はその場で開けます。</div>
+      <div class="step"><span class="badge">04'</span><h3>資料の申込</h3><p>会社名・お名前・メール</p>
+        <div class="phone"><a href="img/b1_shiryo_form.jpg" target="_blank" rel="noopener"><img src="img/b1_shiryo_form.jpg" width="600" height="1200" alt="資料ダウンロードの申込フォーム"></a></div></div>
+      <div class="step noarrow"><span class="badge">05'</span><h3>資料をお渡し</h3><p>PDFのボタン＋説明の申込への案内</p>
+        <div class="phone"><a href="img/b2_shiryo_done.jpg" target="_blank" rel="noopener"><img src="img/b2_shiryo_done.jpg" width="600" height="1200" alt="資料ダウンロードの完了画面"></a></div></div>
+      <div class="note"><b>途中でやめた場合</b><br>電話番号かメールまで入力して止まった方は「記入途中」としてスプシに残り、30分たっても送信がなければLINEで1回お知らせします（下の08）。<br><br><span class="hint">LPのURL：</span><span class="url">https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/</span><br><span class="hint">中身は小林さんのNetlify版（ver22）と同じで、フォームの送り先とMetaピクセルの2か所だけ追加しています。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 社内の流れ -->
+<section class="frame">
+  <p class="flabel"><b>02</b>　社内の流れ（お知らせが届いてから対応まで）</p>
+  <div class="panel">
+    <h2>佐治さん・小林さん側で起きること</h2>
+    <div class="inner">
+      <div class="col full">
+        <span class="badge">07</span><h3>スプシに自動で保存</h3>
+        <p>送信が完了した方は「申込」、途中で止まった方は「記入途中」に1行ずつ入ります。</p>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span>bonobo LP リード管理（OKマーケ）— 申込</span></div>
+          <a href="img/sheet_submit.jpg" target="_blank" rel="noopener"><img src="img/sheet_submit.jpg" width="1356" height="133" alt="スプシの申込タブ（見本のデータ）"></a></div>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span>bonobo LP リード管理（OKマーケ）— 記入途中</span></div>
+          <a href="img/sheet_partial.jpg" target="_blank" rel="noopener"><img src="img/sheet_partial.jpg" width="1356" height="133" alt="スプシの記入途中タブ（見本のデータ）"></a></div>
+        <p class="cap">※見本のデータです。<a href="https://hito-hue.github.io/ethical/gd/?s=18YmmgxamjKyGK2tfCtj9BPznZuljpDy9NmqV8oU1ucc" target="_blank" rel="noopener">スプシを開く</a>（小林さん・佐治さん 編集可）</p>
+      </div>
+      <div class="col">
+        <span class="badge">08</span><h3>LINEにお知らせ</h3>
+        <p>公式LINE「OKマーケ 申込通知」から【OKM】リード通知グループへ、@All付きで届きます。</p>
+        <div class="phones2">
+          <div><div class="phone"><span class="tagimg">イメージ</span><a href="img/p08_line.jpg" target="_blank" rel="noopener"><img src="img/p08_line.jpg" width="600" height="1197" alt="送信完了時にLINEに届くカード"></a></div><p class="cap"><b>送信完了</b>：すぐに届く</p></div>
+          <div><div class="phone"><span class="tagimg">イメージ</span><a href="img/p08_line_partial.jpg" target="_blank" rel="noopener"><img src="img/p08_line_partial.jpg" width="600" height="1197" alt="記入途中のときにLINEに届くカード"></a></div><p class="cap"><b>記入途中</b>：30分後に1回</p></div>
+        </div>
+      </div>
+      <div class="col">
+        <span class="badge">09</span><h3>対応する</h3>
+        <p>カードからそのまま電話し、結果をスプシに残します。</p>
+        <ol class="todo">
+          <li><b>カードの「📞 電話する」で発信</b><span>電話番号を打たずにそのまま発信できます。資料ダウンロードの方は電話番号がないため、メールでフォローします。</span></li>
+          <li><b>「📋 スプレッドシートを開く」で対応状況を選ぶ</b><span>選ぶだけで記録できます。</span>
+            <div class="pipe"><em class="on">未対応</em><em>架電済み（不在）</em><em>架電済み（つながった）</em><em>商談設定</em><em>成約</em><em>見送り</em></div></li>
+          <li><b>「対応メモ」に内容を残す</b><span>次回の連絡予定など。スクリプトはこの2列を上書きしません。</span></li>
+          <li><b>記入途中の方へは確認から</b><span>「入力の途中でうまく送信できていなかったようなので」とお伝えしてから進めます。</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="callout"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></svg></span>
+      <div><b>テスト送信：11/21（土）9:00 に【OKM】リード通知へ1件</b><span>本番と同じ道筋（LPの送信 → スプシ → LINE）で「【テスト】居酒屋さくら」を送っています。届いたカードの形でよいか、ご確認ください。スプシにも【テスト】の行が入ります（確認後に消します）。</span></div></div>
+  </div>
+</section>
+
+<!-- 03 Meta広告 -->
+<section class="frame">
+  <p class="flabel"><b>03</b>　Meta広告（下書きの設定）</p>
+  <div class="panel">
+    <h2>もぐ雄アカウントに下書きで作成済み</h2>
+    <div class="meta">
+      <dl class="spec">
+        <dt>状態</dt><dd><span class="pill off">下書き</span><span class="pill off">配信スイッチOFF</span><br>公開ボタンを押すまで配信されません</dd>
+        <dt>キャンペーン</dt><dd>bonobo_LP申込（説明・資料）_202611<br>目的：リード</dd>
+        <dt>予算</dt><dd><b>1日 ¥1,667</b>（¥50,000 ÷ 30日）<br><span class="hint">Metaの仕様で日によって前後します（1日最大 ¥2,917・1週間の合計は ¥11,669 まで）</span></dd>
+        <dt>成果の計測</dt><dd>ウェブサイト／データセット「bonobo LP」／送信完了で「リード」</dd>
+        <dt>配信先</dt><dd>日本・25〜65歳以上<br>中小企業のオーナー、ビジネス・健康美容・小売り・食品レストランのページ管理者（推定 約110〜120万人）</dd>
+        <dt>配置</dt><dd>自動（Instagram・Facebookなど）</dd>
+        <dt>広告</dt><dd>出稿元：集客支援サポート（IG shiensupport）→ LP<br><span class="pill wait">待ち</span>バナー・広告文</dd>
+      </dl>
+      <div class="shots">
+        <div class="browser wide"><div class="bar"><i></i><i></i><i></i><span>広告マネージャ — キャンペーン一覧</span></div>
+          <a href="img/meta_campaigns.jpg" target="_blank" rel="noopener"><img src="img/meta_campaigns.jpg" width="1300" height="749" alt="キャンペーン一覧（bonoboは下書き・スイッチOFF）"></a></div>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span>予算（1日 ¥1,667）</span></div>
+          <a href="img/meta_budget.jpg" target="_blank" rel="noopener"><img src="img/meta_budget.jpg" width="1100" height="961" alt="キャンペーンの予算設定（1日1,667円）"></a></div>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span>広告セット（配信先）</span></div>
+          <a href="img/meta_adset.jpg" target="_blank" rel="noopener"><img src="img/meta_adset.jpg" width="1100" height="1018" alt="広告セットの配信先の設定"></a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 ご確認いただきたいこと -->
+<section class="frame">
+  <p class="flabel"><b>04</b>　ご確認いただきたいこと（小林さん）</p>
+  <div class="panel">
+    <h2>配信開始までに決めたいこと</h2>
+    <div class="asks">
+      <div class="ask"><span class="n">1</span><div><h3>審査済みバナーの画像ファイル（元データ）</h3><p>LINEでいただいた画像ではなく、元のファイルをいただけますか。入れればすぐ公開できる状態です。</p></div></div>
+      <div class="ask"><span class="n">2</span><div><h3>広告文</h3><p>LPの言葉だけで作った案です。アシロの確認が必要か、募集文書番号（LPは KL2026・SP・580）を広告文にも入れるかを教えてください。</p>
+        <dl class="copy"><dt>メインテキスト</dt><dd>事実と違う口コミ、大口予約のドタキャン、酔ったお客様の器物破損…泣き寝入りしていませんか？
+お店のトラブルに備える弁護士費用保険「bonobo」。法律相談料と弁護士費用を保険で備えられます。
+サービスの説明・資料ダウンロードは無料です。
+※保険金のお支払いには限度額・支払条件等があります。詳細は重要事項説明書をご確認ください。</dd>
+          <dt>見出し</dt><dd>お店のトラブルに備える弁護士費用保険</dd><dt>説明</dt><dd>説明・資料は無料</dd><dt>ボタン</dt><dd>詳しくはこちら</dd></dl></div></div>
+      <div class="ask"><span class="n">3</span><div><h3>配信先のLP</h3><p>上のURL（Netlify版と同じ中身）で問題ないでしょうか。Netlify版を使う場合も、同じ2か所を入れて対応します。</p></div></div>
+      <div class="ask"><span class="n">4</span><div><h3>配信日と予算</h3><p>月の広告費が5万円なので、11月は日数（30日）で割って1日1,667円で設定しています。</p>
+        <div class="q">月5万円 → 1日1,667円の換算で合っていますか？</div>
+        <table class="calc"><tr><th>仮に 11/23（月・祝）から配信</th><td>11/23〜11/30 の8日間</td><td class="r">¥1,667 × 8日 ＝ 約¥13,336</td></tr>
+          <tr><th>12月（31日）</th><td>同じ5万円の場合</td><td class="r">1日 ¥1,613 に変更</td></tr></table>
+        <p style="margin-top:8px">開始日のご希望もあわせて教えてください。</p></div></div>
+      <div class="ask"><span class="n">5</span><div><h3>LINEのお知らせの形</h3><p>11/21（土）9:00 に【OKM】リード通知グループへテストを1件送っています（02の08と同じカード）。</p>
+        <div class="q">この形のお知らせでよいでしょうか？</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>作成：伊藤　｜　このページは確認用です（検索には出ません）</footer>
+</main>
 </body>
 </html>
