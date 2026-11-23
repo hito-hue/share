@@ -83,7 +83,7 @@ p{margin:0}
 .stack{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:8px}
 .blk{border-radius:14px;padding:14px 12px;display:grid;gap:2px;align-content:center;text-align:center}
 .blk small{font-size:11.5px;font-weight:900;letter-spacing:.04em}
-.blk b{font-family:var(--num);font-weight:400;font-size:34px;line-height:1.05}
+.blk b{font-family:var(--num);font-weight:400;font-size:30px;line-height:1.05;white-space:nowrap}
 .blk b span{font-family:var(--sans);font-size:13px;font-weight:900;margin-left:1px}
 .blk em{font-style:normal;font-size:11.5px;color:var(--ink2);line-height:1.45}
 .blk.base{background:var(--blue-lt)}.blk.base b{color:var(--blue)}
@@ -258,11 +258,11 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
       <p class="lead">固定の月給に、毎月のインセンティブが上乗せされます。未経験のうちは固定給で安心して覚え、慣れてきたら成果がそのまま収入に返ってきます。</p>
       <div class="income">
         <div class="stack">
-          <div class="blk base"><small>固定の月給</small><b>30<span>万円〜</span></b><em>未経験スタートでも<br>この金額から</em></div>
+          <div class="blk base"><small>月給（固定）</small><b>30<span>万〜</span>100<span>万円</span></b><em>経験・能力により決定<br>未経験でも30万円から</em></div>
           <span class="plus" aria-hidden="true">＋</span>
           <div class="blk inc"><small>インセンティブ</small><b>15<span>%まで</span></b><em>売上利益の最大15%を<br>毎月の月給に加算</em></div>
         </div>
-        <div class="eq"><small>月給</small><b>30<span>万円〜</span>100<span>万円</span></b><i>想定年収 360万円〜1,200万円</i></div>
+        <div class="eq"><small>想定年収</small><b>360<span>万〜</span>1,200<span>万円</span></b></div>
         <p class="note">※月給は固定残業代（40時間分・71,500円〜）を含みます。40時間を超える残業代は別途支給。試用期間3ヶ月。</p>
       </div>
     </div>
@@ -311,7 +311,7 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
       <span class="eyebrow">未経験のあなたへ</span>
       <h2 class="h2">営業がはじめてでも、<br><mark>3つの不安</mark>はいりません。</h2>
       <div class="qa">
-        <div class="qa-item"><p class="q">ノルマや押し売りがキツそう…</p><div class="a"><h3>アポ取りは<em>社内チーム</em>の仕事。押し売りも一切なし。</h3><p>呼ばれたご自宅で、品物を一つずつ丁寧に査定することに集中できます。</p></div></div>
+        <div class="qa-item"><p class="q">押し売りやテレアポがキツそう…</p><div class="a"><h3>アポ取りは<em>社内チーム</em>の仕事。押し売りも一切なし。</h3><p>呼ばれたご自宅で、品物を一つずつ丁寧に査定することに集中できます。</p></div></div>
         <div class="qa-item"><p class="q">査定なんて、やったことがない…</p><div class="a"><h3>約2週間の研修と、<em>先輩への同行</em>で覚えられる。</h3><p>座学のあと先輩に同行して流れを学びます。他業種・営業未経験の方も活躍中です。</p></div></div>
         <div class="qa-item"><p class="q">応募のハードルが高そう…</p><div class="a"><h3>応募は<em>スマホで1分</em>。まずは話を聞くだけでも。</h3><p>入力は5項目だけ。担当者からお電話し、仕事内容や給与のことを詳しくお伝えします。</p></div></div>
       </div>
@@ -352,7 +352,7 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
         <h2 class="h2">1分で応募する</h2>
         <p class="lead">入力は5項目だけです。応募のあと、担当者からお電話でご連絡します。</p>
       </div>
-      <form class="form-card" id="entry" novalidate>
+      <form class="form-card" id="entry" method="post" action="#" novalidate>
         <div class="prog" aria-hidden="true"><span id="prog-t">あと5項目</span><span class="bar"><i id="prog-b"></i></span></div>
         <div class="field">
           <label for="f-name">お名前<span class="req">必須</span></label>
@@ -397,7 +397,8 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
           <label class="agree" for="f-agree"><input type="checkbox" id="f-agree" name="agree"><span><a href="https://nihon-kaitoricenter.com/privacy-policy" target="_blank" rel="noopener">個人情報の取り扱い</a>に同意します</span></label>
           <p class="err" data-for="agree"></p>
         </div>
-        <button class="btn submit" type="submit" id="f-submit">この内容で応募する</button>
+        <p class="btn-sub" style="font-size:11.5px;color:#8a94a6">※ご提案用の見本です。送信しても情報は保存されません。</p>
+        <button class="btn submit" type="submit" id="f-submit" disabled>この内容で応募する</button>
         <p class="form-msg" id="form-msg" role="alert"></p>
         <p class="btn-sub">応募のあと、担当者からお電話でご連絡します。</p>
       </form>
@@ -451,6 +452,8 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
     new IntersectionObserver(function (e) { formVisible = e[0].isIntersecting; upd(); }, { rootMargin: '0px 0px -20% 0px' }).observe(formSec);
   }
   var f = document.getElementById('entry'), msg = document.getElementById('form-msg');
+  document.getElementById('f-submit').disabled = false;
+  function telOk(t) { return /^0[5789]0\d{8}$/.test(t) || (/^0[1-9]\d{8}$/.test(t) && !/^0[5789]0/.test(t)); }
   function toHalf(s) { return s.replace(/[０-９]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0xfee0); }); }
   function data() {
     var fd = new FormData(f);
@@ -458,7 +461,7 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
   }
   function progress() {
     var d = data(), n = 0;
-    if (d.name) n++; if (/^0\d{9,10}$/.test(d.tel)) n++; if (d.age) n++; if (d.area) n++; if (d.license) n++;
+    if (d.name) n++; if (telOk(d.tel)) n++; if (d.age) n++; if (d.area) n++; if (d.license) n++;
     document.getElementById('prog-b').style.width = (n / 5 * 100) + '%';
     document.getElementById('prog-t').textContent = n === 5 ? '入力完了' : 'あと' + (5 - n) + '項目';
   }
@@ -467,7 +470,7 @@ dl.req-list dd small{display:block;color:var(--ink2);font-size:12.5px;line-heigh
     ev.preventDefault();
     var d = data(), e = {};
     if (!d.name) e.name = 'お名前を入力してください';
-    if (!/^0\d{9,10}$/.test(d.tel)) e.tel = '電話番号を正しく入力してください';
+    if (!telOk(d.tel)) e.tel = '電話番号を正しく入力してください';
     if (!d.age) e.age = '年齢を選んでください';
     if (!d.area) e.area = 'お住まいを選んでください';
     if (!d.license) e.license = '普通自動車免許について選んでください';
