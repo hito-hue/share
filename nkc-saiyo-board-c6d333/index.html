@@ -231,6 +231,24 @@ table.cmp.plan tr.rec th,table.cmp.plan tr.rec td{background:#e8f6ee}
 @media(max-width:1000px){.branch.b2{grid-template-columns:1fr}}
 a.url{text-decoration:none;color:var(--blue)}
 .callout span b{display:inline;font-size:inherit;color:var(--ink)}
+/* LPを開くボタン */
+.lpcta{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #c7dafc;background:#f2f7ff;border-radius:12px;padding:12px 16px}
+.lpcta b{display:block;font-size:14px}
+.lpcta span{display:block;font-size:12.5px;color:var(--sub)}
+.lpbtn{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff!important;text-decoration:none;font-weight:700;font-size:14px;border-radius:999px;padding:9px 18px;white-space:nowrap}
+.lpbtn svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.lpbtn.sm{font-size:13px;padding:6px 14px;margin:6px 6px 4px 0}
+.golp{margin-top:10px;align-self:flex-start;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--blue);text-decoration:none;border:1px solid #c7dafc;background:#f7faff;border-radius:999px;padding:4px 12px}
+.golp svg{width:13px;height:13px;stroke:var(--blue);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+/* ヒアリング */
+.hear{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.hc{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fcfcfd;display:grid;gap:3px;align-content:start}
+.hc small{font-size:12px;color:var(--sub)}
+.hc b{font-size:16px;font-weight:700;line-height:1.45}
+.hc span{font-size:12.5px;color:var(--sub);line-height:1.6}
+.hc span:empty{display:none}
+@media(max-width:900px){.hear{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.hear{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -252,25 +270,44 @@ a.url{text-decoration:none;color:var(--blue)}
   <p class="flabel"><b>00</b>　概要</p>
   <div class="panel">
     <h1>説明会を使わずに「ふつうの求人広告」で募集した場合のイメージ</h1>
-    <p class="lead">前回は「説明会の日時」に合わせて集める形でした。ふつうの求人広告は<b>いつでも応募できるので、配信を止めずに続けられ、続けるほど応募1件あたりの費用が下がりやすい</b>のが特長です。買取・反響営業で長く広告を出している他社8社を調べ、その勝ちパターンをもとにバナー3案とLPを作りました。</p>
+    <p class="lead">前回は「説明会の日時」に合わせて集める形でした。ふつうの求人広告は<b>いつでも応募できるので、配信を止めずに続けられます</b>。10/27に伺った採用の状況と、買取・反響営業で長く広告を出している他社8社をもとに、バナー3案とLPを作りました。<b>数字はすべて高め（慎重）に見た金額です。</b></p>
     <div class="kpis">
-      <div class="kpi"><span>応募単価（CPA）の目標</span><b class="num">¥6,000〜1万</b><small>応募1件あたり。慎重に見ると ¥1.2〜1.8万</small></div>
-      <div class="kpi"><span>想定の面接単価</span><b class="num">¥1.2〜2.5万</b><small>応募の4〜5割が面接に来る想定</small></div>
-      <div class="kpi"><span>想定の採用単価</span><b class="num">約¥9万</b><small>入社1人あたりの広告費。面接の約2割が入社の想定（幅 約6〜13万円）</small></div>
-      <div class="kpi dark"><span>おすすめの始め方</span><b>月30万円×2か月</b><small>月に応募 約30〜50件・入社 約3人の想定（目標の場合）</small></div>
+      <div class="kpi"><span>想定の応募単価</span><b class="num">約¥15,000</b><small>応募1件あたり。高めに見た金額（前回のLP表示1回87円×応募率0.6%）</small></div>
+      <div class="kpi"><span>内定率（御社の今の実績）</span><b class="num">約3%</b><small>応募 月80〜100名 → 内定 月2〜5名（10/27ヒアリング）</small></div>
+      <div class="kpi"><span>想定の採用単価</span><b class="num">約¥50万</b><small>内定1人あたりの広告費。エージェント（約110〜140万円）の半分以下</small></div>
+      <div class="kpi dark"><span>まずはテスト</span><b>月30万円×2か月</b><small>応募 約40件・内定 約1名が目安。実際の数字を測って見直します</small></div>
     </div>
+    <div class="lpcta"><div><b>提案LP（見本）をスマホで開く</b><span>実際に入力して送信まで試せます（情報は保存されません）</span></div><a class="lpbtn" href="https://hito-hue.github.io/share/nkc-saiyo-lp-132bf4/" target="_blank" rel="noopener">LPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
     <div class="status">
-      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>他社の求人広告 8社</b><small>バナー・LP・給与・続き方・想定CPA（01）</small></div></div>
-      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>想定の数字</b><small>説明会型との違い・予算ごとの見込み（02）</small></div></div>
-      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>バナー3案＋LP（見本）</b><small>広告→LP→応募→完了の画面（03）</small></div></div>
-      <div class="st wait"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg></span><div><b>ご相談したいこと</b><small>先輩の月収の実例・応募後の電話など（04）</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>伺った採用の状況</b><small>採用目標・今の応募と内定・エージェント費（01）</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>他社の求人広告 8社</b><small>バナー・LP・給与・想定CPA（02）</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>想定の数字＋バナー3案・LP</b><small>説明会型との違い・予算ごとの見込み・画面（03・04）</small></div></div>
+      <div class="st wait"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8"/></svg></span><div><b>ご相談したいこと</b><small>先輩の月収の実例・応募後の電話など（05）</small></div></div>
     </div>
+  </div>
+</section>
+
+<!-- 01 ヒアリング -->
+<section class="frame">
+  <p class="flabel"><b>01</b>　10/27に伺った採用の状況（広告キックオフMTGより）</p>
+  <div class="panel">
+    <h2>今の採用の状況と、SNS広告に期待されていること</h2>
+    <div class="hear">
+      <div class="hc"><small>採用したい人数</small><b>関西で 2名 → 10名</b><span>年内〜1・2月までに。営業は関東11名・関西2名</span></div>
+      <div class="hc"><small>今の応募と内定</small><b>応募 月80〜100名 → 内定 月2〜5名</b><span>求人媒体とエージェント経由の合計。応募から内定は約3%</span></div>
+      <div class="hc"><small>今の採用ルート</small><b>ほぼエージェント経由</b><span>例：10月の採用6名のうち5名がエージェント。Indeed・Airワークなど掲載型からは最近ほとんど採用できていない</span></div>
+      <div class="hc"><small>エージェントの費用</small><b>1人 約110〜140万円</b><span>固定給（年360万円）の30〜40%。報酬は入社日ベース</span></div>
+      <div class="hc"><small>SNS広告を始めた理由</small><b>費用を下げたい・自社で採用ブランディング</b><span>まずはテストマーケとして</span></div>
+      <div class="hc"><small>ご希望</small><b>SNS広告から、単価を抑えて求職者とマッチングできる仕組みを作りたい</b><span></span></div>
+    </div>
+    <div class="callout"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 10l7-7 7 7"/></svg></span>
+      <div><b>ここから考えた、SNS広告の目標</b><span>「エージェントより安く1人を採用する」こと＝<b>内定1人あたり 約50万円以内</b>（エージェントの半分以下）。いきなり大人数ではなく、まず2か月のテストで「応募単価」と「内定率」の実際の数字をつかみ、合うなら予算を増やします。</span></div></div>
   </div>
 </section>
 
 <!-- 01 他社 -->
 <section class="frame">
-  <p class="flabel"><b>01</b>　他社の求人広告（説明会ではなく、ふつうに募集しているもの）</p>
+  <p class="flabel"><b>02</b>　他社の求人広告（説明会ではなく、ふつうに募集しているもの）</p>
   <div class="panel">
     <div class="flowhead"><h2>買取・反響営業で広告を出している8社</h2><span class="hint">画像はタップで大きく開きます</span></div>
     <p class="hint" style="margin:4px 0 0">Instagram・Facebookに出ている求人広告を広告調査ツールで集めました（10/25時点）。LPは11/24にスマホで撮影。<b>本数が多く・長く続いている広告ほど、応募が取れている（＝勝っている）可能性が高い</b>と考えられます。</p>
@@ -283,7 +320,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>「限定5名」「DMで応募すれば書類選考なし」「平均月収51万円」</dd>
           <dt>続き方</dt><dd>36本・2025年6月〜2026年10月</dd>
           <dt>応募の入口</dt><dd>求人サイト（エン転職）＋InstagramのDM</dd>
-          <dt>想定CPA</dt><dd class="cpa">約5,000〜9,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約9,000円</dd></dl><a class="golp" href="https://employment.en-japan.com/desc_1370953/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">2</span><div><h3>マンクンカンクン</h3><small>出張買取の査定員</small></div><span class="pill ok">7か月</span></div>
         <div class="imgs"><a href="img/bn_c03.jpg" target="_blank" rel="noopener"><img src="img/bn_c03.jpg" width="512" height="640" alt="マンクンカンクンの求人バナー" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c03.jpg" target="_blank" rel="noopener"><img src="img/lp_c03.jpg" width="420" height="840" alt="マンクンカンクンのLP" loading="lazy"></a></div>
@@ -292,7 +329,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>「新規テレアポ・飛び込み一切なし」「100%反響対応の買取営業」。金額は金メダル風の3つの数字</dd>
           <dt>続き方</dt><dd>6本・2025年3月〜10月</dd>
           <dt>応募の入口</dt><dd>専用LP＋短いフォーム</dd>
-          <dt>想定CPA</dt><dd class="cpa">約6,000〜10,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約10,000円</dd></dl><a class="golp" href="https://landingpages.work/mankun_m/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">3</span><div><h3>トリアイナ</h3><small>買取営業（動画）</small></div><span class="pill ok">1年以上 続いている</span></div>
         <div class="imgs"><a href="img/bn_c02.jpg" target="_blank" rel="noopener"><img src="img/bn_c02.jpg" width="536" height="640" alt="トリアイナの求人動画の1コマ" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c02.jpg" target="_blank" rel="noopener"><img src="img/lp_c02.jpg" width="420" height="840" alt="トリアイナのLP" loading="lazy"></a></div>
@@ -301,7 +338,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>21〜28歳限定・「同世代に負けたくない人」。社員がスマホに向かって話すだけの動画</dd>
           <dt>続き方</dt><dd>8本・2025年6月〜2026年10月</dd>
           <dt>応募の入口</dt><dd>専用LP</dd>
-          <dt>想定CPA</dt><dd class="cpa">約5,000〜9,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約9,000円</dd></dl><a class="golp" href="https://deita.co.jp/lp/sns_saiyo/toriaina/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">4</span><div><h3>ECODA</h3><small>太陽光・蓄電池の反響営業（動画）</small></div><span class="pill ok">53本＝最多</span></div>
         <div class="imgs"><a href="img/bn_c17.jpg" target="_blank" rel="noopener"><img src="img/bn_c17.jpg" width="640" height="640" alt="ECODAの求人動画の1コマ" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c17.jpg" target="_blank" rel="noopener"><img src="img/lp_c17.jpg" width="420" height="840" alt="ECODAのLP" loading="lazy"></a></div>
@@ -310,7 +347,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>「お給料いくらですか？」と聞いて答える形。飛び込みなしの完全反響営業</dd>
           <dt>続き方</dt><dd>53本・2026年2月〜8月（今回の8社で一番多い）</dd>
           <dt>応募の入口</dt><dd>LP＋フォーム（約8項目）</dd>
-          <dt>想定CPA</dt><dd class="cpa">約8,000〜15,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約15,000円</dd></dl><a class="golp" href="https://lp.house-energy.jp/saiyo_a/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">5</span><div><h3>買取ネッシー</h3><small>ブランド買取の営業</small></div><span class="pill wait">新しめ</span></div>
         <div class="imgs"><a href="img/bn_c07.jpg" target="_blank" rel="noopener"><img src="img/bn_c07.jpg" width="640" height="640" alt="買取ネッシーの求人バナー" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c07.jpg" target="_blank" rel="noopener"><img src="img/lp_c07.jpg" width="420" height="840" alt="買取ネッシーのLP" loading="lazy"></a></div>
@@ -319,7 +356,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>「営業が嫌いなんじゃない。あの売り方が嫌いだった。」完全反響・飛び込み／テレアポ／押し売りなし</dd>
           <dt>続き方</dt><dd>5本・2026年7月</dd>
           <dt>応募の入口</dt><dd>LP＋フォーム（約6項目）</dd>
-          <dt>想定CPA</dt><dd class="cpa">約7,000〜12,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約12,000円</dd></dl><a class="golp" href="https://recruit.kaitorinessie.com/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">6</span><div><h3>リンク</h3><small>不用品買取の営業職</small></div><span class="pill wait">4か月</span></div>
         <div class="imgs"><a href="img/bn_c05.jpg" target="_blank" rel="noopener"><img src="img/bn_c05.jpg" width="640" height="640" alt="リンクの求人バナー" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c05.jpg" target="_blank" rel="noopener"><img src="img/lp_c05.jpg" width="420" height="840" alt="リンクのLP" loading="lazy"></a></div>
@@ -328,7 +365,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>「モノの価値を見抜く査定のプロへ」。幹部ポスト・独立支援</dd>
           <dt>続き方</dt><dd>7本・2026年6月〜9月</dd>
           <dt>応募の入口</dt><dd>LP＋フォーム（約8項目）</dd>
-          <dt>想定CPA</dt><dd class="cpa">約7,000〜12,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約12,000円</dd></dl><a class="golp" href="https://link-recruit-lp.com/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">7</span><div><h3>FunGuys</h3><small>買取営業（動画）</small></div><span class="pill wait">新しめ</span></div>
         <div class="imgs"><a href="img/bn_c08.jpg" target="_blank" rel="noopener"><img src="img/bn_c08.jpg" width="360" height="640" alt="FunGuysの求人動画の1コマ" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c08.jpg" target="_blank" rel="noopener"><img src="img/lp_c08.jpg" width="420" height="840" alt="FunGuysのLP" loading="lazy"></a></div>
@@ -337,7 +374,7 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>未経験OK・完全反響型・実働6.5時間・年間休日120日</dd>
           <dt>続き方</dt><dd>4本・2026年7月</dd>
           <dt>応募の入口</dt><dd>LP→応募フォーム（「話を聞くだけOK」）</dd>
-          <dt>想定CPA</dt><dd class="cpa">約6,000〜10,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約10,000円</dd></dl><a class="golp" href="https://funguys-official.github.io/recruit/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
 
       <div class="comp"><div class="ch"><span class="n">8</span><div><h3>オールシステム</h3><small>営業職（未経験採用）</small></div><span class="pill wait">6か月</span></div>
         <div class="imgs"><a href="img/bn_c22.jpg" target="_blank" rel="noopener"><img src="img/bn_c22.jpg" width="640" height="640" alt="オールシステムの求人バナー" loading="lazy"></a><span class="arr">→</span><a href="img/lp_c22.jpg" target="_blank" rel="noopener"><img src="img/lp_c22.jpg" width="420" height="840" alt="オールシステムのLP" loading="lazy"></a></div>
@@ -346,18 +383,18 @@ a.url{text-decoration:none;color:var(--blue)}
           <dt>訴求</dt><dd>金額を画面いっぱいの数字で。20〜30代中心・年間休日120日以上・研修あり</dd>
           <dt>続き方</dt><dd>5本・2026年3月〜8月</dd>
           <dt>応募の入口</dt><dd>LP＋フォーム（約14項目＝多め）</dd>
-          <dt>想定CPA</dt><dd class="cpa">約8,000〜14,000円</dd></dl></div>
+          <dt>想定CPA（推定）</dt><dd class="cpa">約14,000円</dd></dl><a class="golp" href="https://recruit-as.com/lp/" target="_blank" rel="noopener">実際のLPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
     </div>
 
     <div class="callout"><span class="ic"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg></span>
       <div><b>長く続いている広告の共通点（3つ）</b><span>① <b>給与の数字を一番大きく</b>（平均月収・1年目の年収など“実例”の数字）　② <b>「テレアポ・飛び込みなし」を言い切る</b>（完全反響）　③ <b>応募の手間を減らす</b>（DMでOK・短いフォーム・書類選考なし）</span></div></div>
-    <p class="hint" style="margin-top:10px">※想定CPA（応募1件あたりの広告費）は各社とも非公開です。広告の続き方・応募の入口の手間などから出した<b>参考の推定</b>で、実際の数字ではありません。</p>
+    <p class="hint" style="margin-top:10px">※想定CPA（応募1件あたりの広告費）は各社とも非公開です。広告の続き方・応募の入口の手間などから出した<b>参考の推定</b>で、幅のうち一番高い金額を載せています。</p>
   </div>
 </section>
 
 <!-- 02 数字 -->
 <section class="frame">
-  <p class="flabel"><b>02</b>　想定の数字（日本買取センター様の場合）</p>
+  <p class="flabel"><b>03</b>　想定の数字（日本買取センター様の場合）</p>
   <div class="panel">
     <h2>説明会型と、ふつうの求人広告の違い</h2>
     <p class="hint sp-only" style="margin-top:4px">表は横にスクロールできます</p>
@@ -367,7 +404,7 @@ a.url{text-decoration:none;color:var(--blue)}
         <tr><th>応募できる人</th><td>その日時に来られる人だけ</td><td class="hl">いつでも応募できる</td></tr>
         <tr><th>配信の期間</th><td>説明会までの数日〜数週間（Metaの学習が終わる前に終了）</td><td class="hl">止めずに続けられる（学習が進むと単価が安定しやすい）</td></tr>
         <tr><th>応募の重さ</th><td>半日の予定を空けてもらう</td><td class="hl">1分の応募 → 電話 → 面接</td></tr>
-        <tr><th>1件あたり</th><td>予約1件 約5.7万円<br><span class="hint">配信約4日半・予約2件</span></td><td class="hl"><b>応募1件 約6,000〜1万円</b><br><span class="hint">目標（最初の2〜3週は高めに出やすい）</span></td></tr>
+        <tr><th>1件あたり</th><td>予約1件 約5.7万円<br><span class="hint">配信約4日半・予約2件</span></td><td class="hl"><b>応募1件 約1.5万円</b><br><span class="hint">想定（高めに見た金額）</span></td></tr>
       </tbody>
     </table></div>
 
@@ -383,29 +420,29 @@ a.url{text-decoration:none;color:var(--blue)}
         <tr><th>オールシステム</th><td>1年目で550万円可能</td><td>実例（1年目）</td></tr>
       </tbody>
     </table></div>
-    <p class="hint" style="margin-top:8px">金額の水準は他社と同じくらいです。違いは<b>「実際にいくらもらっている人がいるか」の実例を出しているかどうか</b>。実例があると、バナーB・LPの数字をそのまま差し替えられます（04の1）。</p>
+    <p class="hint" style="margin-top:8px">金額の水準は他社と同じくらいです。違いは<b>「実際にいくらもらっている人がいるか」の実例を出しているかどうか</b>。実例があると、バナーB・LPの数字をそのまま差し替えられます（05の1）。</p>
 
-    <h2 style="margin-top:28px">予算ごとの見込み（1か月あたり）</h2>
+    <h2 style="margin-top:28px">予算ごとの見込み（2か月のテスト）</h2>
     <div class="funnel">
-      <div class="fs"><small>応募（目標）</small><b class="num">¥6,000〜1万</b><span>1件あたり</span></div><span class="farr">→</span>
-      <div class="fs"><small>面接（応募の4〜5割）</small><b class="num">¥1.2〜2.5万</b><span>1件あたり</span></div><span class="farr">→</span>
-      <div class="fs dk"><small>入社（面接の約2割）</small><b class="num">約¥9万</b><span>1人あたり（幅 約6〜13万円）</span></div>
+      <div class="fs"><small>応募</small><b class="num">約¥15,000</b><span>1件あたり（高めに見た金額）</span></div><span class="farr">→</span>
+      <div class="fs"><small>内定（応募の約3%）</small><b class="num">約¥50万</b><span>1人あたり（御社の今の内定率）</span></div><span class="farr">vs</span>
+      <div class="fs dk"><small>エージェントの場合</small><b class="num">約¥110〜140万</b><span>1人あたり（固定給360万円×30〜40%）</span></div>
     </div>
     <div class="cmpwrap"><table class="cmp plan">
-      <thead><tr><th>月の広告費</th><th>応募</th><th>面接</th><th>入社</th></tr></thead>
+      <thead><tr><th>広告費（2か月）</th><th>応募</th><th>内定</th><th>同じ人数をエージェントで採ると</th></tr></thead>
       <tbody>
-        <tr><th>15万円</th><td>約15〜25件</td><td>約8件</td><td>約1〜2人</td></tr>
-        <tr class="rec"><th>30万円 <span class="pill ok">おすすめ</span></th><td><b>約30〜50件</b></td><td><b>約17件</b></td><td><b>約3人</b></td></tr>
-        <tr><th>50万円</th><td>約50〜80件</td><td>約28件</td><td>約5〜6人</td></tr>
+        <tr class="rec"><th>月30万円×2か月＝60万円 <span class="pill ok">まずはここから</span></th><td><b>約40件</b></td><td><b>約1名</b></td><td>約110〜140万円</td></tr>
+        <tr><th>月50万円×2か月＝100万円</th><td>約65件</td><td>約2名</td><td>約220〜280万円</td></tr>
+        <tr><th>月100万円×2か月＝200万円</th><td>約130件</td><td>約4名</td><td>約440〜560万円</td></tr>
       </tbody>
     </table></div>
-    <p class="hint" style="margin-top:8px">※面接・入社は中央の値（応募単価8,000円・面接率45%・入社率20%）で計算。面接率・入社率は仮の値で、実際の数字で毎月見直します。<br>※<b>慎重に見た場合</b>（応募単価1.2〜1.8万円）：月30万円で応募 約17〜25件・入社 約1〜2人。最初の2〜3週間はMetaの学習期間のため、単価は高めに出やすいです。<br>※参考：人材紹介で採用すると、1人あたり想定年収の30〜35%＝<b>約110〜130万円</b>（年収360万円の場合）。</p>
+    <p class="hint" style="margin-top:8px">※応募単価は高めの約1.5万円、内定率は御社の今の実績（応募80〜100名→内定2〜5名）の低めの値3%で計算しています。<br>※最初の2〜3週間はMetaの学習期間です。<b>応募後すぐの電話（05の2）や、先輩の月収の実例（05の1）で、内定率は上げられる余地があります</b>。テストの実際の数字を見て、予算を増やすか判断します。</p>
   </div>
 </section>
 
 <!-- 03 ご提案 -->
 <section class="frame">
-  <p class="flabel"><b>03</b>　ご提案：バナー3案とLP（見本）</p>
+  <p class="flabel"><b>04</b>　ご提案：バナー3案とLP（見本）</p>
   <div class="panel">
     <h2>他社の勝ちパターンを、日本買取センター様の条件で作りました</h2>
     <p class="hint" style="margin:4px 0 0">3案を同時に出して、反応の良いものにMetaが自動で予算を寄せます。文字はすべて今の募集要項の内容だけで作っています。画像はAIで作ったイメージです（実際の社員・お客様の写真に差し替えもできます）。</p>
@@ -430,7 +467,7 @@ a.url{text-decoration:none;color:var(--blue)}
         <div class="phone"><a href="img/p04_thanks.jpg" target="_blank" rel="noopener"><img src="img/p04_thanks.jpg" width="540" height="1080" alt="応募完了の画面" loading="lazy"></a></div></div>
     </div>
     <div class="branch b2">
-      <div class="note"><b>LP（見本）</b>　<a class="url" href="https://hito-hue.github.io/share/nkc-saiyo-lp-132bf4/" target="_blank" rel="noopener">https://hito-hue.github.io/share/nkc-saiyo-lp-132bf4/</a><br><span class="hint">ご提案用の見本です。送信しても情報は保存されません。本番では前回と同じく、応募の保存・LINE等へのお知らせ・Metaの計測をつなぎます。</span></div>
+      <div class="note"><b>LP（見本）</b><br><a class="lpbtn sm" href="https://hito-hue.github.io/share/nkc-saiyo-lp-132bf4/" target="_blank" rel="noopener">LPを開く<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a> <span class="url">https://hito-hue.github.io/share/nkc-saiyo-lp-132bf4/</span><br><span class="hint">ご提案用の見本です。送信しても情報は保存されません。本番では前回と同じく、応募の保存・LINE等へのお知らせ・Metaの計測をつなぎます。</span></div>
       <div class="note"><b>前回のLPから変えたところ</b><br>・説明会の日程 → <b>「1分で応募」</b>に<br>・<b>「収入のしくみ」</b>（固定給＋インセンティブ）を追加<br>・<b>働き方</b>（フレックス・社用車で直行・休日）を追加<br>・フォームはメール欄をなくし、年齢・お住まいは<b>タップで選ぶ</b>形に</div>
     </div>
   </div>
@@ -438,15 +475,15 @@ a.url{text-decoration:none;color:var(--blue)}
 
 <!-- 04 ご相談 -->
 <section class="frame">
-  <p class="flabel"><b>04</b>　ご相談したいこと（小池さん）</p>
+  <p class="flabel"><b>05</b>　ご相談したいこと（小池さん）</p>
   <div class="panel">
     <h2>始める前に決めたいこと（5点）</h2>
     <div class="asks">
       <div class="ask"><span class="n">1</span><div><h3>先輩の「実際の月収」の例を2〜3人分</h3><p>他社で一番効いているのが「1年目の平均月収51万円」のような実例です。入社◯か月目・前職・月収◯万円がわかれば、バナーBとLPの数字を差し替えます（お名前は出しません）。</p></div></div>
       <div class="ask"><span class="n">2</span><div><h3>応募のあと、誰が・どれくらいでお電話するか</h3><p>応募から電話までが遅いほど、面接に来る人が減ります。目安は当日中（遅くとも24時間以内）。お知らせの届け先（LINEグループ・メールなど）も決めたいです。</p></div></div>
       <div class="ask"><span class="n">3</span><div><h3>面接の形</h3><p>LPでは「尼崎の事務所 または オンライン」としています。今の募集要項は1次・2次面接なので、回数と、オンラインで行えるかを教えてください。</p></div></div>
-      <div class="ask"><span class="n">4</span><div><h3>予算と期間、採用したい人数</h3><p>おすすめは<b>月30万円×2か月</b>（最初の2〜3週は学習期間）。まず月15万円から始めることもできます。</p>
-        <p class="q">何人くらい・いつまでに採用したいか、年齢の目安があれば教えてください。</p></div></div>
+      <div class="ask"><span class="n">4</span><div><h3>テストの予算と、SNS広告で目指す人数</h3><p>まずは<b>月30万円×2か月</b>で、実際の応募単価と内定率を測るのがおすすめです（内定 約1名が目安）。数字が合えば、予算を増やして人数を伸ばします。</p>
+        <p class="q">10/27には「2月までに関西で10名」と伺いました。今の採用状況と、そのうちSNS広告で何名くらいを目指すか（年齢の目安も）教えてください。</p></div></div>
       <div class="ask"><span class="n">5</span><div><h3>給与の表示と、募集要項に足したい項目</h3><p>求人広告は実際の条件と違う表示ができません。「月給30万〜100万円」の幅がどう決まるか（経験・能力など）と、上限に近い方が実際にいるかを確認させてください。いない場合は「月給30万円〜＋インセンティブ」の表示に絞ります。</p>
         <p class="q">あわせて、雇用形態（正社員など）・試用期間中の条件・仕事内容や勤務地の変更の範囲・受動喫煙対策を教えてください（求人広告で書くことが求められている項目です）。</p></div></div>
     </div>
