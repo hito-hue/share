@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>電力各社のMeta広告 訴求編</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#f3f4f6;--dot:#d7dae0;--panel:#fff;--line:#e4e7ec;--line2:#eef0f3;
+  --ink:#101828;--sub:#475467;--muted:#98a2b3;
+  --navy:#17314c;--teal:#1fa5a3;--blue:#2563eb;--ok:#0f9d58;--okbg:#e8f6ee;--wait:#b54708;--waitbg:#fef3e2;--off:#b42318;--offbg:#fdecea;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.num,.kpi b,.badge{font-family:Inter,"Noto Sans JP",sans-serif}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+
+/* 上のバー（Figmaのファイル名のような帯） */
+.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);min-width:0}
+.crumb .logo{width:22px;height:22px;border-radius:6px;background:var(--navy);display:grid;place-items:center;flex:none}
+.crumb .logo svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2}
+.crumb b{color:var(--ink);font-weight:700}
+.chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.chip.ok i{background:var(--ok)}.chip.wait i{background:#f79009}.chip.off i{background:var(--off)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:22px 16px 56px}
+.frame{margin-top:30px}
+.frame:first-child{margin-top:4px}
+.flabel{font-size:12px;color:var(--muted);font-weight:500;margin:0 0 8px 2px;letter-spacing:.02em}
+.flabel b{color:var(--sub);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05);padding:24px}
+h1{margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:.01em}
+h2{margin:0;font-size:18px;font-weight:700}
+.lead{margin:6px 0 0;color:var(--sub)}
+.hint{font-size:12px;color:var(--muted)}
+.sp-only{display:none}
+@media(max-width:1000px){.sp-only{display:inline}}
+
+/* 概要 */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fcfcfd}
+.kpi span{display:block;font-size:12px;color:var(--sub)}
+.kpi b{display:block;font-size:24px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.kpi small{display:block;font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px}
+.kpi.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.kpi.dark span,.kpi.dark small{color:#c7d2df}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.st{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line2);border-radius:12px;padding:12px 14px}
+.st .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.st .ic svg{width:12px;height:12px;fill:none;stroke-width:2.6}
+.st.ok .ic{background:var(--okbg)}.st.ok .ic svg{stroke:var(--ok)}
+.st.wait .ic{background:var(--waitbg)}.st.wait .ic svg{stroke:var(--wait)}
+.st b{display:block;font-size:13px}
+.st small{display:block;font-size:12px;color:var(--sub);line-height:1.5}
+@media(max-width:900px){.kpis,.status{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.kpis,.status{grid-template-columns:1fr}}
+
+/* 流れ（スマホ画面を横に並べる） */
+.flowhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;margin-top:20px;position:relative}
+.step{position:relative;min-width:0}
+.step:not(:last-child)::after{content:"";position:absolute;top:calc(64px + 38%);right:-24px;width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(16,24,40,.06);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475467' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");background-size:12px;background-position:center;background-repeat:no-repeat}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;padding:0 6px;border-radius:6px;background:var(--navy);color:#fff;font-size:11px;font-weight:700}
+.step h3{margin:6px 0 0;font-size:14px;font-weight:700;line-height:1.4}
+.step p{margin:2px 0 10px;font-size:12px;color:var(--sub);line-height:1.55;min-height:4.65em}
+.step.noarrow::after{display:none}
+.phone{position:relative;border-radius:26px;background:#0b1220;padding:7px;box-shadow:0 12px 24px -14px rgba(16,24,40,.55)}
+.phone a{display:block;border-radius:20px;overflow:hidden;background:#fff}
+.phone::before{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:34%;height:5px;border-radius:5px;background:#0b1220;z-index:1;opacity:.0}
+.phone img{width:100%;aspect-ratio:1/2;object-fit:cover;object-position:top}
+.tagimg{position:absolute;top:14px;right:14px;z-index:2;font-size:11px;font-weight:700;color:#fff;background:rgba(16,24,40,.78);border-radius:6px;padding:1px 7px}
+.branch{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;align-items:start}
+.branch .note{grid-column:span 2}
+.branch .note{font-size:13px;color:var(--sub)}
+.branch .note b{color:var(--ink)}
+@media(max-width:1000px){
+  .flow{display:flex;overflow-x:auto;gap:28px;padding:2px 2px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .flow .step{flex:0 0 200px;scroll-snap-align:start}
+  .step:not(:last-child)::after{right:-23px}
+  .branch{grid-template-columns:1fr 1fr}
+  .branch .note{grid-column:1/-1}
+}
+
+/* 社内の流れ */
+.inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px 32px;margin-top:20px;align-items:start}
+.inner .full{grid-column:1/-1}
+.col h3{margin:6px 0 2px;font-size:15px;font-weight:700}
+.col>p{margin:0 0 12px;font-size:12.5px;color:var(--sub)}
+.browser{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 8px 20px -14px rgba(16,24,40,.45)}
+.browser .bar{height:26px;background:#f2f4f7;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;padding:0 10px;font-size:11px;color:var(--muted)}
+.browser .bar i{width:8px;height:8px;border-radius:50%;background:#d0d5dd}
+.browser .bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser+.browser{margin-top:12px}
+.cap{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.5}
+.phones2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.phones2 .phone{border-radius:22px;padding:6px}
+.phones2 .phone a{border-radius:17px}
+.todo{list-style:none;margin:0;padding:0;counter-reset:t}
+.todo li{position:relative;padding:0 0 14px 34px;counter-increment:t}
+.todo li::before{content:counter(t);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:#eef2f6;color:var(--navy);font:700 12px/22px Inter,sans-serif;text-align:center}
+.todo li:not(:last-child)::after{content:"";position:absolute;left:10.5px;top:26px;bottom:2px;width:1px;background:var(--line)}
+.todo b{display:block;font-size:13px}
+.todo span{display:block;font-size:12.5px;color:var(--sub);line-height:1.6}
+.pipe{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pipe em{font-style:normal;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:0 6px;background:#fff;color:var(--sub)}
+.pipe em.on{border-color:#bfd3ea;background:#eef4fb;color:var(--navy);font-weight:600}
+.callout{margin-top:22px;display:flex;gap:14px;align-items:flex-start;border:1px solid #c7dafc;background:#f2f7ff;border-radius:12px;padding:14px 16px}
+.callout .ic{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;flex:none}
+.callout .ic svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2}
+.callout b{display:block;font-size:14px}
+.callout span{display:block;font-size:13px;color:var(--sub)}
+@media(max-width:1000px){.inner{grid-template-columns:1fr}}
+
+/* Meta */
+.meta{display:grid;grid-template-columns:1fr 1.5fr;gap:26px;margin-top:18px;align-items:start}
+dl.spec{margin:0;display:grid;grid-template-columns:auto 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+dl.spec dt,dl.spec dd{margin:0;padding:10px 14px;border-bottom:1px solid var(--line2);font-size:13px}
+dl.spec dt{background:#f9fafb;color:var(--sub);white-space:nowrap}
+dl.spec dd{line-height:1.6}
+dl.spec dt:nth-last-of-type(1),dl.spec dd:last-of-type{border-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:4px}
+.pill.off{background:var(--offbg);color:var(--off)}.pill.wait{background:var(--waitbg);color:var(--wait)}.pill.ok{background:var(--okbg);color:var(--ok)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.shots .wide{grid-column:1/-1}
+@media(max-width:1000px){.meta{grid-template-columns:1fr}}
+@media(max-width:560px){.shots{grid-template-columns:1fr}}
+
+/* バナー→LPの組み合わせ */
+.pairs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:6px 0 22px}
+.pair{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.pair h3{margin:0 0 10px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pair h3 .n{width:22px;height:22px;border-radius:6px;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 12px Inter,sans-serif}
+.pair .imgs{display:grid;grid-template-columns:1fr 18px 1fr;align-items:center;gap:6px}
+.pair .imgs img{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block}
+.pair .arr{color:var(--muted);text-align:center;font-weight:700}
+.pair .cap{display:grid;grid-template-columns:1fr 18px 1fr;gap:6px;font-size:11.5px;color:var(--muted);margin-top:4px}
+.pair .cap span:nth-child(2){visibility:hidden}
+.pair p{margin:8px 0 0;font-size:12.5px;color:var(--sub);line-height:1.6}
+@media(max-width:900px){.pairs{grid-template-columns:minmax(0,1fr)}}
+
+/* 確認事項 */
+.asks{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px}
+.ask{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+@media(max-width:560px){.ask{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px}.panel{padding:18px 14px}table.calc th,table.calc td,table.calc td.r{white-space:normal}}
+.ask .n{width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 13px Inter,sans-serif}
+.ask h3{margin:2px 0 4px;font-size:15px;font-weight:700}
+.ask p{margin:0;color:var(--sub);font-size:13.5px}
+.ask .q{margin-top:8px;font-size:13.5px;color:var(--ink);background:#f9fafb;border-left:3px solid var(--navy);padding:8px 12px;border-radius:0 8px 8px 0}
+table.calc{border-collapse:collapse;margin-top:10px;font-size:13px;width:100%;max-width:560px}
+table.calc th,table.calc td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+table.calc th{background:#f9fafb;font-weight:500;color:var(--sub);white-space:nowrap}
+table.calc td.r{text-align:right;font-family:Inter,"Noto Sans JP",sans-serif;font-weight:600;white-space:nowrap}
+.copy{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.75;background:#fcfcfd}
+.copy dt{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:8px}
+.copy dt:first-child{margin-top:0}
+.copy dd{margin:0;white-space:pre-wrap}
+.url{font-family:Inter,"Noto Sans JP",sans-serif;font-size:12.5px;word-break:break-all;background:#f2f4f7;border-radius:6px;padding:1px 6px}
+footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center}
+@media(max-width:560px){
+  table.calc,table.calc tbody,table.calc tr,table.calc th,table.calc td{display:block;width:100%}
+  table.calc tr{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}
+  table.calc th,table.calc td,table.calc td.r{border:0;white-space:normal;text-align:left;padding:5px 10px}
+}
+
+.kpi b.num{font-size:22px}
+.lead2{margin:6px 0 0;color:var(--sub);font-size:13.5px}
+.status.s4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.st .ic2{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex:none;font:700 12px/1 "Noto Sans JP",sans-serif;background:var(--okbg);color:var(--ok)}
+.st.wait .ic2{background:var(--waitbg);color:var(--wait)}
+.st.fix .ic2{background:var(--offbg);color:var(--off)}
+.st small b{color:var(--ink)}
+.two{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;margin-top:16px;align-items:start}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar{display:grid;grid-template-columns:minmax(0,13em) minmax(0,1fr) 4.6em;gap:10px;align-items:center;font-size:13px}
+.bl{min-width:0;overflow-wrap:anywhere}
+.bt{position:relative;height:14px;background:var(--line2);border-radius:7px}
+.bt i{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:7px}
+.bt u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--teal);text-decoration:none}
+.bv{text-align:right;font-weight:700}
+.bv small{display:block;font-size:10.5px;color:var(--muted);font-weight:500;line-height:1}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--sub);margin-top:12px}
+.legend i{display:inline-block;width:14px;height:8px;border-radius:4px;background:var(--navy);margin-right:6px;vertical-align:middle}
+.legend u{display:inline-block;width:2px;height:12px;background:var(--teal);margin-right:6px;vertical-align:middle}
+.pairs{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.pair{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line2);border-radius:10px;padding:8px 12px;font-size:13px;align-items:center}
+.pv{white-space:nowrap;color:var(--muted)}
+.pv b{color:var(--sub);font-size:15px}
+.pv b.up{color:var(--off)} .pv b.dn{color:var(--muted)}
+.ads{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:14px}
+.todo span b,.st small b{display:inline;font-size:inherit}
+.ad{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.ad a{display:block;background:#0b1220;aspect-ratio:1/1;overflow:hidden}
+.ad img{width:100%;height:100%;object-fit:contain;display:block}
+.ad figcaption{padding:10px 12px;display:flex;flex-direction:column;gap:3px;font-size:12.5px}
+.ad figcaption b{font-size:13.5px}
+.ad .m{color:var(--muted);font-size:12px}
+.ad .tags{display:flex;gap:4px;flex-wrap:wrap}
+.ad .tags em{font-style:normal;font-size:11px;border:1px solid #bfd3ea;background:#eef4fb;color:var(--navy);border-radius:6px;padding:0 6px}
+.ad .c{color:var(--sub);line-height:1.55}
+.tblw{overflow-x:auto;margin-top:14px;border:1px solid var(--line);border-radius:12px}
+table.co{border-collapse:collapse;width:100%;min-width:820px;font-size:13px}
+table.co th,table.co td{padding:9px 12px;border-top:1px solid var(--line2);text-align:right;white-space:nowrap}
+table.co thead th{background:#f8fafc;color:var(--sub);font-weight:600;font-size:12px;border-top:0}
+table.co tbody th{text-align:left;font-weight:700}
+table.co td.strong{font-weight:700;color:var(--navy)}
+table.co td.tr{text-align:left;color:var(--sub);white-space:normal;min-width:15em}
+table.co .grp{color:var(--muted);font-weight:500}
+.srcn{font-size:11.5px;color:var(--muted);margin-top:12px}
+.callout.big b{font-size:15px}
+ol.method{margin:8px 0 0;padding-left:1.3em;font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
+ol.method b{color:var(--ink)}
+.empty0{display:flex;align-items:center;gap:16px;border:1px dashed var(--line);border-radius:12px;padding:16px;margin-top:14px}
+.empty0 .big0{font:700 40px/1 Inter,sans-serif;color:var(--ok);white-space:nowrap}
+@media(max-width:900px){.two{grid-template-columns:minmax(0,1fr)}.status.s4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.status.s4{grid-template-columns:1fr}.bar{grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 4em;font-size:12px}.ads{grid-template-columns:1fr 1fr;gap:10px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="in">
+  <div class="crumb"><span class="logo"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
+    <span>このまちでんき</span><span>/</span><b>電力各社のMeta広告（訴求編）</b></div>
+  <div class="chips">
+    <span class="chip"><i></i>期間 9/2〜11/23（83日）</span>
+    <span class="chip"><i></i>広告 551本</span>
+    <span class="chip ok"><i></i>2026/11/25 時点</span>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<section class="frame">
+  <p class="flabel"><b>00</b>　概要</p>
+  <div class="panel">
+    <h1>電力各社は、Meta広告で何を訴えているか</h1>
+    <p class="lead">電気の切り替え広告 551本（中身の違う広告）を、訴求の切り口ごとに集計しました。10月版（7/4〜10/1）との比較つきです。</p>
+    <div class="kpis">
+      <div class="kpi dark"><span>調べた広告</span><b class="num">551本</b><small>Instagram・Facebook／9/2〜11/23</small></div>
+      <div class="kpi"><span>推定広告費の合計</span><b class="num">約4,667万円</b><small>電気の切り替え広告すべて（推定）</small></div>
+      <div class="kpi"><span>広告費の1位</span><b class="num">オクトパス</b><small>推定約1,511万円・全体の約32%</small></div>
+      <div class="kpi"><span>空き家に触れた電気の広告</span><b class="num">0本</b><small>10月版に続いて0本</small></div>
+    </div>
+    <div class="status s4"><div class="st ok"><span class="ic2">新</span><div><b>新しい訴求</b><small><b>値上げ・高騰</b>を入口にする広告が増加（補助金の終了・市場価格が去年の約2倍など）。<b>比較サイト・ランキング型</b>も増加（10/2以降の広告の20%、それまで10%）。</small></div></div><div class="st ok"><span class="ic2">↑</span><div><b>増えた会社</b><small><b>オクトパスエナジー</b>（10月に約1,220万円＝9月の約9倍）、<b>トドック電力</b>（北海道のコープ・10月から登場・約210万円）、<b>ENEOSでんき</b>（10月に約130万円）、比較サイト<b>enepi</b>。</small></div></div><div class="st wait"><span class="ic2">↓</span><div><b>減った会社</b><small><b>東京ガス</b>（7〜8月の夏キャンペーン約2,100万円→9月以降ほぼ0）、<b>Looop</b>（9月に集中→10月以降ほぼ0）、<b>東京電力EP</b>（9月約200万円→11月約60万円）。</small></div></div><div class="st fix"><span class="ic2">訂</span><div><b>訂正</b><small>10月版の推定広告費は実際は直近30日分の数字で、東京ガスの電気の広告も漏れていました。今回は10月版も同じ基準で数え直して比べています（08で説明）。</small></div></div></div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>01</b>　要点</p>
+  <div class="panel">
+    <h2>5つの要点</h2>
+    <ol class="todo" style="margin-top:14px"><li><span>訴求の上位は<b>キャンペーン・特典（25%）</b>、<b>ポイント還元（20%）</b>、<b>乗り換え簡単（16%）</b>、実績・満足度（13%）、料金比較（12%）。どの会社も「お得さ＋手軽さ」が基本です。</span></li><li><span>10月以降の新しい流れは<b>「電気代が上がっている」から入る広告</b>。補助金の終了・市場価格の上昇・北海道の値上げなどを理由に「今こそ見直し」と呼びかけます（10/2以降に始まった広告の17%。それまでは4%）。</span></li><li><span>広告費が一番多いのは<b>オクトパスエナジー（推定約1,510万円・全体の約32%）</b>。10月に「選ばれる理由」「満足度No.1」の画像広告を集中投下。Looopは9月に約1,340万円を使ったあと、10月からはほぼ止まっています。</span></li><li><span>長く出し続けている（＝成果が出ていると推定）のは、ANAでんき（マイル・約400日）、オクトパス（実績・約380日）、CDエナジー（満足度92%・約180日）など<b>「ポイント」「実績・安心」型</b>。</span></li><li><span>空き家・実家に触れた電気の広告は<b>今回も0本</b>。この切り口は引き続き空いています。</span></li></ol>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>02</b>　訴求のランキング</p>
+  <div class="panel">
+    <h2>どの訴求が多いか（その訴求を含む広告の割合）</h2>
+    <p class="lead2">上位5つ（キャンペーン・ポイント・乗り換え簡単・実績・料金比較）が中心。10月版から増えたのは<b>料金比較</b>と<b>キャンペーン</b>、減ったのは夏の電気代などの<b>季節</b>ものです。</p>
+    <div class="two">
+      <div>
+        <div class="bars"><div class="bar"><span class="bl">キャンペーン・特典</span><span class="bt"><i style="width:90.9%"></i><u style="left:77.8%" title="10月版 21%"></u></span><span class="bv num">25%<small>+4</small></span></div><div class="bar"><span class="bl">ポイント還元</span><span class="bt"><i style="width:73.8%"></i><u style="left:70.7%" title="10月版 19%"></u></span><span class="bv num">20%<small>+1</small></span></div><div class="bar"><span class="bl">乗り換え簡単（手続き・工事なし）</span><span class="bt"><i style="width:59.3%"></i><u style="left:52.5%" title="10月版 14%"></u></span><span class="bv num">16%<small>+2</small></span></div><div class="bar"><span class="bl">実績・満足度・安心</span><span class="bt"><i style="width:48.7%"></i><u style="left:47.3%" title="10月版 13%"></u></span><span class="bv num">13%<small>+0</small></span></div><div class="bar"><span class="bl">他社と比べる（料金比較・ランキング）</span><span class="bt"><i style="width:42.8%"></i><u style="left:29.2%" title="10月版 8%"></u></span><span class="bv num">12%<small>+4</small></span></div><div class="bar"><span class="bl">季節（冬・夏の電気代）</span><span class="bt"><i style="width:40.2%"></i><u style="left:59.0%" title="10月版 16%"></u></span><span class="bv num">11%<small>−5</small></span></div><div class="bar"><span class="bl">一人暮らし・家族・引っ越し</span><span class="bt"><i style="width:32.9%"></i><u style="left:38.2%" title="10月版 11%"></u></span><span class="bv num">9%<small>−1</small></span></div><div class="bar"><span class="bl">金額で安さを見せる</span><span class="bt"><i style="width:32.3%"></i><u style="left:27.2%" title="10月版 8%"></u></span><span class="bv num">9%<small>+1</small></span></div><div class="bar"><span class="bl">電気代の高騰・値上げ</span><span class="bt"><i style="width:25.0%"></i><u style="left:22.7%" title="10月版 6%"></u></span><span class="bv num">7%<small>+1</small></span></div><div class="bar"><span class="bl">基本料金0円・無料</span><span class="bt"><i style="width:25.0%"></i><u style="left:30.5%" title="10月版 8%"></u></span><span class="bv num">7%<small>−1</small></span></div></div>
+        <div class="legend"><span><i></i>今回（9/2〜11/23）</span><span><u></u>10月版（7/4〜10/1）</span><span>右の小さい数字＝10月版からの増減（ポイント）</span></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-size:15px">10月以降に始まった広告で増えた訴求</h3>
+        <p class="lead2" style="margin-bottom:10px">10/1までに始まった広告 → 10/2以降に始まった広告（117本）</p>
+        <div class="pairs"><div class="pair"><span class="bl">電気代の高騰・値上げ</span><span class="pv"><b class="num">4%</b> → <b class="num up">17%</b></span></div><div class="pair"><span class="bl">他社と比べる（料金比較・ランキング）</span><span class="pv"><b class="num">10%</b> → <b class="num up">20%</b></span></div><div class="pair"><span class="bl">料金シミュレーション・診断</span><span class="pv"><b class="num">6%</b> → <b class="num up">11%</b></span></div><div class="pair"><span class="bl">基本料金0円・無料</span><span class="pv"><b class="num">6%</b> → <b class="num up">11%</b></span></div><div class="pair"><span class="bl">季節（冬・夏の電気代）</span><span class="pv"><b class="num">14%</b> → <b class="num dn">2%</b></span></div><div class="pair"><span class="bl">自動で安く（AI・おまかせ）</span><span class="pv"><b class="num">5%</b> → <b class="num dn">2%</b></span></div></div>
+        <p class="lead2" style="margin-top:12px">10月以降は<b>「電気代が上がっている」から入り、比較・シミュレーションへ誘導する広告</b>が増えました。オクトパスは第三者の比較サイト（mybest）の評価を借り、enepiは「補助金の廃止で値上げ中」と訴えています。</p>
+      </div>
+    </div>
+    <div class="ads"><figure class="ad"><a href="img/nw_27079449.webp" target="_blank" rel="noopener"><img src="img/nw_27079449.webp" alt="enepiの広告"></a><figcaption><b>enepi</b><span class="m">10/23開始・値上げ・高騰</span><span class="tags"></span><span class="c">「最近電気代高くない？」補助金の廃止で値上げ中</span></figcaption></figure><figure class="ad"><a href="img/nw_26381929.webp" target="_blank" rel="noopener"><img src="img/nw_26381929.webp" alt="オクトパスエナジーの広告"></a><figcaption><b>オクトパスエナジー</b><span class="m">10/5開始・料金比較</span><span class="tags"></span><span class="c">比較サイトmybestの評価を借りる「電気代、去年の約2倍」</span></figcaption></figure></div>
+    <p class="srcn">出典：動画広告分析Pro（Instagram・Facebook／2026年9月2日〜11月23日・83日間）。金額はすべてツールの表示回数をもとにした推定値です。</p>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>03</b>　会社ごとの推定広告費</p>
+  <div class="panel">
+    <h2>誰が、いつ、どれくらい出しているか</h2>
+    <p class="lead2">9月はLooop、10月はオクトパスが大きく出稿。東京ガスの夏キャンペーンは8月で終了。11月は各社とも少なめです（推定・ツールの集計が後から増える可能性あり）。</p>
+    <p class="lead2">会社ごとに“看板の訴求”がはっきり分かれます。オクトパス＝実績・満足度、楽天＝ポイント、CDエナジー＝料金比較と金額、ENEOS＝乗り換え簡単、ドコモ＝セット割、Looop＝おまかせ（自動で安く）。</p>
+    <div class="tblw"><table class="co">
+      <thead><tr><th style="text-align:left">会社</th><th>7月<br><span class="grp">10月版</span></th><th>8月<br><span class="grp">10月版</span></th><th>9月</th><th>10月</th><th>11月<br><span class="grp">〜11/23</span></th><th>今回の合計</th><th style="text-align:left">動き</th></tr></thead>
+      <tbody><tr><th>オクトパスエナジー</th><td class="num">約251万円</td><td class="num">約209万円</td><td class="num">約138万円</td><td class="num">約1,220万円</td><td class="num">約153万円</td><td class="num strong">約1,511万円</td><td class="tr">10月に急増（選ばれる理由・満足度No.1）</td></tr><tr><th>Looopでんき</th><td class="num">—</td><td class="num">—</td><td class="num">約1,340万円</td><td class="num">約2万円</td><td class="num">約1万円</td><td class="num strong">約1,343万円</td><td class="tr">9月に集中→10月から停止</td></tr><tr><th>東京電力EP</th><td class="num">—</td><td class="num">約221万円</td><td class="num">約197万円</td><td class="num">約107万円</td><td class="num">約59万円</td><td class="num strong">約363万円</td><td class="tr">減少中</td></tr><tr><th>キューエネスでんき</th><td class="num">—</td><td class="num">約5万円</td><td class="num">約292万円</td><td class="num">—</td><td class="num">—</td><td class="num strong">約292万円</td><td class="tr">9月のみ（東北・基本料金半額）</td></tr><tr><th>トドック電力</th><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">約192万円</td><td class="num">約22万円</td><td class="num strong">約214万円</td><td class="tr">10月から新登場（北海道）</td></tr><tr><th>ANAでんき</th><td class="num">—</td><td class="num">—</td><td class="num">約43万円</td><td class="num">約93万円</td><td class="num">約35万円</td><td class="num strong">約171万円</td><td class="tr">毎月出し続けている（マイル）</td></tr><tr><th>ENEOSでんき</th><td class="num">—</td><td class="num">約10万円</td><td class="num">約16万円</td><td class="num">約133万円</td><td class="num">約2万円</td><td class="num strong">約151万円</td><td class="tr">10月に増加（車に乗る人向け）</td></tr><tr><th>楽天でんき</th><td class="num">約59万円</td><td class="num">約47万円</td><td class="num">約40万円</td><td class="num">約27万円</td><td class="num">約27万円</td><td class="num strong">約94万円</td><td class="tr">少額で毎月継続（本数は最多級）</td></tr><tr><th>enepi</th><td class="num">約4万円</td><td class="num">約5万円</td><td class="num">約6万円</td><td class="num">約40万円</td><td class="num">約24万円</td><td class="num strong">約70万円</td><td class="tr">10月から増加（比較サイト）</td></tr><tr><th>CDエナジー</th><td class="num">約58万円</td><td class="num">約52万円</td><td class="num">約24万円</td><td class="num">約28万円</td><td class="num">約15万円</td><td class="num strong">約67万円</td><td class="tr">少額で毎月継続</td></tr><tr><th>このまち電気（広島ガス）</th><td class="num">約10万円</td><td class="num">約12万円</td><td class="num">約1万円</td><td class="num">約56万円</td><td class="num">約1万円</td><td class="num strong">約58万円</td><td class="tr">10月に出稿（見える電気）</td></tr><tr><th>東京ガス</th><td class="num">約1,853万円</td><td class="num">約252万円</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num strong">—</td><td class="tr">夏キャンペーン後は電気の広告なし</td></tr></tbody>
+    </table></div>
+    <p class="srcn">出典：動画広告分析Pro（Instagram・Facebook／2026年9月2日〜11月23日・83日間）。金額はすべてツールの表示回数をもとにした推定値です。 7・8月は10月版のデータを同じ基準で数え直した数字。11月は集計が後から増える可能性があるため参考値です。</p>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>04</b>　長く出し続けている広告</p>
+  <div class="panel">
+    <h2>止めずに続けている＝成果が出ていると推定できる広告</h2>
+    <p class="lead2">1年以上続く広告もあります。共通点は<b>「得する理由（ポイント・マイル・季節の割引）」と「安心できる理由（満足度・実績）」のセット</b>。値上げ・比較の訴求は10月以降に出てきたばかりです。</p>
+    <div class="ads"><figure class="ad"><a href="img/lr_24821669.webp" target="_blank" rel="noopener"><img src="img/lr_24821669.webp" alt="ANAでんきの広告"></a><figcaption><b>ANAでんき</b><span class="m">2025/10/22開始・397日目</span><span class="tags"><em>ポイント還元</em></span><span class="c">年間最大3,600マイルが貯まる</span></figcaption></figure><figure class="ad"><a href="img/lr_10623688.webp" target="_blank" rel="noopener"><img src="img/lr_10623688.webp" alt="オクトパスエナジーの広告"></a><figcaption><b>オクトパスエナジー</b><span class="m">2025/11/7開始・381日目</span><span class="tags"><em>キャンペーン</em><em>実績・満足度</em></span><span class="c">「私たちが選ばれるのには確かな理由があります」</span></figcaption></figure><figure class="ad"><a href="img/lr_24778179.webp" target="_blank" rel="noopener"><img src="img/lr_24778179.webp" alt="CDエナジーの広告"></a><figcaption><b>CDエナジー</b><span class="m">2026/5/26開始・181日目</span><span class="tags"><em>実績・満足度</em></span><span class="c">お客様満足度92%・東京電力から乗り換え</span></figcaption></figure><figure class="ad"><a href="img/lr_25149635.webp" target="_blank" rel="noopener"><img src="img/lr_25149635.webp" alt="楽天でんきの広告"></a><figcaption><b>楽天でんき</b><span class="m">2026/9/2開始・82日目</span><span class="tags"><em>ポイント還元</em><em>引っ越し</em></span><span class="c">忙しい引っ越し、電気は迷わず楽天で</span></figcaption></figure><figure class="ad"><a href="img/lr_24757374.webp" target="_blank" rel="noopener"><img src="img/lr_24757374.webp" alt="北ガスの電気の広告"></a><figcaption><b>北ガスの電気</b><span class="m">2026/9/8開始・76日目</span><span class="tags"><em>キャンペーン</em><em>基本料金0円</em></span><span class="c">冬に基本料金3か月無料</span></figcaption></figure><figure class="ad"><a href="img/lr_24832606.webp" target="_blank" rel="noopener"><img src="img/lr_24832606.webp" alt="Looopでんきの広告"></a><figcaption><b>Looopでんき</b><span class="m">2026/9/4開始・80日目</span><span class="tags"><em>キャンペーン</em><em>自動で安く</em></span><span class="c">電気代おまかせ割</span></figcaption></figure></div>
+    <p class="srcn">「長く出し続けている」＝始まってから60日以上たっていて、11月にも表示が増えている広告（34本）。実際の成果は各社しか分かりません。画像はタップで大きく開きます。</p>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>05</b>　訴求ごとの見せ方</p>
+  <div class="panel">
+    <h2>同じ「お得」でも、見せ方は会社ごとに違う</h2>
+    <p class="lead2">同じ「お得」でも、見せ方は会社ごとに違います（各訴求で推定広告費が大きい広告を1本ずつ）。</p>
+    <div class="ads"><figure class="ad"><a href="img/ap_24849637.webp" target="_blank" rel="noopener"><img src="img/ap_24849637.webp" alt="Looopでんきの広告"></a><figcaption><b>Looopでんき</b><span class="m">訴求：キャンペーン・特典</span><span class="tags"></span><span class="c">電気代おまかせ割（会話形式の動画）</span></figcaption></figure><figure class="ad"><a href="img/ap_26775327.webp" target="_blank" rel="noopener"><img src="img/ap_26775327.webp" alt="楽天でんきの広告"></a><figcaption><b>楽天でんき</b><span class="m">訴求：ポイント還元</span><span class="tags"></span><span class="c">申込と利用で1万ポイント</span></figcaption></figure><figure class="ad"><a href="img/ap_18069800.webp" target="_blank" rel="noopener"><img src="img/ap_18069800.webp" alt="テラセルでんきの広告"></a><figcaption><b>テラセルでんき</b><span class="m">訴求：乗り換え簡単</span><span class="tags"></span><span class="c">スマホだけで簡単に申込</span></figcaption></figure><figure class="ad"><a href="img/ap_26802886.webp" target="_blank" rel="noopener"><img src="img/ap_26802886.webp" alt="オクトパスエナジーの広告"></a><figcaption><b>オクトパスエナジー</b><span class="m">訴求：実績・満足度</span><span class="tags"></span><span class="c">お客さま満足度No.1・アワード最優秀賞</span></figcaption></figure><figure class="ad"><a href="img/ap_24490462.webp" target="_blank" rel="noopener"><img src="img/ap_24490462.webp" alt="リボンエナジーの広告"></a><figcaption><b>リボンエナジー</b><span class="m">訴求：料金比較</span><span class="tags"></span><span class="c">電気代を年間3万円以上浮かせた方法</span></figcaption></figure><figure class="ad"><a href="img/ap_24113844.webp" target="_blank" rel="noopener"><img src="img/ap_24113844.webp" alt="キューエネスでんきの広告"></a><figcaption><b>キューエネスでんき</b><span class="m">訴求：金額で安さ</span><span class="tags"></span><span class="c">大手と比べて基本料金が半額（東北）</span></figcaption></figure></div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>06</b>　このまちでんき（広島ガス）と空き家</p>
+  <div class="panel">
+    <h2>空き家の電気代を訴える広告は、今回も見当たらない</h2>
+    <p class="lead2">電気の広告は「今住んでいる家」向けばかり。<b>空き家・実家の電気代（基本料金）を訴える会社は今回も見当たらず</b>、競合がいない状態が続いています。</p>
+    <div class="empty0"><span class="big0">0本</span><span class="lead2" style="margin:0">参考：「空き家」で検索して出てくる広告は、訳あり物件の買取・空き家活用・不動産投資ばかり（例：訳あり物件まるっと買取〈推定約580万円〉、訳あり物件買取プロ、ネクスウィル）。電気の広告は0本でした。</span></div>
+    <h3 style="margin:18px 0 4px;font-size:15px">このまち電気（広島ガス）本体の広告</h3>
+    <p class="lead2">10月に推定約56万円（画像のみ・10本）。「見える電気」「子育て・オール電化の家庭」向けで、3,000円ギフトのキャンペーンも。11/17からの空き家向け広告は、まだこのデータには出ていません（ツールへの反映待ちとみられます）。</p>
+    <div class="ads"><figure class="ad"><a href="img/kono_27661083.webp" target="_blank" rel="noopener"><img src="img/kono_27661083.webp" alt="このまち電気（広島ガス）の広告"></a><figcaption><b>このまち電気（広島ガス）</b><span class="m">11/2開始</span><span class="tags"></span><span class="c">オール電化でも電気代を増やさないコツ</span></figcaption></figure><figure class="ad"><a href="img/kono_27545538.webp" target="_blank" rel="noopener"><img src="img/kono_27545538.webp" alt="このまち電気（広島ガス）の広告"></a><figcaption><b>このまち電気（広島ガス）</b><span class="m">10/31開始</span><span class="tags"></span><span class="c">デジタルギフト3,000円分プレゼント</span></figcaption></figure></div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>07</b>　空き家向け広告への示唆</p>
+  <div class="panel">
+    <h2>このまちでんきの空き家訴求にどう生かすか</h2>
+    <ol class="todo" style="margin-top:14px"><li><span><b>空き家の切り口は引き続き競合ゼロ。</b>「使っていない空き家にも毎月かかる基本料金」を正面から訴える広告は他にありません。今の空き家訴求を軸に続ける価値が高いです。</span></li><li><span><b>「値上げ」の流れに乗せる。</b>冬・補助金の終了で電気代への関心が高まっています。「値上げが続く今、空き家の基本料金を見直す」は競合の値上げ訴求と同じ入口を使いつつ、空き家で差別化できます。</span></li><li><span><b>金額で比べて見せる。</b>金額でビフォーアフターを見せる広告は全体の9%と少数派。基本料金の比較（例：月695円）は目立ちやすい形です。</span></li><li><span><b>安心の裏付けを1つ足す。</b>長く続く広告は満足度・実績の数字で信頼を作っています。このまちでんきなら「広島ガスグループ」「電話で手続きまで完結」を安心材料として明記するのが効くと考えます（推定）。</span></li><li><span><b>市場連動の見せ方は慎重に。</b>CDエナジーなどが「市場連動型は急な値上がりを受けやすい」と比べる広告を出し始めました。空き家は使う量が少なく影響が小さい点を添えるなど、不安を残さない言い方が必要です。</span></li></ol>
+    <div class="callout big"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg></div>
+      <div><b>競合が「値上げ×比較」に寄るいま、「空き家の基本料金」を金額で見せる訴求は、ぶつからずに目立てます。</b></div></div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>08</b>　調べ方と注意（10月版の訂正）</p>
+  <div class="panel">
+    <h2>数字の出どころ</h2>
+    <ol class="method"><li>ツール：動画広告分析Pro（Meta広告ライブラリなどから広告を集め、表示回数から広告費を推定するツール。月額契約の範囲で閲覧・追加費用なし）。面はInstagram・Facebook。</li><li>期間：2026年9月2日〜11月23日（83日間）。9/2〜10/1・10/2〜10/31・11/1〜11/23 の重ならない区間で取得。<b>90日ちょうど（8月下旬から）は取れませんでした</b>：ツール側で9月下旬より前を締め日にした検索が応答しない状態のため（11/25時点）。7・8月の比較には10月版のデータ（10/1取得）を使っています。</li><li>対象：10月版と同じ24の言葉（「新電力」「電気代」「基本料金」、各社名、「空き家」など）で検索し、電気の切り替え広告 1,032本に絞り込み（太陽光・蓄電池・家電・法人向けなどは除外）。1つの言葉×1区間で最大100本（ツールの上限）。11月は区間を3つに分けたため、他の月より多めに拾われやすく、本数の月比較はしていません。</li><li>訴求の分類：広告の文字・ナレーションに含まれる言葉で自動判定（例：料金比較＝「比較」「ランキング」「一番安い」「大手電力と比べて」）。1本が複数の訴求に入ります。中身が同じ広告（Instagram／Facebook など配信面違い）は1本にまとめて数えました（中身の違う広告 551本）。</li><li>「長く出し続けている広告」：始まってから60日以上たっていて、11月にも表示が増えている広告。止めずに続けている＝成果が出ている可能性が高い、という推定です。</li><li>広告費はすべて推定値です。表示回数が取れない広告は0円と出るため、会社どうしの比較は目安としてご覧ください。</li><li><b>10月版の訂正</b>：10月版の推定広告費は、集計の不具合で実際には直近30日（9/2〜10/1）分だけの数字でした（「90日」と表記）。また「東京ガスの電気」の広告（ツール上の商品名が会社名義のため）が漏れていました。今回は10月版のデータも同じ基準で数え直して比べています（7/4〜10/1の90日：1位 東京ガス 約2,100万円・約38%／Looop 約1,330万円・約24%。9/2〜10/1の30日に限ればLooopが約6割で、10月版の「Looopが突出」は9月時点では正しい）。</li></ol>
+  </div>
+</section>
+
+</main>
+</body>
+</html>
