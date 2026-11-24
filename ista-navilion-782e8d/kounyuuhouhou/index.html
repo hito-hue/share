@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>サイト購入方法</title>
+<meta name="description" content="アイ・ステーション オフィス通販サイト（ナビリオン）での発注申込み方法">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<header class="band band--orange">
+  <h1>発注申込み方法に関して</h1>
+</header>
+
+<main>
+  <div class="steps">
+    <section class="step">
+      <h2>STEP①</h2>
+      <p class="step-text">検索窓に下記<strong>お申込み番号</strong>を<br>入力し検索をする</p>
+      <p class="step-code">お申込み番号：<b>226-3793</b></p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step1.webp" width="1400" height="981" alt="ナビリオンの画面：上部の検索窓にお申込み番号を入力して検索" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+    <section class="step">
+      <h2>STEP②</h2>
+      <p class="step-text">検索後、<strong>カートに入れる</strong>を押す</p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step2.webp" width="1400" height="698" alt="検索結果の画面：「カートに入れる」ボタンを押す" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+    <section class="step">
+      <h2>STEP③</h2>
+      <p class="step-text"><strong>カートを見る</strong>を押す</p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step3.webp" width="1600" height="634" alt="画面右上の「カートを見る」を押す" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+    <section class="step">
+      <h2>STEP④</h2>
+      <p class="step-text">購入したい商品をカートへ入れた後、<br><strong>ご購入手続きへ</strong>を押す</p>
+      <p class="step-warn">※無料プレゼント対象商品のお申込み番号に<br>お間違えがないかご確認下さい</p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step4.webp" width="1100" height="1245" alt="ショッピングカートの画面：「ご購入手続きへ」を押す" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+    <section class="step">
+      <h2>STEP⑤</h2>
+      <p class="step-text">入力必須項目を入力し、<br><strong>入力内容の確認</strong>を押す</p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step5.webp" width="1100" height="1576" alt="お届け先入力の画面：必須項目を入力して「入力内容の確認」を押す" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+    <section class="step">
+      <h2>STEP⑥</h2>
+      <p class="step-text">注文内容を確認後、<br><strong>この内容で注文する</strong>を押す</p>
+      <div class="step-img"><button type="button" data-zoom><img src="../assets/img/order-step6.webp" width="800" height="1547" alt="入力内容の確認画面：「この内容で注文する」を押す" loading="lazy"></button><small>画像を押すと拡大します</small></div>
+    </section>
+  </div>
+
+  <div class="login-cta">
+    <p>ログインは下記ボタンよりお進みください。</p>
+    <a class="btn btn--lg" href="https://www.ntps-shop.com/shop/i-sta/logingateway.aspx">ログインし購入へ進む</a>
+  </div>
+</main>
+
+<div class="zoom" id="zoom" role="dialog" aria-modal="true" aria-label="画像の拡大表示">
+  <button type="button" class="zoom-close" aria-label="閉じる">×</button>
+  <img alt="">
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <dl>
+      <div class="row"><dt>会社名：</dt><dd>株式会社アイ・ステーション</dd></div>
+      <div class="row"><dt>所在地：</dt><dd>〒170-0013　東京都豊島区東池袋1-25-8　タカセビル本館 7F</dd></div>
+      <div class="row"><dt>HP ：</dt><dd><a href="https://i-sta.co.jp/" target="_blank" rel="noopener">https://i-sta.co.jp/</a></dd></div>
+    </dl>
+    <p class="copy">i-Station,INC</p>
+  </div>
+</footer>
+<script>
+/* 手順の画面写真を押すと大きく表示する */
+(function () {
+  var box = document.getElementById('zoom');
+  var big = box.querySelector('img');
+  var last = null;
+  function close() { box.classList.remove('is-open'); document.body.style.overflow = ''; if (last) last.focus(); }
+  document.querySelectorAll('[data-zoom]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var img = b.querySelector('img');
+      big.src = img.currentSrc || img.src; big.alt = img.alt;
+      last = b; box.classList.add('is-open'); document.body.style.overflow = 'hidden';
+      box.querySelector('.zoom-close').focus();
+    });
+  });
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.classList.contains('is-open')) close(); });
+})();
+</script>
+</body>
+</html>

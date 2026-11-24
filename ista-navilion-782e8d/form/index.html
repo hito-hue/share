@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ログインID発行フォーム｜アイ・ステーション オフィス通販サイト</title>
+<meta name="description" content="アイ・ステーション オフィス通販サイト（ナビリオン）の無料会員登録・ログインID発行フォーム">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/form.css">
+</head>
+<body class="form-page">
+<main class="form-shell">
+  <div class="form-card" id="top">
+    <form id="entry" data-form="eigyo" novalidate>
+      <h1 class="form-title">ログインID発行フォーム</h1>
+      <p class="form-intro">アイ・ステーションオフィス通販サイトへ会員登録をご検討いただき誠にありがとうございます。</p>
+
+      <h2 class="form-h2">ご登録について</h2>
+      <ul class="form-terms">
+        <li>当サイトは、株式会社ライオン事務器が運用するナビリオンの運営代理店として提供しており、お客様からご提供いただいた個人情報は、運営元のナビリオン（株式会社ライオン事務器）の「<a href="https://www.lion-jimuki.co.jp/ja/privacy/privacy1.html" target="_blank" rel="noopener">個人情報保護方針</a>」に準ずるものとし、当サイトでの「商品の受渡し」に付随するサービスおよび「キャンペーンその他のご案内」の目的以外には使用いたしません</li>
+        <li>ご登録費用等は一切かかりません。</li>
+        <li>ご登録が済み次第、アイ・ステーションサイト運営担当者よりお客様専用のログインID、初期パスワードをお知らせいたします。<br>これを販売店のログイン画面で入力し、商品購入サイトにアクセスいただければ、商品を注文することができます。</li>
+        <li>当サイトは法人、または同等の機関・組織・団体、個人事業主のお客様にご利用いただくサービスです。個人でのお申し込みはできません。</li>
+        <li>ログインID発行には少々お時間がかかります。（3日～1週間程）あらかじめご了承ください。</li>
+        <li>ご登録前に必ず「<a href="https://www.navilion.com/terms.html" target="_blank" rel="noopener">利用規約</a>」をご確認の上、新規にお申し込みください。</li>
+      </ul>
+
+      <fieldset class="field" data-name="agree">
+        <legend class="field-label"><b>「利用規約（ご登録について）」・「お客様の個人情報の取り扱いについて」にご同意いただけますか。</b>当フォームのご利用にあたっては、上記の「ナビリオン利用規約（ご登録について）」と「お客様の個人情報の取り扱いについて」にご同意いただく必要があります。</legend>
+        <label class="check"><input type="checkbox" name="agree" value="同意する" required><span>同意する <i class="req">*</i></span></label>
+      </fieldset>
+
+      <h2 class="form-h2">会社情報</h2>
+      <div class="field" data-name="company">
+        <label class="field-label" for="f-company">会社・団体名 <i class="req">*</i></label>
+        <input id="f-company" name="company" type="text" required autocomplete="organization" placeholder="例：株式会社アイ・ステーション（正式名所でご記入下さい。）">
+      </div>
+      <div class="field" data-name="company_kana">
+        <label class="field-label" for="f-company_kana">会社・団体名（フリガナ） <i class="req">*</i></label>
+        <input id="f-company_kana" name="company_kana" type="text" required placeholder="例：カブシキガイシャアイ・ステーション">
+      </div>
+      <p class="field-group">代表者名（全角）</p>
+      <div class="field-row">
+        <div class="field" data-name="rep_last">
+          <label class="field-label" for="f-rep_last">姓 <i class="req">*</i></label>
+          <input id="f-rep_last" name="rep_last" type="text" required>
+        </div>
+        <div class="field" data-name="rep_first">
+          <label class="field-label" for="f-rep_first">名 <i class="req">*</i></label>
+          <input id="f-rep_first" name="rep_first" type="text" required>
+        </div>
+      </div>
+      <div class="field" data-name="zip">
+        <label class="field-label" for="f-zip">郵便番号 <i class="req">*</i></label>
+        <input id="f-zip" name="zip" type="text" inputmode="numeric" required autocomplete="postal-code" placeholder="000-0000（半角数字）" data-kind="zip">
+      </div>
+      <div class="field" data-name="pref">
+        <label class="field-label" for="f-pref">都道府県 <i class="req">*</i></label>
+        <input id="f-pref" name="pref" type="text" required autocomplete="address-level1" placeholder="例：東京都">
+      </div>
+      <div class="field" data-name="city">
+        <label class="field-label" for="f-city">市区町村 <i class="req">*</i></label>
+        <input id="f-city" name="city" type="text" required autocomplete="address-level2" placeholder="例：豊島区">
+      </div>
+      <div class="field" data-name="address">
+        <label class="field-label" for="f-address">番地 <i class="req">*</i></label>
+        <input id="f-address" name="address" type="text" required autocomplete="address-line1" placeholder="例：東池袋0-0-0">
+      </div>
+      <div class="field" data-name="building">
+        <label class="field-label" for="f-building">建物名</label>
+        <input id="f-building" name="building" type="text" autocomplete="address-line2">
+      </div>
+      <fieldset class="field" data-name="has_hp">
+        <legend class="field-label">自社ホームページの有無 <i class="req">*</i></legend>
+        <label class="check"><input type="radio" name="has_hp" value="有り" required><span>有り</span></label>
+        <label class="check"><input type="radio" name="has_hp" value="無し"><span>無し</span></label>
+      </fieldset>
+      <div class="field" data-name="hp_url">
+        <label class="field-label" for="f-hp_url">ホームページアドレス（「有り」のみ）</label>
+        <p class="field-help">半角数字</p>
+        <input id="f-hp_url" name="hp_url" type="text" inputmode="url" autocomplete="url" placeholder="https://">
+      </div>
+
+      <h2 class="form-h2">担当者様情報</h2>
+      <div class="field-row">
+        <div class="field" data-name="last">
+          <label class="field-label" for="f-last">姓 <i class="req">*</i></label>
+          <input id="f-last" name="last" type="text" required autocomplete="family-name">
+        </div>
+        <div class="field" data-name="first">
+          <label class="field-label" for="f-first">名 <i class="req">*</i></label>
+          <input id="f-first" name="first" type="text" required autocomplete="given-name">
+        </div>
+      </div>
+      <p class="field-group"><b>担当者名（フリガナ）</b></p>
+      <div class="field-row">
+        <div class="field" data-name="last_kana">
+          <label class="field-label" for="f-last_kana">セイ <i class="req">*</i></label>
+          <input id="f-last_kana" name="last_kana" type="text" required>
+        </div>
+        <div class="field" data-name="first_kana">
+          <label class="field-label" for="f-first_kana">メイ <i class="req">*</i></label>
+          <input id="f-first_kana" name="first_kana" type="text" required>
+        </div>
+      </div>
+      <div class="field" data-name="dept">
+        <label class="field-label" for="f-dept">部署</label>
+        <input id="f-dept" name="dept" type="text" placeholder="例：総務部">
+      </div>
+      <div class="field" data-name="tel">
+        <label class="field-label" for="f-tel">電話番号（半角数字） <i class="req">*</i></label>
+        <input id="f-tel" name="tel" type="tel" inputmode="tel" required autocomplete="tel" placeholder="例：03-1234-5678" data-kind="tel">
+      </div>
+      <div class="field" data-name="fax">
+        <label class="field-label" for="f-fax">FAX番号（半角数字） <i class="req">*</i></label>
+        <input id="f-fax" name="fax" type="tel" inputmode="tel" required data-kind="tel">
+      </div>
+      <div class="field" data-name="email">
+        <label class="field-label" for="f-email">連絡先メールアドレス（PC） <i class="req">*</i></label>
+        <input id="f-email" name="email" type="email" inputmode="email" required autocomplete="email">
+      </div>
+      <div class="field" data-name="email2">
+        <label class="field-label" for="f-email2">連絡先メールアドレス（PC）確認用 <i class="req">*</i></label>
+        <input id="f-email2" name="email2" type="email" inputmode="email" required autocomplete="off">
+      </div>
+      <fieldset class="field" data-name="items" data-min="1">
+        <legend class="field-label">ご希望の商品をご選択ください。（複数選択可） <i class="req">*</i></legend>
+        <p class="field-help">※オーダーメニューとは、スタンプ・印鑑・名刺の作成やクリアーホルダー・伝票・ノベルティーグッズへの名入れなどを、オーダーメイドでお作り・お届けするサービスとなります。</p>
+        <div class="check-grid">
+          <label class="check"><input type="checkbox" name="items" value="OA・PC消耗品"><span>OA・PC消耗品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="コピー用紙"><span>コピー用紙</span></label>
+          <label class="check"><input type="checkbox" name="items" value="衣料・生活用品"><span>衣料・生活用品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="文具・事務用品"><span>文具・事務用品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="ファイル"><span>ファイル</span></label>
+          <label class="check"><input type="checkbox" name="items" value="オフィスファニチャー"><span>オフィスファニチャー</span></label>
+          <label class="check"><input type="checkbox" name="items" value="事務機器・家電・電池"><span>事務機器・家電・電池</span></label>
+          <label class="check"><input type="checkbox" name="items" value="食品・飲料"><span>食品・飲料</span></label>
+          <label class="check"><input type="checkbox" name="items" value="CAD・製図用品"><span>CAD・製図用品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="梱包・工具・作業用品"><span>梱包・工具・作業用品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="パソコン・パソコン周辺機器"><span>パソコン・パソコン周辺機器</span></label>
+          <label class="check"><input type="checkbox" name="items" value="介護用品"><span>介護用品</span></label>
+          <label class="check"><input type="checkbox" name="items" value="ソフト・書籍"><span>ソフト・書籍</span></label>
+          <label class="check"><input type="checkbox" name="items" value="オーダーメニュー"><span>オーダーメニュー</span></label>
+          <label class="check"><input type="checkbox" name="items" value="その他"><span>その他</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="field" data-name="furikae">
+        <legend class="field-label">お支払い方法は「口座振替」をご希望ですか？ <i class="req">*</i></legend>
+        <p class="field-help">※口座登録完了までは、メールで請求書を送付させていただきます。予めご了承ください。<br>※登録完了までは2、３ヵ月の期間を要します</p>
+        <label class="check"><input type="radio" name="furikae" value="はい" required><span>はい</span></label>
+        <label class="check"><input type="radio" name="furikae" value="いいえ"><span>いいえ</span></label>
+      </fieldset>
+      <div class="field" data-name="sales">
+        <label class="field-label" for="f-sales">営業担当者名（任意）</label>
+        <p class="field-help">※弊社担当者からのご案内があった場合は、その担当者名をご入力ください。</p>
+        <input id="f-sales" name="sales" type="text">
+      </div>
+      <div class="field" data-name="invoice_email">
+        <label class="field-label" for="f-invoice_email">請求書はメールにてお送りいたします。ご担当者様と送付先が異なる場合は、送付先メールアドレスをご入力ください。（任意）</label>
+        <p class="field-help">※ご担当者様はCCへ入れてお送りいたします。</p>
+        <input id="f-invoice_email" name="invoice_email" type="email" inputmode="email">
+      </div>
+
+      <div class="hp-trap" aria-hidden="true">
+        <label>この欄は空のままにしてください<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <p class="form-error" id="form-error" role="alert" hidden></p>
+      <div class="form-submit">
+        <button class="btn btn--lg" type="submit" id="submit-btn">送信</button>
+      </div>
+    </form>
+
+    <div class="thanks" id="thanks" hidden tabindex="-1">
+      <div class="thanks-mark" aria-hidden="true">✓</div>
+      <h1 class="form-title thanks-title">お申し込み<wbr>ありがとうございます</h1>
+      <p>ログインID発行のお申し込みを受け付けました。<br>
+      内容を確認のうえ、アイ・ステーションサイト運営担当者より、お客様専用のログインID・初期パスワードをメールにてお知らせいたします。</p>
+      <p>ログインID発行には少々お時間がかかります。（3日～1週間程）あらかじめご了承ください。</p>
+      <p class="thanks-back"><a href="../houjin_service/" data-back>オフィス通販サイトのご案内へ戻る</a></p>
+    </div>
+  </div>
+  <p class="form-foot"><span>株式会社アイ・ステーション</span>　<span>〒170-0013 東京都豊島区東池袋1-25-8</span> <span>タカセビル本館 7F</span></p>
+</main>
+<script src="../assets/js/form.js" defer></script>
+</body>
+</html>
