@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="referrer" content="no-referrer">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="広告ライブ">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f4f6fa">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
 <title>広告ライブダッシュボード</title>
 <style>
 :root{
@@ -73,6 +80,9 @@ td.nm{white-space:normal;font-weight:600;min-width:180px}
 .recent li:last-child{border-bottom:none}
 .recent .tm{color:var(--sub)}
 .recent .ad{font-size:11.5px;color:var(--mute);margin-top:2px}
+.homeadd{margin-top:26px;font-size:12.5px;line-height:1.8;color:var(--sub);background:#f8fafd}
+.homeadd b{color:var(--ink);font-size:13px}
+@media (display-mode:standalone){.homeadd{display:none}}
 footer{margin-top:28px;font-size:11.5px;color:var(--mute);line-height:1.8;text-align:center}
 #gate{max-width:420px;margin:18vh auto;text-align:center;color:var(--sub);font-size:14px;line-height:1.8}
 .notice{background:#fff8e6;border:1px solid #f6e2b3;color:#7a5200;font-size:12.5px;border-radius:10px;padding:10px 14px;margin-bottom:14px}
@@ -94,11 +104,21 @@ const STATUS = { ACTIVE: '配信中', PENDING_REVIEW: '審査中', IN_PROCESS: '
 const REGION = { Tokyo: '東京都', 'Kanagawa Prefecture': '神奈川県', 'Saitama Prefecture': '埼玉県', 'Chiba Prefecture': '千葉県', 'Ibaraki Prefecture': '茨城県', 'Tochigi Prefecture': '栃木県', 'Gunma Prefecture': '群馬県', 'Yamanashi Prefecture': '山梨県' };
 const PLAT = { facebook: 'Facebook', instagram: 'Instagram', whatsapp: 'WhatsApp', audience_network: 'Audience Network', messenger: 'Messenger', threads: 'Threads' };
 
+// 鍵なしで開ける（2026-11-25 伊藤さん「開けないって。鍵なしでいい」）
+// ・鍵は公開のとき push.mjs がページに埋め込む（__EMBED_KEY__ を置き換え）＝URLに鍵は要らない
+//   ※実質だれでも見られる。暗号化を残すのは、公開リポジトリに数字をそのまま置かない（検索に出さない）ためだけ
+// ・前の「#k=…」「?k=…」付きのリンクもそのまま開ける（URLの鍵は使わず、アドレス欄からは消す）
+const EMBED_KEY = '8-CbrAdadV4oPXBciGfiXFVsI33c5u7Kc215iCVgo94';
 function keyFromHash() {
-  const m = location.hash.match(/k=([A-Za-z0-9_-]+)/);
-  if (!m) return null;
-  const b = atob(m[1].replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((m[1].length + 3) % 4));
+  const k = /^[A-Za-z0-9_-]{20,}$/.test(EMBED_KEY) ? EMBED_KEY : null;
+  if (!k) return null;
+  const b = atob(k.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((k.length + 3) % 4));
   return Uint8Array.from(b, (c) => c.charCodeAt(0));
+}
+function rememberKey() {
+  if (/k=/.test(location.search + location.hash)) {
+    try { history.replaceState(null, '', location.pathname); } catch {}
+  }
 }
 const unb64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 let cryptoKey;
@@ -110,6 +130,7 @@ async function load() {
   if (!r.ok) throw new Error('fetch');
   const e = await r.json();
   const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(e.iv) }, cryptoKey, unb64(e.ct));
+  rememberKey(); // 古い鍵付きリンクで来たら、アドレス欄を鍵なしの形にそろえる
   return JSON.parse(new TextDecoder().decode(pt));
 }
 
@@ -236,6 +257,16 @@ function render(D) {
     <tbody>${D.ads.map((a) => `<tr><td class="nm">${esc(a.name)}</td><td><span class="st ${esc(a.status)}">${esc(STATUS[a.status] || a.status)}</span></td><td class="num">${yen(a.month.spend)}</td><td class="num">${int(a.month.imp)}</td><td class="num">${pct(a.month.ctr)}</td><td class="num">${lead(a.month)}</td><td class="num ${a.month.cpa === bestCpa && isFinite(bestCpa) ? 'best' : ''}">${yen(a.month.cpa)}</td><td class="num">${yen(a.today.spend)}</td><td class="num">${lead(a.today)}</td></tr>`).join('')}</tbody>
   </table></div>
 
+  <div class="sec"><h2>媒体別の成績（今月）</h2><span>どちらから来ているか</span></div>
+  <div class="card tbl"><table>
+    <thead><tr><th>媒体</th><th>リード</th><th>CPA</th><th>消化金額</th><th>表示</th><th>クリック率</th></tr></thead>
+    <tbody>${(() => {
+      const rows = D.platform.filter((p) => p.spend > 0 || p.leads > 0);
+      const bestP = Math.min(...rows.map((p) => p.cpa ?? Infinity));
+      return rows.length ? rows.map((p) => `<tr><td class="nm" style="min-width:110px">${esc(PLAT[p.name] || p.name)}</td><td class="num"><b>${lead(p)}</b></td><td class="num ${p.cpa === bestP && isFinite(bestP) && rows.length > 1 ? 'best' : ''}">${yen(p.cpa)}</td><td class="num">${yen(p.spend)}</td><td class="num">${int(p.imp)}</td><td class="num">${pct(p.ctr)}</td></tr>`).join('') : '<tr><td colspan="6"><div class="empty">まだデータがありません</div></td></tr>';
+    })()}</tbody>
+  </table></div>
+
   <div class="sec"><h2>どこに届いているか（今月）</h2><span>Metaの集計</span></div>
   <div class="grid three">
     <div class="card"><div class="lb" style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">都県別の消化金額</div>${hlist(D.region, (r) => REGION[r.name] || r.name, (r) => r.spend, yen)}</div>
@@ -254,6 +285,7 @@ function render(D) {
   <div class="card" style="margin-top:14px"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:4px">最近のお申込み（新しい順）</div>
     ${D.inbox.recent.length ? `<ul class="recent">${D.inbox.recent.map((r) => `<li><span class="tm num">${esc(r.at)}</span><span>${esc(r.area || '場所未回答')}・${esc(r.state || '状態未回答')}<div class="ad">${esc(r.ad)}</div></span></li>`).join('')}</ul>` : '<div class="empty">まだお申込みはありません</div>'}
   </div>
+  <div class="card homeadd"><b>📱 スマホのホーム画面に置けます</b><br>iPhone：画面下の共有ボタン（□に↑）→「ホーム画面に追加」／Android：右上の︙→「ホーム画面に追加」。<br>次からはアイコンをタップするだけで、アプリのように開けます。</div>
   <footer>Metaの数字は15分ほど遅れて反映されます。お申込みの件数は受付サーバーに届いた分（テストは除く）です。<br>このページは関係者向けです。リンクを社外に転送しないでください。</footer>`;
   $app.hidden = false; $gate.hidden = true;
 }
@@ -263,7 +295,7 @@ async function tick() {
   try { last = await load(); render(last); }
   catch (e) {
     if (!$app.hidden) return; // 表示済みなら前の数字のまま
-    $gate.textContent = e.message === 'nokey' ? 'このリンクには鍵が付いていません。Teamsの通知にあるリンクから開いてください。' : '読み込めませんでした。リンクが正しいか確かめて、少し待ってから開き直してください。';
+    $gate.textContent = '読み込めませんでした。少し待ってから開き直してください。';
   }
 }
 tick();
