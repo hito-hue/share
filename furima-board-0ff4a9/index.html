@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>フリマ出品10点 下書きの確認</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#f3f4f6;--dot:#d7dae0;--panel:#fff;--line:#e4e7ec;--line2:#eef0f3;
+  --ink:#101828;--sub:#475467;--muted:#98a2b3;
+  --navy:#17314c;--teal:#1fa5a3;--blue:#2563eb;--ok:#0f9d58;--okbg:#e8f6ee;--wait:#b54708;--waitbg:#fef3e2;--off:#b42318;--offbg:#fdecea;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.num,.kpi b,.badge{font-family:Inter,"Noto Sans JP",sans-serif}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+
+/* 上のバー（Figmaのファイル名のような帯） */
+.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);min-width:0}
+.crumb .logo{width:22px;height:22px;border-radius:6px;background:var(--navy);display:grid;place-items:center;flex:none}
+.crumb .logo svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2}
+.crumb b{color:var(--ink);font-weight:700}
+.chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.chip.ok i{background:var(--ok)}.chip.wait i{background:#f79009}.chip.off i{background:var(--off)}
+
+.wrap{max-width:1240px;margin:0 auto;padding:22px 16px 56px}
+.frame{margin-top:30px}
+.frame:first-child{margin-top:4px}
+.flabel{font-size:12px;color:var(--muted);font-weight:500;margin:0 0 8px 2px;letter-spacing:.02em}
+.flabel b{color:var(--sub);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05);padding:24px}
+h1{margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:.01em}
+h2{margin:0;font-size:18px;font-weight:700}
+.lead{margin:6px 0 0;color:var(--sub)}
+.hint{font-size:12px;color:var(--muted)}
+.sp-only{display:none}
+@media(max-width:1000px){.sp-only{display:inline}}
+
+/* 概要 */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fcfcfd}
+.kpi span{display:block;font-size:12px;color:var(--sub)}
+.kpi b{display:block;font-size:24px;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.kpi small{display:block;font-size:12px;color:var(--muted);line-height:1.5;margin-top:2px}
+.kpi.dark{background:var(--navy);border-color:var(--navy);color:#fff}
+.kpi.dark span,.kpi.dark small{color:#c7d2df}
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.st{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line2);border-radius:12px;padding:12px 14px}
+.st .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.st .ic svg{width:12px;height:12px;fill:none;stroke-width:2.6}
+.st.ok .ic{background:var(--okbg)}.st.ok .ic svg{stroke:var(--ok)}
+.st.wait .ic{background:var(--waitbg)}.st.wait .ic svg{stroke:var(--wait)}
+.st b{display:block;font-size:13px}
+.st small{display:block;font-size:12px;color:var(--sub);line-height:1.5}
+@media(max-width:900px){.kpis,.status{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.kpis,.status{grid-template-columns:1fr}}
+
+/* 流れ（スマホ画面を横に並べる） */
+.flowhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;margin-top:20px;position:relative}
+.step{position:relative;min-width:0}
+.step:not(:last-child)::after{content:"";position:absolute;top:calc(64px + 38%);right:-24px;width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(16,24,40,.06);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475467' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E");background-size:12px;background-position:center;background-repeat:no-repeat}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:20px;padding:0 6px;border-radius:6px;background:var(--navy);color:#fff;font-size:11px;font-weight:700}
+.step h3{margin:6px 0 0;font-size:14px;font-weight:700;line-height:1.4}
+.step p{margin:2px 0 10px;font-size:12px;color:var(--sub);line-height:1.55;min-height:4.65em}
+.step.noarrow::after{display:none}
+.phone{position:relative;border-radius:26px;background:#0b1220;padding:7px;box-shadow:0 12px 24px -14px rgba(16,24,40,.55)}
+.phone a{display:block;border-radius:20px;overflow:hidden;background:#fff}
+.phone::before{content:"";position:absolute;top:11px;left:50%;transform:translateX(-50%);width:34%;height:5px;border-radius:5px;background:#0b1220;z-index:1;opacity:.0}
+.phone img{width:100%;aspect-ratio:1/2;object-fit:cover;object-position:top}
+.tagimg{position:absolute;top:14px;right:14px;z-index:2;font-size:11px;font-weight:700;color:#fff;background:rgba(16,24,40,.78);border-radius:6px;padding:1px 7px}
+.branch{margin-top:26px;padding-top:20px;border-top:1px dashed var(--line);display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px;align-items:start}
+.branch .note{grid-column:span 2}
+.branch .note{font-size:13px;color:var(--sub)}
+.branch .note b{color:var(--ink)}
+@media(max-width:1000px){
+  .flow{display:flex;overflow-x:auto;gap:28px;padding:2px 2px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .flow .step{flex:0 0 200px;scroll-snap-align:start}
+  .step:not(:last-child)::after{right:-23px}
+  .branch{grid-template-columns:1fr 1fr}
+  .branch .note{grid-column:1/-1}
+}
+
+/* 社内の流れ */
+.inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px 32px;margin-top:20px;align-items:start}
+.inner .full{grid-column:1/-1}
+.col h3{margin:6px 0 2px;font-size:15px;font-weight:700}
+.col>p{margin:0 0 12px;font-size:12.5px;color:var(--sub)}
+.browser{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 8px 20px -14px rgba(16,24,40,.45)}
+.browser .bar{height:26px;background:#f2f4f7;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:5px;padding:0 10px;font-size:11px;color:var(--muted)}
+.browser .bar i{width:8px;height:8px;border-radius:50%;background:#d0d5dd}
+.browser .bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser+.browser{margin-top:12px}
+.cap{font-size:12px;color:var(--sub);margin-top:6px;line-height:1.5}
+.phones2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.phones2 .phone{border-radius:22px;padding:6px}
+.phones2 .phone a{border-radius:17px}
+.todo{list-style:none;margin:0;padding:0;counter-reset:t}
+.todo li{position:relative;padding:0 0 14px 34px;counter-increment:t}
+.todo li::before{content:counter(t);position:absolute;left:0;top:1px;width:22px;height:22px;border-radius:50%;background:#eef2f6;color:var(--navy);font:700 12px/22px Inter,sans-serif;text-align:center}
+.todo li:not(:last-child)::after{content:"";position:absolute;left:10.5px;top:26px;bottom:2px;width:1px;background:var(--line)}
+.todo b{display:block;font-size:13px}
+.todo span{display:block;font-size:12.5px;color:var(--sub);line-height:1.6}
+.pipe{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pipe em{font-style:normal;font-size:11.5px;border:1px solid var(--line);border-radius:6px;padding:0 6px;background:#fff;color:var(--sub)}
+.pipe em.on{border-color:#bfd3ea;background:#eef4fb;color:var(--navy);font-weight:600}
+.callout{margin-top:22px;display:flex;gap:14px;align-items:flex-start;border:1px solid #c7dafc;background:#f2f7ff;border-radius:12px;padding:14px 16px}
+.callout .ic{width:30px;height:30px;border-radius:8px;background:var(--blue);display:grid;place-items:center;flex:none}
+.callout .ic svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2}
+.callout b{display:block;font-size:14px}
+.callout span{display:block;font-size:13px;color:var(--sub)}
+@media(max-width:1000px){.inner{grid-template-columns:1fr}}
+
+/* Meta */
+.meta{display:grid;grid-template-columns:1fr 1.5fr;gap:26px;margin-top:18px;align-items:start}
+dl.spec{margin:0;display:grid;grid-template-columns:auto 1fr;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+dl.spec dt,dl.spec dd{margin:0;padding:10px 14px;border-bottom:1px solid var(--line2);font-size:13px}
+dl.spec dt{background:#f9fafb;color:var(--sub);white-space:nowrap}
+dl.spec dd{line-height:1.6}
+dl.spec dt:nth-last-of-type(1),dl.spec dd:last-of-type{border-bottom:0}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:4px}
+.pill.off{background:var(--offbg);color:var(--off)}.pill.wait{background:var(--waitbg);color:var(--wait)}.pill.ok{background:var(--okbg);color:var(--ok)}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.shots .wide{grid-column:1/-1}
+@media(max-width:1000px){.meta{grid-template-columns:1fr}}
+@media(max-width:560px){.shots{grid-template-columns:1fr}}
+
+/* バナー→LPの組み合わせ */
+.pairs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:6px 0 22px}
+.pair{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}
+.pair h3{margin:0 0 10px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.pair h3 .n{width:22px;height:22px;border-radius:6px;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 12px Inter,sans-serif}
+.pair .imgs{display:grid;grid-template-columns:1fr 18px 1fr;align-items:center;gap:6px}
+.pair .imgs img{width:100%;height:auto;border-radius:8px;border:1px solid var(--line);display:block}
+.pair .arr{color:var(--muted);text-align:center;font-weight:700}
+.pair .cap{display:grid;grid-template-columns:1fr 18px 1fr;gap:6px;font-size:11.5px;color:var(--muted);margin-top:4px}
+.pair .cap span:nth-child(2){visibility:hidden}
+.pair p{margin:8px 0 0;font-size:12.5px;color:var(--sub);line-height:1.6}
+@media(max-width:900px){.pairs{grid-template-columns:minmax(0,1fr)}}
+
+/* 確認事項 */
+.asks{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:18px}
+.ask{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+@media(max-width:560px){.ask{grid-template-columns:minmax(0,1fr);gap:8px;padding:14px}.panel{padding:18px 14px}table.calc th,table.calc td,table.calc td.r{white-space:normal}}
+.ask .n{width:28px;height:28px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font:700 13px Inter,sans-serif}
+.ask h3{margin:2px 0 4px;font-size:15px;font-weight:700}
+.ask p{margin:0;color:var(--sub);font-size:13.5px}
+.ask .q{margin-top:8px;font-size:13.5px;color:var(--ink);background:#f9fafb;border-left:3px solid var(--navy);padding:8px 12px;border-radius:0 8px 8px 0}
+table.calc{border-collapse:collapse;margin-top:10px;font-size:13px;width:100%;max-width:560px}
+table.calc th,table.calc td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+table.calc th{background:#f9fafb;font-weight:500;color:var(--sub);white-space:nowrap}
+table.calc td.r{text-align:right;font-family:Inter,"Noto Sans JP",sans-serif;font-weight:600;white-space:nowrap}
+.copy{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.75;background:#fcfcfd}
+.copy dt{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:8px}
+.copy dt:first-child{margin-top:0}
+.copy dd{margin:0;white-space:pre-wrap}
+.url{font-family:Inter,"Noto Sans JP",sans-serif;font-size:12.5px;word-break:break-all;background:#f2f4f7;border-radius:6px;padding:1px 6px}
+footer{margin-top:26px;font-size:12px;color:var(--muted);text-align:center}
+@media(max-width:560px){
+  table.calc,table.calc tbody,table.calc tr,table.calc th,table.calc td{display:block;width:100%}
+  table.calc tr{border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:8px}
+  table.calc th,table.calc td,table.calc td.r{border:0;white-space:normal;text-align:left;padding:5px 10px}
+}
+
+/* 商品一覧（このボード用） */
+.items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:20px}
+.item{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.item img{width:100%;aspect-ratio:1/1;object-fit:cover;border-bottom:1px solid var(--line2)}
+.item .bd{padding:10px 12px 12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.item h3{margin:0;font-size:13px;font-weight:700;line-height:1.45}
+.item .price{font-family:Inter,"Noto Sans JP",sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.item .price small{font-size:11.5px;font-weight:500;color:var(--sub);margin-left:4px}
+.item .memo{font-size:11.5px;color:var(--sub);line-height:1.55}
+.item .days{margin-top:auto;font-size:11.5px;color:var(--muted)}
+@media(max-width:1100px){.items{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.items{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.item .price{font-size:16px}}
+.steps4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.s4{border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative;background:#fcfcfd}
+.s4 b{display:block;font-size:14px;margin-top:6px}
+.s4 span:not(.badge){display:block;font-size:12.5px;color:var(--sub);line-height:1.6;margin-top:2px}
+.s4 .badge{display:inline-flex}
+@media(max-width:900px){.steps4{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.steps4{grid-template-columns:1fr}}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.notes figure{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.notes img{width:100%;aspect-ratio:1/1;object-fit:cover;border-bottom:1px solid var(--line2)}
+.notes figcaption{padding:10px 12px;font-size:12.5px;color:var(--sub);line-height:1.6}
+.notes figcaption b{display:block;color:var(--ink);font-size:13.5px}
+@media(max-width:900px){.notes{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="in">
+  <div class="crumb"><span class="logo"><svg viewBox="0 0 24 24"><path d="M4 7h16l-1.5 12h-13z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span>
+    <span>個人</span><span>/</span><b>フリマ出品（Yahoo!フリマ）</b></div>
+  <div class="chips">
+    <span class="chip ok"><i></i>下書き10点</span>
+    <span class="chip wait"><i></i>出品：伊藤さんのOK待ち</span>
+    <span class="chip"><i></i>2026/11/25 時点</span>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<section class="frame">
+  <p class="flabel"><b>00</b>　概要</p>
+  <div class="panel">
+    <h1>フリマ出品10点　下書きの確認</h1>
+    <p class="lead">10点すべて、写真・説明文・値段を入れて<b>下書きに保存済み</b>です。サムネは同じ型（明るい背景に服を置いた公式通販風）にそろえました。<b>出品（公開）はまだしていません。</b></p>
+    <div class="kpis">
+      <div class="kpi dark"><span>下書き</span><b class="num">10点</b><small>服8点・リュック・ニット帽</small></div>
+      <div class="kpi"><span>開始値段の合計</span><b class="num">¥125,200</b><small>すべて売れた場合（手数料5%前）</small></div>
+      <div class="kpi"><span>最低ラインの合計</span><b class="num">¥26,900</b><small>ポロベアを除く9点</small></div>
+      <div class="kpi"><span>自動値下げ</span><b class="num">9点</b><small>出品後、毎日300円ずつ下げる</small></div>
+    </div>
+    <div class="status">
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>写真・サムネ</b><small>10点とも公式通販風にそろえた</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>説明文</b><small>サイズ・状態・傷の位置まで記載</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>値段・最低ライン</b><small>メルカリで売れた値段をもとに設定</small></div></div>
+      <div class="st wait"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="round"/></svg></span><div><b>出品</b><small>伊藤さんのOKが出たら出品する</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>01</b>　商品一覧（サムネ・状態・値段）</p>
+  <div class="panel">
+    <div class="flowhead"><h2>10点の下書き</h2><span class="hint">値段は「開始 → 最低ライン」</span></div>
+    <div class="items">
+<div class="item"><img src="img/item01.jpg" alt="ポロベア ニット（ダッフル柄）L・紺"><div class="bd">
+<h3>ポロベア ニット（ダッフル柄）L・紺</h3><div><span class="pill ok">美品・クリーニング済み</span></div><div class="price">¥59,800<small>最低ラインなし</small></div>
+<div class="memo">プレミア価格。同じ柄のLが45,000円で売れた例あり</div><div class="days">自動値下げなし（値段は手で決める）</div></div></div><div class="item"><img src="img/item02.jpg" alt="Stussy パーカー えんじ"><div class="bd">
+<h3>Stussy パーカー えんじ</h3><div><span class="pill wait">やや傷や汚れあり</span></div><div class="price">¥9,800<small>→ 最低 ¥3,800</small></div>
+<div class="memo">ポケット下に小さな穴（写真に赤丸）</div><div class="days">毎日300円ずつ下げて、約20日で最低ライン</div></div></div><div class="item"><img src="img/item03.jpg" alt="HUF 総柄パーカー クリーム"><div class="bd">
+<h3>HUF 総柄パーカー クリーム</h3><div><span class="pill ok">目立った傷や汚れなし</span></div><div class="price">¥6,500<small>→ 最低 ¥3,500</small></div>
+<div class="memo">とてもきれい・多少の使用感</div><div class="days">毎日300円ずつ下げて、約10日で最低ライン</div></div></div><div class="item"><img src="img/item04.jpg" alt="A FEW GOOD KIDS トレーナー L・黒"><div class="bd">
+<h3>A FEW GOOD KIDS トレーナー L・黒</h3><div><span class="pill ok">目立った傷や汚れなし</span></div><div class="price">¥6,800<small>→ 最低 ¥2,300</small></div>
+<div class="memo">着用・洗濯による使用感あり</div><div class="days">毎日300円ずつ下げて、約15日で最低ライン</div></div></div><div class="item"><img src="img/item05.jpg" alt="THRASHER パーカー L・グレー"><div class="bd">
+<h3>THRASHER パーカー L・グレー</h3><div><span class="pill ok">目立った傷や汚れなし</span></div><div class="price">¥4,800<small>→ 最低 ¥2,500</small></div>
+<div class="memo">きれい・洗濯による若干の使用感</div><div class="days">毎日300円ずつ下げて、約8日で最低ライン</div></div></div><div class="item"><img src="img/item06.jpg" alt="ノースフェイス シャトルデイパック"><div class="bd">
+<h3>ノースフェイス シャトルデイパック</h3><div><span class="pill wait">やや傷や汚れあり</span></div><div class="price">¥6,800<small>→ 最低 ¥4,300</small></div>
+<div class="memo">左の金具に犬の噛み跡（使用に問題なし）</div><div class="days">毎日300円ずつ下げて、約9日で最低ライン</div></div></div><div class="item"><img src="img/item07.jpg" alt="重盛さと美 FRIEND Tシャツ 赤 L"><div class="bd">
+<h3>重盛さと美 FRIEND Tシャツ 赤 L</h3><div><span class="pill ok">新品・未使用</span></div><div class="price">¥9,800<small>→ 最低 ¥3,000</small></div>
+<div class="memo">袋に入ったまま</div><div class="days">毎日300円ずつ下げて、約23日で最低ライン</div></div></div><div class="item"><img src="img/item08.jpg" alt="重盛さと美 FRIEND Tシャツ 黒 L"><div class="bd">
+<h3>重盛さと美 FRIEND Tシャツ 黒 L</h3><div><span class="pill ok">新品・未使用</span></div><div class="price">¥9,800<small>→ 最低 ¥3,000</small></div>
+<div class="memo">袋に入ったまま</div><div class="days">毎日300円ずつ下げて、約23日で最低ライン</div></div></div><div class="item"><img src="img/item09.jpg" alt="重盛さと美 FRIEND Tシャツ 黒 L"><div class="bd">
+<h3>重盛さと美 FRIEND Tシャツ 黒 L</h3><div><span class="pill ok">未使用に近い（1回着用）</span></div><div class="price">¥7,800<small>→ 最低 ¥2,500</small></div>
+<div class="memo">1回だけ着用・ほぼ新品</div><div class="days">毎日300円ずつ下げて、約18日で最低ライン</div></div></div><div class="item"><img src="img/item10.jpg" alt="Carhartt WIP ニット帽"><div class="bd">
+<h3>Carhartt WIP ニット帽</h3><div><span class="pill ok">目立った傷や汚れなし</span></div><div class="price">¥3,300<small>→ 最低 ¥2,000</small></div>
+<div class="memo">とてもきれい（Anglistic Beanie）</div><div class="days">毎日300円ずつ下げて、約5日で最低ライン</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>02</b>　値下げのしくみ（自動）</p>
+  <div class="panel">
+    <h2>出品したあとは、売れるまで自動で値下げ</h2>
+    <div class="steps4">
+      <div class="s4"><span class="badge">1</span><b>出品する</b><span>伊藤さんのOKが出たら、下書きから出品します。</span></div>
+      <div class="s4"><span class="badge">2</span><b>毎朝 自動で300円下げる</b><span>朝4:30に実行（うまくいかなければ10:30・16:30にやり直し）。1日1回だけ。</span></div>
+      <div class="s4"><span class="badge">3</span><b>最低ラインで止まる</b><span>決めた最低ラインより下には下げません。</span></div>
+      <div class="s4"><span class="badge">4</span><b>売れたら止まる</b><span>売れた商品は自動で対象から外れます。</span></div>
+    </div>
+    <div class="callout"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg></span>
+      <div><b>商品名は変えないでください</b><span>自動値下げは商品名で商品を見分けています。アプリで商品名を変えると、その商品だけ値下げが止まります（変えたいときはAIに言えば、設定もそろえて直します）。</span></div></div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>03</b>　状態の注意（説明文に書いたこと）</p>
+  <div class="panel">
+    <h2>傷・使用感がある3点</h2>
+    <div class="notes">
+      <figure><img src="img/tnf_bite.jpg" alt="リュックの噛み跡"><figcaption><b>ノースフェイス リュック</b>左の長さ調整の金具に、犬が噛んだ跡。締める・ゆるめるは問題なし。噛まれたベルトの先を切ったので、左のベルトが少し短い。洗濯済み。</figcaption></figure>
+      <figure><img src="img/tnf_wear.jpg" alt="背負った様子"><figcaption><b>ノースフェイス リュック（背負った様子）</b>身長175cm・体重60kgの男性が背負った様子（動画から切り出し・顔は入れていない）。商品の2枚目に入れてある。</figcaption></figure>
+      <figure><img src="img/stussy_hole.jpg" alt="Stussyの小さな穴"><figcaption><b>Stussy パーカー</b>前の下のポケットの下に小さな穴。写真に赤丸を付けて、説明文にも記載。</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>04</b>　確認事項</p>
+  <div class="panel">
+    <h2>伊藤さんに決めてほしいこと</h2>
+    <div class="asks">
+      <div class="ask"><span class="n">1</span><div><h3>出品してよいか</h3><p>10点とも下書きのままです。OKならまとめて出品し、翌朝から自動値下げが始まります。</p>
+        <p class="q">「全部出品して」または「○○だけ出品して」で進めます。</p></div></div>
+      <div class="ask"><span class="n">2</span><div><h3>スラッシャーとStussyの寸法</h3><p>音声メモでは「スラッシャー：身幅55・着丈63」と「スラッシャーのパーカー：身幅53・着丈68・ポケットに穴」の2つがありました。穴は写真でStussyにあったため、<b>スラッシャー＝55・63／Stussy＝53・68</b>で書いています。</p>
+        <p class="q">逆なら、2点の寸法を入れ替えます。</p></div></div>
+      <div class="ask"><span class="n">3</span><div><h3>ポロベアの最低ライン</h3><p>いまは59,800円で、最低ラインも自動値下げもなしです。同じ柄のLが売れた最高値は45,000円でした。</p>
+        <p class="q">しばらく売れなければ、最低ライン（例：40,000円）を決めて自動値下げに入れますか？</p></div></div>
+      <div class="ask"><span class="n">4</span><div><h3>スラッシャーの写真（任意）</h3><p>元の写真で左袖の端が少し切れているため、サムネの左側がまっすぐに見えます。</p>
+        <p class="q">パーカー全体が入った写真を1枚もらえれば、サムネを差し替えます。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>フリマ出品10点の確認ボード ・ 2026/11/25 作成</footer>
+</main>
+</body>
+</html>
