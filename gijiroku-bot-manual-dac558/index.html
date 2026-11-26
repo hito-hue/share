@@ -125,6 +125,12 @@ details .a{padding:0 18px 14px 52px;font-size:14.5px}
 .cost b{display:block;font-size:12.5px;color:var(--sub);font-weight:500}
 .cost span{display:block;font-size:20px;font-weight:900;color:var(--navy);line-height:1.4}
 .cost em{font-style:normal;font-size:12px;color:var(--sub)}
+.ossel{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:6px 0 14px;font-size:14px}
+.ossel span{font-weight:700;color:var(--navy)}
+.ossel button{font:inherit;font-size:14px;font-weight:700;border:1px solid #cfd6e0;background:#fff;color:#4b525e;border-radius:10px;padding:5px 14px;cursor:pointer}
+.ossel button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.ossel em{font-style:normal;font-size:12.5px;color:var(--sub)}
+body.os-is-mac .os-win,body.os-is-win .os-mac{display:none}
 footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line)}
 .reset{border:1px solid var(--line);background:#fff;border-radius:8px;font:inherit;font-size:12px;color:var(--sub);padding:3px 10px;cursor:pointer}
 @media (max-width:980px){
@@ -227,7 +233,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <tr><td><b>LINE公式アカウント</b>（新しく作る）</td><td>BOTの窓口</td><td>会社名義のLINEビジネスIDで作成</td><td class="c">無料（月200通まで）</td></tr>
     <tr><td><b>サーバー（VPS）</b></td><td>受付・保管庫・議事録ページ</td><td>メモリ1GB以上・Ubuntu 24.04</td><td class="c">月1,000円前後</td></tr>
     <tr><td><b>ページのアドレス（ドメイン）</b></td><td>議事録ページのURL</td><td>今あるドメインのサブドメインでOK<br>（例：gijiroku.会社名.co.jp）</td><td class="c">今あるドメインなら0円</td></tr>
-    <tr><td><b>作業用のパソコン</b></td><td>文字起こし・議事録づくり</td><td>Mac（M1以降）またはWindows・メモリ16GB以上がおすすめ<br>電源につないだまま・スリープしない</td><td class="c">今あるパソコンなら0円</td></tr>
+    <tr><td><b>作業用のパソコン</b></td><td>文字起こし・議事録づくり</td><td>Mac（M1以降）またはWindows 10/11・メモリ16GB以上がおすすめ<br>電源につないだまま・スリープしない</td><td class="c">今あるパソコンなら0円</td></tr>
     <tr><td><b>Claudeの有料プラン</b></td><td>議事録の文章づくり</td><td>会社のアカウントでPro以上</td><td class="c">月20ドル〜</td></tr>
     <tr><td><b>ログイン用メールの送信元</b></td><td>6桁の確認コード・案内メールを送る</td><td>専用のGmailアカウント（2段階認証＋アプリパスワード）</td><td class="c">無料</td></tr>
   </table></div>
@@ -243,12 +249,13 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <li><b>最初に入れるグループ</b>：まずテスト用のグループで試し、その後に本番のグループへ。</li>
     <li><b>LINEのプラン変更・メンバー追加を誰がするか</b>：アカウントの管理者を決めておきます。</li>
   </ul></div>
-  <div class="box note"><b class="h">Windowsのパソコンを使う場合</b>いまの作業係のプログラムはMac向けに作っています（文字起こしの部品などがMac専用）。Windowsで動かす場合は、その部分の作り替えが必要なので、設置の前に伊藤までご相談ください。グループの記録・ページ・ログインなど、サーバー側はそのまま使えます。</div>
+  <div class="box note"><b class="h">作業用のパソコンは、Mac・Windows どちらでも使えます</b>プログラムがパソコンの種類を見分けて、自動で合う部品を使います。手順は「4. 手順」で Mac／Windows を選ぶと切り替わります。<ul><li><b>Mac（M1以降）</b>：録音の文字起こしが速い（30分の録音で約2分）</li><li><b>Windows</b>：録音の文字起こしの速さはパソコンの性能しだい（NVIDIAのグラフィック〈GPU〉付きなら速い。無い場合、1時間の録音で数十分かかることがあります）</li><li>グループのトークの議事録づくりは、どちらでも同じです</li></ul><span style="font-size:13px;color:var(--sub)">※Windows版は2026年11月に追加しました。最初の設置のときに、伊藤も一緒に動作を確かめます。</span></div>
   <p style="font-size:13.5px;color:var(--sub)">※作業用のパソコンを用意できない場合は、文字起こしとAIを有料のAPI（使った分だけの従量課金）で動かす形に作り変える必要があります。その場合は別途ご相談ください。費用は2026年11月時点の目安です。</p>
 </section>
 
 <section id="steps">
   <h2><span class="no">4</span>手順（STEP 1〜9）</h2>
+  <div class="ossel" role="group" aria-label="作業用のパソコンの種類"><span>作業用のパソコン：</span><button type="button" data-os="mac">🍎 Mac</button><button type="button" data-os="win">🪟 Windows</button><em>選ぶと STEP 4・6 の手順が切り替わります</em></div>
   <p class="sub">終わったものにチェックを入れていきます。<span class="who w1">会社</span>＝太田さんの会社で行う作業、<span class="who w2">技術担当</span>＝サーバーやパソコンに詳しい人が行う作業です。</p>
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>1</div><b>LINE公式アカウントを作る</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
@@ -276,9 +283,10 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>4</div><b>作業用のパソコンとClaudeを用意する</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">約30分</span></div></div>
   <div class="sbody"><ul class="chk">
-    <li><label><input type="checkbox" data-k="s4a"><span>作業用のパソコン（Mac〈M1以降〉またはWindows・メモリ16GB以上がおすすめ）を1台決める<small>Windowsの場合は先にご相談ください（上の「Windowsのパソコンを使う場合」）。会社に置きっぱなしで、電源につないだまま・スリープしない設定・ネットにつながったままにできるもの</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s4a"><span>作業用のパソコン（Mac〈M1以降〉またはWindows 10/11・メモリ16GB以上がおすすめ）を1台決める<small>会社に置きっぱなしで、電源につないだまま・スリープしない設定・ネットにつながったままにできるもの</small></span></label></li>
     <li><label><input type="checkbox" data-k="s4b"><span>会社のアカウントでClaudeの有料プラン（Pro以上）に入る</span></label></li>
-    <li><label><input type="checkbox" data-k="s4c"><span>そのパソコンに「Claude Code」を入れて、会社のアカウントでログインする</span></label></li>
+    <li class="os-mac"><label><input type="checkbox" data-k="s4c"><span>そのMacに「Claude Code」を入れて、会社のアカウントでログインする<small>ターミナルで <code>curl -fsSL https://claude.ai/install.sh | bash</code> → <code>claude</code> と打ってログイン</small></span></label></li>
+    <li class="os-win"><label><input type="checkbox" data-k="s4c-win"><span>そのパソコンに「Claude Code」を入れて、会社のアカウントでログインする<small>PowerShell で <code>irm https://claude.ai/install.ps1 | iex</code> → <code>claude</code> と打ってログイン</small></span></label></li>
   </ul></div></div>
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>5</div><b>ログイン用メールの送信元を用意する</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
@@ -292,7 +300,11 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <div class="sbody"><ul class="chk">
     <li><label><input type="checkbox" data-k="s6a"><span>プログラム一式を受け取る<small>受け渡しの方法は伊藤とご相談ください</small></span></label></li>
     <li><label><input type="checkbox" data-k="s6b"><span>サーバー：Node.js（20以上）と Caddy（HTTPSを自動でつける）を入れ、受付のプログラムを置いて設定ファイルを書き、常に動くようにする<small>設定の項目は「7. 技術担当向けメモ」</small></span></label></li>
-    <li><label><input type="checkbox" data-k="s6c"><span>パソコン：ffmpeg・Python・文字起こしの部品（Macは mlx-whisper）を入れ、作業係のプログラムを置いて、パソコンが起動したら自動で動くようにする</span></label></li>
+    <li class="os-mac"><label><input type="checkbox" data-k="s6c"><span>Mac：Node.js（20以上）・ffmpeg・Python と文字起こしの部品（mlx-whisper）を入れ、作業係のプログラムを置いて、Macが起動したら自動で動くように登録する（launchd）</span></label></li>
+    <li class="os-win"><label><input type="checkbox" data-k="s6c-win1"><span>Windows：PowerShell で道具を入れる<small><code>winget install OpenJS.NodeJS.LTS Python.Python.3.12 Gyan.FFmpeg</code>（入れたら PowerShell を開き直す）</small></span></label></li>
+    <li class="os-win"><label><input type="checkbox" data-k="s6c-win2"><span>Windows：プログラム一式のフォルダで、設置スクリプトを実行する<small><code>powershell -NoProfile -ExecutionPolicy Bypass -File deploy\windows\install-worker.ps1 -ServerBase https://（ページのアドレス） -WorkerToken （合言葉）</code><br>文字起こしの部品（faster-whisper）を入れる → 設定ファイルを作る → 動作確認 → スリープしない設定 → サインインしたら自動で動く登録、まで自動でやります</small></span></label></li>
+    <li class="os-win"><label><input type="checkbox" data-k="s6c-win3"><span>Windows：作業用のパソコンはサインインしたままにしておく<small>画面ロックはOK。サインアウトすると作業係も止まります</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s6e"><span>パソコンで <code>node worker.mjs --check</code> を実行し、全部 ✅ になるのを確かめる<small>Node.js・サーバー・ffmpeg・文字起こしの部品・Claude がそろっているかを表示します</small></span></label></li>
     <li><label><input type="checkbox" data-k="s6d"><span>ブラウザで <code>https://（ページのアドレス）/health</code> を開き、動いていることを確かめる</span></label></li>
   </ul></div></div>
 
@@ -334,7 +346,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <tr><td><b>過去の会話</b></td><td>BOTを入れる前の会話は取れません（LINEの仕様）。必要なら入れる前のトーク履歴は手で保存してください。</td></tr>
     <tr><td><b>1グループに1つ</b></td><td>1つのグループに入れられるLINE公式アカウントは1つだけです。ほかの公式アカウントが入っているグループには入れません。</td></tr>
     <tr><td><b>無料枠（月200通）</b></td><td>録音の議事録を送り返すと1件＝1通。<b>グループに送ると人数分</b>数えます（10人なら10通）。グループの記録と毎日の議事録は何も送らないので数えません。</td></tr>
-    <tr><td><b>パソコンの電源</b></td><td>パソコンが止まる・スリープすると議事録づくりが止まります（記録は続きます）。再開したら順番に処理します。</td></tr>
+    <tr><td><b>パソコンの電源</b></td><td>パソコンが止まる・スリープする（Windowsはサインアウトも）と議事録づくりが止まります（記録は続きます）。再開したら順番に処理します。</td></tr>
     <tr><td><b>Claudeのログイン</b></td><td>Claudeのログインが切れると議事録が作れません。契約の更新やパスワード変更のあとは確認してください。</td></tr>
     <tr><td><b>見られる人</b></td><td>メンバーを消す・チェックを外すと、ログイン中の人もすぐ見られなくなります。退職・異動のときは忘れずに外してください。</td></tr>
     <tr><td><b>AIの議事録</b></td><td>議事録はAIが自動でまとめたものです。担当・期限など大事なところは、トーク履歴でも確認してください。</td></tr>
@@ -356,7 +368,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <div class="tbl"><table>
     <tr><th>場所</th><th>中身</th></tr>
     <tr><td><b>サーバー</b></td><td>Node.js（外部の部品はメール送信用の nodemailer のみ）／Caddy でHTTPS／systemd で常駐。データはサーバーのフォルダ（JSONファイル）に保存。</td></tr>
-    <tr><td><b>パソコン（作業係）</b></td><td>Node.js。ffmpeg で音声を変換し、mlx-whisper（large-v3-turbo）で文字起こし、<code>claude -p</code> で議事録を作る（下書き→見直しの2回）。Macでは launchd で常駐。<br><b>Windowsで動かす場合の作り替え</b>：文字起こしを faster-whisper などに差し替え／Wordファイル（.docx）の読み取り（今はMacの textutil）を差し替え／自動起動はタスクスケジューラで。サーバーへは60秒ごとに「動いています」を送り、仕事を取りに行く。</td></tr>
+    <tr><td><b>パソコン（作業係）</b></td><td>Node.js 20以上。ffmpeg で音声を変換 → 文字起こし（Apple Silicon のMacは mlx-whisper、Windowsは faster-whisper〈NVIDIAのGPUがあれば使う〉。どちらも large-v3-turbo・パソコンの種類を見て自動で切り替え）→ <code>claude -p</code> で議事録を作る（下書き→見直しの2回）。サーバーへは60秒ごとに「動いています」を送り、仕事を取りに行く。<br>自動起動：Macは launchd、Windowsはタスクスケジューラ（<code>deploy\windows\install-worker.ps1</code> が登録。止まったら30秒後に起動し直す。外すときは <code>-Uninstall</code>）。<br>動作確認：<code>node worker.mjs --check</code></td></tr>
     <tr><td><b>つながり</b></td><td>LINE →（Webhook・署名を確認）→ サーバー ←（合言葉＋HTTPS）← パソコン。サーバーからパソコンへは接続しない（パソコンの側から取りに行く）ので、パソコンを外に公開する必要はありません。</td></tr>
   </table></div>
   <h3>サーバーの設定ファイル（.env）の主な項目</h3>
@@ -394,14 +406,23 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   const KEY = 'gijiroku-manual-v1';
   let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
   const boxes = [...document.querySelectorAll('.chk input[data-k]')];
-  const upd = () => {
-    const n = boxes.filter((b) => b.checked).length;
-    document.getElementById('ptxt').textContent = `準備 ${n}/${boxes.length}`;
-    document.getElementById('pbar').style.width = (n / boxes.length * 100) + '%';
+  // 作業用のパソコン（Mac／Windows）の切り替え。選んでいない方の手順は数えない
+  const setOS = (os) => {
+    document.body.classList.toggle('os-is-mac', os === 'mac'); document.body.classList.toggle('os-is-win', os === 'win');
+    document.querySelectorAll('.ossel button').forEach((b) => { b.classList.toggle('on', b.dataset.os === os); b.setAttribute('aria-pressed', b.dataset.os === os); });
+    st._os = os; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {}
+    upd();
   };
+  const live = () => boxes.filter((b) => !b.closest(document.body.classList.contains('os-is-win') ? '.os-mac' : '.os-win'));
+  const upd = () => {
+    const bs = live(); const n = bs.filter((b) => b.checked).length;
+    document.getElementById('ptxt').textContent = `準備 ${n}/${bs.length}`;
+    document.getElementById('pbar').style.width = (bs.length ? n / bs.length * 100 : 0) + '%';
+  };
+  document.querySelectorAll('.ossel button').forEach((b) => b.addEventListener('click', () => setOS(b.dataset.os)));
   boxes.forEach((b) => { b.checked = Boolean(st[b.dataset.k]); b.addEventListener('change', () => { st[b.dataset.k] = b.checked; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} upd(); }); });
-  document.getElementById('reset').addEventListener('click', () => { if (!confirm('チェックをすべて外しますか？')) return; st = {}; boxes.forEach((b) => { b.checked = false; }); try { localStorage.removeItem(KEY); } catch {} upd(); });
-  upd();
+  document.getElementById('reset').addEventListener('click', () => { if (!confirm('チェックをすべて外しますか？')) return; st = { _os: st._os }; boxes.forEach((b) => { b.checked = false; }); try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} upd(); });
+  setOS(st._os === 'win' ? 'win' : 'mac');
   // もくじの現在地
   const links = [...document.querySelectorAll('#toc a')];
   const secs = links.map((a) => document.querySelector(a.getAttribute('href')));
