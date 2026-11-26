@@ -357,6 +357,83 @@ textarea.inp{min-height:120px;resize:vertical}
   .hero__cta .btn{width:100%}
   .brand b{font-size:13px}
 }
+/* スマホ：ページを短く（文面は削らず、足した飾りと余白だけ詰める） */
+@media (max-width:639px){
+  .sec{padding:60px 0}
+  .sec__hd{margin-bottom:26px}
+  .sec h2{margin-top:10px}
+  .sec__lead{margin-top:12px}
+  .hero{padding:92px 0 52px}
+  .hero__grid{gap:30px}
+  .hero h1{margin-top:16px}
+  .hero .lead{margin-top:16px;line-height:1.85}
+  .hero__cta{margin-top:24px}
+  .chips{margin-top:20px;gap:8px}
+  .chips li{padding:7px 11px;font-size:13px}
+  .scan{padding:16px}
+  .scan__top{padding-bottom:10px}
+  .scan__list li{padding:9px 2px;grid-template-columns:28px 1fr auto;gap:10px;font-size:13px}
+  .scan__list .ic{width:28px;height:28px;padding:6px}
+  .scan__foot{display:none}
+  .risks{gap:10px}
+  .risk{padding:16px;gap:14px}
+  .risk__ic{width:40px;height:40px;border-radius:12px}
+  .risk__ic .ic{width:21px;height:21px}
+  .risk__n{margin-bottom:4px}
+  .risk p{font-size:15.5px}
+  .risk small{font-size:13px;margin-top:2px}
+  .ask{margin-top:28px;padding:26px 20px;gap:14px}
+  .ask__q .ic{width:28px;height:28px;margin-bottom:8px}
+  .evo{display:none}
+  .worries{gap:10px}
+  .worry{display:grid;grid-template-columns:44px 1fr;column-gap:14px;padding:18px}
+  .worry__ic{grid-row:span 2;width:44px;height:44px;border-radius:12px;margin:0}
+  .worry__ic .ic{width:22px;height:22px}
+  .worry h3{font-size:17px}
+  .worry p{margin-top:4px;font-size:14px;line-height:1.8}
+  .checks{gap:12px}
+  .check{padding:20px 18px}
+  .check__hd{margin-bottom:8px}
+  .check li{padding:8px 0;grid-template-columns:30px 1fr;gap:12px;font-size:15px}
+  .check li .ic{width:30px;height:30px;padding:6px}
+  .online{margin-top:16px;padding:18px;gap:18px}
+  .time{margin-top:14px}
+  .note{margin-top:14px}
+  .report-wrap{gap:20px}
+  .report-wrap .sec__hd{margin-bottom:0!important}
+  .points{display:none}
+  .report{padding:20px 18px}
+  .rank{margin-top:14px;padding:12px;gap:14px}
+  .ring{width:70px;height:70px}
+  .ring b{font-size:28px}
+  .report h4{margin:14px 0 4px}
+  .items li{padding:7px 0}
+  .todo li{padding:5px 0}
+  .flow{gap:10px}
+  .step{padding:18px 18px 18px}
+  .step__n{margin-bottom:8px}
+  .step__n b{font-size:30px}
+  .step__ic{top:16px;right:16px;width:40px;height:40px}
+  .step p{font-size:15px}
+  .step p small{margin-top:2px}
+  .apply__grid{gap:18px}
+  .facts,.aside-note{display:none}
+  .form{padding:24px 18px}
+  .f{margin-top:20px}
+  .f__lb{margin-bottom:8px;font-size:15px}
+  .inp{min-height:50px;padding:11px 14px}
+  textarea.inp{min-height:96px}
+  .tiles{gap:8px}
+  .tile{min-height:48px;padding:10px 14px;font-size:14.5px}
+  .submit{margin-top:26px}
+  .submit .btn{font-size:16px;padding:0 18px;gap:8px}
+  .screen__body{grid-template-columns:1fr}
+  .cam{aspect-ratio:auto;height:64px;display:flex;align-items:center;justify-content:flex-start;gap:10px;padding:0 14px}
+  .cam .ic{width:30px;height:30px}
+  .cam span{position:static;background:none;padding:0;font-size:12px}
+  .res__row{font-size:12.5px}
+  .f__lb{flex-wrap:wrap;row-gap:4px}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal,.stagger>*{opacity:1;transform:none}
