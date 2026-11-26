@@ -159,7 +159,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <h1>議事録BOTを、<br>運用できる状態にするまで。</h1>
   <p class="lead">アイ・ステーションで動いている「議事録BOT」を、別の会社で立ち上げるための手順書です。会社で用意するもの、設置の手順、動作確認、運用の注意点、そして裏側のしくみをまとめました。チェックを入れると、上の「準備」の進み具合が増えていきます（このブラウザに保存されます）。</p>
   <div class="flow3">
-    <div><b>STEP 1〜5</b><span>会社で用意する</span><em>LINE公式・サーバー・Mac など</em></div>
+    <div><b>STEP 1〜5</b><span>会社で用意する</span><em>LINE公式・サーバー・パソコン など</em></div>
     <div><b>STEP 6〜7</b><span>技術担当が設置</span><em>プログラムを置いてLINEとつなぐ</em></div>
     <div><b>STEP 8〜9</b><span>確認して運用開始</span><em>テスト用グループで試してから本番へ</em></div>
   </div>
@@ -197,14 +197,14 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
 
 <section id="shikumi">
   <h2><span class="no">2</span>裏側のしくみ</h2>
-  <p class="sub">登場するのは「LINE公式アカウント」「サーバー」「作業用のMac」の3つです。</p>
+  <p class="sub">登場するのは「LINE公式アカウント」「サーバー」「作業用のパソコン」の3つです。</p>
   <div class="diagram">
     <div class="lane">
       <div class="node n1"><span class="tag">窓口</span><b>LINE公式アカウント（BOT）</b><ul><li>グループや1対1の発言を受け取る</li><li>届いた発言をすぐサーバーへ転送</li></ul></div>
       <div class="arr"><svg viewBox="0 0 30 18"><path d="M2 9h24M19 3l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>転送</div>
       <div class="node n2"><span class="tag">受付・保管庫</span><b>サーバー（24時間動く）</b><ul><li>発言を名前・時刻つきで日ごとに保存</li><li>議事録ページを表示・ログインで見られる人を制限</li><li>議事録づくりの仕事を「順番待ち」に入れる</li></ul></div>
       <div class="arr"><svg viewBox="0 0 30 18"><path d="M2 5h24M19 0l7 5M28 13H4M11 18l-7-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>仕事／結果</div>
-      <div class="node n3"><span class="tag">作業係</span><b>作業用のMac（社内）</b><ul><li>サーバーに仕事を取りに行く</li><li>録音の文字起こし（Mac内のAI・無料）</li><li>Claudeで議事録の文章をつくり、サーバーへ戻す</li></ul></div>
+      <div class="node n3"><span class="tag">作業係</span><b>作業用のパソコン（社内）</b><ul><li>サーバーに仕事を取りに行く</li><li>録音の文字起こし（パソコン内のAI・無料）</li><li>Claudeで議事録の文章をつくり、サーバーへ戻す</li></ul></div>
     </div>
     <div class="below">
       <div class="updown">▲ 見る</div>
@@ -212,8 +212,8 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     </div>
   </div>
   <div class="keys">
-    <div><b>Macが止まっても記録は続きます。</b>記録はサーバーの仕事なので、止まるのは議事録づくりだけ。Macが動き出したら、たまった分を順番に処理します。</div>
-    <div><b>LINEの鍵はサーバーにだけ置きます。</b>Macには置きません。サーバーとMacは、長い合言葉と暗号化した通信（HTTPS）でつながります。</div>
+    <div><b>パソコンが止まっても記録は続きます。</b>記録はサーバーの仕事なので、止まるのは議事録づくりだけ。パソコンが動き出したら、たまった分を順番に処理します。</div>
+    <div><b>LINEの鍵はサーバーにだけ置きます。</b>パソコンには置きません。サーバーとパソコンは、長い合言葉と暗号化した通信（HTTPS）でつながります。</div>
     <div><b>残るもの・消えるもの。</b>グループのトーク履歴と議事録は会社の記録としてサーバーに残します。録音は議事録を作ったら消し、1対1の議事録ページは30日で消えます。送信取り消しされた発言は記録からも消えます。</div>
     <div><b>LINEの無料枠をほぼ使いません。</b>BOTからの「返信」は無料。グループの記録と毎日の議事録はグループに何も送らないので、無料枠（月200通）を使うのは録音の議事録を送り返すときだけです。</div>
   </div>
@@ -221,20 +221,20 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
 
 <section id="youi">
   <h2><span class="no">3</span>会社で用意するもの・費用の目安</h2>
-  <p class="sub">LINE・サーバー・Mac・AIの契約は、それぞれの会社の名義で用意します（アイ・ステーションの物は使えません）。</p>
+  <p class="sub">LINE・サーバー・パソコン・AIの契約は、それぞれの会社の名義で用意します（アイ・ステーションの物は使えません）。</p>
   <div class="tbl"><table>
     <tr><th>用意するもの</th><th>何に使うか</th><th>条件のめやす</th><th>費用のめやす</th></tr>
     <tr><td><b>LINE公式アカウント</b>（新しく作る）</td><td>BOTの窓口</td><td>会社名義のLINEビジネスIDで作成</td><td class="c">無料（月200通まで）</td></tr>
     <tr><td><b>サーバー（VPS）</b></td><td>受付・保管庫・議事録ページ</td><td>メモリ1GB以上・Ubuntu 24.04</td><td class="c">月1,000円前後</td></tr>
     <tr><td><b>ページのアドレス（ドメイン）</b></td><td>議事録ページのURL</td><td>今あるドメインのサブドメインでOK<br>（例：gijiroku.会社名.co.jp）</td><td class="c">今あるドメインなら0円</td></tr>
-    <tr><td><b>作業用のMac</b></td><td>文字起こし・議事録づくり</td><td>M1以降のMac・メモリ16GB以上がおすすめ<br>電源につないだまま・スリープしない</td><td class="c">今あるMacなら0円</td></tr>
+    <tr><td><b>作業用のパソコン</b></td><td>文字起こし・議事録づくり</td><td>Mac（M1以降）またはWindows・メモリ16GB以上がおすすめ<br>電源につないだまま・スリープしない</td><td class="c">今あるパソコンなら0円</td></tr>
     <tr><td><b>Claudeの有料プラン</b></td><td>議事録の文章づくり</td><td>会社のアカウントでPro以上</td><td class="c">月20ドル〜</td></tr>
     <tr><td><b>ログイン用メールの送信元</b></td><td>6桁の確認コード・案内メールを送る</td><td>専用のGmailアカウント（2段階認証＋アプリパスワード）</td><td class="c">無料</td></tr>
   </table></div>
   <div class="cost">
-    <div><b>毎月かかる費用</b><span>約4,000円〜</span><em>サーバー＋Claude Pro（Macを持っている場合）</em></div>
+    <div><b>毎月かかる費用</b><span>約4,000円〜</span><em>サーバー＋Claude Pro（パソコンを持っている場合）</em></div>
     <div><b>LINE</b><span>0円</span><em>月200通を超えたら有料プランの検討</em></div>
-    <div><b>最初にかかる費用</b><span>0円〜</span><em>Macを新しく買う場合は別途</em></div>
+    <div><b>最初にかかる費用</b><span>0円〜</span><em>パソコンを新しく買う場合は別途</em></div>
     <div><b>設置の作業時間</b><span>半日〜1日</span><em>技術担当の作業</em></div>
   </div>
   <div class="box note"><b class="h">先に決めておくこと</b><ul>
@@ -243,12 +243,13 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <li><b>最初に入れるグループ</b>：まずテスト用のグループで試し、その後に本番のグループへ。</li>
     <li><b>LINEのプラン変更・メンバー追加を誰がするか</b>：アカウントの管理者を決めておきます。</li>
   </ul></div>
-  <p style="font-size:13.5px;color:var(--sub)">※Macを用意できない場合は、文字起こしとAIを有料のAPI（使った分だけの従量課金）で動かす形に作り変える必要があります。その場合は別途ご相談ください。費用は2026年11月時点の目安です。</p>
+  <div class="box note"><b class="h">Windowsのパソコンを使う場合</b>いまの作業係のプログラムはMac向けに作っています（文字起こしの部品などがMac専用）。Windowsで動かす場合は、その部分の作り替えが必要なので、設置の前に伊藤までご相談ください。グループの記録・ページ・ログインなど、サーバー側はそのまま使えます。</div>
+  <p style="font-size:13.5px;color:var(--sub)">※作業用のパソコンを用意できない場合は、文字起こしとAIを有料のAPI（使った分だけの従量課金）で動かす形に作り変える必要があります。その場合は別途ご相談ください。費用は2026年11月時点の目安です。</p>
 </section>
 
 <section id="steps">
   <h2><span class="no">4</span>手順（STEP 1〜9）</h2>
-  <p class="sub">終わったものにチェックを入れていきます。<span class="who w1">会社</span>＝太田さんの会社で行う作業、<span class="who w2">技術担当</span>＝サーバーやMacに詳しい人が行う作業です。</p>
+  <p class="sub">終わったものにチェックを入れていきます。<span class="who w1">会社</span>＝太田さんの会社で行う作業、<span class="who w2">技術担当</span>＝サーバーやパソコンに詳しい人が行う作業です。</p>
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>1</div><b>LINE公式アカウントを作る</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
   <div class="sbody"><ul class="chk">
@@ -273,11 +274,11 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <li><label><input type="checkbox" data-k="s3c"><span>サーバーにログインする方法（SSHの鍵など）を技術担当へ安全に渡す<small>パスワードや鍵をチャットに貼らない</small></span></label></li>
   </ul></div></div>
 
-  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>4</div><b>作業用のMacとClaudeを用意する</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">約30分</span></div></div>
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>4</div><b>作業用のパソコンとClaudeを用意する</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">約30分</span></div></div>
   <div class="sbody"><ul class="chk">
-    <li><label><input type="checkbox" data-k="s4a"><span>作業用のMac（M1以降・メモリ16GB以上がおすすめ）を1台決める<small>会社に置きっぱなしで、電源につないだまま・スリープしない設定・ネットにつながったままにできるもの</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s4a"><span>作業用のパソコン（Mac〈M1以降〉またはWindows・メモリ16GB以上がおすすめ）を1台決める<small>Windowsの場合は先にご相談ください（上の「Windowsのパソコンを使う場合」）。会社に置きっぱなしで、電源につないだまま・スリープしない設定・ネットにつながったままにできるもの</small></span></label></li>
     <li><label><input type="checkbox" data-k="s4b"><span>会社のアカウントでClaudeの有料プラン（Pro以上）に入る</span></label></li>
-    <li><label><input type="checkbox" data-k="s4c"><span>そのMacに「Claude Code」を入れて、会社のアカウントでログインする</span></label></li>
+    <li><label><input type="checkbox" data-k="s4c"><span>そのパソコンに「Claude Code」を入れて、会社のアカウントでログインする</span></label></li>
   </ul></div></div>
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>5</div><b>ログイン用メールの送信元を用意する</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
@@ -291,7 +292,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <div class="sbody"><ul class="chk">
     <li><label><input type="checkbox" data-k="s6a"><span>プログラム一式を受け取る<small>受け渡しの方法は伊藤とご相談ください</small></span></label></li>
     <li><label><input type="checkbox" data-k="s6b"><span>サーバー：Node.js（20以上）と Caddy（HTTPSを自動でつける）を入れ、受付のプログラムを置いて設定ファイルを書き、常に動くようにする<small>設定の項目は「7. 技術担当向けメモ」</small></span></label></li>
-    <li><label><input type="checkbox" data-k="s6c"><span>Mac：ffmpeg・Python・mlx-whisper（文字起こし）を入れ、作業係のプログラムを置いて、Macが起動したら自動で動くようにする</span></label></li>
+    <li><label><input type="checkbox" data-k="s6c"><span>パソコン：ffmpeg・Python・文字起こしの部品（Macは mlx-whisper）を入れ、作業係のプログラムを置いて、パソコンが起動したら自動で動くようにする</span></label></li>
     <li><label><input type="checkbox" data-k="s6d"><span>ブラウザで <code>https://（ページのアドレス）/health</code> を開き、動いていることを確かめる</span></label></li>
   </ul></div></div>
 
@@ -305,7 +306,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
 
   <div class="step"><div class="shead"><div class="snum"><small>STEP</small>8</div><b>動作確認（テスト用のグループで）</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">1日</span></div></div>
   <div class="sbody"><ul class="chk">
-    <li><label><input type="checkbox" data-k="s8a"><span>管理者のスマホでBOTを友だち追加し、1対1で「管理者登録 （合言葉）」と送る<small>Macが止まって遅れたときなどのお知らせが届くようになります</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s8a"><span>管理者のスマホでBOTを友だち追加し、1対1で「管理者登録 （合言葉）」と送る<small>パソコンが止まって遅れたときなどのお知らせが届くようになります</small></span></label></li>
     <li><label><input type="checkbox" data-k="s8b"><span>1対1に短い録音（30秒ほど）を送り、数分で議事録が返ってくるか確かめる</span></label></li>
     <li><label><input type="checkbox" data-k="s8c"><span>テスト用のグループにBOTを招待し、「やりとりを記録します」のあいさつが出るか確かめる<small>入った瞬間に退会したら STEP 2 の参加の設定を確認</small></span></label></li>
     <li><label><input type="checkbox" data-k="s8d"><span>グループで少し会話し、議事録ページの「今日の分を今すぐ議事録にする」で議事録ができるか確かめる</span></label></li>
@@ -333,7 +334,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
     <tr><td><b>過去の会話</b></td><td>BOTを入れる前の会話は取れません（LINEの仕様）。必要なら入れる前のトーク履歴は手で保存してください。</td></tr>
     <tr><td><b>1グループに1つ</b></td><td>1つのグループに入れられるLINE公式アカウントは1つだけです。ほかの公式アカウントが入っているグループには入れません。</td></tr>
     <tr><td><b>無料枠（月200通）</b></td><td>録音の議事録を送り返すと1件＝1通。<b>グループに送ると人数分</b>数えます（10人なら10通）。グループの記録と毎日の議事録は何も送らないので数えません。</td></tr>
-    <tr><td><b>Macの電源</b></td><td>Macが止まる・スリープすると議事録づくりが止まります（記録は続きます）。再開したら順番に処理します。</td></tr>
+    <tr><td><b>パソコンの電源</b></td><td>パソコンが止まる・スリープすると議事録づくりが止まります（記録は続きます）。再開したら順番に処理します。</td></tr>
     <tr><td><b>Claudeのログイン</b></td><td>Claudeのログインが切れると議事録が作れません。契約の更新やパスワード変更のあとは確認してください。</td></tr>
     <tr><td><b>見られる人</b></td><td>メンバーを消す・チェックを外すと、ログイン中の人もすぐ見られなくなります。退職・異動のときは忘れずに外してください。</td></tr>
     <tr><td><b>AIの議事録</b></td><td>議事録はAIが自動でまとめたものです。担当・期限など大事なところは、トーク履歴でも確認してください。</td></tr>
@@ -345,24 +346,24 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <details><summary>BOTをグループに招待したら、すぐ退会してしまう</summary><div class="a">LINE公式アカウントManagerの「アカウント設定 → 機能の利用 → トークへの参加」が「許可しない」になっています。「グループ・複数人トークへの参加を許可する」にして保存し、開き直して確認してから、もう一度招待してください（STEP 2）。</div></details>
   <details><summary>Webhookの「検証」が失敗する</summary><div class="a">サーバーのプログラムが止まっている、URLのつづりが違う、HTTPSになっていない、のどれかが多いです。<code>/health</code> が開けるか、URLの最後が <code>/line/webhook</code> になっているかを確認してください。</div></details>
   <details><summary>確認コードのメールが届かない</summary><div class="a">①管理画面に登録されていないアドレス（登録のないアドレスには送りません） ②迷惑メールに入っている ③送信元Gmailのアプリパスワードが違う・取り消された、のどれかです。</div></details>
-  <details><summary>議事録ができない・とても遅い</summary><div class="a">作業用のMacを確認してください。電源が切れている・スリープしている・ネットが切れている・Claudeのログインが切れている、のどれかがほとんどです。直れば、たまっていた分から順番に処理されます。</div></details>
+  <details><summary>議事録ができない・とても遅い</summary><div class="a">作業用のパソコンを確認してください。電源が切れている・スリープしている・ネットが切れている・Claudeのログインが切れている、のどれかがほとんどです。直れば、たまっていた分から順番に処理されます。</div></details>
   <details><summary>無料枠（月200通）が足りなくなりそう</summary><div class="a">グループで録音の議事録をよく使うと、人数分の通数が減ります。有料プランに変えるか、録音はBOTとの1対1に送る運用にしてください（1対1なら1件1通）。</div></details>
 </section>
 
 <section id="tech">
   <h2><span class="no">7</span>技術担当向けメモ</h2>
-  <p class="sub">サーバーやMacに詳しい方向けの補足です。</p>
+  <p class="sub">サーバーやパソコンに詳しい方向けの補足です。</p>
   <div class="tbl"><table>
     <tr><th>場所</th><th>中身</th></tr>
     <tr><td><b>サーバー</b></td><td>Node.js（外部の部品はメール送信用の nodemailer のみ）／Caddy でHTTPS／systemd で常駐。データはサーバーのフォルダ（JSONファイル）に保存。</td></tr>
-    <tr><td><b>Mac（作業係）</b></td><td>ffmpeg で音声を変換し、mlx-whisper（large-v3-turbo）で文字起こし、<code>claude -p</code> で議事録を作る（下書き→見直しの2回）。launchd で常駐。サーバーへは60秒ごとに「動いています」を送り、仕事を取りに行く。</td></tr>
-    <tr><td><b>つながり</b></td><td>LINE →（Webhook・署名を確認）→ サーバー ←（合言葉＋HTTPS）← Mac。サーバーからMacへは接続しない（Macの側から取りに行く）ので、Macを外に公開する必要はありません。</td></tr>
+    <tr><td><b>パソコン（作業係）</b></td><td>Node.js。ffmpeg で音声を変換し、mlx-whisper（large-v3-turbo）で文字起こし、<code>claude -p</code> で議事録を作る（下書き→見直しの2回）。Macでは launchd で常駐。<br><b>Windowsで動かす場合の作り替え</b>：文字起こしを faster-whisper などに差し替え／Wordファイル（.docx）の読み取り（今はMacの textutil）を差し替え／自動起動はタスクスケジューラで。サーバーへは60秒ごとに「動いています」を送り、仕事を取りに行く。</td></tr>
+    <tr><td><b>つながり</b></td><td>LINE →（Webhook・署名を確認）→ サーバー ←（合言葉＋HTTPS）← パソコン。サーバーからパソコンへは接続しない（パソコンの側から取りに行く）ので、パソコンを外に公開する必要はありません。</td></tr>
   </table></div>
   <h3>サーバーの設定ファイル（.env）の主な項目</h3>
   <div class="tbl"><table>
     <tr><th>項目</th><th>入れるもの</th></tr>
     <tr><td><code>PUBLIC_BASE</code></td><td>ページのアドレス（例：https://gijiroku.会社名.co.jp）</td></tr>
-    <tr><td><code>WORKER_TOKEN</code></td><td>サーバーとMacの合言葉（長いランダムな文字列・Mac側にも同じものを入れる）</td></tr>
+    <tr><td><code>WORKER_TOKEN</code></td><td>サーバーとパソコンの合言葉（長いランダムな文字列・パソコン側にも同じものを入れる）</td></tr>
     <tr><td><code>ADMIN_TOKEN</code>／<code>ADMIN_CODE</code></td><td>状況ページの合言葉／LINEで「管理者登録」するときの合言葉</td></tr>
     <tr><td><code>SETUP_CODE</code></td><td>LINEの鍵の受け取りページの合言葉（1回使うと閉じる）</td></tr>
     <tr><td><code>ADMIN_EMAILS</code></td><td>固定の管理者のメールアドレス（カンマ区切り）</td></tr>
@@ -377,7 +378,7 @@ footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);fo
   <div class="tbl"><table>
     <tr><th>STEP</th><th>やること</th><th>担当</th></tr>
     <tr><td class="c">1〜2</td><td>LINE公式アカウントを作って設定する</td><td><span class="who w1">会社</span>（設定は技術担当でも可）</td></tr>
-    <tr><td class="c">3〜5</td><td>サーバー・ドメイン・Mac・Claude・Gmailを用意する</td><td><span class="who w1">会社</span></td></tr>
+    <tr><td class="c">3〜5</td><td>サーバー・ドメイン・パソコン・Claude・Gmailを用意する</td><td><span class="who w1">会社</span></td></tr>
     <tr><td class="c">6〜7</td><td>プログラムを設置して、LINEとつなぐ</td><td><span class="who w2">技術担当</span></td></tr>
     <tr><td class="c">8</td><td>テスト用のグループで動作確認</td><td><span class="who w1">会社</span>＋<span class="who w2">技術担当</span></td></tr>
     <tr><td class="c">9</td><td>本番のグループに招待・見られる人の設定</td><td><span class="who w1">会社</span></td></tr>
