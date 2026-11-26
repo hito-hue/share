@@ -80,6 +80,29 @@ td.nm{white-space:normal;font-weight:600;min-width:180px}
 .recent li:last-child{border-bottom:none}
 .recent .tm{color:var(--sub)}
 .recent .ad{font-size:11.5px;color:var(--mute);margin-top:2px}
+.guardc .gtop{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.guardc .lb{font-size:12px;color:var(--sub);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:#e7f8ee;color:var(--green)}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.chip.warn{background:#fff4e5;color:var(--amber)}.chip.bad{background:#fdecec;color:var(--red)}
+.gv{font-size:30px;font-weight:700;margin-top:8px;line-height:1.1}.gv small{font-size:13px;color:var(--sub);font-weight:600;margin-left:6px}
+.gauge{position:relative;height:14px;border-radius:999px;background:#edf0f6;margin:14px 0 24px}
+.gauge>span{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,#4ade80,#16a34a)}
+.gauge.warn>span{background:linear-gradient(90deg,#fbbf24,#d97706)}.gauge.over>span{background:linear-gradient(90deg,#f87171,#dc2626)}
+.gauge>em{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:var(--red);border-radius:2px}
+.gauge>em::after{content:attr(data-l);position:absolute;top:22px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--red);font-weight:700;white-space:nowrap;font-style:normal}
+.gnote{font-size:13px;line-height:1.75;color:var(--sub)}.gnote b{color:var(--ink);font-size:15px}
+.gnote.over{color:var(--red);font-weight:700}
+.galist .it{padding:11px 0;border-bottom:1px solid #f0f2f7}.galist .it:last-child{border-bottom:none}.galist .it:first-child{padding-top:2px}
+.galist .h{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px;font-weight:600}
+.galist .s{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--sub);margin-top:4px;flex-wrap:wrap}
+.galist .s b{color:var(--ink)}.galist .s .r{color:var(--amber);font-weight:700}.galist .s .r.ok{color:var(--sub);font-weight:500}
+.galist .gauge{height:7px;margin:7px 0 0}.galist .gauge>em{top:-3px;bottom:-3px}
+.galist .off{opacity:.55}
+.rules{margin-top:16px;padding-top:14px;border-top:1px solid #f0f2f7}
+.rl{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);padding:6px 0;line-height:1.5}
+.rl b{color:var(--ink);margin-left:4px}.rl .chip{flex:none}
+.gfoot{font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.7}
 .homeadd{margin-top:26px;font-size:12.5px;line-height:1.8;color:var(--sub);background:#f8fafd}
 .homeadd b{color:var(--ink);font-size:13px}
 @media (display-mode:standalone){.homeadd{display:none}}
@@ -186,6 +209,70 @@ function kpi(lb, v, unit, d, main) {
   return `<div class="card kpi${main ? ' main' : ''}"><div class="lb">${lb}</div><div class="v num">${v}${unit ? `<small>${unit}</small>` : ''}</div><div class="d">${d}</div></div>`;
 }
 
+// 自動停止ライン（2026-11-26〜）：Metaの自動ルール2本の判定と同じ「配信開始からの通算」で比べる
+//  A＝キャンペーン全体のCPAが停止ラインを超えたらキャンペーンごと停止／B＝リード0件のまま停止ライン額を使った広告を停止
+function guardHtml(D) {
+  const G = D.guard;
+  if (!G || !G.campaign) return '';
+  const L = G.stopCpa, C = G.campaign, SCALE = 1.25; // メーターの右端＝停止ラインの1.25倍（ラインは8割の位置）
+  const tone = (r) => (r > 1 ? 'over' : r >= 0.75 ? 'warn' : '');
+  const gauge = (v, label) => { const r = v / L; return `<div class="gauge ${tone(r)}"><span style="width:${Math.min(100, (r / SCALE) * 100)}%"></span><em style="left:${100 / SCALE}%" data-l="${label}"></em></div>`; };
+  const on = G.rules.filter((r) => r.on).length;
+  const chip = !G.rules.length ? '<span class="chip bad"><i></i>自動停止ルールが見つかりません</span>'
+    : on < G.rules.length ? `<span class="chip warn"><i></i>自動停止ルール ${G.rules.length}本中 ${on}本オン</span>`
+    : `<span class="chip"><i></i>自動停止ルール ${on}本 オン</span>`;
+  const ruleRow = (re, cond, act) => {
+    const r = G.rules.find((x) => re.test(x.name));
+    const st = !r ? '<span class="chip bad">見つかりません</span>' : r.on ? '<span class="chip">オン</span>' : '<span class="chip warn">オフ</span>';
+    return `<div class="rl"><span>${cond}<b>${act}</b></span>${st}</div>`;
+  };
+  const campOn = C.status === 'ACTIVE';
+  const left = C.leads ? L * C.leads - C.spend : null; // リード0件のまま使える額
+  const days = left > 0 && D.dailyBudget ? left / D.dailyBudget : null;
+  let note;
+  if (!campOn && C.status) note = `<div class="gnote over">キャンペーンは停止中です${C.cpa > L ? '（通算CPAが停止ラインを超えたため）' : ''}</div>`;
+  else if (!C.leads) note = `<div class="gnote">まだリードがないため、キャンペーン全体の判定は始まっていません（リード0件の広告は1本ずつ ${yen(L)} で停止）</div>`;
+  else if (left <= 0) note = `<div class="gnote over">停止ラインを超えています。Metaの次の判定（30分以内）でキャンペーンが止まります</div>`;
+  else note = `<div class="gnote">リード0件のまま あと <b class="num">${yen(left)}</b> 使うと、キャンペーン全体が止まります${days ? `<br>（1日${yen(D.dailyBudget)}なら 約${days.toFixed(1)}日分）` : ''}</div>`;
+  const risk = (a) => (a.leads ? a.cpa / L : a.spend / L);
+  const live = (a) => a.status !== 'PAUSED' && a.status !== 'CAMPAIGN_PAUSED' && a.status !== 'ADSET_PAUSED';
+  const ads = [...G.ads].filter((a) => a.spend > 0 || live(a)).sort((a, b) => (live(b) - live(a)) || (risk(b) - risk(a)));
+  const row = (a) => {
+    const zero = !a.leads, rest = L - a.spend;
+    const right = !live(a) ? '<span class="r ok">停止中</span>'
+      : zero ? (rest > 0 ? `<span class="r">あと ${yen(rest)} で停止</span>` : '<span class="r" style="color:var(--red)">まもなく停止</span>')
+      : '<span class="r ok">全体で判定</span>';
+    return `<div class="it${live(a) ? '' : ' off'}"><div class="h"><span>${esc(a.name)}</span><span class="st ${esc(a.status)}">${esc(STATUS[a.status] || a.status)}</span></div>
+      <div class="s"><span>通算 <b class="num">${yen(a.spend)}</b>・リード <b class="num">${a.leads}件</b>${zero ? '' : `・CPA <b class="num">${yen(a.cpa)}</b>`}</span>${right}</div>
+      ${gauge(zero ? a.spend : a.cpa, '')}</div>`;
+  };
+  return `
+  <div class="sec"><h2>自動停止ライン（${yen(L)}）</h2><span>配信開始からの通算で判定</span></div>
+  <div class="grid two">
+    <div class="card guardc">
+      <div class="gtop"><div class="lb">キャンペーン全体のCPA（通算）</div>${chip}</div>
+      <div class="gv num">${yen(C.cpa)}<small>/ 停止ライン ${yen(L)}</small></div>
+      ${C.leads ? gauge(C.cpa, '停止 ' + yen(L)) : ''}
+      ${note}
+      <div class="grid month3" style="margin-top:14px">
+        <div class="mini"><div class="lb">通算の消化</div><div class="v num">${yen(C.spend)}</div></div>
+        <div class="mini"><div class="lb">通算リード</div><div class="v num">${int(C.leads)}件</div></div>
+        <div class="mini"><div class="lb">停止まで残り</div><div class="v num">${left == null ? '—' : yen(Math.max(0, left))}</div></div>
+      </div>
+      <div class="rules">
+        <div class="lb" style="margin-bottom:6px">Metaの自動ルール（30分おきに判定）</div>
+        ${ruleRow(/キャンペーン/, `キャンペーン全体のCPAが ${yen(L)} を超えたら`, 'キャンペーンごと停止')}
+        ${ruleRow(/成果0件|0件/, `リード0件のまま ${yen(L)} を超えた広告は`, 'その広告だけ停止')}
+      </div>
+    </div>
+    <div class="card guardc">
+      <div class="lb" style="margin-bottom:8px">広告ごと（リードがある広告はCPA、0件の広告は使った額を ${yen(L)} と比較）</div>
+      <div class="galist">${ads.map(row).join('')}</div>
+    </div>
+  </div>
+  <div class="gfoot">※リードがある広告は1本ずつでは止まりません（キャンペーン全体で判定）。止まったものをそのまま再開すると、通算の数字ですぐにまた止まります。</div>`;
+}
+
 function render(D) {
   const T = D.kpi.today, Y = D.kpi.yesterday, M = D.kpi.month;
   const started = D.today >= D.start;
@@ -219,6 +306,7 @@ function render(D) {
     ${kpi('クリック率', pct(T.ctr), '', `クリック ${int(T.clicks)}回`)}
     ${kpi('クリック単価', yen(T.cpc), '', `CPM ${yen(T.cpm)}`)}
   </div>
+  ${guardHtml(D)}
 
   <div class="sec"><h2>今月の進み具合</h2><span>${+D.month.slice(5)}月（${+D.start.slice(8)}日開始・1日${yen(D.dailyBudget)}）</span></div>
   <div class="grid two">
