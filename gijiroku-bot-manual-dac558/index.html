@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>議事録BOT 導入マニュアル｜運用できる状態までの手順と、裏側のしくみ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--g:#06C755;--gd:#04A346;--navy:#16263f;--ink:#2b2f36;--sub:#69707c;--line:#e3e7ee;--soft:#f5f7fa;--blue:#1f6fd1;
+  --warn-bg:#fff6e0;--warn:#d98a00;--note-bg:#eaf4fd;--note:#2c7fd6;--ok-bg:#eaf9f0;--red:#d93c3c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:#fff;color:var(--ink);font-family:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif;font-size:15.5px;line-height:1.9;-webkit-font-smoothing:antialiased;font-feature-settings:"palt"}
+a{color:var(--blue)}
+img{max-width:100%;display:block}
+/* 上の帯 */
+.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.6) blur(10px);-webkit-backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
+.topin{max-width:1180px;margin:0 auto;height:64px;display:flex;align-items:center;gap:14px;padding:0 22px}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--g);display:grid;place-items:center;color:#fff;font-weight:900;font-size:15px;flex:0 0 auto}
+.ttl{font-weight:700;font-size:15px;line-height:1.3}
+.ttl small{display:block;font-size:11.5px;color:var(--sub);font-weight:500}
+.prog{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);white-space:nowrap}
+.bar{width:140px;height:8px;border-radius:99px;background:#e9edf2;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),#2fd27a);border-radius:99px;transition:width .4s}
+/* ヒーロー */
+.hero{background:radial-gradient(1200px 400px at 85% -10%,rgba(6,199,85,.16),transparent 60%),linear-gradient(180deg,#f3fbf6 0%,#fff 100%);border-bottom:1px solid var(--line)}
+.heroin{max-width:1180px;margin:0 auto;padding:56px 22px 46px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--gd);background:#fff;border:1px solid #cdeedb;border-radius:99px;padding:4px 12px}
+h1{font-size:clamp(28px,4.4vw,44px);line-height:1.3;margin:16px 0 12px;letter-spacing:.01em;color:var(--navy);font-weight:900}
+.lead{font-size:16.5px;color:#3d4450;max-width:760px;margin:0}
+.flow3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;max-width:900px}
+.flow3 div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;position:relative;box-shadow:0 1px 0 rgba(20,40,70,.03)}
+.flow3 b{display:block;font-size:12px;color:var(--gd);letter-spacing:.06em}
+.flow3 span{font-weight:700;font-size:15.5px;color:var(--navy)}
+.flow3 em{display:block;font-style:normal;font-size:12.5px;color:var(--sub);margin-top:2px}
+.flow3 div:not(:last-child)::after{content:"";position:absolute;right:-11px;top:50%;width:8px;height:8px;border-top:2px solid #b8c2cf;border-right:2px solid #b8c2cf;transform:translateY(-50%) rotate(45deg)}
+.meta{margin-top:22px;font-size:12.5px;color:var(--sub)}
+/* 並び */
+.wrap{display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px;max-width:1180px;margin:0 auto;padding:0 22px 80px}
+.side{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 64px);overflow:auto;padding:34px 0;font-size:13.5px}
+.side p{font-size:11.5px;font-weight:700;color:var(--sub);letter-spacing:.08em;margin:0 0 8px 10px}
+.side a{display:block;color:#454c58;text-decoration:none;padding:6px 10px;border-radius:8px;line-height:1.5}
+.side a:hover{background:var(--soft)}
+.side a.on{color:var(--gd);font-weight:700;background:#effaf3}
+main{min-width:0;padding-top:20px}
+section{padding:34px 0 10px;border-bottom:1px solid #eef1f5}
+section:last-of-type{border-bottom:0}
+h2{font-size:clamp(21px,2.6vw,26px);color:var(--navy);margin:0 0 6px;line-height:1.45;display:flex;align-items:baseline;gap:12px}
+h2 .no{font-size:13px;font-weight:900;color:#fff;background:var(--navy);border-radius:8px;padding:2px 9px;letter-spacing:.04em;position:relative;top:-3px}
+.sub{color:var(--sub);margin:0 0 18px;font-size:14.5px}
+h3{font-size:17px;color:var(--navy);margin:26px 0 8px}
+/* 箱 */
+.box{border-radius:14px;padding:14px 18px;margin:16px 0;font-size:14.5px}
+.box b.h{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);border:1px solid #f3dda6}.warn b.h{color:#a86a00}
+.note{background:var(--note-bg);border:1px solid #c9e1f7}.note b.h{color:#1f62ad}
+.ok{background:var(--ok-bg);border:1px solid #c5ebd4}.ok b.h{color:#0b7a3d}
+.box ul,.box ol{margin:4px 0 0;padding-left:1.3em}
+/* できること */
+.cando{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 18px}
+.cando div{border:1px solid var(--line);border-radius:16px;padding:16px 16px 14px;background:#fff}
+.cando .ic{font-size:24px;line-height:1}
+.cando b{display:block;color:var(--navy);margin:8px 0 2px;font-size:15px}
+.cando p{margin:0;font-size:13.5px;color:#4b525e;line-height:1.75}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:10px 0 6px}
+figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft)}
+figure img{width:100%;height:280px;object-fit:cover;object-position:top}
+figcaption{font-size:12.5px;color:var(--sub);padding:8px 12px;background:#fff;border-top:1px solid var(--line)}
+/* しくみ図 */
+.diagram{border:1px solid var(--line);border-radius:18px;padding:22px;background:linear-gradient(180deg,#fbfcfe,#f6f8fb);margin:10px 0 18px}
+.lane{display:grid;grid-template-columns:1fr 40px 1.25fr 40px 1.25fr;align-items:stretch}
+.node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;box-shadow:0 2px 10px rgba(20,40,70,.05)}
+.node .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;padding:1px 9px;margin-bottom:6px}
+.node b{display:block;font-size:15px;color:var(--navy);line-height:1.4}
+.node ul{margin:6px 0 0;padding-left:1.1em;font-size:12.5px;color:#4b525e;line-height:1.7}
+.n1 .tag{background:#e3f8ec;color:#058a3d}.n2 .tag{background:#e7f0fc;color:#1f62ad}.n3 .tag{background:#f3ecfd;color:#6b3fb5}
+.arr{display:grid;place-items:center;color:#9aa6b6;font-size:11px;text-align:center;line-height:1.3}
+.arr svg{width:30px;height:18px}
+.below{display:grid;grid-template-columns:1fr 40px 1.25fr 40px 1.25fr;margin-top:14px}
+.below .node{grid-column:3/4}
+.n4 .tag{background:#fff1e3;color:#b0600b}
+.updown{grid-column:3/4;display:flex;justify-content:center;color:#9aa6b6;font-size:11px;gap:6px;align-items:center;margin:4px 0}
+.keys{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px}
+.keys div{border-left:3px solid var(--g);background:#fff;border-radius:0 12px 12px 0;padding:10px 14px;font-size:13.5px;line-height:1.75;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.keys b{color:var(--navy)}
+/* 表 */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
+th,td{padding:11px 14px;border-bottom:1px solid #eef1f5;text-align:left;vertical-align:top;line-height:1.7}
+th{background:var(--soft);font-size:12.5px;color:#4b525e;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.c{white-space:nowrap}
+.who{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:1px 8px;white-space:nowrap}
+.w1{background:#e3f8ec;color:#058a3d}.w2{background:#e7f0fc;color:#1f62ad}.w3{background:#f2f2f2;color:#555}
+/* ステップ */
+.step{border:1px solid var(--line);border-radius:18px;margin:16px 0;background:#fff;overflow:hidden}
+.shead{display:flex;align-items:center;gap:14px;padding:16px 20px;background:linear-gradient(90deg,#f6fbf8,#fff);border-bottom:1px solid #eef1f5}
+.snum{width:44px;height:44px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px;line-height:1.05;text-align:center;flex:0 0 auto}
+.snum small{display:block;font-size:9px;font-weight:700;opacity:.75;letter-spacing:.06em}
+.shead b{font-size:16.5px;color:var(--navy);line-height:1.4}
+.shead .r{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.time{font-size:11.5px;color:var(--sub);background:var(--soft);border-radius:6px;padding:1px 8px;white-space:nowrap}
+.sbody{padding:10px 20px 16px}
+.chk{list-style:none;margin:0;padding:0}
+.chk li{border-bottom:1px dashed #e8ecf1}
+.chk li:last-child{border-bottom:0}
+.chk label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;cursor:pointer;font-size:14.5px;line-height:1.75}
+.chk input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid #c3ccd8;border-radius:7px;flex:0 0 auto;margin-top:2px;display:grid;place-items:center;transition:.15s;background:#fff;cursor:pointer}
+.chk input:checked{background:var(--g);border-color:var(--g)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:checked+span{color:#8a929e;text-decoration:line-through;text-decoration-color:#c7cdd6}
+.chk small{display:block;color:var(--sub);font-size:12.5px;text-decoration:none}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:#f1f3f6;border:1px solid #e4e8ee;border-radius:6px;padding:1px 6px;word-break:break-all}
+/* Q&A */
+details{border:1px solid var(--line);border-radius:14px;margin:10px 0;background:#fff}
+summary{cursor:pointer;padding:13px 18px;font-weight:700;color:var(--navy);list-style:none;display:flex;gap:10px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"Q";display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--navy);color:#fff;font-size:12px;flex:0 0 auto}
+summary::after{content:"＋";margin-left:auto;color:var(--sub)}
+details[open] summary::after{content:"－"}
+details .a{padding:0 18px 14px 52px;font-size:14.5px}
+.cost{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+.cost div{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.cost b{display:block;font-size:12.5px;color:var(--sub);font-weight:500}
+.cost span{display:block;font-size:20px;font-weight:900;color:var(--navy);line-height:1.4}
+.cost em{font-style:normal;font-size:12px;color:var(--sub)}
+footer{max-width:1180px;margin:0 auto;padding:26px 22px 60px;color:var(--sub);font-size:12.5px;border-top:1px solid var(--line)}
+.reset{border:1px solid var(--line);background:#fff;border-radius:8px;font:inherit;font-size:12px;color:var(--sub);padding:3px 10px;cursor:pointer}
+@media (max-width:980px){
+  .wrap{grid-template-columns:1fr;gap:0}
+  .side{display:none}
+  .cando{grid-template-columns:1fr}
+  .cost{grid-template-columns:1fr 1fr}
+  .lane,.below{grid-template-columns:1fr}
+  .arr{padding:6px 0}.arr svg{transform:rotate(90deg)}
+  .below .node,.updown{grid-column:1/2}
+  .keys{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:15px}
+  .flow3{grid-template-columns:1fr}.flow3 div:not(:last-child)::after{display:none}
+  .shots{grid-template-columns:1fr}
+  .prog .bar{width:70px}.ttl small{display:none}
+  .shead{flex-wrap:wrap}.shead .r{margin-left:58px;justify-content:flex-start}
+  .heroin{padding:40px 18px 34px}
+}
+@media print{.top,.side{display:none}.wrap{display:block}section{break-inside:avoid-page}}
+</style></head>
+<body>
+<div class="top"><div class="topin">
+  <div class="mark">議</div>
+  <div class="ttl">議事録BOT 導入マニュアル<small>別の会社で立ち上げる方向け</small></div>
+  <div class="prog"><span id="ptxt">準備 0/0</span><div class="bar"><i id="pbar"></i></div></div>
+</div></div>
+
+<header class="hero"><div class="heroin">
+  <span class="eyebrow">● 太田さん・導入担当の方／折茂さん（しくみの理解）向け</span>
+  <h1>議事録BOTを、<br>運用できる状態にするまで。</h1>
+  <p class="lead">アイ・ステーションで動いている「議事録BOT」を、別の会社で立ち上げるための手順書です。会社で用意するもの、設置の手順、動作確認、運用の注意点、そして裏側のしくみをまとめました。チェックを入れると、上の「準備」の進み具合が増えていきます（このブラウザに保存されます）。</p>
+  <div class="flow3">
+    <div><b>STEP 1〜5</b><span>会社で用意する</span><em>LINE公式・サーバー・Mac など</em></div>
+    <div><b>STEP 6〜7</b><span>技術担当が設置</span><em>プログラムを置いてLINEとつなぐ</em></div>
+    <div><b>STEP 8〜9</b><span>確認して運用開始</span><em>テスト用グループで試してから本番へ</em></div>
+  </div>
+  <p class="meta">目安の期間：準備（契約・アカウント作成）1〜3日 ／ 設置 半日〜1日 ／ 確認 1日（翌朝の自動の議事録まで見るため）　·　2026年11月26日 版</p>
+</div></header>
+
+<div class="wrap">
+<nav class="side" id="toc">
+  <p>もくじ</p>
+  <a href="#cando">1. できること</a>
+  <a href="#shikumi">2. 裏側のしくみ</a>
+  <a href="#youi">3. 用意するもの・費用</a>
+  <a href="#steps">4. 手順（STEP 1〜9）</a>
+  <a href="#rules">5. 運用の注意点</a>
+  <a href="#qa">6. よくあるつまずき</a>
+  <a href="#tech">7. 技術担当向けメモ</a>
+  <a href="#bunntan">8. 分担のまとめ</a>
+</nav>
+<main>
+
+<section id="cando">
+  <h2><span class="no">1</span>議事録BOTでできること</h2>
+  <p class="sub">LINEのやりとりは、そのままでは議事録に残りません。BOTをグループに入れておくだけで、記録と議事録づくりを自動にします。</p>
+  <div class="cando">
+    <div><span class="ic">💬</span><b>グループの会話を全部記録</b><p>取引先・社内のグループLINEにBOTを招待するだけ。発言を名前・時刻つきで日ごとに保存します。BOTはふだんの会話には返事をしません。</p></div>
+    <div><span class="ic">📝</span><b>毎日、自動で議事録に</b><p>毎日0時すぎに前の日のやりとりをAIが議事録にします（要点・決まったこと・やること〈担当・期限〉・確認待ち）。グループには何も送りません。</p></div>
+    <div><span class="ic">🔐</span><b>許可した人だけが見られる</b><p>議事録はWebページで見ます。会社のメールに届く6桁のコードでログインし、管理者がチェックしたグループだけ見られます。</p></div>
+  </div>
+  <p style="font-size:14.5px;margin:0 0 10px">ほかに、BOTとの1対1に<b>録音や文字起こし</b>（Notta・Teamsの貼り付け、音声ファイルなど）を送ると、数分で議事録が返ってくる機能もあります。</p>
+  <div class="shots">
+    <figure><img src="img/ichiran.jpg" alt="議事録の一覧ページの見本"><figcaption>一覧ページ（見本・架空のデータ）</figcaption></figure>
+    <figure><img src="img/gijiroku.jpg" alt="グループの議事録ページの見本"><figcaption>グループの議事録ページ（見本・架空のデータ）</figcaption></figure>
+  </div>
+</section>
+
+<section id="shikumi">
+  <h2><span class="no">2</span>裏側のしくみ</h2>
+  <p class="sub">登場するのは「LINE公式アカウント」「サーバー」「作業用のMac」の3つです。</p>
+  <div class="diagram">
+    <div class="lane">
+      <div class="node n1"><span class="tag">窓口</span><b>LINE公式アカウント（BOT）</b><ul><li>グループや1対1の発言を受け取る</li><li>届いた発言をすぐサーバーへ転送</li></ul></div>
+      <div class="arr"><svg viewBox="0 0 30 18"><path d="M2 9h24M19 3l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>転送</div>
+      <div class="node n2"><span class="tag">受付・保管庫</span><b>サーバー（24時間動く）</b><ul><li>発言を名前・時刻つきで日ごとに保存</li><li>議事録ページを表示・ログインで見られる人を制限</li><li>議事録づくりの仕事を「順番待ち」に入れる</li></ul></div>
+      <div class="arr"><svg viewBox="0 0 30 18"><path d="M2 5h24M19 0l7 5M28 13H4M11 18l-7-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>仕事／結果</div>
+      <div class="node n3"><span class="tag">作業係</span><b>作業用のMac（社内）</b><ul><li>サーバーに仕事を取りに行く</li><li>録音の文字起こし（Mac内のAI・無料）</li><li>Claudeで議事録の文章をつくり、サーバーへ戻す</li></ul></div>
+    </div>
+    <div class="below">
+      <div class="updown">▲ 見る</div>
+      <div class="node n4"><span class="tag">見る人</span><b>ブラウザ（パソコン・スマホ）</b><ul><li>会社メールに届く6桁のコードでログイン</li><li>許可されたグループの議事録・トーク履歴を見る／ダウンロード</li></ul></div>
+    </div>
+  </div>
+  <div class="keys">
+    <div><b>Macが止まっても記録は続きます。</b>記録はサーバーの仕事なので、止まるのは議事録づくりだけ。Macが動き出したら、たまった分を順番に処理します。</div>
+    <div><b>LINEの鍵はサーバーにだけ置きます。</b>Macには置きません。サーバーとMacは、長い合言葉と暗号化した通信（HTTPS）でつながります。</div>
+    <div><b>残るもの・消えるもの。</b>グループのトーク履歴と議事録は会社の記録としてサーバーに残します。録音は議事録を作ったら消し、1対1の議事録ページは30日で消えます。送信取り消しされた発言は記録からも消えます。</div>
+    <div><b>LINEの無料枠をほぼ使いません。</b>BOTからの「返信」は無料。グループの記録と毎日の議事録はグループに何も送らないので、無料枠（月200通）を使うのは録音の議事録を送り返すときだけです。</div>
+  </div>
+</section>
+
+<section id="youi">
+  <h2><span class="no">3</span>会社で用意するもの・費用の目安</h2>
+  <p class="sub">LINE・サーバー・Mac・AIの契約は、それぞれの会社の名義で用意します（アイ・ステーションの物は使えません）。</p>
+  <div class="tbl"><table>
+    <tr><th>用意するもの</th><th>何に使うか</th><th>条件のめやす</th><th>費用のめやす</th></tr>
+    <tr><td><b>LINE公式アカウント</b>（新しく作る）</td><td>BOTの窓口</td><td>会社名義のLINEビジネスIDで作成</td><td class="c">無料（月200通まで）</td></tr>
+    <tr><td><b>サーバー（VPS）</b></td><td>受付・保管庫・議事録ページ</td><td>メモリ1GB以上・Ubuntu 24.04</td><td class="c">月1,000円前後</td></tr>
+    <tr><td><b>ページのアドレス（ドメイン）</b></td><td>議事録ページのURL</td><td>今あるドメインのサブドメインでOK<br>（例：gijiroku.会社名.co.jp）</td><td class="c">今あるドメインなら0円</td></tr>
+    <tr><td><b>作業用のMac</b></td><td>文字起こし・議事録づくり</td><td>M1以降のMac・メモリ16GB以上がおすすめ<br>電源につないだまま・スリープしない</td><td class="c">今あるMacなら0円</td></tr>
+    <tr><td><b>Claudeの有料プラン</b></td><td>議事録の文章づくり</td><td>会社のアカウントでPro以上</td><td class="c">月20ドル〜</td></tr>
+    <tr><td><b>ログイン用メールの送信元</b></td><td>6桁の確認コード・案内メールを送る</td><td>専用のGmailアカウント（2段階認証＋アプリパスワード）</td><td class="c">無料</td></tr>
+  </table></div>
+  <div class="cost">
+    <div><b>毎月かかる費用</b><span>約4,000円〜</span><em>サーバー＋Claude Pro（Macを持っている場合）</em></div>
+    <div><b>LINE</b><span>0円</span><em>月200通を超えたら有料プランの検討</em></div>
+    <div><b>最初にかかる費用</b><span>0円〜</span><em>Macを新しく買う場合は別途</em></div>
+    <div><b>設置の作業時間</b><span>半日〜1日</span><em>技術担当の作業</em></div>
+  </div>
+  <div class="box note"><b class="h">先に決めておくこと</b><ul>
+    <li><b>固定の管理者</b>（2〜3人のメールアドレス）：全部のグループと管理画面を見られる人。画面からは外せません。</li>
+    <li><b>ログインできるメールのドメイン</b>（例：@会社名.co.jp）：この会社のアドレス以外は登録できないようにします。</li>
+    <li><b>最初に入れるグループ</b>：まずテスト用のグループで試し、その後に本番のグループへ。</li>
+    <li><b>LINEのプラン変更・メンバー追加を誰がするか</b>：アカウントの管理者を決めておきます。</li>
+  </ul></div>
+  <p style="font-size:13.5px;color:var(--sub)">※Macを用意できない場合は、文字起こしとAIを有料のAPI（使った分だけの従量課金）で動かす形に作り変える必要があります。その場合は別途ご相談ください。費用は2026年11月時点の目安です。</p>
+</section>
+
+<section id="steps">
+  <h2><span class="no">4</span>手順（STEP 1〜9）</h2>
+  <p class="sub">終わったものにチェックを入れていきます。<span class="who w1">会社</span>＝太田さんの会社で行う作業、<span class="who w2">技術担当</span>＝サーバーやMacに詳しい人が行う作業です。</p>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>1</div><b>LINE公式アカウントを作る</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s1a"><span>「LINE公式アカウントManager」で、会社名義の新しいアカウントを作る<small>アカウント名の例：「【公式】議事録BOT」</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s1b"><span>設定 →「Messaging API」→「Messaging APIを利用する」を押し、プロバイダー（会社名）を作って選ぶ<small>★プロバイダーは後から変えられません。会社名で作ってください。</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s1c"><span>技術担当を、このアカウントの「管理者」として追加する<small>STEP 2・7の設定を技術担当が直接できるようにするため</small></span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>2</div><b>BOTとして動くように応答の設定を変える</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">約5分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s2a"><span>設定 →「応答設定」：<b>応答メッセージ＝オフ</b>、<b>あいさつメッセージ＝オフ</b>、<b>Webhook＝オン</b><small>使い方やあいさつはBOTが自分で返すため。チャットはオフで構いません。</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s2b"><span>設定 →「アカウント設定」→「機能の利用」→ トークへの参加を<b>「グループ・複数人トークへの参加を許可する」</b>にして保存</span></label></li>
+    <li><label><input type="checkbox" data-k="s2c"><span>保存したあと、画面を開き直して「許可する」になっているか確認する</span></label></li>
+  </ul>
+  <div class="box warn"><b class="h">⚠ アイ・ステーションで実際に起きたこと</b>この参加の設定が保存されておらず、グループに招待した瞬間にBOTが退会してしまいました。招待してすぐ退会したら、まずここを見てください。</div>
+  </div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>3</div><b>サーバーとページのアドレスを用意する</b><div class="r"><span class="who w1">会社</span><span class="time">契約 約30分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s3a"><span>VPS（メモリ1GB以上・Ubuntu 24.04）を会社名義で契約する<small>さくらのVPS・エックスサーバーVPS・ConoHa VPS など、どれでもOK</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s3b"><span>サブドメイン（例：gijiroku.会社名.co.jp）を、サーバーのIPアドレスに向ける設定（DNSのAレコード）をする</span></label></li>
+    <li><label><input type="checkbox" data-k="s3c"><span>サーバーにログインする方法（SSHの鍵など）を技術担当へ安全に渡す<small>パスワードや鍵をチャットに貼らない</small></span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>4</div><b>作業用のMacとClaudeを用意する</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">約30分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s4a"><span>作業用のMac（M1以降・メモリ16GB以上がおすすめ）を1台決める<small>会社に置きっぱなしで、電源につないだまま・スリープしない設定・ネットにつながったままにできるもの</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s4b"><span>会社のアカウントでClaudeの有料プラン（Pro以上）に入る</span></label></li>
+    <li><label><input type="checkbox" data-k="s4c"><span>そのMacに「Claude Code」を入れて、会社のアカウントでログインする</span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>5</div><b>ログイン用メールの送信元を用意する</b><div class="r"><span class="who w1">会社</span><span class="time">約15分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s5a"><span>議事録BOT専用のGmailアカウントを作る<small>確認コードや案内メールの送信元になります（送信専用）</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s5b"><span>そのGmailで2段階認証をオンにし、「アプリパスワード」（16文字）を発行する</span></label></li>
+    <li><label><input type="checkbox" data-k="s5c"><span>Gmailのアドレスとアプリパスワードを技術担当へ安全に渡す</span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>6</div><b>プログラムを設置する</b><div class="r"><span class="who w2">技術担当</span><span class="time">半日〜1日</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s6a"><span>プログラム一式を受け取る<small>受け渡しの方法は伊藤とご相談ください</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s6b"><span>サーバー：Node.js（20以上）と Caddy（HTTPSを自動でつける）を入れ、受付のプログラムを置いて設定ファイルを書き、常に動くようにする<small>設定の項目は「7. 技術担当向けメモ」</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s6c"><span>Mac：ffmpeg・Python・mlx-whisper（文字起こし）を入れ、作業係のプログラムを置いて、Macが起動したら自動で動くようにする</span></label></li>
+    <li><label><input type="checkbox" data-k="s6d"><span>ブラウザで <code>https://（ページのアドレス）/health</code> を開き、動いていることを確かめる</span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>7</div><b>LINEとサーバーをつなぐ</b><div class="r"><span class="who w2">技術担当</span><span class="time">約15分</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s7a"><span>LINE Developers で「チャネルシークレット」と「チャネルアクセストークン（長期）」を発行する</span></label></li>
+    <li><label><input type="checkbox" data-k="s7b"><span>この2つを、サーバーの「鍵の受け取りページ」に貼って登録する<small>チャット・メール・設定ファイルの共有には貼らない。受け取りページは1回使うと閉じます。</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s7c"><span>Webhook URL に <code>https://（ページのアドレス）/line/webhook</code> を登録し、「検証」で「成功」と出るのを確かめる</span></label></li>
+    <li><label><input type="checkbox" data-k="s7d"><span>「Webhookの利用」と「Webhookの再送」をオンにする</span></label></li>
+  </ul></div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>8</div><b>動作確認（テスト用のグループで）</b><div class="r"><span class="who w1">会社</span><span class="who w2">技術担当</span><span class="time">1日</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s8a"><span>管理者のスマホでBOTを友だち追加し、1対1で「管理者登録 （合言葉）」と送る<small>Macが止まって遅れたときなどのお知らせが届くようになります</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s8b"><span>1対1に短い録音（30秒ほど）を送り、数分で議事録が返ってくるか確かめる</span></label></li>
+    <li><label><input type="checkbox" data-k="s8c"><span>テスト用のグループにBOTを招待し、「やりとりを記録します」のあいさつが出るか確かめる<small>入った瞬間に退会したら STEP 2 の参加の設定を確認</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s8d"><span>グループで少し会話し、議事録ページの「今日の分を今すぐ議事録にする」で議事録ができるか確かめる</span></label></li>
+    <li><label><input type="checkbox" data-k="s8e"><span>次の日の朝、前の日の分が自動で議事録になっているか確かめる</span></label></li>
+    <li><label><input type="checkbox" data-k="s8f"><span>管理画面でメンバーを1人追加し、案内メールが届くか・ログインしてチェックしたグループだけ見られるかを確かめる</span></label></li>
+  </ul>
+  <figure style="margin-top:8px"><img src="img/admin.jpg" alt="見られる人の設定（管理画面）の見本" style="height:auto"><figcaption>管理画面「見られる人の設定」（見本・架空のデータ）：名前の変更・管理者の指定・グループごとのチェック・案内メール</figcaption></figure>
+  </div></div>
+
+  <div class="step"><div class="shead"><div class="snum"><small>STEP</small>9</div><b>本番の運用を始める</b><div class="r"><span class="who w1">会社</span></div></div>
+  <div class="sbody"><ul class="chk">
+    <li><label><input type="checkbox" data-k="s9a"><span>取引先・社内のグループにBOTを招待する<small>相手にも「議事録用のBOTを入れます」とひと言伝えるのがおすすめです（BOTも参加時にあいさつで知らせます）</small></span></label></li>
+    <li><label><input type="checkbox" data-k="s9b"><span>管理画面で、グループごとに見られる人にチェックを入れる</span></label></li>
+    <li><label><input type="checkbox" data-k="s9c"><span>月に1回、LINE公式アカウントManagerで送信数（無料枠の残り）を確認する</span></label></li>
+  </ul>
+  <div class="box ok"><b class="h">ここまでできたら、運用できる状態です 🎉</b>あとはグループに招待して、見られる人を設定するだけで使えます。</div>
+  </div></div>
+  <p style="text-align:right;margin:4px 0 0"><button class="reset" id="reset">チェックをすべて外す</button></p>
+</section>
+
+<section id="rules">
+  <h2><span class="no">5</span>運用の注意点</h2>
+  <div class="tbl"><table>
+    <tr><th>こと</th><th>内容</th></tr>
+    <tr><td><b>過去の会話</b></td><td>BOTを入れる前の会話は取れません（LINEの仕様）。必要なら入れる前のトーク履歴は手で保存してください。</td></tr>
+    <tr><td><b>1グループに1つ</b></td><td>1つのグループに入れられるLINE公式アカウントは1つだけです。ほかの公式アカウントが入っているグループには入れません。</td></tr>
+    <tr><td><b>無料枠（月200通）</b></td><td>録音の議事録を送り返すと1件＝1通。<b>グループに送ると人数分</b>数えます（10人なら10通）。グループの記録と毎日の議事録は何も送らないので数えません。</td></tr>
+    <tr><td><b>Macの電源</b></td><td>Macが止まる・スリープすると議事録づくりが止まります（記録は続きます）。再開したら順番に処理します。</td></tr>
+    <tr><td><b>Claudeのログイン</b></td><td>Claudeのログインが切れると議事録が作れません。契約の更新やパスワード変更のあとは確認してください。</td></tr>
+    <tr><td><b>見られる人</b></td><td>メンバーを消す・チェックを外すと、ログイン中の人もすぐ見られなくなります。退職・異動のときは忘れずに外してください。</td></tr>
+    <tr><td><b>AIの議事録</b></td><td>議事録はAIが自動でまとめたものです。担当・期限など大事なところは、トーク履歴でも確認してください。</td></tr>
+  </table></div>
+</section>
+
+<section id="qa">
+  <h2><span class="no">6</span>よくあるつまずき</h2>
+  <details><summary>BOTをグループに招待したら、すぐ退会してしまう</summary><div class="a">LINE公式アカウントManagerの「アカウント設定 → 機能の利用 → トークへの参加」が「許可しない」になっています。「グループ・複数人トークへの参加を許可する」にして保存し、開き直して確認してから、もう一度招待してください（STEP 2）。</div></details>
+  <details><summary>Webhookの「検証」が失敗する</summary><div class="a">サーバーのプログラムが止まっている、URLのつづりが違う、HTTPSになっていない、のどれかが多いです。<code>/health</code> が開けるか、URLの最後が <code>/line/webhook</code> になっているかを確認してください。</div></details>
+  <details><summary>確認コードのメールが届かない</summary><div class="a">①管理画面に登録されていないアドレス（登録のないアドレスには送りません） ②迷惑メールに入っている ③送信元Gmailのアプリパスワードが違う・取り消された、のどれかです。</div></details>
+  <details><summary>議事録ができない・とても遅い</summary><div class="a">作業用のMacを確認してください。電源が切れている・スリープしている・ネットが切れている・Claudeのログインが切れている、のどれかがほとんどです。直れば、たまっていた分から順番に処理されます。</div></details>
+  <details><summary>無料枠（月200通）が足りなくなりそう</summary><div class="a">グループで録音の議事録をよく使うと、人数分の通数が減ります。有料プランに変えるか、録音はBOTとの1対1に送る運用にしてください（1対1なら1件1通）。</div></details>
+</section>
+
+<section id="tech">
+  <h2><span class="no">7</span>技術担当向けメモ</h2>
+  <p class="sub">サーバーやMacに詳しい方向けの補足です。</p>
+  <div class="tbl"><table>
+    <tr><th>場所</th><th>中身</th></tr>
+    <tr><td><b>サーバー</b></td><td>Node.js（外部の部品はメール送信用の nodemailer のみ）／Caddy でHTTPS／systemd で常駐。データはサーバーのフォルダ（JSONファイル）に保存。</td></tr>
+    <tr><td><b>Mac（作業係）</b></td><td>ffmpeg で音声を変換し、mlx-whisper（large-v3-turbo）で文字起こし、<code>claude -p</code> で議事録を作る（下書き→見直しの2回）。launchd で常駐。サーバーへは60秒ごとに「動いています」を送り、仕事を取りに行く。</td></tr>
+    <tr><td><b>つながり</b></td><td>LINE →（Webhook・署名を確認）→ サーバー ←（合言葉＋HTTPS）← Mac。サーバーからMacへは接続しない（Macの側から取りに行く）ので、Macを外に公開する必要はありません。</td></tr>
+  </table></div>
+  <h3>サーバーの設定ファイル（.env）の主な項目</h3>
+  <div class="tbl"><table>
+    <tr><th>項目</th><th>入れるもの</th></tr>
+    <tr><td><code>PUBLIC_BASE</code></td><td>ページのアドレス（例：https://gijiroku.会社名.co.jp）</td></tr>
+    <tr><td><code>WORKER_TOKEN</code></td><td>サーバーとMacの合言葉（長いランダムな文字列・Mac側にも同じものを入れる）</td></tr>
+    <tr><td><code>ADMIN_TOKEN</code>／<code>ADMIN_CODE</code></td><td>状況ページの合言葉／LINEで「管理者登録」するときの合言葉</td></tr>
+    <tr><td><code>SETUP_CODE</code></td><td>LINEの鍵の受け取りページの合言葉（1回使うと閉じる）</td></tr>
+    <tr><td><code>ADMIN_EMAILS</code></td><td>固定の管理者のメールアドレス（カンマ区切り）</td></tr>
+    <tr><td><code>ALLOWED_DOMAINS</code></td><td>登録できるメールのドメイン（例：会社名.co.jp）。<b>必ずその会社のドメインに変える</b></td></tr>
+    <tr><td><code>GMAIL_USER</code>／<code>GMAIL_APP_PASSWORD</code></td><td>STEP 5 で用意したGmailのアドレスとアプリパスワード</td></tr>
+  </table></div>
+  <div class="box warn"><b class="h">⚠ 秘密の扱い</b>合言葉・LINEの鍵・アプリパスワードは、チャットやメールに貼らないでください。合言葉は32文字以上のランダムな文字列にし、設定ファイルは本人だけが読める権限にします。</div>
+</section>
+
+<section id="bunntan">
+  <h2><span class="no">8</span>分担のまとめ</h2>
+  <div class="tbl"><table>
+    <tr><th>STEP</th><th>やること</th><th>担当</th></tr>
+    <tr><td class="c">1〜2</td><td>LINE公式アカウントを作って設定する</td><td><span class="who w1">会社</span>（設定は技術担当でも可）</td></tr>
+    <tr><td class="c">3〜5</td><td>サーバー・ドメイン・Mac・Claude・Gmailを用意する</td><td><span class="who w1">会社</span></td></tr>
+    <tr><td class="c">6〜7</td><td>プログラムを設置して、LINEとつなぐ</td><td><span class="who w2">技術担当</span></td></tr>
+    <tr><td class="c">8</td><td>テスト用のグループで動作確認</td><td><span class="who w1">会社</span>＋<span class="who w2">技術担当</span></td></tr>
+    <tr><td class="c">9</td><td>本番のグループに招待・見られる人の設定</td><td><span class="who w1">会社</span></td></tr>
+  </table></div>
+  <p style="font-size:14.5px">わからないところは、伊藤までお気軽にご連絡ください。</p>
+</section>
+</main>
+</div>
+<footer>議事録BOT 導入マニュアル　·　2026年11月26日 版　·　作成：伊藤 大峻</footer>
+
+<script>
+(() => {
+  const KEY = 'gijiroku-manual-v1';
+  let st = {}; try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch {}
+  const boxes = [...document.querySelectorAll('.chk input[data-k]')];
+  const upd = () => {
+    const n = boxes.filter((b) => b.checked).length;
+    document.getElementById('ptxt').textContent = `準備 ${n}/${boxes.length}`;
+    document.getElementById('pbar').style.width = (n / boxes.length * 100) + '%';
+  };
+  boxes.forEach((b) => { b.checked = Boolean(st[b.dataset.k]); b.addEventListener('change', () => { st[b.dataset.k] = b.checked; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} upd(); }); });
+  document.getElementById('reset').addEventListener('click', () => { if (!confirm('チェックをすべて外しますか？')) return; st = {}; boxes.forEach((b) => { b.checked = false; }); try { localStorage.removeItem(KEY); } catch {} upd(); });
+  upd();
+  // もくじの現在地
+  const links = [...document.querySelectorAll('#toc a')];
+  const secs = links.map((a) => document.querySelector(a.getAttribute('href')));
+  const io = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) { links.forEach((l) => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id)); } }); }, { rootMargin: '-30% 0px -60% 0px' });
+  secs.forEach((s) => s && io.observe(s));
+})();
+</script>
+</body></html>
