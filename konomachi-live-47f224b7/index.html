@@ -103,6 +103,57 @@ td.nm{white-space:normal;font-weight:600;min-width:180px}
 .rl{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);padding:6px 0;line-height:1.5}
 .rl b{color:var(--ink);margin-left:4px}.rl .chip{flex:none}
 .gfoot{font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.7}
+/* 配信中のバナー（Metaのフィードでの見え方に寄せる） */
+.adsg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.adc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column}
+.adh{display:flex;align-items:center;gap:8px;padding:10px 11px 8px}
+.av{width:30px;height:30px;border-radius:50%;background:#e8efff;color:var(--blue);display:grid;place-items:center;flex:none}
+.av svg{width:16px;height:16px}
+.adh b{display:block;font-size:12px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adh small{font-size:10.5px;color:var(--mute)}
+.adh .st{margin-left:auto}
+.adb{padding:0 11px 8px;font-size:12px;line-height:1.6;color:var(--ink)}
+.adb details summary{list-style:none;cursor:pointer;color:var(--mute);font-size:11.5px;margin-top:2px}
+.adb details summary::-webkit-details-marker{display:none}
+.adb details[open] summary{display:none}
+.adb p{margin:0;white-space:pre-line}
+.adi{display:block;aspect-ratio:1/1;background:#eef1f6}.adi img{display:block;width:100%;height:100%;object-fit:cover}
+.adf{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#f6f7f9;border-top:1px solid var(--line)}
+.adf div{min-width:0;flex:1}.adf small{display:block;font-size:10.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adf b{display:block;font-size:12px;line-height:1.35;margin-top:1px}
+.cta{flex:none;font-size:11px;font-weight:700;background:#e4e6eb;color:#050505;border-radius:6px;padding:7px 9px;white-space:nowrap}
+.adm{padding:9px 11px 11px;font-size:11.5px;color:var(--sub);border-top:1px solid #f0f2f7;margin-top:auto;line-height:1.6}
+.adm b{color:var(--ink)}
+.adm .st{flex:none;white-space:nowrap}
+/* フォームのプレビュー（スマホの画面を横に並べる） */
+.fwrap{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
+.fs{flex:0 0 272px;scroll-snap-align:start}
+.fs .lbl{font-size:11.5px;color:var(--sub);font-weight:700;margin:0 0 7px 2px}
+.fs .lbl span{display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;border-radius:999px;background:var(--blue);color:#fff;font-size:11px;margin-right:6px}
+.phone{height:520px;border-radius:22px;border:1px solid #d9dee8;background:#fff;box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+.ph-top{display:flex;align-items:center;gap:8px;padding:14px 14px 10px;border-bottom:1px solid #eef0f3;font-size:12.5px;font-weight:700}
+.ph-top .x{margin-left:auto;color:#65676b;font-weight:400}
+.ph-body{flex:1;overflow:auto;padding:16px 16px 10px;font-size:13px;line-height:1.65;color:#1c1e21}
+.ph-body h4{font-size:17px;line-height:1.45;margin:0 0 10px}
+.ph-body .q{font-weight:700;font-size:14px;margin:14px 0 10px}
+.ph-body .note{font-size:12px;color:#65676b}
+.sel{border:1px solid #ccd0d5;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;color:#65676b;font-size:13px}
+.opts{font-size:11.5px;color:#65676b;margin-top:8px;line-height:1.7}
+.rad{display:flex;align-items:center;gap:10px;border:1px solid #ccd0d5;border-radius:8px;padding:10px 12px;margin:0 0 8px;font-size:13px}
+.rad i{width:16px;height:16px;border-radius:50%;border:1.5px solid #8a8d91;flex:none}
+.rad.new{border-color:#f5b54a;background:#fff8ec}
+.rad .tag{margin-left:auto;font-size:10px;font-weight:700;color:#b45309;background:#fde7c0;border-radius:4px;padding:1px 6px}
+.fld{margin:0 0 12px}.fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px}.fld label small{font-weight:400;color:#65676b}
+.fld div{border:1px solid #ccd0d5;border-radius:8px;padding:9px 12px;color:#8a8d91;font-size:12.5px}
+.fld p{margin:4px 0 0;font-size:11px;color:#65676b}
+.ph-foot{padding:10px 16px 16px}
+.prog{height:4px;border-radius:2px;background:#e4e6eb;overflow:hidden;margin-bottom:10px}.prog i{display:block;height:100%;background:#0866ff}
+.fbtn{display:block;text-align:center;background:#0866ff;color:#fff;font-weight:700;font-size:14px;border-radius:8px;padding:10px}
+.fbtn.ghost{background:#e4e6eb;color:#050505}
+.done{text-align:center;padding-top:40px}.done .ok{width:54px;height:54px;border-radius:50%;background:#e7f3ff;color:#0866ff;display:grid;place-items:center;margin:0 auto 14px}
+.done .ok svg{width:26px;height:26px}
+.fnote{font-size:11.5px;color:var(--mute);line-height:1.7;margin-top:2px}
+@media (max-width:1000px){.adsg{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.adsg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.adc{flex:0 0 78%;scroll-snap-align:start}.fs{flex-basis:78%}}
 .homeadd{margin-top:26px;font-size:12.5px;line-height:1.8;color:var(--sub);background:#f8fafd}
 .homeadd b{color:var(--ink);font-size:13px}
 @media (display-mode:standalone){.homeadd{display:none}}
@@ -273,6 +324,68 @@ function guardHtml(D) {
   <div class="gfoot">※リードがある広告は1本ずつでは止まりません（キャンペーン全体で判定）。止まったものをそのまま再開すると、通算の数字ですぐにまた止まります。</div>`;
 }
 
+// 申込フォーム（Metaのインスタントフォーム v4）の文面。2026-11-26 Metaの管理画面のフォームプレビューから写したもの
+// 建物の場所の選択肢はプルダウン（プレビューでは見えない）なので、作成時の設計書（設計_v1_20261104.md）と実際の申込の値で確認
+// フォームを作り直したら、ここも直す
+const FORM = {
+  name: '空き家電気_無料試算_商標なし_v4_土日追加', page: '空き家の電気 見直しサポート', asOf: '11/26',
+  headline: '空き家の電気、基本料金を無料で試算します',
+  desc: '4つの質問に答えるだけ（1分ほど）。担当者がお電話で、試算結果と切り替えのご案内をお伝えします。',
+  q1: { q: '電気を見直したい建物はどこにありますか？', opts: ['東京都', '神奈川県', '千葉県', '埼玉県', '茨城県', '栃木県', '群馬県', '山梨県', '静岡県（富士川より東）', 'それ以外'] },
+  qs: [
+    { q: 'その建物の今の状態に近いものは？', opts: ['誰も住んでいない（空き家）', 'ときどき使う（帰省・管理など）', '今も誰かが住んでいる'] },
+    { q: '今の電気の契約先は？', opts: ['東京電力', '東京電力以外', 'わからない'] },
+    { q: 'お電話のご希望の時間帯は？', opts: ['平日 9〜12時', '平日 12〜17時', '平日 17〜19時', '土日・祝日（平日は出られない）', 'いつでもよい'], isNew: '土日・祝日（平日は出られない）' },
+  ],
+  contactDesc: '担当者（株式会社アイ・ステーション）から、試算結果をお電話でご案内します。',
+  privacy: '［送信］をクリックすることで、空き家の電気 見直しサポートにあなたの情報を送信し、空き家の電気 見直しサポートがそのプライバシーポリシーに沿ってこの情報を使用することに同意するものとします。またFacebookもデータ使用に関するポリシーに従って、広告フォームの自動入力などにこの情報を使用します。',
+  thanksTitle: 'お申し込みありがとうございます',
+  thanks: '2営業日以内に、株式会社アイ・ステーションの担当者からお電話で試算結果をご案内します。',
+  thanksBtn: '運営会社のサイトを見る',
+};
+const ICON_HOME = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>';
+const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+
+function bannersHtml(D) {
+  const C = (D.creatives || []).filter((c) => c.hash);
+  if (!C.length) return '';
+  const byName = new Map(D.ads.map((a) => [a.name, a]));
+  const card = (c, i) => {
+    const m = byName.get(c.name)?.month;
+    const [first, ...rest] = c.body.split('\n');
+    return `<article class="adc">
+      <div class="adh"><div class="av">${ICON_HOME}</div><div style="min-width:0"><b>${esc(FORM.page)}</b><small>広告</small></div></div>
+      <div class="adb"><p>${esc(first)}</p>${rest.length ? `<details data-k="body${i}"><summary>…続きを読む</summary><p>${esc(rest.join('\n'))}</p></details>` : ''}</div>
+      <a class="adi" href="ads/${esc(c.hash)}.jpg" target="_blank" rel="noopener"><img src="ads/${esc(c.hash)}.jpg" alt="${esc(c.name)}のバナー" loading="lazy" width="900" height="900"></a>
+      <div class="adf"><div><small>${esc(c.desc)}</small><b>${esc(c.headline)}</b></div><span class="cta">${esc(c.cta)}</span></div>
+      <div class="adm"><div style="display:flex;justify-content:space-between;gap:6px;align-items:center"><b>${esc(c.name.replace(/_v\d+$/, ''))}</b><span class="st ${esc(c.status)}">${esc(STATUS[c.status] || c.status)}</span></div>今月 ${m ? `リード${m.leads}件・CPA ${yen(m.cpa)}` : '—'}</div>
+    </article>`;
+  };
+  return `<div class="sec"><h2>配信中のバナー</h2><span>画像をタップで大きく</span></div>
+  <div class="adsg">${C.map(card).join('')}</div>`;
+}
+
+function formHtml() {
+  const F = FORM, total = 7;
+  const top = `<div class="ph-top"><div class="av">${ICON_HOME}</div>${esc(F.page)}<span class="x">✕</span></div>`;
+  const foot = (step, btn = '次へ', ghost) => `<div class="ph-foot">${step ? `<div class="prog"><i style="width:${step * 20}%"></i></div>` : ''}<span class="fbtn${ghost ? ' ghost' : ''}">${btn}</span></div>`;
+  const screen = (n, label, body, f) => `<div class="fs"><div class="lbl"><span>${n}</span>${label}</div><div class="phone">${top}<div class="ph-body">${body}</div>${f}</div></div>`;
+  const radios = (q) => q.opts.map((o) => `<div class="rad${o === q.isNew ? ' new' : ''}"><i></i>${esc(o)}${o === q.isNew ? '<span class="tag">11/26追加</span>' : ''}</div>`).join('');
+  const screens = [
+    screen(1, 'はじめの画面＋質問1', `<h4>${esc(F.headline)}</h4><div>${esc(F.desc)}</div><div class="q">${esc(F.q1.q)}</div><div class="sel">オプションを選択<span>▾</span></div><div class="opts">選択肢：${F.q1.opts.map(esc).join('／')}</div>`, foot(1)),
+    ...F.qs.map((q, i) => screen(i + 2, `質問${i + 2}`, `<div class="q" style="margin-top:0">${esc(q.q)}</div>${radios(q)}`, foot(i + 2))),
+    screen(5, '連絡先', `<div class="q" style="margin-top:0">連絡先情報</div><div class="note" style="margin-bottom:12px">${esc(F.contactDesc)}</div>
+      <div class="fld"><label>メールアドレス <small>(任意)</small></label><div>回答を入力してください。</div></div>
+      <div class="fld"><label>氏名</label><div>回答を入力してください。</div></div>
+      <div class="fld"><label>電話番号</label><div>回答を入力してください。</div><p>Facebookに登録された内容が自動で入ります</p></div>`, foot(5)),
+    screen(6, '送信', `<div class="q" style="margin-top:0">プライバシーポリシー</div><div class="note">${esc(F.privacy)}</div><div style="margin-top:12px;color:#0866ff;font-size:12.5px">広告主のプライバシーポリシーにアクセス</div>`, foot(0, '送信する')),
+    screen(7, '完了画面', `<div class="done"><div class="ok">${ICON_OK}</div><h4>${esc(F.thanksTitle)}</h4><div>${esc(F.thanks)}</div><div class="note" style="margin-top:10px">回答が送信されました。</div></div>`, foot(0, esc(F.thanksBtn), true)),
+  ];
+  return `<div class="sec"><h2>申込フォームのプレビュー</h2><span>横にスクロール</span></div>
+  <div class="card" style="padding:14px 14px 8px"><div class="fwrap" data-k="form">${screens.join('')}</div>
+  <div class="fnote">Metaの管理画面のフォームプレビューの文面をそのまま再現しています（${F.asOf}時点・フォーム「${esc(F.name)}」）。実際のスマホでは1画面ずつ進みます。名前・電話番号はFacebookの登録内容が自動で入ります。</div></div>`;
+}
+
 function render(D) {
   const T = D.kpi.today, Y = D.kpi.yesterday, M = D.kpi.month;
   const started = D.today >= D.start;
@@ -288,6 +401,7 @@ function render(D) {
   const rate = D.monthBudget ? M.spend / D.monthBudget : 0;
   const bestCpa = Math.min(...D.ads.map((a) => a.month.cpa ?? Infinity));
   const lead = (r) => r.leads ? `${r.leads}件` : '0件';
+  const keep = {}; $app.querySelectorAll('[data-k]').forEach((el) => { keep[el.dataset.k] = { open: el.open, x: el.scrollLeft }; });
   $app.innerHTML = `
   <header>
     <div>
@@ -345,6 +459,9 @@ function render(D) {
     <tbody>${D.ads.map((a) => `<tr><td class="nm">${esc(a.name)}</td><td><span class="st ${esc(a.status)}">${esc(STATUS[a.status] || a.status)}</span></td><td class="num">${yen(a.month.spend)}</td><td class="num">${int(a.month.imp)}</td><td class="num">${pct(a.month.ctr)}</td><td class="num">${lead(a.month)}</td><td class="num ${a.month.cpa === bestCpa && isFinite(bestCpa) ? 'best' : ''}">${yen(a.month.cpa)}</td><td class="num">${yen(a.today.spend)}</td><td class="num">${lead(a.today)}</td></tr>`).join('')}</tbody>
   </table></div>
 
+  ${bannersHtml(D)}
+  ${formHtml()}
+
   <div class="sec"><h2>媒体別の成績（今月）</h2><span>どちらから来ているか</span></div>
   <div class="card tbl"><table>
     <thead><tr><th>媒体</th><th>リード</th><th>CPA</th><th>消化金額</th><th>表示</th><th>クリック率</th></tr></thead>
@@ -375,6 +492,7 @@ function render(D) {
   </div>
   <div class="card homeadd"><b>📱 スマホのホーム画面に置けます</b><br>iPhone：画面下の共有ボタン（□に↑）→「ホーム画面に追加」／Android：右上の︙→「ホーム画面に追加」。<br>次からはアイコンをタップするだけで、アプリのように開けます。</div>
   <footer>Metaの数字は15分ほど遅れて反映されます。お申込みの件数は受付サーバーに届いた分（テストは除く）です。<br>このページは関係者向けです。リンクを社外に転送しないでください。</footer>`;
+  $app.querySelectorAll('[data-k]').forEach((el) => { const k = keep[el.dataset.k]; if (!k) return; if (k.open) el.open = true; if (k.x) el.scrollLeft = k.x; });
   $app.hidden = false; $gate.hidden = true;
 }
 
