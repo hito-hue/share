@@ -710,8 +710,8 @@ textarea.inp{min-height:120px;resize:vertical}
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // 社内確認用（GitHub Pages など）のときは送信しない
-  const DEMO = !/\.nip\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) && !window.LP_FORCE_LIVE;
+  // 社内確認用は GitHub Pages と手元のファイルだけ。それ以外（本番・独自ドメイン）は必ず送信する
+  const DEMO = /\.github\.io$/.test(location.hostname) || location.protocol === 'file:';
   const API = 'api/lead';
 
   /* ---- ヘッダー・下のボタン ---- */
@@ -837,7 +837,7 @@ textarea.inp{min-height:120px;resize:vertical}
       $(`[data-f="${bad}"]`, form).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
       return;
     }
-    if (DEMO) { showThanks(); return; }
+    if (DEMO) { const n = document.createElement('p'); n.style.cssText = 'margin-top:18px;padding:10px 14px;border-radius:10px;background:#fff4d6;color:#6b4e00;font-weight:700;font-size:14px'; n.textContent = '※社内確認用のページのため、実際には送信されていません。'; thanks.appendChild(n); showThanks(); return; }
     btn.disabled = true; const label = btn.innerHTML; btn.textContent = '送信しています…';
     try {
       const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' },
