@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="bonobo広告">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f4f6fa">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-180.png">
+<title>bonobo 広告ライブ</title>
+<style>
+:root{
+  --bg:#f4f6fa;--card:#fff;--line:#e4e8f0;--ink:#0f172a;--sub:#5b6476;--mute:#9aa3b2;
+  --blue:#2563eb;--blue-soft:#e8efff;--teal:#0d9488;--teal-soft:#e0f5f2;--amber:#d97706;--red:#dc2626;--green:#16a34a;
+  --r:14px;--sh:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"palt"}
+.num{font-family:"SF Pro Display","Inter","Segoe UI",system-ui,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 48px}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--mute);font-weight:600}
+h1{font-size:20px;line-height:1.35;margin:4px 0 0;font-weight:700}
+.camp{font-size:12px;color:var(--sub);margin-top:4px;word-break:break-all}
+.meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--sub)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-weight:700;font-size:12px;background:var(--blue-soft);color:var(--blue)}
+.pill i{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+.pill.live{background:#e7f8ee;color:var(--green)}.pill.live i{animation:pulse 1.6s infinite}
+.pill.wait{background:#fff4e5;color:var(--amber)}.pill.stop{background:#fdecec;color:var(--red)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.grid{display:grid;gap:14px}
+.kpis{grid-template-columns:repeat(6,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:16px}
+.kpi .lb{font-size:12px;color:var(--sub);font-weight:600}
+.kpi .v{font-size:26px;font-weight:700;margin-top:6px;line-height:1.1}
+.kpi .v small{font-size:13px;font-weight:600;color:var(--sub);margin-left:2px}
+.kpi .d{font-size:11.5px;color:var(--mute);margin-top:8px}
+.kpi.main{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border:none}
+.kpi.main .lb,.kpi.main .d,.kpi.main .v small{color:rgba(255,255,255,.78)}
+.sec{display:flex;align-items:baseline;justify-content:space-between;margin:26px 2px 10px}
+.sec h2{font-size:15px;margin:0;font-weight:700}
+.sec span{font-size:12px;color:var(--mute)}
+.two{grid-template-columns:1.25fr 1fr}
+.pace .row{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin:6px 0}
+.pace .row b{color:var(--ink);font-size:15px}
+.bar{height:12px;border-radius:999px;background:#edf0f6;overflow:hidden;position:relative;margin:12px 0 6px}
+.bar>span{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,#3b82f6,#2563eb)}
+.bar>em{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--sub);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.month3{grid-template-columns:repeat(3,1fr);gap:10px}
+.mini{background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.mini .lb{font-size:11px;color:var(--sub)}.mini .v{font-size:17px;font-weight:700;margin-top:3px}
+svg text{font-family:inherit}
+.chart{width:100%;height:auto;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;color:var(--mute);font-weight:600;text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:11px 10px;border-bottom:1px solid #f0f2f7;text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.nm{white-space:normal;font-weight:600;min-width:180px}
+.st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;display:inline-block}
+.st.ACTIVE{background:#e7f8ee;color:var(--green)}.st.PENDING_REVIEW,.st.IN_PROCESS{background:#fff4e5;color:var(--amber)}
+.st.PAUSED,.st.CAMPAIGN_PAUSED,.st.ADSET_PAUSED{background:#eef0f4;color:var(--sub)}.st.DISAPPROVED,.st.WITH_ISSUES{background:#fdecec;color:var(--red)}
+.best{color:var(--teal);font-weight:700}
+.tbl{overflow-x:auto;padding:4px 6px}
+.hl{display:grid;grid-template-columns:110px 1fr 56px;align-items:center;gap:10px;font-size:13px;margin:9px 0}
+.hl .t{height:10px;border-radius:999px;background:#edf0f6;overflow:hidden}
+.hl .t span{display:block;height:100%;border-radius:999px;background:var(--teal)}
+.hl .n{text-align:right;color:var(--sub)}
+.three{grid-template-columns:repeat(4,1fr)}
+.empty{color:var(--mute);font-size:13px;padding:18px 0;text-align:center}
+.recent{list-style:none;margin:0;padding:0}
+.recent li{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid #f0f2f7;font-size:13px}
+.recent li:last-child{border-bottom:none}
+.recent .tm{color:var(--sub)}
+.recent .ad{font-size:11.5px;color:var(--mute);margin-top:2px}
+.guardc .gtop{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.guardc .lb{font-size:12px;color:var(--sub);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:#e7f8ee;color:var(--green)}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.chip.warn{background:#fff4e5;color:var(--amber)}.chip.bad{background:#fdecec;color:var(--red)}
+.gv{font-size:30px;font-weight:700;margin-top:8px;line-height:1.1}.gv small{font-size:13px;color:var(--sub);font-weight:600;margin-left:6px}
+.gauge{position:relative;height:14px;border-radius:999px;background:#edf0f6;margin:14px 0 24px}
+.gauge>span{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,#4ade80,#16a34a)}
+.gauge.warn>span{background:linear-gradient(90deg,#fbbf24,#d97706)}.gauge.over>span{background:linear-gradient(90deg,#f87171,#dc2626)}
+.gauge>em{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:var(--red);border-radius:2px}
+.gauge>em::after{content:attr(data-l);position:absolute;top:22px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--red);font-weight:700;white-space:nowrap;font-style:normal}
+.gnote{font-size:13px;line-height:1.75;color:var(--sub)}.gnote b{color:var(--ink);font-size:15px}
+.gnote.over{color:var(--red);font-weight:700}
+.galist .it{padding:11px 0;border-bottom:1px solid #f0f2f7}.galist .it:last-child{border-bottom:none}.galist .it:first-child{padding-top:2px}
+.galist .h{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px;font-weight:600}
+.galist .s{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--sub);margin-top:4px;flex-wrap:wrap}
+.galist .s b{color:var(--ink)}.galist .s .r{color:var(--amber);font-weight:700}.galist .s .r.ok{color:var(--sub);font-weight:500}
+.galist .gauge{height:7px;margin:7px 0 0}.galist .gauge>em{top:-3px;bottom:-3px}
+.galist .off{opacity:.55}
+.rules{margin-top:16px;padding-top:14px;border-top:1px solid #f0f2f7}
+.rl{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12.5px;color:var(--sub);padding:6px 0;line-height:1.5}
+.rl b{color:var(--ink);margin-left:4px}.rl .chip{flex:none}
+.gfoot{font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.7}
+/* 配信中のバナー（Metaのフィードでの見え方に寄せる） */
+.adsg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.adc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column}
+.adh{display:flex;align-items:center;gap:8px;padding:10px 11px 8px}
+.av{width:30px;height:30px;border-radius:50%;background:#e8efff;color:var(--blue);display:grid;place-items:center;flex:none}
+.av svg{width:16px;height:16px}
+.adh b{display:block;font-size:12px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.adh small{font-size:10.5px;color:var(--mute)}
+.adh .st{margin-left:auto}
+.adb{padding:0 11px 8px;font-size:12px;line-height:1.6;color:var(--ink)}
+.adb details summary{list-style:none;cursor:pointer;color:var(--mute);font-size:11.5px;margin-top:2px}
+.adb details summary::-webkit-details-marker{display:none}
+.adb details[open] summary{display:none}
+.adb p{margin:0;white-space:pre-line}
+.adi{display:block;aspect-ratio:1/1;background:#eef1f6}.adi img{display:block;width:100%;height:100%;object-fit:cover}
+.adf{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#f6f7f9;border-top:1px solid var(--line)}
+.adf div{min-width:0;flex:1}.adf small{display:block;font-size:10.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.adf b{display:block;font-size:12px;line-height:1.35;margin-top:1px}
+.cta{flex:none;font-size:11px;font-weight:700;background:#e4e6eb;color:#050505;border-radius:6px;padding:7px 9px;white-space:nowrap}
+.adm{padding:9px 11px 11px;font-size:11.5px;color:var(--sub);border-top:1px solid #f0f2f7;margin-top:auto;line-height:1.6}
+.adm b{color:var(--ink)}
+.adm .st{flex:none;white-space:nowrap}
+/* フォームのプレビュー（スマホの画面を横に並べる） */
+.fwrap{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;-webkit-overflow-scrolling:touch}
+.fs{flex:0 0 272px;scroll-snap-align:start}
+.fs .lbl{font-size:11.5px;color:var(--sub);font-weight:700;margin:0 0 7px 2px}
+.fs .lbl span{display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;border-radius:999px;background:var(--blue);color:#fff;font-size:11px;margin-right:6px}
+.phone{height:520px;border-radius:22px;border:1px solid #d9dee8;background:#fff;box-shadow:var(--sh);display:flex;flex-direction:column;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+.ph-top{display:flex;align-items:center;gap:8px;padding:14px 14px 10px;border-bottom:1px solid #eef0f3;font-size:12.5px;font-weight:700}
+.ph-top .x{margin-left:auto;color:#65676b;font-weight:400}
+.ph-body{flex:1;overflow:auto;padding:16px 16px 10px;font-size:13px;line-height:1.65;color:#1c1e21}
+.ph-body h4{font-size:17px;line-height:1.45;margin:0 0 10px}
+.ph-body .q{font-weight:700;font-size:14px;margin:14px 0 10px}
+.ph-body .note{font-size:12px;color:#65676b}
+.sel{border:1px solid #ccd0d5;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;color:#65676b;font-size:13px}
+.opts{font-size:11.5px;color:#65676b;margin-top:8px;line-height:1.7}
+.rad{display:flex;align-items:center;gap:10px;border:1px solid #ccd0d5;border-radius:8px;padding:10px 12px;margin:0 0 8px;font-size:13px}
+.rad i{width:16px;height:16px;border-radius:50%;border:1.5px solid #8a8d91;flex:none}
+.rad.new{border-color:#f5b54a;background:#fff8ec}
+.rad .tag{margin-left:auto;font-size:10px;font-weight:700;color:#b45309;background:#fde7c0;border-radius:4px;padding:1px 6px}
+.fld{margin:0 0 12px}.fld label{display:block;font-size:12.5px;font-weight:700;margin-bottom:5px}.fld label small{font-weight:400;color:#65676b}
+.fld div{border:1px solid #ccd0d5;border-radius:8px;padding:9px 12px;color:#8a8d91;font-size:12.5px}
+.fld p{margin:4px 0 0;font-size:11px;color:#65676b}
+.ph-foot{padding:10px 16px 16px}
+.prog{height:4px;border-radius:2px;background:#e4e6eb;overflow:hidden;margin-bottom:10px}.prog i{display:block;height:100%;background:#0866ff}
+.fbtn{display:block;text-align:center;background:#0866ff;color:#fff;font-weight:700;font-size:14px;border-radius:8px;padding:10px}
+.fbtn.ghost{background:#e4e6eb;color:#050505}
+.done{text-align:center;padding-top:40px}.done .ok{width:54px;height:54px;border-radius:50%;background:#e7f3ff;color:#0866ff;display:grid;place-items:center;margin:0 auto 14px}
+.done .ok svg{width:26px;height:26px}
+.fnote{font-size:11.5px;color:var(--mute);line-height:1.7;margin-top:2px}
+@media (max-width:1000px){.adsg{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.adsg{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}.adc{flex:0 0 78%;scroll-snap-align:start}.fs{flex-basis:78%}}
+.homeadd{margin-top:26px;font-size:12.5px;line-height:1.8;color:var(--sub);background:#f8fafd}
+.homeadd b{color:var(--ink);font-size:13px}
+@media (display-mode:standalone){.homeadd{display:none}}
+footer{margin-top:28px;font-size:11.5px;color:var(--mute);line-height:1.8;text-align:center}
+#gate{max-width:420px;margin:18vh auto;text-align:center;color:var(--sub);font-size:14px;line-height:1.8}
+.notice{background:#fff8e6;border:1px solid #f6e2b3;color:#7a5200;font-size:12.5px;border-radius:10px;padding:10px 14px;margin-bottom:14px}
+@media (max-width:1000px){.kpis{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.three{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.wrap{padding:14px 12px 40px}.kpis{grid-template-columns:repeat(2,1fr);gap:10px}.kpi .v{font-size:22px}.three{grid-template-columns:1fr}.month3{grid-template-columns:repeat(3,1fr)}h1{font-size:17px}.hl{grid-template-columns:90px 1fr 44px}}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 16px}
+.lk{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;box-shadow:var(--sh)}
+.lk.teams{background:#5b5fc7;border-color:#5b5fc7;color:#fff}
+.funnel{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.fn{background:#f8fafd;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;position:relative}
+.fn .lb{font-size:11.5px;color:var(--sub);font-weight:600}.fn .v{font-size:22px;font-weight:700;margin-top:4px}
+.fn .r{font-size:11px;color:var(--mute);margin-top:3px}
+.fn.goal{background:linear-gradient(135deg,#0f766e,#0d9488);border:none;color:#fff}.fn.goal .lb,.fn.goal .r{color:rgba(255,255,255,.8)}
+@media (max-width:560px){.funnel{grid-template-columns:repeat(2,1fr)}.fn.goal{grid-column:span 2}}
+</style>
+</head>
+<body>
+<div id="gate">読み込んでいます…</div>
+<div class="wrap" id="app" hidden></div>
+<script>
+(() => {
+const $app = document.getElementById('app'), $gate = document.getElementById('gate');
+const yen = (v) => v == null ? '—' : '¥' + Math.round(v).toLocaleString('ja-JP');
+const int = (v) => v == null ? '—' : Math.round(v).toLocaleString('ja-JP');
+const pct = (v, d = 2) => v == null ? '—' : (v * 100).toFixed(d) + '%';
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const STATUS = { ACTIVE: '配信中', PENDING_REVIEW: '審査中', IN_PROCESS: '処理中', PAUSED: '停止', CAMPAIGN_PAUSED: '停止', ADSET_PAUSED: '停止', DISAPPROVED: '不承認', WITH_ISSUES: '要確認' };
+const PLAT = { facebook: 'Facebook', instagram: 'Instagram', whatsapp: 'WhatsApp', audience_network: 'Audience Network（アプリ内）', messenger: 'Messenger', threads: 'Threads' };
+const PREF = { Hokkaido: '北海道', Aomori: '青森県', Iwate: '岩手県', Miyagi: '宮城県', Akita: '秋田県', Yamagata: '山形県', Fukushima: '福島県', Ibaraki: '茨城県', Tochigi: '栃木県', Gunma: '群馬県', Saitama: '埼玉県', Chiba: '千葉県', Tokyo: '東京都', Kanagawa: '神奈川県', Niigata: '新潟県', Toyama: '富山県', Ishikawa: '石川県', Fukui: '福井県', Yamanashi: '山梨県', Nagano: '長野県', Gifu: '岐阜県', Shizuoka: '静岡県', Aichi: '愛知県', Mie: '三重県', Shiga: '滋賀県', Kyoto: '京都府', Osaka: '大阪府', Hyogo: '兵庫県', Nara: '奈良県', Wakayama: '和歌山県', Tottori: '鳥取県', Shimane: '島根県', Okayama: '岡山県', Hiroshima: '広島県', Yamaguchi: '山口県', Tokushima: '徳島県', Kagawa: '香川県', Ehime: '愛媛県', Kochi: '高知県', Fukuoka: '福岡県', Saga: '佐賀県', Nagasaki: '長崎県', Kumamoto: '熊本県', Oita: '大分県', Miyazaki: '宮崎県', Kagoshima: '鹿児島県', Okinawa: '沖縄県' };
+const pref = (n) => { const k = String(n || '').replace(/ (Prefecture|Metropolis|-to|-fu|-ken)$/i, '').replace(/ō/g, 'o').replace(/ū/g, 'u'); return PREF[k] || k || '不明'; };
+const TEAMS = 'https://teams.microsoft.com/l/chat/19:376b59a755b44e4aab4335b25c3fda82@thread.v2/conversations?context=%7B%22contextType%22%3A%22chat%22%7D';
+const SHEET = 'https://docs.google.com/spreadsheets/d/18YmmgxamjKyGK2tfCtj9BPznZuljpDy9NmqV8oU1ucc/edit';
+const LP = 'https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/';
+
+// 鍵は公開のとき push.mjs がページに埋め込む（このまち電気のダッシュボードと同じ形）
+// ※実質だれでも見られる。暗号化は、公開リポジトリに数字をそのまま置かない（検索に出さない）ためだけ
+const EMBED_KEY = 'Jm78LLRCKHeFcYhI8rDAe_C0rNJxvazd_yzLR8zttaE';
+function rawKey() {
+  const k = /^[A-Za-z0-9_-]{20,}$/.test(EMBED_KEY) ? EMBED_KEY : null;
+  if (!k) return null;
+  const b = atob(k.replace(/-/g, '+').replace(/_/g, '/') + '==='.slice((k.length + 3) % 4));
+  return Uint8Array.from(b, (c) => c.charCodeAt(0));
+}
+const unb64 = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+let cryptoKey;
+async function load() {
+  const raw = rawKey();
+  if (!raw) throw new Error('nokey');
+  cryptoKey ||= await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+  const r = await fetch('data.json?t=' + Date.now(), { cache: 'no-store' });
+  if (!r.ok) throw new Error('fetch');
+  const e = await r.json();
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: unb64(e.iv) }, cryptoKey, unb64(e.ct));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+const niceStep = (v) => { const e = Math.pow(10, Math.floor(Math.log10(v))); const f = v / e; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * e; };
+const chartW = () => Math.max(320, Math.min(760, Math.min(window.innerWidth, 1180) - 70));
+function bars(days, today) {
+  const W = chartW(), H = W < 500 ? 200 : 230, P = { l: 46, r: 40, t: 14, b: 30 };
+  const iw = W - P.l - P.r, ih = H - P.t - P.b, n = Math.max(days.length, 1), bw = iw / n;
+  const maxS = Math.max(1000, ...days.map((d) => d.spend)), maxL = Math.max(3, ...days.map((d) => d.clicks));
+  const step = niceStep(maxS / 4), niceS = step * 4, stepL = niceStep(maxL / 4), niceL = stepL * 4;
+  let g = '';
+  for (let i = 0; i <= 4; i++) {
+    const y = P.t + ih - (ih * i) / 4;
+    g += `<line x1="${P.l}" x2="${W - P.r}" y1="${y}" y2="${y}" stroke="#eef1f6"/>`;
+    g += `<text x="${P.l - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#9aa3b2">${(step * i / 1000).toLocaleString('ja-JP', { maximumFractionDigits: 1 })}k</text>`;
+    g += `<text x="${W - P.r + 8}" y="${y + 4}" font-size="10" fill="#0d9488">${Math.round(stepL * i)}</text>`;
+  }
+  const pts = [];
+  days.forEach((d, i) => {
+    const x = P.l + i * bw, h = (d.spend / niceS) * ih;
+    g += `<rect x="${x + bw * 0.18}" y="${P.t + ih - h}" width="${bw * 0.64}" height="${h}" rx="3" fill="${d.date === today ? '#1d4ed8' : '#93b4f5'}"><title>${d.date.slice(5)}  ${yen(d.spend)} / クリック${d.clicks} / 申込${d.leads}</title></rect>`;
+    pts.push([x + bw / 2, P.t + ih - (d.clicks / niceL) * ih, d]);
+    if (d.leads > 0) g += `<text x="${x + bw / 2}" y="${P.t + ih - h - 6}" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">申込${d.leads}</text>`;
+    const m = +d.date.slice(5, 7), day = +d.date.slice(8);
+    if (n <= 16 || i === 0 || day === 1 || day % 5 === 0) g += `<text x="${x + bw / 2}" y="${H - 10}" text-anchor="middle" font-size="10" fill="#9aa3b2">${day === 1 || i === 0 ? m + '/' : ''}${day}</text>`;
+  });
+  if (pts.length) {
+    g += `<polyline points="${pts.map((p) => p[0] + ',' + p[1]).join(' ')}" fill="none" stroke="#0d9488" stroke-width="2.2" stroke-linejoin="round"/>`;
+    pts.forEach((p) => { g += `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#fff" stroke="#0d9488" stroke-width="2"/>`; });
+  }
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="日別の消化金額とクリック">${g}</svg>`;
+}
+function hoursChart(hours) {
+  const W = chartW(), H = W < 500 ? 150 : 170, P = { l: 40, r: 12, t: 16, b: 26 };
+  const iw = W - P.l - P.r, ih = H - P.t - P.b, bw = iw / 24;
+  const maxS = Math.max(300, ...hours.map((h) => h.spend));
+  let g = `<line x1="${P.l}" x2="${W - P.r}" y1="${P.t + ih}" y2="${P.t + ih}" stroke="#e4e8f0"/>`;
+  hours.forEach((h, i) => {
+    const x = P.l + i * bw, bh = (h.spend / maxS) * ih;
+    g += `<rect x="${x + bw * 0.2}" y="${P.t + ih - bh}" width="${bw * 0.6}" height="${bh}" rx="2.5" fill="#bcd0f8"><title>${i}時台  ${yen(h.spend)} / クリック${h.clicks} / 申込${h.leads}</title></rect>`;
+    if (h.clicks > 0) g += `<text x="${x + bw / 2}" y="${P.t + ih - bh - 4}" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0d9488">${h.clicks}</text>`;
+    if (i % (W < 500 ? 6 : 3) === 0) g += `<text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle" font-size="10" fill="#9aa3b2">${i}時</text>`;
+  });
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="時間帯別">${g}</svg>`;
+}
+function hlist(rows, label, val, fmt = int, sub) {
+  if (!rows.length) return '<div class="empty">まだデータがありません</div>';
+  const max = Math.max(...rows.map(val), 1);
+  return rows.slice(0, 8).map((r) => `<div class="hl"><div>${esc(label(r))}</div><div class="t"><span style="width:${(val(r) / max) * 100}%"></span></div><div class="n num" title="${sub ? esc(sub(r)) : ''}">${fmt(val(r))}</div></div>`).join('');
+}
+function kpi(lb, v, unit, d, main) {
+  return `<div class="card kpi${main ? ' main' : ''}"><div class="lb">${lb}</div><div class="v num">${v}${unit ? `<small>${unit}</small>` : ''}</div><div class="d">${d}</div></div>`;
+}
+const ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>';
+function bannersHtml(D) {
+  const C = (D.creatives || []).filter((c) => c.hash);
+  if (!C.length) return '';
+  const byName = new Map(D.ads.map((a) => [a.name, a]));
+  const card = (c, i) => {
+    const m = byName.get(c.name)?.total;
+    const [first, ...rest] = c.body.split('\n');
+    return `<article class="adc">
+      <div class="adh"><div class="av">${ICON}</div><div style="min-width:0"><b>お店の弁護士保険 相談窓口</b><small>広告</small></div></div>
+      <div class="adb"><p>${esc(first)}</p>${rest.length ? `<details data-k="body${i}"><summary>…続きを読む</summary><p>${esc(rest.join('\n'))}</p></details>` : ''}</div>
+      <a class="adi" href="ads/${esc(c.hash)}.jpg" target="_blank" rel="noopener"><img src="ads/${esc(c.hash)}.jpg" alt="${esc(c.name)}のバナー" loading="lazy" width="900" height="900"></a>
+      <div class="adf"><div><small>${esc(c.desc)}</small><b>${esc(c.headline)}</b></div><span class="cta">${esc(c.cta)}</span></div>
+      <div class="adm"><div style="display:flex;justify-content:space-between;gap:6px;align-items:center"><b>${esc(c.name)}</b><span class="st ${esc(c.status)}">${esc(STATUS[c.status] || c.status)}</span></div>通算 ${m ? `${yen(m.spend)}・クリック${m.clicks}・申込${m.leads}件` : '—'}</div>
+    </article>`;
+  };
+  return `<div class="sec"><h2>配信中のバナー</h2><span>画像をタップで大きく</span></div><div class="adsg" style="grid-template-columns:repeat(3,minmax(0,1fr))">${C.map(card).join('')}</div>`;
+}
+
+function render(D) {
+  const T = D.kpi.today, Y = D.kpi.yesterday, A = D.kpi.total, M = D.kpi.month;
+  const IN = D.inbox || {};
+  const leadsReal = IN.ok ? IN.submit : A.leads;  // スプシの申込（テスト除く）を正とする。取れないときはMetaの数
+  const st = D.status === 'ACTIVE' ? ['live', '配信中'] : D.status === 'PAUSED' ? ['stop', '停止中'] : ['wait', STATUS[D.status] || D.status];
+  const firstDay = (D.days.find((d) => d.spend > 0) || {}).date || D.start;
+  // 予算ペース（今月）：月の予算÷その月の配信日数が目安
+  const dIdx = +D.today.slice(8), sIdx = firstDay.slice(0, 7) === D.month ? +firstDay.slice(8) : 1;
+  const runDays = D.daysInMonth - sIdx + 1, passed = Math.max(1, Math.min(runDays, dIdx - sIdx + 1));
+  const nowH = new Date(Date.now() + 9 * 3600e3).getUTCHours();
+  const ideal = D.monthBudget * ((passed - 1 + (nowH + 1) / 24) / runDays);
+  const rate = D.monthBudget ? M.spend / D.monthBudget : 0;
+  const perDay = M.spend / Math.max(passed - 1 + (nowH + 1) / 24, 0.25);
+  const landing = Math.round(M.spend + perDay * (runDays - passed + (1 - (nowH + 1) / 24)));
+  const keep = {}; $app.querySelectorAll('[data-k]').forEach((el) => { keep[el.dataset.k] = { open: el.open }; });
+  const cvr = (a, b) => b ? pct(a / b, 1) : '—';
+  $app.innerHTML = `
+  <header>
+    <div>
+      <div class="eyebrow">LIVE AD DASHBOARD</div>
+      <h1>${esc(D.title)}</h1>
+      <div class="camp">${esc(D.campaign)}（${+firstDay.slice(5, 7)}/${+firstDay.slice(8)} 配信開始）</div>
+    </div>
+    <div class="meta"><span class="pill ${st[0]}"><i></i>${st[1]}</span><span>最終更新 <b class="num">${esc(D.generated_at)}</b></span><span>・10分ごとに自動更新</span></div>
+  </header>
+  <div class="links"><a class="lk teams" href="${TEAMS}" target="_blank" rel="noopener">💬 Teamsの申込通知チャット</a><a class="lk" href="${SHEET}" target="_blank" rel="noopener">📋 リード管理スプシ</a><a class="lk" href="${LP}" target="_blank" rel="noopener">🌐 LPを見る</a></div>
+  <div class="grid kpis">
+    ${kpi('今日の消化金額', yen(T.spend), '', `昨日 ${yen(Y.spend)}・1日予算 ${yen(D.dailyBudget)}`, true)}
+    ${kpi('今日のクリック', int(T.clicks), '回', `昨日 ${int(Y.clicks)}回`)}
+    ${kpi('今日の申込', int(T.leads), '件', `昨日 ${int(Y.leads)}件（Meta計測）`)}
+    ${kpi('表示回数', int(T.imp), '回', `リーチ ${int(T.reach)}人`)}
+    ${kpi('クリック率', pct(T.ctr), '', `昨日 ${pct(Y.ctr)}`)}
+    ${kpi('クリック単価', yen(T.cpc), '', `CPM ${yen(T.cpm)}`)}
+  </div>
+
+  <div class="sec"><h2>配信開始からの通算</h2><span>表示 → クリック → LP表示 → 申込</span></div>
+  <div class="card">
+    <div class="funnel">
+      <div class="fn"><div class="lb">消化金額</div><div class="v num">${yen(A.spend)}</div><div class="r">CPM ${yen(A.cpm)}</div></div>
+      <div class="fn"><div class="lb">表示回数</div><div class="v num">${int(A.imp)}</div><div class="r">リーチ ${int(A.reach)}人</div></div>
+      <div class="fn"><div class="lb">クリック</div><div class="v num">${int(A.clicks)}</div><div class="r">クリック率 ${pct(A.ctr)}・単価 ${yen(A.cpc)}</div></div>
+      <div class="fn"><div class="lb">LP表示</div><div class="v num">${int(A.lpv)}</div><div class="r">クリックの ${cvr(A.lpv, A.clicks)}</div></div>
+      <div class="fn goal"><div class="lb">申込（スプシ）</div><div class="v num">${int(leadsReal)}件</div><div class="r">CPA ${leadsReal ? yen(A.spend / leadsReal) : '—'}・記入途中 ${IN.ok ? int(IN.partial) + '件' : '—'}</div></div>
+    </div>
+    <div style="font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.7">※申込はリード管理スプシの件数（テスト除く・広告以外のLINE配信／メールDM経由も含む）。Metaが計測した申込は通算 ${int(A.leads)}件。CPA＝消化金額÷申込（手数料は含みません）。</div>
+  </div>
+
+  <div class="sec"><h2>今月の予算の進み具合</h2><span>${+D.month.slice(5)}月の予算 ${yen(D.monthBudget)}</span></div>
+  <div class="card pace">
+    <div class="row"><span>今月の消化金額</span><b class="num">${yen(M.spend)} <span style="color:var(--mute);font-weight:500;font-size:12px">/ 予算 ${yen(D.monthBudget)}</span></b></div>
+    <div class="bar"><span style="width:${Math.min(100, rate * 100)}%"></span><em style="left:${Math.min(100, (ideal / (D.monthBudget || 1)) * 100)}%"></em></div>
+    <div class="legend"><span><i style="background:#2563eb"></i>消化 ${pct(rate, 0)}</span><span><i style="background:#0f172a;opacity:.55;width:2px"></i>今の時点の目安 ${yen(ideal)}</span></div>
+    <div class="grid month3" style="margin-top:14px">
+      <div class="mini"><div class="lb">このペースの着地見込み</div><div class="v num" style="${landing > D.monthBudget * 1.1 ? 'color:var(--amber)' : ''}">${yen(landing)}</div></div>
+      <div class="mini"><div class="lb">残りの予算</div><div class="v num">${yen(Math.max(0, D.monthBudget - M.spend))}</div></div>
+      <div class="mini"><div class="lb">残り日数</div><div class="v num">${Math.max(0, runDays - passed)}日</div></div>
+    </div>
+    <div style="font-size:11.5px;color:var(--mute);margin-top:10px;line-height:1.7">※Metaは日によって1日予算の最大1.75倍まで使い、1週間（日〜土）で1日予算×7日に収まるよう調整します。</div>
+  </div>
+
+  <div class="sec"><h2>日別の推移</h2><span>棒＝消化金額　線＝クリック</span></div>
+  <div class="card">${bars(D.days.filter((d) => d.date >= firstDay), D.today)}<div class="legend"><span><i style="background:#93b4f5"></i>消化金額（左）</span><span><i style="background:#0d9488"></i>クリック（右）</span><span><i style="background:#dc2626"></i>申込</span></div></div>
+
+  <div class="sec"><h2>広告（バナー）ごとの成績・通算</h2><span>Metaが反応の良い広告に予算を自動で寄せます</span></div>
+  <div class="card tbl"><table>
+    <thead><tr><th>広告</th><th>状態</th><th>消化金額</th><th>予算の割合</th><th>表示</th><th>クリック</th><th>クリック率</th><th>クリック単価</th><th>申込</th><th>今日の消化</th></tr></thead>
+    <tbody>${D.ads.map((a) => `<tr><td class="nm">${esc(a.name)}</td><td><span class="st ${esc(a.status)}">${esc(STATUS[a.status] || a.status)}</span></td><td class="num">${yen(a.total.spend)}</td><td class="num">${A.spend ? pct(a.total.spend / A.spend, 0) : '—'}</td><td class="num">${int(a.total.imp)}</td><td class="num">${int(a.total.clicks)}</td><td class="num">${pct(a.total.ctr)}</td><td class="num">${yen(a.total.cpc)}</td><td class="num"><b>${int(a.total.leads)}件</b></td><td class="num">${yen(a.today.spend)}</td></tr>`).join('')}</tbody>
+  </table></div>
+
+  ${bannersHtml(D)}
+
+  <div class="sec"><h2>どこに届いているか（通算）</h2><span>右の数字＝消化金額（行に指を置くとクリック数）</span></div>
+  <div class="grid three">
+    <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">年齢別の消化金額</div>${hlist(D.age.filter((r) => r.spend > 0), (r) => r.name + '歳', (r) => r.spend, yen, (r) => `クリック${r.clicks}`)}</div>
+    <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">年齢別のクリック</div>${hlist(D.age.filter((r) => r.clicks > 0), (r) => r.name + '歳', (r) => r.clicks)}</div>
+    <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">媒体別の消化金額</div>${hlist(D.platform.filter((r) => r.spend > 0), (r) => PLAT[r.name] || r.name, (r) => r.spend, yen, (r) => `クリック${r.clicks}`)}</div>
+    <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">都道府県別の消化金額</div>${hlist(D.region, (r) => pref(r.name), (r) => r.spend, yen, (r) => `クリック${r.clicks}`)}</div>
+  </div>
+
+  <div class="sec"><h2>時間帯別（通算）</h2><span>棒＝消化金額　数字＝クリック</span></div>
+  <div class="card">${hoursChart(D.hours)}</div>
+
+  <div class="card homeadd"><b>📱 スマホのホーム画面に置けます</b><br>iPhone：画面下の共有ボタン（□に↑）→「ホーム画面に追加」／Android：右上の︙→「ホーム画面に追加」。</div>
+  <footer>Metaの数字は15分ほど遅れて反映されます。申込の件数はリード管理スプシに届いた分（テストは除く）です。お名前や電話番号はこのページには出しません。<br>このページは関係者向けです。リンクを社外に転送しないでください。</footer>`;
+  $app.querySelectorAll('[data-k]').forEach((el) => { const k = keep[el.dataset.k]; if (k && k.open) el.open = true; });
+  $app.hidden = false; $gate.hidden = true;
+}
+
+let last;
+async function tick() {
+  try { last = await load(); render(last); }
+  catch (e) {
+    if (!$app.hidden) return;
+    $gate.textContent = '読み込めませんでした。少し待ってから開き直してください。';
+  }
+}
+tick();
+setInterval(tick, 60 * 1000);
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => last && render(last), 200); });
+document.addEventListener('visibilitychange', () => { if (!document.hidden) tick(); });
+})();
+</script>
+</body>
+</html>
