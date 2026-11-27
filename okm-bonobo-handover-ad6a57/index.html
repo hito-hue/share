@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>bonobo LP 引き継ぎ（小林さんへ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#f3f4f6;--dot:#d7dae0;--panel:#fff;--line:#e4e7ec;--line2:#eef0f3;
+  --ink:#101828;--sub:#475467;--muted:#98a2b3;
+  --navy:#17314c;--teal:#1fa5a3;--blue:#2563eb;--ok:#0f9d58;--okbg:#e8f6ee;--wait:#b54708;--waitbg:#fef3e2;--off:#b42318;--offbg:#fdecea;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--canvas);background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;color:var(--ink);font-family:"Noto Sans JP",system-ui,sans-serif;font-size:14px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.num,.badge,.idx{font-family:Inter,"Noto Sans JP",sans-serif}
+a{color:inherit}
+button{font:inherit;color:inherit}
+
+.topbar{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.92);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.crumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);min-width:0}
+.crumb .logo{width:22px;height:22px;border-radius:6px;background:var(--navy);display:grid;place-items:center;flex:none}
+.crumb .logo svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.2}
+.crumb b{color:var(--ink);font-weight:700}
+.chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.chip.ok i{background:var(--ok)}.chip.wait i{background:#f79009}
+
+.wrap{max-width:1080px;margin:0 auto;padding:22px 16px 64px}
+.frame{margin-top:30px}
+.frame:first-child{margin-top:4px}
+.flabel{font-size:12px;color:var(--muted);font-weight:500;margin:0 0 8px 2px;letter-spacing:.02em}
+.flabel b{color:var(--sub);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05);padding:24px}
+h1{margin:0;font-size:clamp(20px,2.6vw,26px);line-height:1.35;font-weight:700;letter-spacing:.01em}
+h2{margin:0;font-size:18px;font-weight:700;line-height:1.4}
+.lead{margin:8px 0 0;color:var(--sub)}
+.lead b{color:var(--ink)}
+.hint{font-size:12px;color:var(--muted)}
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+/* 00 状態 */
+.status{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.st{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line2);border-radius:12px;padding:12px 14px;background:#fcfcfd}
+.st .ic{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;flex:none;margin-top:1px}
+.st .ic svg{width:12px;height:12px;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.st.ok .ic{background:var(--okbg)}.st.ok .ic svg{stroke:var(--ok)}
+.st.wait{border-color:#fbd9a8;background:#fffaf2}
+.st.wait .ic{background:var(--waitbg)}.st.wait .ic svg{stroke:var(--wait)}
+.st b{display:block;font-size:13px}
+.st small{display:block;font-size:12px;color:var(--sub);line-height:1.5}
+.who{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.who div{border-left:3px solid var(--navy);padding:2px 0 2px 12px}
+.who b{display:block;font-size:13px}
+.who small{display:block;font-size:12px;color:var(--sub);line-height:1.55}
+@media(max-width:900px){.status{grid-template-columns:1fr 1fr}.who{grid-template-columns:1fr}}
+@media(max-width:480px){.status{grid-template-columns:1fr}}
+
+/* 01 手順 */
+.steps{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:10px}
+.steps li>div{min-width:0}
+.steps li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:start;border:1px solid var(--line2);border-radius:12px;padding:14px 16px}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:24px;border-radius:7px;background:var(--navy);color:#fff;font-size:12px;font-weight:700}
+.steps b{display:block;font-size:14px;line-height:1.5}
+.steps p{margin:2px 0 0;font-size:13px;color:var(--sub);line-height:1.65}
+.ui{display:inline;font-size:12.5px;font-weight:500;color:var(--ink);background:#f2f4f7;border:1px solid var(--line);border-radius:6px;padding:0 5px;margin:0 1px;-webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.9}
+.steps li.done{border-color:#bfe5cf;background:#f6fbf8}
+.steps li.done .badge{background:var(--ok)}
+.sheetmock{margin-top:10px;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12px;max-width:620px}
+.sheetmock table{border-collapse:collapse;width:100%}
+.sheetmock th,.sheetmock td{border:1px solid var(--line2);padding:6px 8px;text-align:left;vertical-align:top}
+.sheetmock th{background:#f9fafb;color:var(--muted);font-weight:500;width:28px;text-align:center}
+.sheetmock td.k{font-weight:700;width:120px}
+.sheetmock td.paste{background:#fff7d6;color:var(--wait);font-weight:500}
+.sheetmock .tabs{display:flex;gap:2px;overflow-x:auto;background:#f9fafb;border-top:1px solid var(--line);padding:4px 6px}
+.sheetmock .tabs span{white-space:nowrap;font-size:11px;padding:2px 8px;border-radius:4px;color:var(--sub)}
+.sheetmock .tabs span.on{background:#fff;border:1px solid var(--line);color:var(--ink);font-weight:700}
+.cardmock{margin-top:10px;max-width:420px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.cardmock .from{font-size:11px;color:var(--muted)}
+.cardmock b{display:block;font-size:13.5px;margin-top:2px}
+.cardmock p{margin:4px 0 0;font-size:12px;color:var(--sub);line-height:1.6}
+.notes{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.notes div{background:#f9fafb;border-radius:10px;padding:12px 14px}
+.notes b{display:block;font-size:13px}
+.notes small{display:block;font-size:12px;color:var(--sub);line-height:1.6;margin-top:2px}
+@media(max-width:900px){.notes{grid-template-columns:1fr}}
+
+/* 02 リンク */
+.links{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.lk{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-decoration:none;background:#fff;transition:border-color .15s,box-shadow .15s,transform .15s}
+.lk:hover{border-color:#c5ccd6;box-shadow:0 6px 16px -10px rgba(16,24,40,.35);transform:translateY(-1px)}
+.lk .t{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.lk .t svg{width:16px;height:16px;stroke:var(--navy);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.lk small{font-size:12px;color:var(--sub);line-height:1.55}
+.lk .go{margin-top:auto;padding-top:6px;font-size:12px;color:var(--blue);font-weight:500}
+@media(max-width:900px){.links{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.links{grid-template-columns:1fr}}
+
+/* 03 LPリンク */
+.lptable{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0;margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.lptable th,.lptable td{padding:12px 14px;border-bottom:1px solid var(--line2);text-align:left;vertical-align:middle}
+.lptable thead th{background:#f9fafb;font-size:12px;color:var(--sub);font-weight:500}
+.lptable tbody tr:last-child td,.lptable tbody tr:last-child th{border-bottom:0}
+.lptable tbody th{font-size:13px;width:180px}
+.lptable tbody th small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+.src{display:inline-flex;align-items:center;gap:6px}
+.src i{font-style:normal;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:12px;color:#fff;flex:none}
+.src.ad i{background:#1877f2}.src.line i{background:#06c755}.src.mail i{background:#475467}
+.cp{display:flex;align-items:center;gap:8px;width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;cursor:pointer;text-align:left;transition:border-color .15s,background .15s}
+.cp:hover{border-color:#c5ccd6;background:#fcfcfd}
+.cp .lab{font-weight:700;font-size:13px;white-space:nowrap}
+.cp .u{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
+.cp svg{width:15px;height:15px;stroke:var(--sub);fill:none;stroke-width:2;flex:none}
+.cp.copied{border-color:#9fd8b8;background:#f1faf5}
+.cp.copied svg{stroke:var(--ok)}
+.rule{margin-top:14px;font-size:12.5px;color:var(--sub);background:#f9fafb;border-radius:10px;padding:12px 14px;line-height:1.7}
+.rule code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;background:#fff;border:1px solid var(--line);border-radius:5px;padding:0 5px;color:var(--ink);word-break:break-all}
+@media(max-width:760px){
+  .lptable,.lptable tbody,.lptable tr,.lptable th,.lptable td{display:block;width:100%}
+  .lptable thead{display:none}
+  .lptable tbody tr{border-bottom:1px solid var(--line)}
+  .lptable tbody tr:last-child{border-bottom:0}
+  .lptable tbody th{padding-bottom:4px;border:0}
+  .lptable td{border:0;padding:4px 14px}
+  .lptable td:last-child{padding-bottom:14px}
+}
+
+/* 04 シート */
+.cols{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.col{border:1px solid var(--line2);border-radius:12px;padding:14px 16px}
+.col h3{margin:0 0 6px;font-size:14px}
+.col dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12.5px}
+.col dt{font-weight:700;white-space:nowrap}
+.col dd{margin:0;color:var(--sub)}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:5px;padding:0 6px;margin-left:4px;vertical-align:1px}
+.tag.hand{background:#eef4ff;color:#3538cd}
+@media(max-width:760px){.cols{grid-template-columns:1fr}}
+
+/* 05 Claude Code */
+.cc{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;margin-top:18px;align-items:start}
+.cc ol{margin:0;padding-left:20px;color:var(--sub);font-size:13px}
+.cc ol li{margin:2px 0}
+.cc ol b{color:var(--ink)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:10px;padding:10px 16px;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:none;border:1px solid var(--navy);transition:transform .15s,box-shadow .15s}
+.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn.pri{background:var(--navy);color:#fff}
+.btn.pri:hover{box-shadow:0 8px 18px -10px rgba(23,49,76,.8);transform:translateY(-1px)}
+.btn.sec{background:#fff;color:var(--navy)}
+.btn.sec:hover{background:#f6f8fa}
+.examples{margin-top:16px;display:grid;gap:8px}
+.ex{font-size:12.5px;background:#f9fafb;border-radius:10px;padding:10px 12px;color:var(--ink);line-height:1.6}
+.ex::before{content:"相談の例";display:block;font-size:11px;color:var(--muted);font-weight:500}
+.preview{border:1px solid var(--line);border-radius:12px;background:#0f1726;color:#d6deea;overflow:hidden}
+.preview .bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#0b1220;border-bottom:1px solid #1d2738;font-size:11.5px;color:#8a97ab}
+.preview .bar i{width:9px;height:9px;border-radius:50%;background:#2a3446}
+.preview pre{margin:0;padding:14px 16px;max-height:380px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+@media(max-width:900px){.cc{grid-template-columns:1fr}}
+
+.foot{margin-top:28px;text-align:center;font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:13px;font-weight:500;border-radius:999px;padding:9px 18px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:20}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="in">
+  <div class="crumb"><span class="logo"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/></svg></span>
+    <span>OKマーケティング</span><span>/</span><b>bonobo LP 引き継ぎ</b></div>
+  <div class="chips">
+    <span class="chip ok"><i></i>Meta広告：配信中</span>
+    <span class="chip ok"><i></i>申込：シートに自動保存</span>
+    <span class="chip wait"><i></i>Teams通知：設定待ち</span>
+    <span class="chip"><i></i>2026/11/28 時点</span>
+  </div>
+</div></div>
+
+<main class="wrap">
+
+<section class="frame">
+  <p class="flabel"><b>00</b>　概要</p>
+  <div class="panel">
+    <h1>bonobo LP　引き継ぎ（小林さんへ）</h1>
+    <p class="lead">申込はスプシに自動で貯まっています。<b>Teams通知だけ、下の「01」を一度やっていただくと小林さん側で完結します</b>（伊藤の作業は不要です）。リンク・LPリンク9本・シートの見方・Claude Code用の説明文もこのページにまとめました。</p>
+    <div class="status">
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>LPリンク9本</b><small>広告／OTOMO公式LINE／メール配信 × LP①〜③。9本ともテスト申込で確認済み</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>申込シート</b><small>「流入元」「LP番号」も自動で入ります。小林さん・佐治さん編集可</small></div></div>
+      <div class="st ok"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span><div><b>Meta広告</b><small>3本（バナー1枚にLP1つ）で配信中。数字は「広告の数字」ページで随時</small></div></div>
+      <div class="st wait"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 7v5l3 2"/><circle cx="12" cy="12" r="8.5"/></svg></span><div><b>Teams通知</b><small>小林さんの設定待ち（約5分・下の01）。それまでも申込はシートに保存されます</small></div></div>
+    </div>
+    <div class="who">
+      <div><b>小林さんにお願いしたいこと</b><small>01 のTeams通知の設定だけ（約5分）</small></div>
+      <div><b>小林さん側で今後できること</b><small>新しい配信用リンクを作る・シートで対応管理・通知先の変更（Claude Codeに頼めます）</small></div>
+      <div><b>伊藤に頼むこと</b><small>LPの中身（文言・画像・フォーム）の変更、受け口のプログラム、Meta広告の設定</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>01</b>　Teams通知の設定（約5分・小林さんだけでできます）</p>
+  <div class="panel">
+    <div class="head"><h2>Teamsで「受け口のURL」を作って、シートに貼るだけ</h2><span class="hint">会社のPCのTeamsで操作してください</span></div>
+    <ol class="steps">
+      <li><span class="badge">1</span><div><b>Teamsでチャット「【通知】bonobo LP お申し込み」を開く</b><p>小林さん・佐治さん・伊藤の3人のグループです。<a href="https://teams.microsoft.com/l/chat/19:376b59a755b44e4aab4335b25c3fda82@thread.v2/conversations?context=%7B%22contextType%22%3A%22chat%22%7D" target="_blank" rel="noopener">Teamsで開く</a></p></div></li>
+      <li><span class="badge">2</span><div><b>右上の <span class="ui">…</span> →  <span class="ui">ワークフロー</span></b><p>見つからないときは、Teams左の <span class="ui">アプリ</span> で「ワークフロー」を検索しても同じです。</p></div></li>
+      <li><span class="badge">3</span><div><b>「Webhook」で検索して、<span class="ui">Webhook 要求を受信したらチャットに投稿する</span> を選ぶ</b><p>Teamsの版によっては <span class="ui">Webhook アラートをチャットに送信する</span> という名前です。どちらでも大丈夫です。</p></div></li>
+      <li><span class="badge">4</span><div><b>投稿先がこのチャットになっていることを確かめて <span class="ui">ワークフローを追加</span></b><p>最後に表示される長いURL（https://〜 で始まる）を <span class="ui">コピー</span> します。</p></div></li>
+      <li><span class="badge">5</span><div><b>申込シートの「設定」タブ、B2 のセルに貼る</b><p><a href="https://docs.google.com/spreadsheets/d/18YmmgxamjKyGK2tfCtj9BPznZuljpDy9NmqV8oU1ucc/edit" target="_blank" rel="noopener">申込シートを開く</a>（下のタブの「設定」）</p>
+        <div class="sheetmock"><table>
+          <tr><th></th><td class="k">A　項目</td><td>B　値</td></tr>
+          <tr><th>2</th><td class="k">Teams通知のURL</td><td class="paste">← ここにURLを貼る</td></tr>
+          <tr><th>3</th><td class="k">状態</td><td>自動で書かれます（未設定 → OK）</td></tr>
+        </table><div class="tabs"><span>申込</span><span>記入途中</span><span>受信ログ</span><span class="on">設定</span></div></div></div></li>
+      <li class="done"><span class="badge">✓</span><div><b>5分以内にTeamsにテスト通知が届けば完了</b><p>B3 も「OK：Teamsにテスト通知を送りました」に変わります。以降、申込があるたびにこのチャットにカードが届きます。</p>
+        <div class="cardmock"><span class="from">ワークフロー</span><b>✅ bonobo LP の申込通知を設定できました</b><p>これはテスト通知です。今後、LPから申込があると、このチャットにお知らせが届きます。</p></div></div></li>
+    </ol>
+    <div class="notes">
+      <div><b>B3 が「エラー」のとき</b><small>URLが途中で切れていないか、ワークフローがオンになっているかを確認してください。5分おきに自動で試し直します。</small></div>
+      <div><b>通知を止めたい・先を変えたいとき</b><small>止める＝B2 を空にする。先を変える＝新しいチャットで同じ手順でURLを作り、B2 を貼り替える（テスト通知がもう一度届きます）。</small></div>
+      <div><b>本番と同じ流れで試すなら</b><small>LPから会社名を「【テスト】〇〇」にして申込むと、見出しに【テスト】が付いた通知が届きます。</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>02</b>　リンク集</p>
+  <div class="panel">
+    <h2>よく使うページ</h2>
+    <div class="links">
+      <a class="lk" href="https://docs.google.com/spreadsheets/d/18YmmgxamjKyGK2tfCtj9BPznZuljpDy9NmqV8oU1ucc/edit" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>申込シート</span><small>申込・記入途中・設定。対応状況と対応メモはここに書きます</small><span class="go">開く →</span></a>
+      <a class="lk" href="https://hito-hue.github.io/share/okm-bonobo-live-125a63d8/" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>広告の数字（ライブ）</span><small>Meta広告の消化・クリック・申込を10分おきに更新</small><span class="go">開く →</span></a>
+      <a class="lk" href="https://hito-hue.github.io/share/okm-bonobo-board-4485a3/" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>対応の流れ（ボード）</span><small>お客さまの画面の流れ・申込後の対応手順・広告の設定</small><span class="go">開く →</span></a>
+      <a class="lk" href="https://teams.microsoft.com/l/chat/19:376b59a755b44e4aab4335b25c3fda82@thread.v2/conversations?context=%7B%22contextType%22%3A%22chat%22%7D" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Teams 通知チャット</span><small>【通知】bonobo LP お申し込み（小林さん・佐治さん・伊藤）</small><span class="go">Teamsで開く →</span></a>
+      <a class="lk" href="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>LP（本体）</span><small>配るときは下の「03」の目印付きリンクを使ってください</small><span class="go">開く →</span></a>
+      <a class="lk" href="handover.md" target="_blank" rel="noopener"><span class="t"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>引き継ぎメモ（Claude Code用）</span><small>このページの内容をAI向けにまとめた文章（05と同じ）</small><span class="go">開く →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>03</b>　LPリンク9本</p>
+  <div class="panel">
+    <div class="head"><h2>配信先ごとのリンク（押すとコピー）</h2><span class="hint">申込が来ると、シートとTeams通知に「どこから・LP何番」が出ます</span></div>
+    <table class="lptable">
+      <thead><tr><th>配信先</th><th>LP① 口コミ</th><th>LP② ドタキャン</th><th>LP③ 備品破損</th></tr></thead>
+      <tbody><tr><th><span class="src ad"><i>f</i>広告</span><small>Meta広告に設定済み</small></th><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi"><span class="lab">LP① 口コミ</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan"><span class="lab">LP② ドタキャン</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason"><span class="lab">LP③ 備品破損</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td></tr>
+<tr><th><span class="src line"><i>L</i>OTOMO公式LINE</span><small>LINE配信で使う</small></th><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi"><span class="lab">LP① 口コミ</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan"><span class="lab">LP② ドタキャン</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason"><span class="lab">LP③ 備品破損</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=otomo_line&amp;utm_medium=line&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td></tr>
+<tr><th><span class="src mail"><i>✉</i>メール配信</span><small>メールDMで使う</small></th><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi"><span class="lab">LP① 口コミ</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=1&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp1_kuchikomi</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan"><span class="lab">LP② ドタキャン</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=2&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp2_dotacan</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td><td><button class="cp" type="button" data-url="https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason"><span class="lab">LP③ 備品破損</span><span class="u">hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v=3&amp;utm_source=mail_dm&amp;utm_medium=email&amp;utm_campaign=bonobo_202611&amp;utm_content=lp3_hason</span><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></td></tr></tbody>
+    </table>
+    <p class="rule">新しい配信先を足したいときは、URLの <code>utm_source=</code> のうしろを好きな英字に変えるだけです（例：<code>utm_source=seminar</code> → シートの流入元に「seminar」と出ます）。<code>v=1/2/3</code> がLP①〜③の見せ方です。</p>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>04</b>　申込シートの見方</p>
+  <div class="panel">
+    <h2>タブと、よく見る列</h2>
+    <div class="cols">
+      <div class="col"><h3>タブ</h3><dl>
+        <dt>申込</dt><dd>送信まで完了した人（1行＝1件）</dd>
+        <dt>記入途中</dt><dd>途中で止まった人も含む全員。30分たっても送信されず、電話かメールが入っていれば1回だけ通知</dd>
+        <dt>受信ログ</dt><dd>受け取ったデータの記録（調べもの用）</dd>
+        <dt>設定</dt><dd>B2＝Teams通知のURL／B3＝状態</dd>
+      </dl></div>
+      <div class="col"><h3>列（申込タブ）</h3><dl>
+        <dt>流入元</dt><dd>Meta広告／OTOMO LINE配信／メールDM（URLの utm_source で判定）</dd>
+        <dt>広告パターン</dt><dd>LP① 口コミ／LP② ドタキャン／LP③ 備品破損</dd>
+        <dt>種類</dt><dd>資料ダウンロード／サービスの説明を聞く（Spirへ）</dd>
+        <dt>対応状況・対応メモ<span class="tag hand">人が書く</span></dt><dd>プログラムは上書きしません</dd>
+        <dt>通知</dt><dd>Teamsに送れたかの記録</dd>
+      </dl></div>
+    </div>
+    <p class="rule">列名・タブ名は変えないでください（プログラムが名前で探しています）。列の追加・並べ替えは大丈夫です。</p>
+  </div>
+</section>
+
+<section class="frame">
+  <p class="flabel"><b>05</b>　Claude Codeで続きをやるとき</p>
+  <div class="panel">
+    <h2>説明文をコピーして、Claude Codeに最初に貼るだけ</h2>
+    <div class="cc">
+      <div>
+        <ol>
+          <li>下の <b>「説明文をコピー」</b> を押す</li>
+          <li>Claude Codeを開いて、最初のメッセージに <b>貼り付ける</b></li>
+          <li>続けて、やりたいことを普通の言葉で頼む</li>
+        </ol>
+        <div class="btns">
+          <button class="btn pri" id="copyMd" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>説明文をコピー</button>
+          <a class="btn sec" href="handover.md" download="bonobo-handover.md"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>ファイルで保存（.md）</a>
+        </div>
+        <p class="hint" style="margin-top:8px">ファイルで保存した場合は、Claude Codeの作業フォルダに置いて「bonobo-handover.md を読んで」と頼んでも同じです。</p>
+        <div class="examples">
+          <div class="ex">OTOMO公式LINE用に、LP②の新しいリンクを utm_source=otomo_line_1201 で作って</div>
+          <div class="ex">申込シートの今週の申込を、流入元とLP番号ごとに数えて</div>
+          <div class="ex">Teams通知が届かない。設定タブのB3に「エラー」と出ている。原因と直し方を教えて</div>
+        </div>
+      </div>
+      <div class="preview"><div class="bar"><i></i><i></i><i></i><span style="margin-left:6px">bonobo-handover.md</span></div><pre id="mdText"></pre></div>
+    </div>
+  </div>
+</section>
+
+<p class="foot">作成：伊藤（OKマーケティング bonobo 担当）／ 2026/11/28</p>
+</main>
+
+<div class="toast" id="toast">コピーしました</div>
+<script type="text/plain" id="mdSrc">
+# bonobo LP 引き継ぎメモ（Claude Code用）
+
+あなたは小林さん（OKマーケティング）のアシスタントです。以下は、アシロ社の事業者向け弁護士費用保険「bonobo」の申込LPと、申込を受け取る仕組みの説明です。この内容を前提に、小林さんの相談に答えたり作業したりしてください。
+
+## 全体の流れ
+1. 集客：Meta広告（Instagram・Facebook）／OTOMO公式LINEの配信／メール配信
+2. LP：1本のLPを、URLの `?v=1/2/3` で見せ方（最初の画面・動画・費用事例）を切り替えている
+3. フォーム：「サービスの説明を聞く」（送信後、アシロの日程調整ツールSpirへ自動で移る）／「資料をダウンロード」（送信後、画面で資料PDFを渡す）
+4. 受け口：Google Apps Script（伊藤のGoogleアカウントにある）が受け取り、スプレッドシートに保存
+5. 通知：スプレッドシートの「設定」タブにTeamsワークフローのURLが入っていれば、Teamsグループ「【通知】bonobo LP お申し込み」にカードで届く
+
+## 主なURL
+- LP（本体）：https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/
+- 申込シート「bonobo LP リード管理（OKマーケ）」：https://docs.google.com/spreadsheets/d/18YmmgxamjKyGK2tfCtj9BPznZuljpDy9NmqV8oU1ucc/edit （小林さん・佐治さんは編集可）
+- 広告の数字（10分おきに更新）：https://hito-hue.github.io/share/okm-bonobo-live-125a63d8/
+- 対応の流れ（ボード）：https://hito-hue.github.io/share/okm-bonobo-board-4485a3/
+- この引き継ぎページ：https://hito-hue.github.io/share/okm-bonobo-handover-ad6a57/
+
+## LPリンクの作り方（どこから来た申込か見分ける仕組み）
+形：`https://hito-hue.github.io/share/okm-bonobo-lp-2853c6/?v={LP番号}&utm_source={配信元}&utm_medium={媒体}&utm_campaign=bonobo_202611&utm_content={LPの名前}`
+
+- `v`（LP番号）：1＝LP① 口コミ／2＝LP② ドタキャン／3＝LP③ 備品破損（付けないとLP①）
+- `utm_content`：lp1_kuchikomi／lp2_dotacan／lp3_hason（シートの「広告名（utm）」列に出るだけ。見せ方は v で決まる）
+- `utm_source` → シートの「流入元」列に出る名前
+  - `meta` → Meta広告（utm_medium=paid）
+  - `otomo_line` → OTOMO LINE配信（utm_medium=line）
+  - `mail_dm` → メールDM（utm_medium=email）
+  - それ以外の英字 → その文字がそのまま流入元に出る（例：`utm_source=seminar` → seminar）。新しい配信先はこれで足せる
+  - utm_source なし → URLに fbclid があれば「Meta広告」、なければ「不明（直接など）」
+
+いま配っている9本（配信元3つ × LP3つ）は、引き継ぎページの「03 LPリンク9本」にある。広告の3本は、Meta広告の3つの広告にすでに設定済み。
+
+## 申込シートのタブと列
+- 「申込」：送信まで完了した人。1行＝1件
+- 「記入途中」：フォームの途中で止まった人も含む全員（状態＝記入途中／申込完了）。30分たっても送信されず、電話かメールが入っていれば1回だけ通知
+- 「受信ログ」：受け口が受け取ったデータの記録（調べもの用）
+- 「設定」：B2＝TeamsワークフローのURL、B3＝状態（自動で書く）
+- 主な列：受付日時／種類（資料ダウンロード or サービスの説明を聞く）／流入元／会社名・店舗名／業種／お名前／電話番号／メールアドレス／法人・個人事業主／気になっていること／**対応状況・対応メモ（人が書く列。プログラムは上書きしない）**／広告パターン（LP①〜③）／広告名（utm）／端末／流入元URL／受付キー／通知（Teamsに送れたかの記録）
+
+## Teams通知の設定（小林さんだけでできる）
+1. Teamsでチャット「【通知】bonobo LP お申し込み」を開き、右上の「…」→「ワークフロー」
+2. 「Webhook」で検索し、「Webhook 要求を受信したらチャットに投稿する」（版によっては「Webhook アラートをチャットに送信する」）を選ぶ
+3. 投稿先がこのチャットになっていることを確かめて作成し、最後に出るURLをコピー
+4. 申込シートの「設定」タブ B2 に貼る
+5. 5分以内に、Teamsに「✅ bonobo LP の申込通知を設定できました」が届き、B3 が「OK：…」になれば完了
+- B3 が「エラー：…」のとき：URLが途中で切れていないか、ワークフローがオンになっているかを確認。5分おきに自動で試し直す
+- 通知を止めたいとき：B2 を空にする（申込はシートに保存され続ける）
+- 通知先を変えたいとき：新しいチャットで同じ手順でURLを作り、B2 を貼り替える（貼り替えるとテスト通知がもう一度届く）
+- URLは Microsoft のワークフローの形（`https://〜logic.azure.com/〜`／`〜powerplatform.com/〜`／`〜webhook.office.com/〜`）だけ受け付ける
+
+## 通知カードの見方
+見出し（新しいお申し込み：資料ダウンロード／サービスの説明希望／記入途中）の下に「📣 Meta広告／💬 OTOMO LINE配信／✉️ メールDM ｜ LP①〜③」、その下に会社名・名前・連絡先などと「次の対応」が出る。
+
+## 小林さん側でできないこと（伊藤に頼む）
+- 受け口のプログラム（Apps Script）の変更、LPの中身（文言・画像・フォーム）の変更、Meta広告の設定変更は、伊藤のアカウントにあるため伊藤に依頼する
+- LPの文言や構成を変えたいときは、変えたい内容をまとめて伊藤に送る
+
+## 守ること
+- 申込者の個人情報（名前・電話・メール）は、シートとTeamsの外に出さない。ほかのAIサービスやチャットに貼らない
+- シートの列名・タブ名は変えない（プログラムが名前で探している）。列の追加・並べ替えは大丈夫
+- 会社名に「【テスト】」と入れた申込はテスト扱い。テストした行は対応状況を「テスト」にするか、伊藤に削除を頼む
+
+## 相談の例
+- 「OTOMO公式LINE用に、LP②の新しいリンクを utm_source=otomo_line_1201 で作って」
+- 「申込シートの今週の申込を、流入元とLP番号ごとに数えて」（Googleドライブの連携がある場合。読み取りだけにすること）
+- 「Teams通知が届かない。シートの設定タブのB3に『エラー：…』と出ている。原因と直し方を教えて」
+</script>
+<script>
+(function(){
+  var md = document.getElementById('mdSrc').textContent.replace(/^\n/, '');
+  document.getElementById('mdText').textContent = md;
+  var toast = document.getElementById('toast'), tm;
+  function show(msg){ toast.textContent = msg; toast.classList.add('on'); clearTimeout(tm); tm = setTimeout(function(){ toast.classList.remove('on'); }, 1600); }
+  function copy(text, el){
+    var done = function(){ show('コピーしました'); if (el){ el.classList.add('copied'); setTimeout(function(){ el.classList.remove('copied'); }, 1800); } };
+    if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(done, function(){ fallback(text); done(); }); }
+    else { fallback(text); done(); }
+  }
+  function fallback(text){ var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly',''); t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(t); }
+  document.getElementById('copyMd').addEventListener('click', function(){ copy(md, this); });
+  Array.prototype.forEach.call(document.querySelectorAll('.cp'), function(b){ b.addEventListener('click', function(){ copy(b.getAttribute('data-url'), b); }); });
+})();
+</script>
+</body>
+</html>
