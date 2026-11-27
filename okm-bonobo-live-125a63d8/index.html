@@ -353,7 +353,7 @@ function render(D) {
 
   ${bannersHtml(D)}
 
-  <div class="sec"><h2>どこに届いているか（通算）</h2><span>右の数字＝消化金額（行に指を置くとクリック数）</span></div>
+  <div class="sec"><h2>どこに届いているか（通算）</h2><span>右の数字＝消化金額/クリック数</span></div>
   <div class="grid three">
     <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">年齢別の消化金額</div>${hlist(D.age.filter((r) => r.spend > 0), (r) => r.name + '歳', (r) => r.spend, yen, (r) => `クリック${r.clicks}`)}</div>
     <div class="card"><div style="font-size:12px;color:var(--sub);font-weight:600;margin-bottom:6px">年齢別のクリック</div>${hlist(D.age.filter((r) => r.clicks > 0), (r) => r.name + '歳', (r) => r.clicks)}</div>
